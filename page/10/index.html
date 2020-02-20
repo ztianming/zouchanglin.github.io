@@ -74,6 +74,87 @@
     
     
     
+    <article id="post-C++11新特性" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/"
+    >C++11新特性</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2018-11-04T10:09:30.000Z" itemprop="datePublished">2018-11-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="auto关键字"><a href="#auto关键字" class="headerlink" title="auto关键字"></a>auto关键字</h2><p>C语言中其实就有auto关键字，修饰可变化的量，但是由于平时我们直接使用<code>int a = 10;</code>也是声明变量，编译器已经自动帮我们加上了auto关键字，是C语言中应用最广泛的一种类型，也就是说，省去类型说明符auto的都是自动变量！<br>随着时代进步，Java10中有一个新特性，就是使用<code>var</code>来定义变量，当然前提是类型可推导，语言总是在演化，C++11也是支持了这个新特性，不过在C++11中是<code>auto</code>关键字：使用auto的时候，编译器根据上下文情况，确定auto变量的真正类型！<br>接下来演示一下auto的使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">auto</span> b = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; s;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator be = s.begin();</span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator en = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> be2 = s.begin(); <span class="comment">//很显然使用auto可以减少很多不必要的代码</span></span><br><span class="line">	<span class="keyword">auto</span> en2 = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很显然使用auto可以减少很多不必要的代码，但是:</p>
+<ul>
+<li>auto不能作为函数参数</li>
+<li>auto不能直接用来声明数组</li>
+<li>auto不能定义类的非静态成员变量</li>
+<li>实例化模板时不能使用auto作为模板参数</li>
+<li>auto作为函数返回值时，只能用于定义函数，不能用于声明函数</li>
+<li>为了避免与C++98中的auto发生混淆，C++11只保留了auto作为类型指示符的用法</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" data-id="ck6um3b1p0009d4wkdzu586tp"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Linux下打包静动态库" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -718,78 +799,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-哈希与海量数据处理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"
-    >哈希与海量数据处理</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" class="article-date">
-  <time datetime="2018-09-23T10:09:30.000Z" itemprop="datePublished">2018-09-23</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="哈希切割、Top-K问题"><a href="#哈希切割、Top-K问题" class="headerlink" title="哈希切割、Top K问题"></a>哈希切割、Top K问题</h2><blockquote>
-<p><strong>问题一：给一个超过100G大小的log file, log中存着IP地址, 设计算法找到出现次数最多的IP地址？</strong><br><strong>问题二：与上题目条件相同，如何找出Top K的IP？</strong><br><strong>问题三：直接用Linux命令如何实现？</strong></p>
-</blockquote>
-      
-      <a class="article-more-link" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-id="ck6um3b4d0089d4wk817o6op9"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li></ul>
 
     </footer>
 
