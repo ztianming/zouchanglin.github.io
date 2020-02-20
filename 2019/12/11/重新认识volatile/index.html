@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    重新认识volatile |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-重新认识volatile" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  重新认识volatile
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" class="article-date">
+  <time datetime="2019-12-11T10:09:30.000Z" itemprop="datePublished">2019-12-11</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.6k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="1、CPU多核心缓存架构分析"><a href="#1、CPU多核心缓存架构分析" class="headerlink" title="1、CPU多核心缓存架构分析"></a>1、CPU多核心缓存架构分析</h1><p>并发编程：肯定是为了更合理充分的利用多核CPU架构的性能</p>
+<p>CPU 主频率远远高于主存，所以引入CPU缓存，CPU加载数据无法绕过缓存，而且对于多核CPU，一级缓存不是共享的，二级和三级缓存是线程共享的！CPU计算的数据并不是直接从主存中去拿，而且通过层层在缓存中寻找。</p>
+<a id="more"></a>
+
+<p>下图是一个单CPU多核心的架构图：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/24FFIEvLSVIm.png" alt="mark"></p>
+<h1 id="2、CPU缓存一致性协议"><a href="#2、CPU缓存一致性协议" class="headerlink" title="2、CPU缓存一致性协议"></a>2、CPU缓存一致性协议</h1><p>先看这样一段代码：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/iDRYlT3KP4bK.png" alt="mark"></p>
+<p>加载过程就是ThreadA通过read指令读取到flag，在通过load指令加载到缓存，也就是JMM中的本地内存，CPU再通过寄存器去使用flag，ThreadB也是同样的流程，通过assign指令为本地内存中的flag赋值，再写入主存：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/iPetMyQrMYAi.png" alt="mark"></p>
+<p>由于while(true)并没有释放时间片，所以在这里可以让它去进行上下文切换，则就会有时间清除缓存</p>
+<p><img src="http://img.zouchanglin.cn///20200201/gi6mMfLRsxgH.png" alt="mark"></p>
+<p>两次的执行结果肯定很简单</p>
+<p><img src="http://img.zouchanglin.cn///20200201/T5hyPEeWBOYV.png" alt="mark"></p>
+<p>什么情况下的上下文切换不会清除缓存呢？可以设置一个非常小的休眠时间</p>
+<p><img src="http://img.zouchanglin.cn///20200201/8bSnHw0qSx8D.png" alt="mark"></p>
+<p>这个时候，设置500纳秒的Sleep和500000纳秒的等待会导致结果完全不一样！！</p>
+<p>这与CPU多核心架构有关系，CPU修改之后的值并不会立即刷新到主存，这便导致了缓存不一致的问题，这是属于CPU架构的问题，不仅仅存在于JVM层面，只要是这种的CPU架构都会出现这种问题，所以首先得靠加锁来解决这种问题，在早期有一种东西叫做总线锁：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/Dg18RIUeEYKI.png" alt="mark"></p>
+<p>一旦发生数据修改的回写操作，直接把总线加锁，这样别的线程在使用数据的时候就不得不重新从主存得到新的数据，而且存在严重的性能问题，如果存在大量IO操作时，还使用这种总线锁，那么肯定IO性能肯定会下降！</p>
+<p>于是出现了缓存一致性协议：</p>
+<p>主要用到的缓存一致性协议时MESI协议（M修改、E独占、S共享、I无效四种状态，这四种状态记录的是缓存行的转态）。</p>
+<p>这里还有一个机制叫做总线嗅探机制，嗅探通过总线的数据，如果只有一个核心用到，那么就会给这个缓存行一个状态叫做E状态（独占状态），当另一个线程也用到了这个变量的时候，CPU就会通过广播机制通知其他的核心把这个缓存行的状态修改为S状态（共享状态），接下来其中一个线程对这个变量进行了修改，那么对于这个线程来说，这个变量的缓存行变成了M状态（修改状态），回写的时候会通过总线，总线嗅探机制嗅探到这个变量的缓存行已经是M状态，它就会通过其他的核心，说缓存无效，则其他核心上的缓存行就会变成I状态（无效状态），变成无效状态后如果还需要使用这个变量，那么肯定只能重新从主存中去加载这个变量到缓存，而且必须等待修改核心修改（回写主存）完成！</p>
+<p><img src="http://img.zouchanglin.cn///20200201/Id5pv2ES62r4.png" alt="mark"></p>
+<p>这里锁的缓存行最大值为 64 byte ，总线锁主要是用到了lock原语</p>
+<h1 id="3、内存模型JMM实现原理"><a href="#3、内存模型JMM实现原理" class="headerlink" title="3、内存模型JMM实现原理"></a>3、内存模型JMM实现原理</h1><p>JMM描述的是一种抽象的概念，一组规则，通过这组规则控制程序中各个变量在共享数据区域和私有数据区域的访问方式，JMM是围绕原子性、有序性、可见性展开的</p>
+<p><img src="http://img.zouchanglin.cn///20200201/SoIbOydo9ypK.png" alt="mark"></p>
+<p>这个JMM模型只是一个抽象的概念，图上画出的也只是逻辑空间，通过对应到硬件内存架构是这样的：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/oXWAj2CVMNxg.png" alt="mark"></p>
+<h1 id="4、Volatile关键字原理剖析"><a href="#4、Volatile关键字原理剖析" class="headerlink" title="4、Volatile关键字原理剖析"></a>4、Volatile关键字原理剖析</h1><p>在上面的例子中，我们明显可以通过volatile关键字来解决这个问题，那么volatile又是如何实现的呢？</p>
+<p>通过汇编指令来看看就知道了，运行时加虚拟机运行参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -Xcomp</span><br></pre></td></tr></table></figure>
+
+<p>但是Mac环境可能会由于缺少部分包：hsdis-amd64.dylib，在这里下载就好了 <a href="https://github.com/evolvedmicrobe/benchmarks/blob/master/hsdis-amd64.dylib，下载完毕后放在：/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre" target="_blank" rel="noopener">https://github.com/evolvedmicrobe/benchmarks/blob/master/hsdis-amd64.dylib，下载完毕后放在：/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre</a> 就好了</p>
+<p>先看看如何保证可见性的：</p>
+<p>底层实现了 lock addl $0x0,(%rsp) ，触发了缓存一致性协议 </p>
+<p><img src="http://img.zouchanglin.cn///20200201/IWgK9WdYGyPp.png" alt="mark"></p>
+<p>什么是重排序呢？是指编译器生成了指令序列，处理乱序执行！</p>
+<p>接下来看看指令重排序的一个例子：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/nPft5BeoBtvy.png" alt="mark"></p>
+<p>打印出来（0，0）（0，1）（1，0）（1，1）都有</p>
+<p>这就好比单例模式，请看下面这个例子：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/cocuuCxlyLWi.png" alt="mark"></p>
+<p><img src="http://img.zouchanglin.cn///20200201/8fiF6sAm3ipw.png" alt="mark"></p>
+<p>myInstance = new SingletonFactory()，这句话主要是三个指令构成的，如果不能保证指令有序性的话，那么拿到的对象就是未被初始化的对象，是无效的！</p>
+<p>对于x86架构的CPU，加上volatile写后面的storeLoad内存屏障，我们也可以手动加上内存屏障：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/UlVphp4q2knW.png" alt="mark"></p>
+<p>这个加上内存屏障的方法定义是 public native void storeFence(); 因此是原生实现，可以看看OpenJDK的虚拟机实现，可以看到对于64位机器使用的是rsp寄存器，对于非64位用的是esp寄存器</p>
+<p><img src="http://img.zouchanglin.cn///20200201/vAA6EPpKUhth.png" alt="mark"></p>
+<h1 id="5、可见性、有序性、原子性详解"><a href="#5、可见性、有序性、原子性详解" class="headerlink" title="5、可见性、有序性、原子性详解"></a>5、可见性、有序性、原子性详解</h1><p>并发编程的三大特性：</p>
+<p>可见性、有序性、原子性</p>
+<p>volatile保证可见性与有序性，但是不能保证原子性，要保证原子性需要借助 synchronized、Lock锁机制，同理也能保证有序性与可见性，因为 synchronized和Lock能够保证任一时刻只有个线程访问该代码块。关于volatile不保证原子性这个其实很好证明：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/HA5SKqo66Jcm.png" alt="mark"></p>
+<p>因为线程进行了很多次无效计算，所以结果并不是100000，他们都是从主存中拿的值，而且值都是对的，但是计算过程却不是原子的，准确的说应该是资源并没有被锁定，导致自己修改的时候别人也在修改，所以正确理解volatile的作用是很重要的！ </p>
+<p>最后看看CAS操作对应的汇编指令：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/L2dPr9fjKqMH.png" alt="mark"></p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" data-id="ck6ufc7go00cic4wk958m4laq"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            解决跨域问题
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">基于Redis实现分布式锁</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

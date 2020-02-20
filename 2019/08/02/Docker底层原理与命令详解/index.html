@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Docker底层原理与命令详解 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Docker底层原理与命令详解" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Docker底层原理与命令详解
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="article-date">
+  <time datetime="2019-08-02T06:27:48.000Z" itemprop="datePublished">2019-08-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.6k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="Docker-是如何工作的"><a href="#Docker-是如何工作的" class="headerlink" title="Docker 是如何工作的"></a>Docker 是如何工作的</h2><p>Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上， 然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。 <strong>容器，是一个运行时环境，就是我们前面说到的集装箱。</strong></p>
+<p><img src="http://img.zouchanglin.cn///20200202/mfdj31GJq7wJ.png" alt="mark"></p>
+<a id="more"></a>
+
+<p>docker有着比虚拟机更少的抽象层。由于docker不需要Hypervisor实现硬件资源虚拟化，运行在docker容器上的程序直接使用的都是实际物理机的硬件资源。因此在CPU、内存利用率上docker将会在效率上有明显优势。</p>
+<p>docker利用的是宿主机的内核,而不需要Guest OS。因此,当新建一个容器时，docker不需要和虚拟机一样重新加载一个操作系统内核。仍而避免引寻、加载操作系统内核返个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载Guest OS，返个新建过程是分钟级别的。而docker由于直接利用宿主机的操作系统,则省略了返个过程，因此新建一个docker容器只需要几秒钟。</p>
+<p><img src="http://img.zouchanglin.cn///20200202/N4x336PTADPO.png" alt="mark"></p>
+<p>所以，把两者对比来看</p>
+<p><img src="http://img.zouchanglin.cn///20200202/2CP4wiIRAXL4.png" alt="mark"></p>
+<p>所以结合之前的理解，镜像与容器的关系更清楚了<br><img src="http://img.zouchanglin.cn///20200202/oavz52bhUyn2.png" alt="mark"></p>
+<h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><p>Usage:  docker [OPTIONS] COMMAND</p>
+<h3 id="1、帮助命令"><a href="#1、帮助命令" class="headerlink" title="1、帮助命令"></a>1、帮助命令</h3><p>docker version 查看版本</p>
+<p>docker info 查看详细信息</p>
+<p>docker –help 帮助命令</p>
+<h3 id="2、镜像命令"><a href="#2、镜像命令" class="headerlink" title="2、镜像命令"></a>2、镜像命令</h3><p>① docker images 列出本地主机上的镜像</p>
+<p>选项参数</p>
+<p>-a :列出本地所有的镜像（含中间映像层）</p>
+<p>-q:只显示镜像ID</p>
+<p>–digests :显示镜像的摘要信息</p>
+<p>–no-trunc :显示完整的镜像信息</p>
+<p><img src="http://img.zouchanglin.cn///20200202/L8lAR01u5MhW.png" alt="mark"></p>
+<p>同一仓库源可以有多个 TAG，代表这个仓库源的不同个版本，我们使用 REPOSITORY:TAG 来定义不同的镜像。  如果你不指定一个镜像的版本标签，例如你只使用 ubuntu，docker 将默认使用 ubuntu:latest 镜像（也就是最新的）</p>
+<p>② docker search 某个XXX镜像名字</p>
+<p>从<a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a> 这个网站去查找，从阿里云下载，和Maven是一样的</p>
+<p><img src="http://img.zouchanglin.cn///20200202/C6gt1omu8Pyj.png" alt="mark"></p>
+<p>选项参数</p>
+<p>–no-trunc : 显示完整的镜像描述</p>
+<p>-s : 列出收藏数不小于指定值的镜像</p>
+<p>–automated : 只列出 automated build类型的镜像</p>
+<p>③ docker pull 某个XXX镜像名字</p>
+<p>下载镜像 docker pull 镜像名字[:TAG]</p>
+<p><img src="http://img.zouchanglin.cn///20200202/FIm720R3SmRY.png" alt="mark"></p>
+<p>接下来看看Tomcat的镜像大小，居然是506M，为什么？</p>
+<p><img src="http://img.zouchanglin.cn///20200202/nuYySB96Y5YT.png" alt="mark"></p>
+<p>④ docker rmi 某个XXX镜像名字ID</p>
+<p>删除单个 docker rmi -f 镜像ID</p>
+<p>删除多个 docker rmi -f 镜像名1:TAG 镜像名2:TAG</p>
+<p>删除全部 docker rmi -f $(docker images -qa)</p>
+<h3 id="3、容器命令"><a href="#3、容器命令" class="headerlink" title="3、容器命令"></a>3、容器命令</h3><h4 id="新建并且启动容器"><a href="#新建并且启动容器" class="headerlink" title="新建并且启动容器"></a>新建并且启动容器</h4><p>有镜像才能创建容器，这是根本前提(下载一个CentOS镜像演示)</p>
+<p>新建并启动容器 docker run [OPTIONS] IMAGE [COMMAND] [ARG…]</p>
+<p>OPTIONS参数说明：有些是一个减号，有些是两个减号</p>
+<p>–name=”容器新名字”: 为容器指定一个名称；  -d 后台运行容器，并返回容器ID，也即启动守护式容器；  -i 以交互模式运行容器，通常与 -t 同时使用；  -t 为容器重新分配一个伪输入终端，通常与 -i 同时使用；  -P 随机端口映射；  -p 指定端口映射，有以下四种格式  ip:hostPort:containerPort  ip::containerPort  hostPort:containerPort  containerPort</p>
+<p>所以下面的 <code>-it</code> 就是交互模式并且登录伪终端</p>
+<p><img src="http://img.zouchanglin.cn///20200202/mv9gM7JijV3z.png" alt="mark"></p>
+<h4 id="查看运行中和最近运行容器"><a href="#查看运行中和最近运行容器" class="headerlink" title="查看运行中和最近运行容器"></a>查看运行中和最近运行容器</h4><p>查看正在运行的容器 docker ps [OPTIONS]</p>
+<p><img src="http://img.zouchanglin.cn///20200202/wyNxsnh6v6j8.png" alt="mark"></p>
+<p>OPTIONS说明（常用）：  -a : 列出当前所有正在运行的容器+历史上运行过的  -l : 显示最近创建的容器  -n：显示最近n个创建的容器  -q : <strong>静默模式，只显示容器编号</strong>  –no-trunc : 不截断输出</p>
+<h4 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h4><p>两种退出容器的方式：</p>
+<ul>
+<li><p>exit 容器停止并退出</p>
+</li>
+<li><p>Ctrl + P + Q 容器不停止退出</p>
+</li>
+</ul>
+<h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><p>docker start 容器ID或者容器名</p>
+<h4 id="重启容器"><a href="#重启容器" class="headerlink" title="重启容器"></a>重启容器</h4><p>docker restart 容器ID或者容器名</p>
+<h4 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h4><p>docker stop 容器ID或者容器名</p>
+<h4 id="强制停止容器"><a href="#强制停止容器" class="headerlink" title="强制停止容器"></a>强制停止容器</h4><p>docker kill 容器ID或者容器名</p>
+<h4 id="删除已停止的容器"><a href="#删除已停止的容器" class="headerlink" title="删除已停止的容器"></a>删除已停止的容器</h4><p>docker rm 容器ID</p>
+<p>一次性删除多个容器</p>
+<ul>
+<li><p>docker rm -f $(docker ps -a -q)</p>
+</li>
+<li><p>docker ps -a -q | xargs docker rm</p>
+</li>
+</ul>
+<h3 id="4、重要的容器命令"><a href="#4、重要的容器命令" class="headerlink" title="4、重要的容器命令"></a>4、重要的容器命令</h3><h4 id="启动守护式容器"><a href="#启动守护式容器" class="headerlink" title="启动守护式容器"></a>启动守护式容器</h4><p>docker run -d 容器名称</p>
+<p><img src="http://img.zouchanglin.cn///20200202/wDiIyvUyaO1m.png" alt="mark"></p>
+<p>很显然启动了一个守护式容器centos，但是启动完成后容器却立马退出了，为什么？</p>
+<p>很重要的要说明的一点: Docker容器后台运行,就必须有一个前台进程.  容器运行的命令如果不是那些一直挂起的命令（比如运行top，tail），就是会自动退出的。</p>
+<p>这个是docker的机制问题,比如你的web容器,我们以nginx为例，正常情况下,我们配置启动服务只需要启动响应的service即可。例如service nginx start。但是这样做，nginx为后台进程模式运行，就导致docker前台没有运行的应用，这样的容器后台启动后，会立即自杀，因为他觉得他没事可做了。所以，<strong>最佳的解决方案是，将你要运行的程序以前台进程的形式运行</strong></p>
+<h4 id="查看容器日志"><a href="#查看容器日志" class="headerlink" title="查看容器日志"></a>查看容器日志</h4><p>docker logs -f -t –tail 容器ID<br>​<br>-t 是加入时间戳<br>​<br>-f 跟随最新的日志打印<br>​<br>–tail 数字 显示最后多少条</p>
+<p>比如在我们启动守护式容器的时候，可以这样启动：</p>
+<p>docker run -d centos /bin/sh -c “while true; do each hello tim; sleep 2; done”</p>
+<p>这样保持运行而且一直打印日志</p>
+<p><img src="http://img.zouchanglin.cn///20200202/T2MkFxPNTBa1.png" alt="mark"></p>
+<h4 id="查看容器内运行的进程"><a href="#查看容器内运行的进程" class="headerlink" title="查看容器内运行的进程"></a>查看容器内运行的进程</h4><p>docker top 容器ID</p>
+<h4 id="查看容器内部细节"><a href="#查看容器内部细节" class="headerlink" title="查看容器内部细节"></a>查看容器内部细节</h4><p>docker inspect 容器ID</p>
+<p><img src="http://img.zouchanglin.cn///20200202/Jq3qeh5ztA95.png" alt="mark"></p>
+<h4 id="进入正在运行的容器并以命令行交互"><a href="#进入正在运行的容器并以命令行交互" class="headerlink" title="进入正在运行的容器并以命令行交互"></a>进入正在运行的容器并以命令行交互</h4><p>docker exec -it 容器ID bashShell<br>​<br>重新进入docker attach 容器ID</p>
+<p>两种方式的区别：</p>
+<p>attach 直接进入容器启动命令的终端，不会启动新的进程</p>
+<p>exec 是在容器中打开新的终端，并且可以启动新的进程</p>
+<p><strong>所以如果是要在容器中执行很多命令的时候可以进入容器执行，那么就用attach，退出时用Ctrl + Q + P，如果只是一条命令，那么直接使用exec即可！</strong></p>
+<h4 id="从容器内拷贝文件到主机上"><a href="#从容器内拷贝文件到主机上" class="headerlink" title="从容器内拷贝文件到主机上"></a>从容器内拷贝文件到主机上</h4><p>docker cp  容器ID:容器内路径 目的主机路径</p>
+<p><img src="http://img.zouchanglin.cn///20200202/NbXgUOqXXizW.png" alt="mark"></p>
+<h3 id="5、常用命令的总结"><a href="#5、常用命令的总结" class="headerlink" title="5、常用命令的总结"></a>5、常用命令的总结</h3><p><img src="http://img.zouchanglin.cn///20200202/sldCJ4yWslRz.png" alt="mark"></p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" data-id="ck6ufc7db0017c4wk8da1hljr"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Docker镜像与数据容器卷
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Docker简介与安装</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

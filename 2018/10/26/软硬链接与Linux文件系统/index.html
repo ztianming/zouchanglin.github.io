@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    软硬链接与Linux文件系统 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-软硬链接与Linux文件系统" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  软硬链接与Linux文件系统
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2018-10-26T10:09:30.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.5k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>想要理解硬链接和软链接必须要了解一下什么是Linux的文件系统</p>
+<h2 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h2><p><img src="http://img.zouchanglin.cn///20200201/HgwootMjSUWr.png" alt="mark"></p>
+<a id="more"></a>
+
+<h3 id="普通文件"><a href="#普通文件" class="headerlink" title="普通文件 (-)"></a>普通文件 (-)</h3><p>这个不用说，常见的音频、视频、文本、可执行程序都是普通文件</p>
+<h3 id="目录文件-d"><a href="#目录文件-d" class="headerlink" title="目录文件 (d)"></a>目录文件 (d)</h3><p><strong>如果是要查看目录，需要读权限；如果要进入目录，需要该目录具有可执行权限；如果要在目录里修改或者增加文件，那么需要写权限</strong></p>
+<h3 id="字符设备文件-c"><a href="#字符设备文件-c" class="headerlink" title="字符设备文件 (c)"></a>字符设备文件 (c)</h3><p>提供连续的数据流，应用程序可以顺序读取，不支持随机存取。<br>键盘、调制解调器等等都是字符设备文件，在你按键的时候系统只能一个一个从键盘上读取字符，这样的设备就是字符设备</p>
+<h3 id="块设备文件-b"><a href="#块设备文件-b" class="headerlink" title="块设备文件 (b)"></a>块设备文件 (b)</h3><p>应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。硬盘、软盘、CD-ROM驱动器和闪存都是典型的块设备，应用程序可以寻址磁盘上的任何位置，并由此读取数据。</p>
+<h3 id="套接字文件-s"><a href="#套接字文件-s" class="headerlink" title="套接字文件 (s)"></a>套接字文件 (s)</h3><p>这类文件通常用在网络数据连接。可以启动一个程序来监听客户端的要求，客户端就可以通过套接字来进行数据通信。第一个属性为 [s]，最常在 /var/run目录中看到这种文件类型</p>
+<h3 id="链接文件-l"><a href="#链接文件-l" class="headerlink" title="链接文件 (l)"></a>链接文件 (l)</h3><p>这个在本文后面将说到！</p>
+<h3 id="管道文件-p"><a href="#管道文件-p" class="headerlink" title="管道文件 (p)"></a>管道文件 (p)</h3><p>管道文件可以用于进程间通信，至于什么是管道我会在Linux进程间通信的博客中说到！</p>
+<h2 id="文件应该是两部分构成"><a href="#文件应该是两部分构成" class="headerlink" title="文件应该是两部分构成"></a>文件应该是两部分构成</h2><p>文件信息+文件内容 ,<strong>stat命令可以查看文件的具体信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[zcl@localhost ~]$ ll</span><br><span class="line">total 12</span><br><span class="line">drwxrwxr-x. 28 zcl zcl 4096 Oct 24 21:56 Code</span><br><span class="line">drwxr-xr-x.  3 zcl zcl   34 Oct 25 05:02 Desktop</span><br><span class="line">drwxr-xr-x.  2 zcl zcl    6 Oct  5 00:07 Documents</span><br><span class="line">drwxr-xr-x.  2 zcl zcl    6 Oct  5 00:07 Downloads</span><br><span class="line">-rw-rw-r--.  1 zcl zcl  827 Oct  5 00:12 install.sh</span><br><span class="line">-rw-rw-r--.  1 zcl zcl   60 Oct 11 06:46 makefile</span><br><span class="line">[zcl@localhost ~]$ <span class="built_in">stat</span> Code</span><br><span class="line">  File: ‘Code’</span><br><span class="line">  Size: 4096      	Blocks: 8          IO Block: 4096   directory</span><br><span class="line">Device: fd00h/64768d	Inode: 3270049     Links: 28</span><br><span class="line">Access: (0775/drwxrwxr-x)  Uid: ( 1000/     zcl)   Gid: ( 1000/     zcl)</span><br><span class="line">Context: unconfined_u:object_r:user_home_t:s0</span><br><span class="line">Access: 2018-10-25 22:29:03.493269180 -0400</span><br><span class="line">Modify: 2018-10-24 21:56:01.089329792 -0400</span><br><span class="line">Change: 2018-10-24 21:56:01.089329792 -0400</span><br><span class="line"> Birth: -</span><br></pre></td></tr></table></figure>
+
+<p>Access：最后访问时间<br>Modif：文件内容最后修改时间<br>Change：属性最后修改时间 </p>
+<h2 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h2><p><img src="http://img.zouchanglin.cn///20200201/eQ7dLRvzPxhu.png" alt="mark"></p>
+<p>所以，新建一个文件的主要操作是：</p>
+<ol>
+<li>存储属性<br>内核首先找到一个空闲的inode，在这里是34192477，内核把文件信息记录到其中</li>
+<li>存储数据<br>该文件存储在三个磁盘块，内核找到了三个空闲块，29，57，1228，将内核缓冲区数据复制到29，下一块复制到57，以此类推</li>
+<li>记录分配情况<br>文件按顺序29，57，1228存放，内核在inode上的磁盘分布区记录了上述块列表</li>
+<li>添加文件名到目录<br>新的文件名叫做myfile。内核将入口（34192477，myfile）添加到目录文件，文件名核inode之间的对应关系将文件名和文件的内容及属性连接起来</li>
+</ol>
+<h2 id="硬链接和软链接"><a href="#硬链接和软链接" class="headerlink" title="硬链接和软链接"></a>硬链接和软链接</h2><p>上面我们了解了inode，是不是每个文件都有自己的独立的inode 呢？也不一定</p>
+<h3 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h3><p><strong>在Linux上可以将多个文件名对应同一个inode</strong>，那么这个就是硬链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[tim@xpu ~]$ touch myfile</span><br><span class="line">[tim@xpu ~]$ ln myfile mylink</span><br><span class="line">[tim@xpu ~]$ ls -li myfile mylink</span><br><span class="line">1067027 -rw-rw-r-- 2 tim tim 0 Oct 26 17:38 myfile</span><br><span class="line">1067027 -rw-rw-r-- 2 tim tim 0 Oct 26 17:38 mylink</span><br><span class="line">[tim@xpu ~]$ ll</span><br><span class="line">total 16</span><br><span class="line">drwxrwxr-x 2 tim tim 4096 Oct 16 18:32 11_code</span><br><span class="line">drwxrwxr-x 2 tim tim 4096 Oct 16 18:32 12_code</span><br><span class="line">drwxrwxr-x 2 tim tim 4096 Oct  1 22:09 lhl</span><br><span class="line">-rw-rw-r-- 2 tim tim    0 Oct 26 17:38 myfile</span><br><span class="line">-rw-rw-r-- 2 tim tim    0 Oct 26 17:38 mylink</span><br><span class="line">drwxrwxr-x 3 tim tim 4096 Oct  2 18:41 zcl</span><br><span class="line">[tim@xpu ~]$</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到myfile和mylink的inode号是一样的，那么这就属于硬链接，所以myfile与mylink共用一个inode，所以所对应的物理设备也是只有一份文件，同样的我们可以看出来myfile和mylink的硬链接数为2，接下来说说目录文件的硬链接数目，每个目录中的子目录都有 <code>.</code> 和 <code>..</code> ，<code>.</code> 就表示当前目录， <code>..</code> 就表示上一级目录，所以一个空目录都包含两个硬链接数，如果包含子目录的话那么硬链接数还应该加上子目录的个数，因为子目录中中的每个目录都含有一个 <code>..</code> 与父目录硬链接，使用<code>ln</code>命令实现文件之间的硬链接，使用方法在上述代码中已经包含！</p>
+<h3 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h3><p>使用<code>ln -s</code>选项可以建立软链接，软链接有自己独立的inode，软链接保存了其代表的文件的绝对路径，是另外一种文件，在硬盘上有独立的区块，访问时替换自身路径。所以可以把软链接看成是Windows底下的快捷方式!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[tim@xpu code]$ touch myfile</span><br><span class="line">[tim@xpu code]$ ln myfile mylink</span><br><span class="line">[tim@xpu code]$ ll</span><br><span class="line">total 0</span><br><span class="line">-rw-rw-r-- 2 tim tim 0 Oct 26 18:00 myfile</span><br><span class="line">-rw-rw-r-- 2 tim tim 0 Oct 26 18:00 mylink</span><br><span class="line">[tim@xpu code]$ ln -s myfile _mylink                                                                                                                                           </span><br><span class="line">[tim@xpu code]$ ls -li</span><br><span class="line">total 0</span><br><span class="line">1067046 -rw-rw-r-- 2 tim tim 0 Oct 26 18:00 myfile</span><br><span class="line">1067046 -rw-rw-r-- 2 tim tim 0 Oct 26 18:00 mylink</span><br><span class="line">1067047 lrwxrwxrwx 1 tim tim 6 Oct 26 18:01 _mylink -&gt; myfile</span><br></pre></td></tr></table></figure>
+
+<p> 接下来加入我们删除myfile，硬链接mylink是正常的，但是软链接却报警告： </p>
+<p><img src="http://img.zouchanglin.cn///20200201/QT1z3tnJcIgk.png" alt="mark"></p>
+<p>不难理解， 对于硬链接只要还存在硬链接那么即使删除其中一个，那么inode也不会释放，那么磁盘数据也不会释放，对于软链接来说，软链接由于是一个独立的文件保存了其指向文件的路径，所以只要myfile被删除，那么路径也就没有意义了！ </p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" data-id="ck6ufc7gj00byc4wkabqg8fy5"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Linux下打包静动态库
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">工厂设计模式</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

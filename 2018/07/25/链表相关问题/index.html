@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    链表相关问题 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-链表相关问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  链表相关问题
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2018-07-25T10:09:30.000Z" itemprop="datePublished">2018-07-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.6k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">24分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="题目一"><a href="#题目一" class="headerlink" title="题目一"></a>题目一</h1><blockquote>
+<p><strong>题目一：假设有如下的复杂链表，每个节点都有next指针和random指针，random指针是随机指向，请完成这条复杂链表的复制！</strong></p>
+</blockquote>
+<p>定义复杂链表节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DataType _data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span>* _<span class="title">next</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span>* _<span class="title">random</span>;</span></span><br><span class="line">&#125; ComplexNode;</span><br></pre></td></tr></table></figure>
+
+<p>需要的功能</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产生新节点</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">BuyComplexNode</span><span class="params">(DataType x)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印此复杂链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintComplexList</span><span class="params">(ComplexNode* plist)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//复制复杂链表</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">CopyList</span><span class="params">(ComplexNode* <span class="built_in">list</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<a id="more"></a>
+
+
+
+<p>复制链表的图片分析</p>
+<p><img src="http://img.zouchanglin.cn///20200201/9tN5einViHGi.png" alt="mark"></p>
+<p>绿色箭头便是random指针，指向任意，那么如何来复制这条复杂链表呢？</p>
+<p>思路说明</p>
+<p>1、先先断开原有链表，插入新节点，如图所示：5后面插入新节点5，4后面插入新节点4，….新节点1后面补成NULL<br>2、 复制随机指针，这里的随机指针如何才能找到之前的random指针的指向呢？很简单，<strong>原来的节点的random指针指向的节点的next所指向的地方就是新节点的random指向应该指向的地方</strong>，这样我们就可以很方便的完成随机指针指向的复制<br>3、 分离两条链表，这个也是比较容易的，让一个指针连续走两步，执行链接！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//复杂链表的复制。</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">BuyComplexNode</span><span class="params">(DataType x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ComplexNode* node = (ComplexNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ComplexNode));</span><br><span class="line">	assert(node);</span><br><span class="line">	node-&gt;_next = <span class="literal">NULL</span>;</span><br><span class="line">	node-&gt;_random = <span class="literal">NULL</span>;</span><br><span class="line">	node-&gt;_data = x;</span><br><span class="line">	<span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印这个复杂链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintComplexList</span><span class="params">(ComplexNode* plist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ComplexNode* cur = plist;</span><br><span class="line">	<span class="keyword">while</span> (cur != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d:"</span>, cur-&gt;_data);</span><br><span class="line">		<span class="keyword">if</span> (cur-&gt;_random != <span class="literal">NULL</span>)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"(%d)--&gt;"</span>, cur-&gt;_random-&gt;_data);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"(NULL)--&gt;"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		cur = cur-&gt;_next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Over\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实现复制链表，返回复制后的新链表。</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">CopyList</span><span class="params">(ComplexNode* <span class="built_in">list</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//1、在当前节点的后面插入一个当前节点的数据</span></span><br><span class="line">	ComplexNode* cur = <span class="built_in">list</span>;</span><br><span class="line">	ComplexNode* newlist = <span class="literal">NULL</span>;</span><br><span class="line">	ComplexNode* cp = <span class="literal">NULL</span>;</span><br><span class="line">	ComplexNode* next = <span class="built_in">list</span>-&gt;_next;</span><br><span class="line"></span><br><span class="line">	assert(<span class="built_in">list</span> != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (cur != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ComplexNode* newNode = BuyComplexNode(cur-&gt;_data);</span><br><span class="line">		newNode-&gt;_next = next;</span><br><span class="line">		cur-&gt;_next = newNode;</span><br><span class="line">		cur = next;</span><br><span class="line">		<span class="keyword">if</span> (next != <span class="literal">NULL</span>)</span><br><span class="line">			next = cur-&gt;_next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//2、调整插入节点的random指针</span></span><br><span class="line">	cur = <span class="built_in">list</span>;</span><br><span class="line">	cp = cur-&gt;_next;</span><br><span class="line">	<span class="keyword">while</span> (cur != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (cur-&gt;_random != <span class="literal">NULL</span>)</span><br><span class="line">			cp-&gt;_random = cur-&gt;_random-&gt;_next;</span><br><span class="line">		cur = cp-&gt;_next;</span><br><span class="line">		<span class="keyword">if</span> (cur != <span class="literal">NULL</span>)</span><br><span class="line">			cp = cur-&gt;_next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//3、拆除链表</span></span><br><span class="line">	cur = <span class="built_in">list</span>;</span><br><span class="line">	cp = cur-&gt;_next;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//确定新链表的起始位置</span></span><br><span class="line">	newlist = cp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (cur != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		cur-&gt;_next = cp-&gt;_next;</span><br><span class="line">		<span class="keyword">if</span> (cur-&gt;_next != <span class="literal">NULL</span>)</span><br><span class="line">			cp-&gt;_next = cur-&gt;_next-&gt;_next;</span><br><span class="line">		cur = cur-&gt;_next;</span><br><span class="line">		cp = cp-&gt;_next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> newlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 测试用例 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ComplexNode* plist  = <span class="literal">NULL</span>;</span><br><span class="line">	ComplexNode* newlist = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	ComplexNode* p1 = BuyComplexNode(<span class="number">5</span>);</span><br><span class="line">	ComplexNode* p2 = BuyComplexNode(<span class="number">4</span>);</span><br><span class="line">	ComplexNode* p3 = BuyComplexNode(<span class="number">3</span>);</span><br><span class="line">	ComplexNode* p4 = BuyComplexNode(<span class="number">2</span>);</span><br><span class="line">	ComplexNode* p5 = BuyComplexNode(<span class="number">1</span>);</span><br><span class="line">	plist = p1;</span><br><span class="line">	p1-&gt;_next = p2;</span><br><span class="line">	p2-&gt;_next = p3;</span><br><span class="line">	p3-&gt;_next = p4;</span><br><span class="line">	p4-&gt;_next = p5;</span><br><span class="line">	p5-&gt;_next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	p1-&gt;_random = p3;</span><br><span class="line">	p2-&gt;_random = p1;</span><br><span class="line">	p3-&gt;_random = <span class="literal">NULL</span>;</span><br><span class="line">	p4-&gt;_random = p2;</span><br><span class="line">	p5-&gt;_random = p4;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"原表："</span>);</span><br><span class="line">	PrintComplexList(plist);</span><br><span class="line">	newlist = CopyList(plist);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"新表："</span>);</span><br><span class="line">	PrintComplexList(newlist);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"原表："</span>);</span><br><span class="line">	PrintComplexList(plist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果演示</p>
+<p><img src="http://img.zouchanglin.cn///20200201/nIHA7q6FoqEq.png" alt="mark"></p>
+<h1 id="题目二"><a href="#题目二" class="headerlink" title="题目二"></a>题目二</h1><blockquote>
+<p> <strong>题目二：两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的！如下图所示：</strong></p>
+</blockquote>
+<p><img src="http://img.zouchanglin.cn///20200201/2UMPnNIf8L5L.png" alt="mark"></p>
+<p>注意问题</p>
+<p>这是一个经常被各公司采用的面试题，最容易犯两种错误：</p>
+<ul>
+<li>一是在写代码时没有对合并的过程想清楚，导致合并出来的链表不是想要的结果！</li>
+<li>二是代码的鲁棒性存在问题，程序一旦有特殊的链表就会崩溃</li>
+</ul>
+<p>合并思路</p>
+<p>1、先考虑考虑特殊情况，包括输入空链表，两条链表是同一条链表等等情况需要在一开始就考虑好<br>2、确定新链表的头结点，谁小就把谁当做头结点<br>3、使用一个指针来维护尾节点，方便尾部插入元素，每插入一个元素就向后移动<br>4、谁小就把谁插到尾部，然后继续比较<br>5、注意其中任何一条链表结束不要忘记另一条还没有结束的链表，要在尾部补上</p>
+<p><img src="http://img.zouchanglin.cn///20200201/bhMQBDFiI2Xn.png" alt="mark"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//合并两个有序链表,合并后依然有序 </span></span><br><span class="line"><span class="function">pList <span class="title">Merge</span><span class="params">(pList list1, pList list2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pList newlist = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="comment">//tail表示链表的尾部</span></span><br><span class="line">	pNode tail = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//先考虑特殊情况</span></span><br><span class="line">	<span class="keyword">if</span> (list1 == list2)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (list1 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> list2;</span><br><span class="line">	<span class="keyword">if</span> (list2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> list1;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//确定头节点</span></span><br><span class="line">	<span class="keyword">if</span> (list1-&gt;data &lt; list2-&gt;data)</span><br><span class="line">	&#123;</span><br><span class="line">		newlist = list1;</span><br><span class="line">		list1 = list1-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		newlist = list2;</span><br><span class="line">		list2 = list2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//两条链表中找较小的元素尾插</span></span><br><span class="line">	tail = newlist;</span><br><span class="line">	<span class="keyword">while</span> ((list1 != <span class="literal">NULL</span>) &amp;&amp; (list2 != <span class="literal">NULL</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (list1-&gt;data &lt; list2-&gt;data)&#123;</span><br><span class="line">			tail-&gt;next = list1;</span><br><span class="line">			list1 = list1-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			tail-&gt;next = list2;</span><br><span class="line">			list2 = list2-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		tail = tail-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//能走到这里说明其中一条链表已经结束了</span></span><br><span class="line">	<span class="keyword">if</span> (list1 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		tail-&gt;next = list2;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		tail-&gt;next = list1;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> newlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 测试用例 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	pList plist1 = <span class="literal">NULL</span>;</span><br><span class="line">	pList plist2 = <span class="literal">NULL</span>;</span><br><span class="line">	pList plist3 = <span class="literal">NULL</span>;</span><br><span class="line">	InitList(&amp;plist1);</span><br><span class="line">	InitList(&amp;plist2);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">			PushBack(&amp;plist1, i);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			PushBack(&amp;plist2, i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	PushBack(&amp;plist1, <span class="number">12</span>);</span><br><span class="line">	PushBack(&amp;plist1, <span class="number">13</span>);</span><br><span class="line">	PrintList(plist1);</span><br><span class="line">	PrintList(plist2);</span><br><span class="line"></span><br><span class="line">	plist3 = Merge(plist1, plist2);</span><br><span class="line">	PrintList(plist3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>递归的方式更易理解</p>
+<p>其实很容易看出来，只要确定了第一个节点，我们可以把它看成是第一个节点与剩下两条链表的合并结果的合并，这样的话只需要有限次的递归便可以完成这个看似复杂的问题！</p>
+<p><img src="http://img.zouchanglin.cn///20200201/QGLQ2UyeHMxz.png" alt="mark"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归写法</span></span><br><span class="line"><span class="function">pNode <span class="title">Merge_R</span><span class="params">(pList list1, pList list2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pList newlist = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//先考虑特殊情况</span></span><br><span class="line">	<span class="keyword">if</span> (list1 == list2)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (list1 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> list2;</span><br><span class="line">	<span class="keyword">if</span> (list2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> list1;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//确定头结点</span></span><br><span class="line">	<span class="keyword">if</span> (list1-&gt;data &lt; list2-&gt;data)</span><br><span class="line">	&#123;</span><br><span class="line">		newlist = list1;</span><br><span class="line">		list1-&gt;next = Merge_R(list1-&gt;next, list2);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		newlist = list2;</span><br><span class="line">		list2-&gt;next = Merge_R(list2-&gt;next, list1);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> newlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>考点</p>
+<ul>
+<li>考察分析问题能力，考察指针操作能力，应该透彻分析问题形成清晰的思路，才能够写出正确的代码！</li>
+<li>考察代码的鲁棒性，需要考虑到很多特殊操作，尤其是空指针的情况和空链表的情况处理！</li>
+</ul>
+<h1 id="题目三"><a href="#题目三" class="headerlink" title="题目三"></a>题目三</h1><blockquote>
+<p><strong>题目三：现给出两个有序单链表，求出这两条链表的交集</strong></p>
+</blockquote>
+<p>函数实现结果演示 </p>
+<p><img src="http://img.zouchanglin.cn///20200201/i3FNMRMJQ1HP.png" alt="mark"></p>
+<p>这个总体思路也是比较简单的，既然是有序的，那么就可以直接根据大小比对，大的节点先放着，小的往后走看能否遇到和大的节点一样的data，相等的话就直接输出，这样每一个元素都不会漏掉了！ </p>
+<p><img src="http://img.zouchanglin.cn/EtzmUx.gif" alt=""></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求两个有序单链表交集(差集)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UnionSet</span><span class="params">(pList list1, pList list2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (list1 == <span class="literal">NULL</span> || list2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">while</span> (list1 &amp;&amp; list2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (list1-&gt;data &lt; list2-&gt;data)</span><br><span class="line">		&#123;</span><br><span class="line">			list1 = list1-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (list1-&gt;data &gt; list2-&gt;data)</span><br><span class="line">		&#123;</span><br><span class="line">			list2 = list2-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, list1-&gt;data);</span><br><span class="line">			list1 = list1-&gt;next;</span><br><span class="line">			list2 = list2-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据这个思路求差集也是很简单的，只需要把data不相等的节点的值输出就可以了！</p>
+<h1 id="题目四"><a href="#题目四" class="headerlink" title="题目四"></a>题目四</h1><blockquote>
+<p><strong>题目四：判断两个链表是否相交，若相交，求交点。（假设链表不带环）</strong></p>
+</blockquote>
+<p><img src="http://img.zouchanglin.cn///20200201/Y7KogXqSKJ8r.png" alt="mark"></p>
+<p>假设这就是两条相交的链表，交点为5，现给出两条链表的头结点plist1和plist2，求出交点：</p>
+<p>首先判断两条链表是否相交</p>
+<p>两条相交的链表只能是 V 字形状或者 Y 字形，所以遍历最后肯定是同一个节点，由此便可以得出两条链表是否相交，还是要注意特殊情况下的判断，保证代码的鲁棒性！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断两个链表是否相交，若相交，求交点。（假设链表不带环） </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CheckCross</span><span class="params">(pList list1, pList list2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode end1 = <span class="literal">NULL</span>;</span><br><span class="line">	pNode end2 = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="comment">//任意一个为空指针就不可能相交</span></span><br><span class="line">	<span class="keyword">if</span> (list1 == <span class="literal">NULL</span> || list2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	end1 = list1;</span><br><span class="line">	end2 = list2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (end1-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">		end1 = end1-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (end2-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">		end2 = end2-&gt;next;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> end1 == end2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目五"><a href="#题目五" class="headerlink" title="题目五"></a>题目五</h1><p>返回两条相交链表的交点</p>
+<p>这个也不难，思路就是看两条链表谁更长，让较长的先走（长链表的长度-短链表的长度的绝对值）步，这样再同时开始走，直到地址相同的时候肯定就是交点！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//相交的话返回交点</span></span><br><span class="line"><span class="function">pNode <span class="title">GetGrossNode</span><span class="params">(pList list1, pList list2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len1 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> len2 = <span class="number">0</span>; </span><br><span class="line">	<span class="comment">//长度之差</span></span><br><span class="line">	<span class="keyword">int</span> gap = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	pNode p1 = list1;</span><br><span class="line">	pNode p2 = list2;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//先求出两条链表的长度</span></span><br><span class="line">	<span class="keyword">while</span> (p1 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len1++;</span><br><span class="line">		p1 = p1-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (p2 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len2++;</span><br><span class="line">		p2 = p2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	gap = <span class="built_in">abs</span>(len1 - len2);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//让较长的链表先走gap步</span></span><br><span class="line">	<span class="keyword">if</span> (len1 &gt; len2)&#123;</span><br><span class="line">		<span class="keyword">while</span> (gap--)</span><br><span class="line">			list1 = list1-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (gap--)</span><br><span class="line">			list2 = list2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//两个链表同时开走，只要遇到地址一样的节点那么就是相交的点</span></span><br><span class="line">	<span class="keyword">while</span> (list1 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		list1 = list1-&gt;next;</span><br><span class="line">		list2 = list2-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (list1 == list2)</span><br><span class="line">			<span class="keyword">return</span> list1;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200201/iofAiHrn8lDV.png" alt="mark"></p>
+<h1 id="题目六"><a href="#题目六" class="headerlink" title="题目六"></a>题目六</h1><blockquote>
+<p><strong>题目六：判断单链表是否带环？</strong></p>
+</blockquote>
+<p>这个问题比较容易解决，我们只需要使用快慢指针的方式便可以解决该问题，快指针(一次走两步)、慢指针一次走一步，如果链表带环这两个指针肯定会相遇，由于快指针走了两步，所以还是要考虑到节点个数是奇数还是偶数，所以【fast-&gt;next != NULL】也是要判断的！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不带环返回NULL，带环返回相遇点</span></span><br><span class="line"><span class="function">pNode <span class="title">CheckCycle</span><span class="params">(pList plist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode fast = plist;</span><br><span class="line">	pNode slow = plist;</span><br><span class="line">	<span class="keyword">if</span> (plist == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> ((fast != <span class="literal">NULL</span>) &amp;&amp; (((fast-&gt;next) != <span class="literal">NULL</span>)))</span><br><span class="line">	&#123;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (fast == slow)</span><br><span class="line">			<span class="keyword">return</span> fast;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="题目七"><a href="#题目七" class="headerlink" title="题目七"></a>题目七</h1><blockquote>
+<p>问题七：求链表的环的长度，参数为相遇点**</p>
+</blockquote>
+<p>从相遇点的下一个节点开始计数，直到重新回到相遇点即是换的长度！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求环的长度，参数为相遇点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetCircleLength</span><span class="params">(pNode meet)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	pNode cur = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	assert(meet != <span class="literal">NULL</span>);</span><br><span class="line">	assert(meet-&gt;next != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	cur = meet-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (cur != meet)</span><br><span class="line">	&#123;</span><br><span class="line">		len++;</span><br><span class="line">		cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目八"><a href="#题目八" class="headerlink" title="题目八"></a>题目八</h1><blockquote>
+<p><strong>题目八：求入口点位置，参数为相遇点</strong></p>
+</blockquote>
+<p>这个相对前面两个来说比较难想，假设不带环的部分长度是x，从入口点到两个指针的相遇点的长度为y，环的长度为L，我们可以得到如图所示的公式</p>
+<p><img src="http://img.zouchanglin.cn///20200201/SmhHss5t7cwN.png" alt="mark"></p>
+<p>即慢指针走的步数乘以2就是快指针走的距离，我们可以得出x+y是个常数K*L（也就是k个环的长度），则x总是环的长度的倍数减去y，也就是说慢指针一个从链表的起始位置走，另一个慢指针从相遇点开始走，它们总会在入口点相遇！ </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求入口点，参数为相遇点</span></span><br><span class="line"><span class="function">pNode <span class="title">GetCycleEntryNode</span><span class="params">(pList <span class="built_in">list</span>, pNode meetNode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pList cur = <span class="built_in">list</span>;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">list</span> == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (meetNode == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (cur != meetNode)</span><br><span class="line">	&#123;</span><br><span class="line">		cur = cur-&gt;next;</span><br><span class="line">		meetNode = meetNode-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cur;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 测试用例 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	pList plist = <span class="literal">NULL</span>;</span><br><span class="line">	pNode pos = <span class="literal">NULL</span>;</span><br><span class="line">	pNode entrance = <span class="literal">NULL</span>;</span><br><span class="line">	InitList(&amp;plist);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		PushBack(&amp;plist, i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//带环</span></span><br><span class="line">	Find(plist, <span class="number">5</span>)-&gt;next = Find(plist, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	pos = CheckCycle(plist);</span><br><span class="line">	<span class="keyword">if</span> (pos != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"带环，相遇点为 = %d\n"</span>, pos-&gt;data);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"环的长度是：%d\n"</span>, GetCircleLength(pos));</span><br><span class="line">		entrance = GetCycleEntryNode(plist, pos);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"环的入口点是：%d\n"</span>, entrance-&gt;data);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"不带环\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200201/ce1xxz86tbKE.png" alt="mark"></p>
+<h1 id="题目九"><a href="#题目九" class="headerlink" title="题目九"></a>题目九</h1><blockquote>
+<p><strong>题目九：查找单链表的中间节点，要求只能遍历一次链表</strong></p>
+</blockquote>
+<p>这个思路比较简单，利用快慢指针法即可，一个快指针【一次走两步】，一个慢指针【一次走一步】，只要快指针走到结束为止，慢指针恰好就在链表的中间！只不过快指针一次走两步，需要考虑链表元素个数为奇数个的问题，所以结束标志不只是快指针走到NULL位置，快指针的NEXT走到NULL也算是结束：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pNode <span class="title">FindMidNode</span><span class="params">(pList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode fast = head;</span><br><span class="line">	pNode slow = head;</span><br><span class="line">	<span class="keyword">if</span> (head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> ((fast != <span class="literal">NULL</span>) &amp;&amp; (fast-&gt;next != <span class="literal">NULL</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目十"><a href="#题目十" class="headerlink" title="题目十"></a>题目十</h1><blockquote>
+<p><strong>题目十：查找单链表的倒数第k个节点，要求只能遍历一次链表</strong></p>
+</blockquote>
+<p>这个与上面的查找中间节点的方式是一样的，也是使用两个指针只不过这次都是使用慢指针的方式，让一个指针先走k步，然后另一个指针才能开始走，直到先走的指针走到链表结尾，此时后走的指针刚好走到倒数第k个节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找单链表的倒数第k个节点，要求只能遍历一次链表 </span></span><br><span class="line"><span class="function">pNode <span class="title">FindLastKNode</span><span class="params">(pList *pplist, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode first = *pplist;</span><br><span class="line">	pNode <span class="keyword">catch</span> = *pplist;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span> (*pplist == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (first != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		first = first-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (num++ &gt;= k)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">catch</span> = <span class="keyword">catch</span>-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">catch</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 还是要注意特殊情况的处理！ </p>
+<h1 id="题目十一"><a href="#题目十一" class="headerlink" title="题目十一"></a>题目十一</h1><blockquote>
+<p><strong>题目十一：冒泡排序链表</strong></p>
+</blockquote>
+<p>1、比较相邻的元素。如果第一个比第二个大，就交换他们两个。<br>2、对每一对相邻元素做同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。<br>3、针对所有的元素重复以上的步骤，除了最后一个。<br>4、持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
+<p>普通的数组的冒泡排序</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123; <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len - <span class="number">1</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span> - j; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (arr[i] &gt; arr[i + <span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				tmp = arr[i];</span><br><span class="line">				arr[i] = arr[i + <span class="number">1</span>];</span><br><span class="line">				arr[i + <span class="number">1</span>] = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>普通数组的冒泡排序使用指针实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun02</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123; <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> *start = &amp;arr[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> *start_next = start + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> *<span class="built_in">end</span> = &amp;arr[<span class="number">4</span>];</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (&amp;arr[<span class="number">0</span>] &lt;= <span class="built_in">end</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		start = &amp;arr[<span class="number">0</span>];</span><br><span class="line">		start_next = start + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (start_next &lt; <span class="built_in">end</span><span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (*start &gt; *start_next)</span><br><span class="line">			&#123;</span><br><span class="line">				tmp = *start;</span><br><span class="line">				*start = *start_next;</span><br><span class="line">				*start_next = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			start++;</span><br><span class="line">			start_next = start + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">end</span> = start;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>链表的冒泡排序</p>
+<p>这样的话根据此方法便可以对链表进行排序了!<br>这个方法与使用指针对数组进行排序是一样的，只不过与之不停的地方在于数组要找到下一个元素的节点是非常容易的，对于链表可以使用next指针！</p>
+<p><img src="http://img.zouchanglin.cn/EtzmUx2.gif" alt=""></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单链表排序（冒泡排序） </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(pList * pplist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode pnext = <span class="literal">NULL</span>;</span><br><span class="line">	pNode tail = <span class="literal">NULL</span>;</span><br><span class="line">	DataType tmp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	assert(*pplist != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//外层循环</span></span><br><span class="line">	<span class="keyword">while</span> (tail != (*pplist))</span><br><span class="line">	&#123;</span><br><span class="line">		pCur = *pplist;</span><br><span class="line">		pnext = pCur-&gt;next;</span><br><span class="line">		<span class="keyword">while</span> (pnext != tail)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (pCur-&gt;data &gt; pnext-&gt;data)</span><br><span class="line">			&#123;</span><br><span class="line">				tmp = pCur-&gt;data;</span><br><span class="line">				pCur-&gt;data = pnext-&gt;data;</span><br><span class="line">				pnext-&gt;data = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			pCur = pnext;</span><br><span class="line">			pnext = pnext-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//tail指针前移</span></span><br><span class="line">		tail = pCur;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优化</p>
+<ul>
+<li>如果是空链表或者只有一个元素的链表则不进行排序</li>
+<li>如果某一趟排完之后就有序，那么直接跳出循环不再排序</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单链表排序（冒泡排序） </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(pList * pplist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode pnext = <span class="literal">NULL</span>;</span><br><span class="line">	pNode tail = <span class="literal">NULL</span>;</span><br><span class="line">	DataType tmp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//冒泡排序算法优化，定义标志位</span></span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	<span class="comment">//只有一个元素或者是空链表时候不进行排序</span></span><br><span class="line">	<span class="keyword">if</span> (*pplist == <span class="literal">NULL</span> || (*pplist)-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//外层循环</span></span><br><span class="line">	<span class="keyword">while</span> (tail != (*pplist))</span><br><span class="line">	&#123;</span><br><span class="line">		pCur = *pplist;</span><br><span class="line">		pnext = pCur-&gt;next;</span><br><span class="line">		<span class="keyword">while</span> (pnext != tail)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (pCur-&gt;data &gt; pnext-&gt;data)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">//交换了之后修改标志位</span></span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">				tmp = pCur-&gt;data;</span><br><span class="line">				pCur-&gt;data = pnext-&gt;data;</span><br><span class="line">				pnext-&gt;data = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			pCur = pnext;</span><br><span class="line">			pnext = pnext-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//tail指针前移</span></span><br><span class="line">		tail = pCur;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (flag == <span class="number">0</span>) <span class="comment">//未经改变的时候直接跳出循环</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>算法稳定性</p>
+<p>冒泡排序就是把小的元素往前调或者把大的元素往后调。比较是相邻的两个元素比较，交换也发生在这两个元素之间。所以，如果两个元素相等，我想你是不会再无聊地把他们俩交换一下的；如果两个相等的元素没有相邻，那么即使通过前面的两两交换把两个相邻起来，这时候也不会交换，所以相同元素的前后顺序并没有改变，所以冒泡排序是一种稳定排序算法。</p>
+<h1 id="题目十二"><a href="#题目十二" class="headerlink" title="题目十二"></a>题目十二</h1><blockquote>
+<p><strong>题目十二：查找单链表的中间节点，要求只能遍历一次链表</strong></p>
+</blockquote>
+<p>这个思路比较简单，利用快慢指针法即可，一个快指针【一次走两步】，一个慢指针【一次走一步】，只要快指针走到结束为止，慢指针恰好就在链表的中间！只不过快指针一次走两步，需要考虑链表元素个数为奇数个的问题，所以结束标志不只是快指针走到NULL位置，快指针的NEXT走到NULL也算是结束：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pNode <span class="title">FindMidNode</span><span class="params">(pList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode fast = head;</span><br><span class="line">	pNode slow = head;</span><br><span class="line">	<span class="keyword">if</span> (head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> ((fast != <span class="literal">NULL</span>) &amp;&amp; (fast-&gt;next != <span class="literal">NULL</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目十三"><a href="#题目十三" class="headerlink" title="题目十三"></a>题目十三</h1><blockquote>
+<p><strong>题目十三：查找单链表的倒数第k个节点，要求只能遍历一次链表</strong></p>
+</blockquote>
+<p>这个与上面的查找中间节点的方式是一样的，也是使用两个指针只不过这次都是使用慢指针的方式，让一个指针先走k步，然后另一个指针才能开始走，直到先走的指针走到链表结尾，此时后走的指针刚好走到倒数第k个节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找单链表的倒数第k个节点，要求只能遍历一次链表 </span></span><br><span class="line"><span class="function">pNode <span class="title">FindLastKNode</span><span class="params">(pList *pplist, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode first = *pplist;</span><br><span class="line">	pNode <span class="keyword">catch</span> = *pplist;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span> (*pplist == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (first != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		first = first-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (num++ &gt;= k)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">catch</span> = <span class="keyword">catch</span>-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">catch</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还是要注意特殊情况的处理！</p>
+<h1 id="题目十四"><a href="#题目十四" class="headerlink" title="题目十四"></a>题目十四</h1><blockquote>
+<p><strong>题目十四：约瑟夫环问题</strong></p>
+</blockquote>
+<p>约瑟夫环：JosephCycle，约瑟夫环是一个数学的应用问题：已知n个人（以编号1，2，3…n分别表示）围坐在一张圆桌周围。从编号为k的人开始报数，数到m的那个人出列；他的下一个人又从1开始报数，数到m的那个人又出列；依此规律重复下去，直到圆桌周围的人全部出列。</p>
+<p>图片示例</p>
+<p><img src="http://img.zouchanglin.cn///20200201/65SH0DX1gssz.png" alt="mark"></p>
+<p> 这样如何往复的淘汰直到只剩下最后一个人为幸存者，使用链表即可完成： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	pList plist = <span class="literal">NULL</span>;</span><br><span class="line">	pNode pos = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	InitList(&amp;plist);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">41</span>; i++)&#123;</span><br><span class="line">		PushBack(&amp;plist, i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//形成环</span></span><br><span class="line">	pos = Find(plist, <span class="number">41</span>);</span><br><span class="line">	pos-&gt;next = plist;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//求出41个人中最后两名幸存者</span></span><br><span class="line">	pos = JosephCycle(&amp;plist, <span class="number">3</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d "</span>, pos-&gt;data);<span class="comment">//16</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d "</span>, pos-&gt;next-&gt;data);<span class="comment">//31</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单链表实现约瑟夫环 </span></span><br><span class="line"><span class="function">pNode <span class="title">JosephCycle</span><span class="params">(pList * pplist, <span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode del = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	assert(num &gt;= <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">	pCur = *pplist;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (pCur-&gt;next-&gt;next != pCur)</span><br><span class="line">	&#123;</span><br><span class="line">		count = num;</span><br><span class="line">		<span class="keyword">while</span> (--count)</span><br><span class="line">		&#123;</span><br><span class="line">			pCur = pCur-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		EraseNotTail(pCur); <span class="comment">//根据节点位置删除节点</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pCur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目十五"><a href="#题目十五" class="headerlink" title="题目十五"></a>题目十五</h1><blockquote>
+<p><strong>题目十五：使用三指针法翻转链表</strong></p>
+</blockquote>
+<p>三指针毫无疑问就是使用三个指针去翻转链表，这种方式可以是我们很容易的实现链表的翻转，首先定义三个指针，分别指向第一个节点、第二个节点、第三个节点，然后由于我们保存了节点的地址，当然也就可以随心所欲的操作这些节点的指向了！</p>
+<p><img src="http://img.zouchanglin.cn///20200201/FsApKbyHizmJ.png" alt="mark"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 逆置/反转单链表 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(pList* pplist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode tmp = <span class="literal">NULL</span>;</span><br><span class="line">	pNode tmp2 = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	assert(pplist != <span class="literal">NULL</span>);</span><br><span class="line">	assert(*pplist != <span class="literal">NULL</span>);</span><br><span class="line">	<span class="comment">//将三个指针赋值</span></span><br><span class="line">	pCur = *pplist;</span><br><span class="line">	tmp = pCur-&gt;next;</span><br><span class="line">	tmp2 = tmp-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//原头节点先赋值为NULL</span></span><br><span class="line">	pCur-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (tmp2 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//改变指向</span></span><br><span class="line">		tmp-&gt;next = pCur;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3个指针后移</span></span><br><span class="line">		pCur = tmp;</span><br><span class="line">		tmp = tmp2;</span><br><span class="line">		tmp2 = tmp2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//循环完毕最后一步的处理</span></span><br><span class="line">	*pplist = tmp;</span><br><span class="line">	tmp-&gt;next = pCur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="题目十六"><a href="#题目十六" class="headerlink" title="题目十六"></a>题目十六</h1><blockquote>
+<p><strong>题目十六：替换删除法、替换插入法</strong></p>
+</blockquote>
+<p>这两个方法也是链表操作中比较常见的方法，但是注意是非尾节点才可以使用替换删除法，替换插入法任何节点均可用！先上代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除一个无头单链表的非尾节点 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EraseNotTail</span><span class="params">(pNode pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	assert(pos != <span class="literal">NULL</span>);</span><br><span class="line">	pCur = pos-&gt;next-&gt;next;</span><br><span class="line">	pos-&gt;data = pos-&gt;next-&gt;data;</span><br><span class="line">	<span class="built_in">free</span>(pos-&gt;next);</span><br><span class="line">	pos-&gt;next = pCur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是本来应该删除pos位置的节点，但是为了方便操作我们只能删除pos后面的节点，于是我们先把pos的next的next节点的位置存储起来，然后将pos的next节点的数据存到pos节点上，接着删除pos的next节点即可： </p>
+<p><img src="http://img.zouchanglin.cn/EtzxQe231231.gif" alt=""></p>
+<p> 同样的道理，我们看看替换插入法： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在无头单链表的一个节点前插入一个节点 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertNode</span><span class="params">(pNode pos, DataType data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode newNode = <span class="literal">NULL</span>;</span><br><span class="line">	assert(pos != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	newNode = BuyNode(pos-&gt;data);</span><br><span class="line">	<span class="keyword">if</span> (newNode == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"空间不足\n"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	pCur = pos-&gt;next;</span><br><span class="line">	pos-&gt;next = newNode;</span><br><span class="line">	pos-&gt;data = data;</span><br><span class="line">	newNode-&gt;next = pCur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn/ENSSLddsfsd.gif" alt=""></p>
+<p>同样的道理，本来我我们应该把新的节点插入到pos之前，但是由于这样是不好操作的，于是我们先把节点插入到了pos的后面，然后交换pos与新节点中的数据，这样便完成了所谓的“在pos之前插入”，优化方案：直接在产生新节点的时候就使用pos的data来构造节点，这样只需要将参数data赋值给pos的data即可！ </p>
+<h1 id="题目十七"><a href="#题目十七" class="headerlink" title="题目十七"></a>题目十七</h1><blockquote>
+<p><strong>问题十七： 逆序打印链表</strong></p>
+</blockquote>
+<p>普通的方式逆序打印链表<br>此方法的思路就是使用两个指针，一个指针tail负责指向上一次刚刚被打印的元素，这样每次pCur指针每次都以tail指针标记作为结束，这样直到tail指针指向头结点的时候就证明已经打印完成了。看看下面这个小电影就能很容易的明白：</p>
+<p><img src="http://img.zouchanglin.cn/ENSCdI2vc.gif" alt=""></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 逆序打印单向链表 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintTailToHead</span><span class="params">(pList plist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pNode pCur = <span class="literal">NULL</span>;</span><br><span class="line">	pNode tail = <span class="literal">NULL</span>;</span><br><span class="line">	assert(plist != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	pCur = plist;</span><br><span class="line">	<span class="keyword">while</span> (tail != plist)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (pCur-&gt;next != tail)</span><br><span class="line">		&#123;</span><br><span class="line">			pCur = pCur-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, pCur-&gt;data);</span><br><span class="line">		tail = pCur;</span><br><span class="line">		pCur = plist;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>递归的方式逆序打印链表</p>
+<p>递归往往可以将复杂问题简单化，这里的极限条件是传入的参数不为空，那么直到将链表末尾的【NULL】传入才会直接返回，这样的话层层递归打印出的便是倒序的输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归的方式打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintTailToHead_R</span><span class="params">(pList plist)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (plist == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	PrintTailToHead_R(plist-&gt;next);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d "</span>,plist-&gt;data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" data-id="ck6ufc7gq00cpc4wkecjdeo8i"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Validate做表单校验
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/07/15/%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">全概率公式与贝叶斯公式</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

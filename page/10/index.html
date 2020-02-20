@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/zouchanglin"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="http://img.zouchanglin.cn///20200202/fbsG1RLWONAe.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Hexo</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+        <img
+          src="/images/code.svg"
+          class="cover-logo"
+          alt="Hexo"
+        />
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article id="post-Linux下打包静动态库" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/"
+    >Linux下打包静动态库</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" class="article-date">
+  <time datetime="2018-10-29T10:09:30.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="静态库和动态库概念"><a href="#静态库和动态库概念" class="headerlink" title="静态库和动态库概念"></a>静态库和动态库概念</h2><h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h3><p>在Linux下是<code>.a</code>的后缀名，在windows下是<code>.lib</code>的后缀名，程序在编译链接的时候吧库代码链接到可执行文件中，运行时不再需要静态库</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>在Linux下是<code>.so</code> ，在windows下是<code>.dll</code>，程序在运行的时候才去链接动态库的代码，多个程序共享库的代码！<br>一个与动态库链接的可执行文件仅仅包含它用到的函数的入口地址的一个表，而不是外部函数所在目标文件的整个机器码<br>在可执行文件运行以前，外部函数的机器码，由操作系统从磁盘上复制到内存中，这个过程就是动态链接<br>动态库可以在多个程序直接共享，所以使得可执行文件变得更小，节省磁盘空间，操作系统采用虚拟内存机制允许物理内存中的一份动态库被要用到该库的所有进程共用，节省了内存和磁盘空间</p>
+      
+      <a class="article-more-link" href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" data-id="ck6ufc7dx0032c4wk5pc7bq57"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-软硬链接与Linux文件系统" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"
+    >软硬链接与Linux文件系统</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2018-10-26T10:09:30.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>想要理解硬链接和软链接必须要了解一下什么是Linux的文件系统</p>
+<h2 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h2><p><img src="http://img.zouchanglin.cn///20200201/HgwootMjSUWr.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" data-id="ck6ufc7gj00byc4wkabqg8fy5"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-工厂设计模式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+    >工厂设计模式</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2018-10-23T10:09:30.000Z" itemprop="datePublished">2018-10-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h2><p>既然说到设计模式那就顺便回顾一下六大设计原则，六大设计原则是心法，二十三种设计模式是内功，下面只是简明的叙述了一下，后面还会有更详细的说明！<br><strong>一 、 类单一职责原则：Single Responsibility Principle (SRP)</strong><br>一个类只有一个引起这个类变化的原因。即一个类只完成一个功能，如果做不到一个类只完成一个功能，最少要保证一个方法只完成一个功能。</p>
+<p><strong>二、依赖倒置原则：Dependency Inversion Principle (DIP)</strong><br>高层组件应该依赖抽象而不依赖具体，即面向接口编程，一般依赖的成员变量或者参数都应该是抽象的不应该是具体的。</p>
+<p><strong>三、里氏替换原则：Liskov Substitution Principle (LSP)</strong><br>凡是父类出现的地方都可以用子类代替并且原功能没有发生变化，子类不应该覆盖父类的非抽象方法。</p>
+<p><strong>四、迪米特法则：Least Knowledge Principle (LKP)</strong><br>一个类要尽量的封装自己，一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。</p>
+<p><strong>五、接口隔离原则：Interface Segregation Principle (ISP)</strong><br>一个接口完成的功能尽可能的单一，不要让一个接口承担过多的责任。</p>
+<p><strong>六、开闭原则：The Open-Closed Principle (OCP)</strong><br>对扩展开放，对修改闭合。</p>
+      
+      <a class="article-more-link" href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="ck6ufc7fs0090c4wkgelk891q"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-系统IO接口" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/"
+    >系统IO接口</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2018-10-18T10:09:30.000Z" itemprop="datePublished">2018-10-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="一、fopen函数"><a href="#一、fopen函数" class="headerlink" title="一、fopen函数"></a>一、fopen函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p> 参数说明：<br>path：要打开的文件路径+文件名<br>mode：打开模式，下面是第二个参数的说明<br><code>来自CentOS 7：man 3 fopen</code> </p>
+      
+      <a class="article-more-link" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" data-id="ck6ufc7gc00b3c4wke573655b"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-函数重载实现原理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"
+    >函数重载实现原理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2018-10-16T10:09:30.000Z" itemprop="datePublished">2018-10-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>方法重载 （overload）<br>C++允许多个函数拥有相同的名字，只要它们的参数列表不同就可以，这就是函数的重载(Function Overloading)，借助重载，一个函数名可以有多种用途。</p>
+<p>永远记住一点：<strong>函数重载只与参数列表有关，与返回值类型无关</strong></p>
+      
+      <a class="article-more-link" href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" data-id="ck6ufc7fg0080c4wkhvgd0nhq"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-《沉睡中的大学生》人民日报" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/"
+    >《沉睡中的大学生》人民日报</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/" class="article-date">
+  <time datetime="2018-10-04T10:09:30.000Z" itemprop="datePublished">2018-10-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200201/BkC6ESMvYIo2.png" alt="mark"></p>
+<p>职场上，这样的人也同样不在少数。<br>上班时踩着点走进公司大门，下班前一小时就心不在焉。玩玩手机，刷刷微博，手里的工作能拖则拖。实在拖不了就勉强自己加个班，但一定要发条朋友圈，问：“你见过深夜十二点的写字楼吗？”自我感动到不行，却忽略了这本是白天早就应该完成的工作。</p>
+<ul>
+<li>工作，不必认真，能应付上司即可；</li>
+<li>能力，不思进取，不被炒鱿鱼就行；</li>
+<li>至于工资，只要心怀梦想，总有一天会涨的。</li>
+</ul>
+<p>这样的人，不是真“佛系”，而是依然会羡慕别人升职加薪，却拿着3千的工资，做着月薪5万的梦。</p>
+      
+      <a class="article-more-link" href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/" data-id="ck6ufc7f7007ac4wkbpe4gzt4"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-进程的系统编程接口" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/02/%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"
+    >进程的系统编程接口</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/02/%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2018-10-02T10:09:30.000Z" itemprop="datePublished">2018-10-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><h3 id="fork-amp-vfork"><a href="#fork-amp-vfork" class="headerlink" title="fork&amp;vfork"></a>fork&amp;vfork</h3><p>fork与vfork同样都是创建子进程，但是注意两者的区别：</p>
+<ul>
+<li>fork()：子进程拷贝父进程的<strong>数据段，代码段</strong>，</li>
+<li>vfork ()：子进程与父进程<strong>共享数据段</strong></li>
+<li>fork()：父子进程的<strong>执行次序不确定</strong></li>
+<li>vfork()： <strong>保证子进程先运行</strong>，在调用exec 或exit 之前与父进程数据是共享的,在它调用exec或exit 之后父进程才可能被调度运行</li>
+<li>vfork()：保证子进程先运行，在她调用exec 或exit 之后父进程才可能被调度运行。<strong>如果在调用这两个函数之前子进程依赖于父进程的进一步动作，则会导致死锁</strong></li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/10/02/%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/02/%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/" data-id="ck6ufc7gm00c8c4wka980egjr"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-必须避免的C语言大坑" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/09/28/%E5%BF%85%E9%A1%BB%E9%81%BF%E5%85%8D%E7%9A%84C%E8%AF%AD%E8%A8%80%E5%A4%A7%E5%9D%91/"
+    >必须避免的C语言大坑</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/09/28/%E5%BF%85%E9%A1%BB%E9%81%BF%E5%85%8D%E7%9A%84C%E8%AF%AD%E8%A8%80%E5%A4%A7%E5%9D%91/" class="article-date">
+  <time datetime="2018-09-28T10:09:30.000Z" itemprop="datePublished">2018-09-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="变量的定义位置"><a href="#变量的定义位置" class="headerlink" title="变量的定义位置"></a>变量的定义位置</h2><p>先上一段看来比较正常的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Tim\n"</span>);</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"a = %d\n"</span>,a);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 由于我的环境是VisualStudio2013，所以上述程序可以完美执行，并且是编译0警告通过，但是在VisualStudio2008的环境下这样写是完全错误的，C89规定，在任何执行语句之前，在块的开头声明所有局部变量。但是在C99以及C++中则没有这个限制，即在首次使用之前，可在块的任何位置都可以声明变量。例如下面的写法对于C89标准才是正确的： </p>
+      
+      <a class="article-more-link" href="/2018/09/28/%E5%BF%85%E9%A1%BB%E9%81%BF%E5%85%8D%E7%9A%84C%E8%AF%AD%E8%A8%80%E5%A4%A7%E5%9D%91/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/28/%E5%BF%85%E9%A1%BB%E9%81%BF%E5%85%8D%E7%9A%84C%E8%AF%AD%E8%A8%80%E5%A4%A7%E5%9D%91/" data-id="ck6ufc7fu009cc4wkaepg1dpw"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-深入理解进程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/"
+    >深入理解进程</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" class="article-date">
+  <time datetime="2018-09-27T10:09:30.000Z" itemprop="datePublished">2018-09-27</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="现代计算机体系结构"><a href="#现代计算机体系结构" class="headerlink" title="现代计算机体系结构"></a>现代计算机体系结构</h2><h3 id="冯·诺依曼结构"><a href="#冯·诺依曼结构" class="headerlink" title="冯·诺依曼结构"></a>冯·诺依曼结构</h3><p>要了解进程的概念得先从计算机的体系结构说起，首先了解一些世界上用得最多的计算机体系结构：冯·诺依曼结构(还有其他的计算机体系结构：如哈佛结构)</p>
+<p><img src="http://img.zouchanglin.cn///20200201/2BqIjDIWful9.png" alt="mark"></p>
+<p>冯·诺曼结构处理器具有以下几个特点：必须有一个<strong>存储器</strong>；必须有一个<strong>控制器</strong>；必须有一个<strong>运算器</strong>，用于完成算术运算和逻辑运算；必须有<strong>输入和输出设备</strong>，用于进行人机通信</p>
+<h3 id="存储设备对比"><a href="#存储设备对比" class="headerlink" title="存储设备对比"></a>存储设备对比</h3><p><img src="http://img.zouchanglin.cn///20200201/eKrhr0zIISk7.png" alt="mark"></p>
+<p>上图从容量、传输速度、价格上来作比较，可以看出来为什么我们平时见到的计算机为什么硬盘几百G甚至几个T，而内存却只有8G或者16G，内存的IO速度是非常快的，跟硬盘的IO速度是 <strong>数量级</strong> 的差距，和内存相比寄存器就更快了，也是数量级的差距，于是出现了缓存，现在(2018/09/27)都是三级缓存，也就几M的大小，每次CPU在执行一些指令的时候会将需要的数据放在缓存中，其实就相当于是一个过渡元件！</p>
+      
+      <a class="article-more-link" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" data-id="ck6ufc7g900asc4wk481u6v2y"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-哈希与海量数据处理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"
+    >哈希与海量数据处理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2018-09-23T10:09:30.000Z" itemprop="datePublished">2018-09-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="哈希切割、Top-K问题"><a href="#哈希切割、Top-K问题" class="headerlink" title="哈希切割、Top K问题"></a>哈希切割、Top K问题</h2><blockquote>
+<p><strong>问题一：给一个超过100G大小的log file, log中存着IP地址, 设计算法找到出现次数最多的IP地址？</strong><br><strong>问题二：与上题目条件相同，如何找出Top K的IP？</strong><br><strong>问题三：直接用Linux命令如何实现？</strong></p>
+</blockquote>
+      
+      <a class="article-more-link" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-id="ck6ufc7fm008cc4wk8qw2091k"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/9/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    C++11新特性 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-C++11新特性" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  C++11新特性
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2018-11-04T10:09:30.000Z" itemprop="datePublished">2018-11-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="auto关键字"><a href="#auto关键字" class="headerlink" title="auto关键字"></a>auto关键字</h2><p>C语言中其实就有auto关键字，修饰可变化的量，但是由于平时我们直接使用<code>int a = 10;</code>也是声明变量，编译器已经自动帮我们加上了auto关键字，是C语言中应用最广泛的一种类型，也就是说，省去类型说明符auto的都是自动变量！<br>随着时代进步，Java10中有一个新特性，就是使用<code>var</code>来定义变量，当然前提是类型可推导，语言总是在演化，C++11也是支持了这个新特性，不过在C++11中是<code>auto</code>关键字：使用auto的时候，编译器根据上下文情况，确定auto变量的真正类型！<br>接下来演示一下auto的使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">auto</span> b = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; s;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator be = s.begin();</span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator en = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> be2 = s.begin(); <span class="comment">//很显然使用auto可以减少很多不必要的代码</span></span><br><span class="line">	<span class="keyword">auto</span> en2 = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很显然使用auto可以减少很多不必要的代码，但是:</p>
+<ul>
+<li>auto不能作为函数参数</li>
+<li>auto不能直接用来声明数组</li>
+<li>auto不能定义类的非静态成员变量</li>
+<li>实例化模板时不能使用auto作为模板参数</li>
+<li>auto作为函数返回值时，只能用于定义函数，不能用于声明函数</li>
+<li>为了避免与C++98中的auto发生混淆，C++11只保留了auto作为类型指示符的用法</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="for-each"><a href="#for-each" class="headerlink" title="for-each"></a>for-each</h2><p>新式风格的for循环，在Java中叫做增强for循环，这个特性从JDK1.5开始被支持，随后C++11也支持了这种for循环</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[] = &#123; <span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">11</span> &#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>for循环迭代的范围必须是确定的：对于数组而言，就是数组中第一个元素和最后一个元素的范围；对于类而言，应该提供begin和end的方法，begin和end就是for循环迭代的范围<br>不能对参数中的数组进行for-each，因为长度不确定</p>
+<h2 id="指针空值nullptr"><a href="#指针空值nullptr" class="headerlink" title="指针空值nullptr"></a>指针空值nullptr</h2><p>在良好的C/C++编程习惯中，声明一个变量时最好给该变量一个合适的初始值，否则可能会出现不可预料的错误，比如未初始化的指针。<br>NULL实际是一个宏，在传统的C头文件(stddef.h)中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL ((void *)0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p> 可以看到，NULL可能被定义为字面常量0，或者被定义为无类型指针(void*)的常量。不论采取何种定义，在使用空值的指针时，都不可避免的会遇到一些麻烦: </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"f(int)"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>*)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"f(int*)"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	f(<span class="number">0</span>);</span><br><span class="line">	f(<span class="literal">NULL</span>);</span><br><span class="line">	f((<span class="keyword">int</span>*)<span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序本意是想通过f(NULL)调用指针版本的<code>f(int*)</code>函数，但是由于NULL被定义成0，因此与程序的初衷相悖。</p>
+<p>在C++98中，字面常量0既可以是一个整形数字，也可以是无类型的指针<code>(void*)</code>常量，但是编译器默认情况下将其看成是一个整形常量，如果要将其按照指针方式来使用，必须对其进行强转<code>(void *)0</code>。</p>
+<p>为了考虑兼容性，C++11并没有消除常量0的二义性，C++11给出了全新nullptr表示空值指针。C++11为什么不在NULL的基础上进行扩展，这是因为NULL以前就是一个宏，而且不同的编译器厂商对于NULL的实现可能不太相同，而且直接扩展NULL，可能会影响以前旧的程序。因此：为了避免混淆，C++11提供了<br>nullptr，即：nullptr代表一个指针空值常量。nullptr是有类型的，其类型为nullptr_t，仅仅可以被隐式转化为指针类型，nullptr_t被定义在头文件中： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(<span class="literal">nullptr</span>)</span> <span class="keyword">nullptr_t</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>在使用nullptr表示指针空值时，不需要包含头文件，因为nullptr是C++11作为新关键字引入的。</li>
+<li>在C++11中，sizeof(nullptr) 与 sizeof((void*)0)所占的字节数相同。</li>
+<li>为了提高代码的健壮性，在后续表示指针空值时建议最好使用nullptr。</li>
+</ol>
+<h2 id="long-long-类型"><a href="#long-long-类型" class="headerlink" title="long long 类型"></a>long long 类型</h2><p>long long 类型实际上没有在C++ 98中存在，而之后被C99标准收录，其实现在市面上大多数编译器是支持 long long 的，但是这个类型正式成为C++的标准类型是在C++11中。标准要求long long至少是64位也就是8个字节。一个字面常量使用LL后缀表示long long类型，使用ULL后缀表示unsigned long long 类型</p>
+<h2 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a>constexpr</h2><p>定义常量的时候一般使用const来定义，一个常量必须在定义的时候进行初始化，并且之后不可更改。一个常量必须使用一个常量表达式进行初始化，并且在编译期间就可以得到常量的值，但是如何确定一个表达式就是常量表达式呢，这个通常是由程序员自己确定的，所以C++11提供了一个新的关键字constexpr，使用该关键字定义的常量，由编译器检查为其赋值的表达式是否是常量表达式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = a;<span class="comment">//OK</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> i2 = a;<span class="comment">//error</span></span><br></pre></td></tr></table></figure>
+
+<p>编译器编译的时候就会报错说a并不是常量。显然constexpr关键字将常量表达式的检查转交给编译器处理，而不是程序员自己，所以使用constexpr定义常量要比const安全!</p>
+<p>普通的函数一般是不能用来为constexpr常量赋值的，但是C++11允许定义一种constexpr的函数，这种函数在编译期间就可以计算出结果，这样的函数是可以用来为constexpr赋值的。定义constexpr函数需要遵守一些约定，函数的返回类型以及所有形参的类型都应该是字面值，一般情况下函数体中必须有且只有一条return语句。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">()</span></span>&#123;	<span class="comment">//error</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">fun</span><span class="params">()</span></span>&#123;	<span class="comment">//OK</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">constexpr</span> <span class="keyword">int</span> ret = fun();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行初始化的时候编译器将函数的调用替换成结果值，constexpr函数体中也可以出现除了return之外的其他语句，但是这些语句在运行时不应该执行任何操作，例如空语句，using声明等。constexpr函数允许其返回值并非是一个字面值: </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">(<span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s * <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> b = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> c = <span class="number">40</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> si = size(a);  <span class="comment">//error a是一个变量所以函数返回的是一个可变的值</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> si1 = size(<span class="number">20</span>); <span class="comment">//ok 函数返回的实际上是一个常量</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> si2 = size(b);  <span class="comment">//ok</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> si3 = size(c);  <span class="comment">//ok</span></span><br></pre></td></tr></table></figure>
+
+<p>由上可知constexpr函数并不一定返回常量，如果应用于函数的参数是一个常量表达式则返回常量，否则返回变量，而该函数调用到底是一个常量表达式还是非常量表达式则由编译器来判断。这就是constexpr的好处!</p>
+<h2 id="using类型别名"><a href="#using类型别名" class="headerlink" title="using类型别名"></a>using类型别名</h2><p>类型别名其实早在C语言中就有了，一般情况下我们使用关键字typedef来声明一个类型的别名，在C++11中增加了另一种声明类型别名的方法就是使用using关键字，using关键字在C++11以前一般用来引用命名空间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> INT;  <span class="comment">// 右侧符号代表左侧</span></span><br><span class="line"><span class="keyword">using</span> INT2 = <span class="keyword">int</span>; <span class="comment">// 左侧符号代表右侧</span></span><br><span class="line"></span><br><span class="line">INT a = <span class="number">20</span>;</span><br><span class="line">INT2 b = <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="列表初始化"><a href="#列表初始化" class="headerlink" title="列表初始化"></a>列表初始化</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//列表初始化还可以用结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Str</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> y;</span><br><span class="line">&#125;Str;</span><br><span class="line">Str s = &#123; <span class="number">10</span>,<span class="number">20</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//列表初始化类,必须是public成员,如果含有私有成员会失败</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cls</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line">Cls c = &#123; <span class="number">10</span>,<span class="number">20</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//vector不仅可以使用列表初始化，还可以使用列表进行赋值，数组不能用列表赋值</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v1=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;; <span class="comment">// 初始化</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v2;</span><br><span class="line">v2=&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;; <span class="comment">//赋值</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//map列表初始化</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span> ,<span class="keyword">int</span>&gt; m = &#123;&#123;<span class="string">"x"</span>,<span class="number">1</span>&#125;,&#123;<span class="string">"y"</span>,<span class="number">2</span>&#125;,&#123;<span class="string">"z"</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//用函数返回初始化列表只展示关键代码，相关头文件自行添加</span></span><br><span class="line"><span class="comment">//同理结构体，类，map的返回也可以使用初始化列表返回</span></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">getVector</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v = getVector();</span><br><span class="line">  <span class="built_in">cout</span>&lt;&lt;v[<span class="number">0</span>]&lt;&lt;v[<span class="number">1</span>]&lt;&lt;v.size()&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="decltype类型指示符"><a href="#decltype类型指示符" class="headerlink" title="decltype类型指示符"></a>decltype类型指示符</h2><p>decltype作用于一个表达式，并且返回该表达式的类型，在此过程中编译器分析表达式的类型，并不会计算表达式的值:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">decltype</span>(a+b) c = <span class="number">50</span>; <span class="comment">// OK c的类型就是 a+b 的类型int</span></span><br></pre></td></tr></table></figure>
+
+<p>对于引用类型decltype有一些特别的地方： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">20</span> ;</span><br><span class="line"><span class="keyword">int</span> &amp;b = a;</span><br><span class="line"><span class="keyword">decltype</span>(b) c ;  <span class="comment">// Error c是引用类型必须赋值</span></span><br><span class="line"><span class="keyword">decltype</span>(b) d = a; <span class="comment">// OK  d是引用类型，指向a</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到decltype如果作用于一个引用类型，其得到的还是一个引用类型<br>如果一个表达式是一个解指针引用的操作，decltype得到的也是一个引用类型： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">20</span> ;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"><span class="keyword">decltype</span>(*p) c = a;  <span class="comment">// c的类型是int&amp;</span></span><br><span class="line">c = <span class="number">50</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// 输出50</span></span><br></pre></td></tr></table></figure>
+
+<p>当decltype作用于一个变量的时候，变量加不加括号是有区别的，例如： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">decltype</span>(a) b = <span class="number">30</span>; <span class="comment">//ok b的类型是 int</span></span><br><span class="line"><span class="keyword">decltype</span>((a)) c = a ; <span class="comment">// ok c的类型是int&amp; 其关联变量 a</span></span><br></pre></td></tr></table></figure>
+
+<p>加上括号之后编译器会把(a)当作是一个表达式处理，而变量是一种可以作为赋值语句左值的表达式，所以会解释成引用类型。</p>
+<h2 id="尾置返回类型"><a href="#尾置返回类型" class="headerlink" title="尾置返回类型"></a>尾置返回类型</h2><p>看看下面这个函数声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*func(<span class="keyword">char</span> x))[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+
+<p>很显然，func函数的参数是一个char类型的x，返回值是一个指向10个int类型的指针数组的指针（就是一个10个元素的数组，每个元素分别指向一个int类型，返回的就是数组首元素地址—&gt;数组指针），这样的定义实在是晦涩难懂，于是C++11新特性中出现了尾置返回类型： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto func(char x) -&gt; int(*) [10];</span><br></pre></td></tr></table></figure>
+
+<p>这种形式将函数的返回类型写在函数声明的最后面，并且在函数形参列表后面加上 -&gt; 符号，然后紧接着是函数需要返回的类型，由于函数的返回类型被放在了形参列表之后，所以在函数名前面使用一个 auto替代。</p>
+<h2 id="default-生成默认构造函数"><a href="#default-生成默认构造函数" class="headerlink" title="=default 生成默认构造函数"></a>=default 生成默认构造函数</h2><p>在C++的类中，如果我们没有定义构造函数，编译器会为我们合成默认的无参构造函数，如果我们定义了构造函数，则编译器就不生成默认构造函数了，但是如果我们定义构造函数同时也希望编译器生成默认构造函数呢? C++11中可以通过在构造函数的声明中直接 <code>=default</code>的方式要求编译器生成构造函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        ClassName(<span class="keyword">int</span> x);</span><br><span class="line">        ClassName()=<span class="keyword">default</span>; <span class="comment">// 显示要求编译器生成构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类对象成员的类内初始化"><a href="#类对象成员的类内初始化" class="headerlink" title="类对象成员的类内初始化"></a>类对象成员的类内初始化</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>; <span class="comment">//C++11 之前是不允许的</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> add = [](<span class="keyword">int</span> a, <span class="keyword">int</span> b)-&gt;<span class="keyword">int</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">int</span> ret = add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"ret:"</span> &lt;&lt; ret &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="缺省参数-lt-不在C-11新特性内-gt"><a href="#缺省参数-lt-不在C-11新特性内-gt" class="headerlink" title="缺省参数&lt;不在C++11新特性内&gt;"></a>缺省参数&lt;不在C++11新特性内&gt;</h2><p>这个只是为了我做一些笔记，这个并不属于C++11性特性</p>
+<ul>
+<li><strong>半缺省参数必须从右往左依次来给出，不能间隔着给</strong>，站在编译器的角度考虑这个问题</li>
+<li>缺省参数不能在函数声明和定义中同时出现</li>
+<li>缺省参数在实现与头文件分离的时候缺省参数定义只能出现在头文件中，如果头文件未定义缺省参数，那么即使在实现的时候定义缺省参数也是无法编译的</li>
+<li>综上：<strong>头文件定义了缺省参数实现的时候就不能写缺省参数，头文件没有定义缺省参数，实现的时候更不能自己加缺省参数！</strong></li>
+</ul>
+<p> 参考链接：<br><a href="https://www.cnblogs.com/feng-sc/p/5710724.html" target="_blank" rel="noopener">《C++11常用特性的使用经验总结》</a><br><a href="http://www.cnblogs.com/loskyer/p/8984142.html" target="_blank" rel="noopener">《C++11新特性梳理》</a><br><a href="https://blog.csdn.net/shidya/article/details/65025895" target="_blank" rel="noopener">《C++11新特性整理》</a> </p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" data-id="ck6ufc7cr0001c4wkh3nodl8d"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            C++类特性
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Linux下打包静动态库</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

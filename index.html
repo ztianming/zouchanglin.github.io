@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/zouchanglin"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="http://img.zouchanglin.cn///20200202/fbsG1RLWONAe.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Hexo</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+        <img
+          src="/images/code.svg"
+          class="cover-logo"
+          alt="Hexo"
+        />
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article id="post-通过Namespace实现隔离" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/"
+    >通过Namespace实现隔离</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/" class="article-date">
+  <time datetime="2020-02-19T07:02:22.000Z" itemprop="datePublished">2020-02-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200219/96tchOUQRfiQ.png" alt="mark"></p>
+<p>在上次的文章<a href="[https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/](https://zouchanglin.cn/2020/02/18/虚拟化的基石——Namespace/)">《虚拟化的基石——Namespace》</a> 中主要讲述了Namespace的作用，却没有详细的拿代码举证，上次仅仅证明了UTS Namespace，剩下五个命名空间全在这篇文章了，主要是IPC Namespace、PID Namespace、Mount Namespace、User Namespace、Network Namespace的概念的理解以及使用代码证明！</p>
+      
+      <a class="article-more-link" href="/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/" data-id="ck6ufc7go00cfc4wk8ibifbjt"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-虚拟化的基石——Namespace" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/"
+    >虚拟化的基石——Namespace</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" class="article-date">
+  <time datetime="2020-02-18T14:44:21.000Z" itemprop="datePublished">2020-02-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <blockquote>
+<p>每每被人问到：“Docker技术到底是怎么实现的呢？”我只能粗粗浅浅地说：“Docker是使用Linux Kernel的Namespace 和 Cgroups实现的一种容器技术。”那么，什么是Namespace，什么是Cgroups，Docker是怎么使用它们的，容器到底是怎么一步步被创建出来的？问到这些，我就会支支吾吾地不知所以。由此可见，了解容器技术的底层技术，然后明白它们是如何工作的，尤为重要，这些才是整个容器技术的基石，掌握了这些基石才能更加容易地向上攀登。 </p>
+</blockquote>
+<p>那今天就先看看Namespace吧！</p>
+<p><img src="http://img.zouchanglin.cn///20200218/07pgJ5CxHbna.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" data-id="ck6ufc7gf00bgc4wkh0ev03qj"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-构建可复用的模块" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/"
+    >构建可复用模块</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time datetime="2020-02-18T02:27:22.000Z" itemprop="datePublished">2020-02-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/">工程构建</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Golang的工程管理一直是初学者所不能很好的理解的事物，本篇主要讲述了在Golang中如何进行工程管理，如何构建可复用模块，从GitHub获取Go的包是如何操作的，以及Golang的包管理工具的基本使用，这样再进行项目开发的时候就可以模块化的管理自己的工程，首先还得从Package说起！</p>
+<p><img src="http://img.zouchanglin.cn///20200218/9Uui7Swk4Vcp.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" data-id="ck6ufc7fz009xc4wk5kl597w1"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-在Golang中处理异常" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/"
+    >在Golang中处理异常</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" class="article-date">
+  <time datetime="2020-02-17T12:04:22.000Z" itemprop="datePublished">2020-02-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>通常我们需要编写好的错误处理方式，在了避免某些程序员滥用异常，于是Go这里直接把异常这一块给砍掉了，最终还是通过返回值来判断程序的异常情况，毕竟Go可是支持多返回值的语言，比如atoi、itoa等函数，就不能忽略它的第二个返回值，因为第二个返回值代表了转换是否成功！不过Golang还是提供了一些错误处理机制的</p>
+<p><img src="http://img.zouchanglin.cn///20200217/IvGCHwjRpvVi.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" data-id="ck6ufc7fn008fc4wk49m3a2qx"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="tag">异常处理</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-实践Go的面向对象" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+    >实践Go的面向对象</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="article-date">
+  <time datetime="2020-02-17T09:22:21.000Z" itemprop="datePublished">2020-02-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Go是一种面向对象的语言吗？ </p>
+<p>关于Go是一种面向对象的语言吗这种问题，官方的解释是难说，说不准，这回答就有意思了！在我看来尽管Go具有类型和方法，并允许使用面向对象的编程风格，但没有类型层次结构。 Go的接口完全提供了一种不同的方法，可以将类型嵌入其他类型，达到继承的效果，其实又完全不同于继承，因为Go其中一个特点是可以为任何类型的数据定义方法，所以再讨论Go是不是面向对象的语言的时候还是可以先体验体验Go的Functional Programming</p>
+<p><img src="http://img.zouchanglin.cn///20200217/KzljGvryaBkw.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-id="ck6ufc7fq008tc4wkhjml0fp4"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Golang值得注意的点" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/"
+    >Golang值得注意的点</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" class="article-date">
+  <time datetime="2020-02-16T08:52:02.000Z" itemprop="datePublished">2020-02-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>记录了一下最近学习golang语言遗忘的和模糊的知识点，主要涵盖主函数退出返回值、如何编写测试程序、如何定义常量、golang的类型转换、golang中的预定义值、指针与其他语言的差异（主要是C语言），以及运算符等等！</p>
+<p><img src="http://img.zouchanglin.cn///20200216/SHPRYlCdVQO1.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" data-id="ck6ufc7de001gc4wk2nwqergz"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Golang的常用容器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/"
+    >Golang的常用容器</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" class="article-date">
+  <time datetime="2020-02-15T16:00:00.000Z" itemprop="datePublished">2020-02-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>本篇主要是讲述了数组和切片、Map的初始化方式与基本使用、重点阐述了如何使用Map实现Set、用Map实现工厂模式，以及字符串的使用，字符串常用API、Unicode与UTF8的关系！</p>
+<p><img src="http://img.zouchanglin.cn///20200216/cdGfnUuRhwPr.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" data-id="ck6ufc7dh001oc4wk618o4oci"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-IDEA插件推荐" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/"
+    >IDEA插件推荐</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="article-date">
+  <time datetime="2020-02-14T16:00:00.000Z" itemprop="datePublished">2020-02-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200216/igy99NdTRXcF.png" alt="mark"></p>
+<h2 id="Alibaba-Java-Coding-Guidelines"><a href="#Alibaba-Java-Coding-Guidelines" class="headerlink" title="Alibaba Java Coding Guidelines"></a>Alibaba Java Coding Guidelines</h2><p>写代码怎么能没有规范呢？这款插件是伴随阿里巴巴编码约规出现的，自我感觉是必须要安装的插件</p>
+<h2 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h2><p>以前的Java项目中，充斥着太多不友好的代码：各种getter/setter/toString；异常处理；I/O流的关闭操作等等，这些样板代码既没有技术含量，又影响着代码的美观，Lombok必备！不要忘记引入Lombok依赖</p>
+      
+      <a class="article-more-link" href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" data-id="ck6ufc7dp0029c4wkhre5f72l"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA/" rel="tag">IDEA</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-NIO网络通信" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"
+    >NIO网络通信</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time datetime="2020-02-08T23:52:02.000Z" itemprop="datePublished">2020-02-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="阻塞式IO与非阻塞式IO"><a href="#阻塞式IO与非阻塞式IO" class="headerlink" title="阻塞式IO与非阻塞式IO"></a>阻塞式IO与非阻塞式IO</h2><p>传统的IO流都是阻塞式的。也就是说，当一个线程调用read() 或write()时，该线程被阻塞，直到有一些数据被读取或写入，该线程在此期间不能执行其他任务。因此，在完成网络通信进行IO操作时，由于线程会阻塞，所以服务器端必须为每个客户端都提供一个独立的线程进行处理，当服务器端需要处理大量客户端时，性能急剧下降。</p>
+<p>Java NIO是非阻塞模式的。当线程从某通道进行读写数据时，若没有数据可用时，该线程可以进行其他任务。线程通常将非阻塞IO的空闲时间用于在其他通道上执行I0操作，所以单独的线程可以管理多个输入和输出通道。因此，NIO可以让服务器端使用一个或有限几个线程来同时处理连接到服务器端的所有客户端。</p>
+<p><img src="http://img.zouchanglin.cn///20200209/KXe8DDICWRg6.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" data-id="ck6ufc7er005nc4wkawm11nm4"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-NIO与通道数据传输" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/"
+    >NIO与通道数据传输</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="article-date">
+  <time datetime="2020-02-08T11:24:22.000Z" itemprop="datePublished">2020-02-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="NIO的通道"><a href="#NIO的通道" class="headerlink" title="NIO的通道"></a>NIO的通道</h2><p>通道( Channel) ：由java.nio.channels包定义的。Channel 表示IO源与目标打开的连接。Channel类似于传统的“流”， 只不过Channel本身不能直接访问数据，Channel只能与Buffer进行交互。</p>
+<p>应用程序与磁盘之间的数据写入或者读出，都需要由用户地址空间和内存地址空间之间来回复制数据，内存地址空间中的数据通过操作系统层面的IO接口，完成与磁盘的数据存取。在应用程序调用这些系统IO接口时，由CPU完成一系列调度、任务分配，在早期这些IO接口都是由CPU独立负责。所以当发生大规模读写请求时，CPU的占用率很高。 </p>
+<p><img src="http://img.zouchanglin.cn///20200208/ERDg8DebUJIv.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" data-id="ck6ufc7en0058c4wk840f8ss3"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

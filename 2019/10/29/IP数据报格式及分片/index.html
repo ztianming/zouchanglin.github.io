@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    IP数据报格式及分片 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-IP数据报格式及分片" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  IP数据报格式及分片
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/29/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%88%86%E7%89%87/" class="article-date">
+  <time datetime="2019-10-29T04:10:41.000Z" itemprop="datePublished">2019-10-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="IP数据报格式"><a href="#IP数据报格式" class="headerlink" title="IP数据报格式"></a>IP数据报格式</h1><p><img src="http://img.zouchanglin.cn///20200202/EJzNVBzNurAo.png" alt="mark"></p>
+<a id="more"></a>
+
+<p>下面是首部的结构：</p>
+<p><img src="http://img.zouchanglin.cn///20200202/w9CMl9WdvEVv.png" alt="mark"></p>
+<p>这里的长度单位都是位（比特位）</p>
+<h2 id="1、版本"><a href="#1、版本" class="headerlink" title="1、版本"></a>1、版本</h2><p>4位版本号(version)：指定IP协议的版本，对于IPv4来说，就是4</p>
+<h2 id="2、首部长度"><a href="#2、首部长度" class="headerlink" title="2、首部长度"></a>2、首部长度</h2><p>4位头部长度(header length)：IP头部的长度，单位是4比特，最小为5（因为固定部分为20字节，所以最小就是5），也就是说首部长度是 4×5=20到 4×15=60之间</p>
+<h2 id="3、区分服务"><a href="#3、区分服务" class="headerlink" title="3、区分服务"></a>3、区分服务</h2><p>8位服务类型(Type Of Service)：3位优先权字段(已经弃用)，4位TOS字段，和1位保留字段(必须置为0)。4位<br>TOS分别表示：最小延时、 最大吞吐量、 最高可靠性、最小成本。 这四者相互冲突，只能选择一个。对于<br>ssh/telnet这样的应用程序，最小延时比较重要；对于ftp这样的程序，最大吞吐量比较重要。</p>
+<h2 id="4、总长度"><a href="#4、总长度" class="headerlink" title="4、总长度"></a>4、总长度</h2><p>16位总长度(total length)：IP数据报整体占多少个字节</p>
+<h2 id="5、标识"><a href="#5、标识" class="headerlink" title="5、标识"></a>5、标识</h2><p>16位标识(id)：唯一的标识主机发送的报文。如果IP报文在数据链路层被分片了，那么每一个片里面的这个<br>id都是相同的。</p>
+<h2 id="6、标志"><a href="#6、标志" class="headerlink" title="6、标志"></a>6、标志</h2><p>3位标志字段：第一位保留（保留的意思是现在不用，但是还没想好说不定以后要用到）。第二位置为1表示禁<br>止分片，这时候如果报文长度超过MTU，IP模块就会丢弃报文。第三位表示“更多分片”，如果分片了的话，最后一个分片置为1，其他是0。类似于一个结束标记。</p>
+<h2 id="7、片偏移"><a href="#7、片偏移" class="headerlink" title="7、片偏移"></a>7、片偏移</h2><p>13位分片偏移(framegament offset)：是分片相对于原始IP报文开始处的偏移。其实就是在表示当前分片<br>在原报文中处在哪个位置，实际偏移的字节数是这个值 * 8 得到的。因此，除了最后一个报文之外，其他报<br>文的长度必须是8的整数倍（否则报文就不连续了）。</p>
+<h2 id="8、生存时间"><a href="#8、生存时间" class="headerlink" title="8、生存时间"></a>8、生存时间</h2><p>8位生存时间(Time To Live, TTL)：数据报到达目的地的最大报文跳数，一般是64。每次经过一个路由，TTL<br>就减一，一直减到0还没到达，那么就丢弃了。这个字段主要是用来防止出现路由循环</p>
+<h2 id="9、协议"><a href="#9、协议" class="headerlink" title="9、协议"></a>9、协议</h2><p>8位协议：表示上层协议的类型</p>
+<p><img src="http://img.zouchanglin.cn///20200202/EdlnqqH6KqRl.png" alt="mark"></p>
+<h2 id="10、首部校验和"><a href="#10、首部校验和" class="headerlink" title="10、首部校验和"></a>10、首部校验和</h2><p>16位头部校验和：使用CRC进行校验，来鉴别头部是否损坏。也就是二进制的和！</p>
+<h2 id="11、源地址和目的地址"><a href="#11、源地址和目的地址" class="headerlink" title="11、源地址和目的地址"></a>11、源地址和目的地址</h2><p>32位源地址和32位目标地址： 表示发送端和接收端</p>
+<h2 id="12、可选字段和填充"><a href="#12、可选字段和填充" class="headerlink" title="12、可选字段和填充"></a>12、可选字段和填充</h2><p>用来支持排错、测量以及安全等措施</p>
+<h1 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h1><h2 id="1、最大传送单元MTU"><a href="#1、最大传送单元MTU" class="headerlink" title="1、最大传送单元MTU"></a>1、最大传送单元MTU</h2><p>MTU全称是maximum transmission unit，是指链路层数据帧可封装数据的上限，以太网的MTU是1500字节。</p>
+<p><img src="http://img.zouchanglin.cn///20200202/ztypnMRmrgh6.png" alt="mark"></p>
+<h2 id="2、IP数据报的标识"><a href="#2、IP数据报的标识" class="headerlink" title="2、IP数据报的标识"></a>2、IP数据报的标识</h2><p>回顾一下IP数据报中的标识：唯一的标识主机发送的报文。如果IP报文在数据链路层被分片了，那么每一个片里面的这个id都是相同的。</p>
+<h2 id="3、IP数据报的标识字段"><a href="#3、IP数据报的标识字段" class="headerlink" title="3、IP数据报的标识字段"></a>3、IP数据报的标识字段</h2><p>回顾一下IP数据报中的标志字段：</p>
+<p><img src="http://img.zouchanglin.cn///20200202/bBkflg8QrVmE.png" alt="mark"></p>
+<h2 id="4、IP数据报的片偏移"><a href="#4、IP数据报的片偏移" class="headerlink" title="4、IP数据报的片偏移"></a>4、IP数据报的片偏移</h2><p>片偏移：指出较长分组分片后，某片在原分组中的相对位置，以8B为单位。除了最后一个分片，每个分片长度一定是8B的整数倍。</p>
+<h2 id="5、分片示例"><a href="#5、分片示例" class="headerlink" title="5、分片示例"></a>5、分片示例</h2><p>以太网帧中的数据长度规定最小46字节，最大1500字节，ARP数据包的长度不够46字节，要在后面补填充位；最大值1500称为以太网的最大传输单元(MTU)，不同的网络类型有不同的MTU；</p>
+<p>如果一个数据包从以太网路由到拨号链路上，数据包长度大于拨号链路的MTU了，则需要对数据包进行分片(fragmentation)；不同的数据链路层标准的MTU是不同的；</p>
+<p>下面以1420比特为最大值进行分片：</p>
+<p><img src="http://img.zouchanglin.cn///20200202/j9YudIzeH7MO.png" alt="mark"></p>
+<p>这个例子其实很好理解，首部必须占用了20位，数据划分为1400位+1400位+1000位，他们都来自同一个数据报，所以标识都是一样的（在这里假设都为12345），数据报1、2、3DF都是0则表示允许分片，数据报1、2MF都是1表示后面还有分片，数据报3的MF为0，代表自己是最后一个分片，后面没有分片了，至于片偏移这个额也是可以计算的，数据报1的片偏移为0，1400/8=175，所以数据报2的片偏移为175，数据报3的片偏移为350，通过片偏移就是为了数据重组或者合并后仍然是原来未分片时候的顺序！</p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/29/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%88%86%E7%89%87/" data-id="ck6ufc7dl0022c4wk3w2c05au"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/10/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            计算机网络性能指标
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">分布式架构基础</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

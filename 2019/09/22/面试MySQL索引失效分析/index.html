@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    【面试】MySQL索引失效分析 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-面试MySQL索引失效分析" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【面试】MySQL索引失效分析
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" class="article-date">
+  <time datetime="2019-09-22T13:30:22.000Z" itemprop="datePublished">2019-09-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">974字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>本文主要向大家介绍了MySQL数据库之索引会失效的原因分析及解决索引失效的方法 ，通过具体的内容向大家展现，希望对大家学习MySQL数据库有所帮助。 </p>
+<a id="more"></a>
+
+<p>先看下面的一个示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_03(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment,</span><br><span class="line">    c1 <span class="built_in">char</span>(<span class="number">10</span>),</span><br><span class="line">    c2 <span class="built_in">char</span>(<span class="number">10</span>),</span><br><span class="line">    c3 <span class="built_in">char</span>(<span class="number">10</span>),</span><br><span class="line">    c4 <span class="built_in">char</span>(<span class="number">10</span>),</span><br><span class="line">    c5 <span class="built_in">char</span>(<span class="number">10</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_03(c1, c2, c3, c4, c5) <span class="keyword">values</span> (<span class="string">'a1'</span>, <span class="string">'a2'</span>, <span class="string">'a3'</span>, <span class="string">'a4'</span>, <span class="string">'a5'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_03(c1, c2, c3, c4, c5) <span class="keyword">values</span> (<span class="string">'b1'</span>, <span class="string">'b2'</span>, <span class="string">'b3'</span>, <span class="string">'b4'</span>, <span class="string">'b5'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_03(c1, c2, c3, c4, c5) <span class="keyword">values</span> (<span class="string">'c1'</span>, <span class="string">'c2'</span>, <span class="string">'c3'</span>, <span class="string">'c4'</span>, <span class="string">'c5'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_03(c1, c2, c3, c4, c5) <span class="keyword">values</span> (<span class="string">'d1'</span>, <span class="string">'d2'</span>, <span class="string">'d3'</span>, <span class="string">'d4'</span>, <span class="string">'d5'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_03(c1, c2, c3, c4, c5) <span class="keyword">values</span> (<span class="string">'e1'</span>, <span class="string">'e2'</span>, <span class="string">'e3'</span>, <span class="string">'e4'</span>, <span class="string">'e5'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> idx_test03_c1234 <span class="keyword">on</span> test_03(c1, c2, c3, c4);</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">index</span> <span class="keyword">from</span> test_03;</span><br><span class="line"></span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> test_03 <span class="keyword">where</span> c1=<span class="string">'a1'</span> <span class="keyword">and</span> c2=<span class="string">'a2'</span> <span class="keyword">and</span> c3=<span class="string">'a3'</span> <span class="keyword">and</span> c4=<span class="string">'a4'</span>;</span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> test_03 <span class="keyword">where</span> c4=<span class="string">'a1'</span> <span class="keyword">and</span> c3=<span class="string">'a2'</span> <span class="keyword">and</span> c1=<span class="string">'a3'</span> <span class="keyword">and</span> c2=<span class="string">'a4'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200202/s9M52sGxGDe5.png" alt="mark"></p>
+<p>很显然最下面的SQL语句并没有按照索引的建立顺序来查询，但是由于MySQL优化器对这条SQL做了优化，使得优化后的语句和上面的是一样的顺序，这样就能顺利用到索引了！但是由于这样写SQL语句还是会让底层做一次SQL优化，所以还不如一开始就按照建立索引的顺序来写SQL。</p>
+<p><img src="http://img.zouchanglin.cn///20200202/H38okJGwwnrY.png" alt="mark"></p>
+<p>上面的SQL会导致c4这个索引失效，那么如果是c4的范围条件写前面呢？同样的道理，SQL优化器会对SQL语句做优化，优化后的语句成了<code>explain select * from test_03 where c1=&#39;a1&#39; and c2=&#39;a2&#39; and c3=&#39;a3&#39; and c4&gt;&#39;c4&#39;;</code> 所以自然会用到四个索引了！</p>
+<p>再看看下面的order by的例子，很显然用于查找的索引有两个就是c1、c2。c3用于排序了而不是查找，c4这个索引没有用到：</p>
+<p><img src="http://img.zouchanglin.cn///20200202/fv3VlPV2PmYg.png" alt="mark"></p>
+<p>所以上面的SQL和<code>explain select * from test_03 where c1=&#39;a1&#39; and c2=&#39;a2&#39; order by c3;</code> 一样的，和c4根本没有关系了</p>
+<p><img src="http://img.zouchanglin.cn///20200202/0IDudxaXxkig.png" alt="mark"></p>
+<p>上面这个例子呢主要是说中间兄弟没了，也就是你都没有给我第三层梯子，我怎么通过第四层排序，所以只能硬着头皮完成任务，那就Using filesort 呗！</p>
+<p><img src="http://img.zouchanglin.cn///20200202/1JFPUNYc7532.png" alt="mark"></p>
+<p>用到了一个c1索引，但是c2、c3用于排序，无filesort</p>
+<p><img src="http://img.zouchanglin.cn///20200202/XfDGGCzT6ohr.png" alt="mark"></p>
+<p>用了c1、c2两个字段索引，但是c2、c3用于排序，无filesort。看看下面这一种情况，为什么<code>explain select * from test_03 where c1=&#39;a1&#39; and c2=&#39;a2&#39; and c5=&#39;a5&#39; order by c3, c2;</code> 并没有产生文件内排序呢？</p>
+<p><img src="http://img.zouchanglin.cn///20200202/BpAO3eS4nFpm.png" alt="mark"></p>
+<p>因为c2已经是常量了，在已知字段是常量的情况下需要排序吗？肯定不需要。所以即使你写成了order by c3,c2 但是实际上只是对c3排序！</p>
+<p><img src="http://img.zouchanglin.cn///20200202/qDbYwawpN1WI.png" alt="mark"></p>
+<p>由上面的例子可以看出，用到了c1来查找，c4由于中间兄弟的消失是失效的索引，c2、c3用于分组，但是c2、c3如果不按照顺序分组的话就基本是是死掉了，出现了using temporary，这个是什么意思呢？看这个<a href="http://zouchanglin.cn/articles/2019/09/17/1568720691924.html#b3_solo_h4_14" target="_blank" rel="noopener">Explain中的Using temporary</a> </p>
+<p>group 表面上是分组，分组之前必排序，所以说和order by排序的法则和索引优化的原则是一致的！</p>
+<p>定值、范围还是排序，一般order by是给个范围。group by 基本上都需要进行排序，会有临时表产生</p>
+<p>一般性建议：</p>
+<p>对于单键索引，尽量选择针对当前query过滤性更好的索引</p>
+<p>在选择组合索引的时候，当前Query中过滤性最好的字段在索引字段顺序中，位置越靠前越好。</p>
+<p>在选择组合索引的时候，尽量选择可以能包含当前query中的where子句中更多字段的索引</p>
+<p>尽可能通过分析统计信息和调整query的写法来达到选择合适索引的目的</p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" data-id="ck6ufc7gp00cmc4wkb28w0yiw"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/10/14/%E8%B0%88%E8%B0%88%E4%B8%A4%E6%AC%A1%E6%AF%94%E8%B5%9B%E7%9A%84%E6%84%9F%E6%83%B3/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            谈谈两次比赛的感想
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">如何避免MySQL索引失效与三个优化实例</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    网站接入支付宝 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-网站接入支付宝" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  网站接入支付宝
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/05/31/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%94%AF%E4%BB%98%E5%AE%9D/" class="article-date">
+  <time datetime="2019-05-31T10:09:30.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">888字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="沙箱环境"><a href="#沙箱环境" class="headerlink" title="沙箱环境"></a>沙箱环境</h1><p>沙箱环境也就是特意为开发者准备的环境，从而避免去注册公司、审核之类的问题！<br>这个是沙箱环境的<a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="noopener">链接</a></p>
+<p>先要下载这两个工具</p>
+<p><img src="http://img.zouchanglin.cn///20200201/Vg9pk7XiEW78.png" alt="mark"></p>
+<p><img src="http://img.zouchanglin.cn///20200201/qm3LnJNtek24.png" alt="mark"></p>
+<p>环境一定要配置正确，尤其是秘钥之类的，至于回调地址先不考虑，如果要测试的话首先要保证你本机的服务可以映射到公网，内网穿透就是一种解决方案，而且域名还便宜!</p>
+<a id="more"></a>
+
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>支付包第三方Jar引入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alipay.sdk<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>alipay-sdk-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> 在resources目录下新建一个支付宝的配置文件：alipay.properties </p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号</span></span><br><span class="line"><span class="attr">app_id</span> = <span class="string">2016092900623298</span></span><br><span class="line"><span class="comment"># 商户私钥，您的PKCS8格式RSA2私钥</span></span><br><span class="line"><span class="attr">merchant_private_key</span> = <span class="string">你生成的商户私钥</span></span><br><span class="line"><span class="comment"># 支付宝公钥 对应APPID下的支付宝公钥。</span></span><br><span class="line"><span class="attr">alipay_public_key</span> = <span class="string">你的支付宝公钥</span></span><br><span class="line"><span class="comment"># 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数</span></span><br><span class="line"><span class="attr">notify_url</span> = <span class="string">http://106.12.202.93:8080/pay/payFinish</span></span><br><span class="line"><span class="comment"># 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数</span></span><br><span class="line"><span class="attr">return_url</span> = <span class="string">http://106.12.202.93:8080/pay/paySyncFinish</span></span><br><span class="line"><span class="comment"># 签名方式</span></span><br><span class="line"><span class="attr">sign_type</span> = <span class="string">RSA2</span></span><br><span class="line"><span class="comment"># 字符编码格式</span></span><br><span class="line"><span class="attr">charset</span> = <span class="string">utf-8</span></span><br><span class="line"><span class="comment"># 支付宝网关</span></span><br><span class="line"><span class="attr">gatewayUrl</span> = <span class="string">https://openapi.alipaydev.com/gateway.do</span></span><br></pre></td></tr></table></figure>
+
+<p> Controller层： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> edu.xpu.game.controller.shopping;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/pay"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OrderServiceImpl orderService;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PayServiceImpl payService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PayController</span><span class="params">(OrderServiceImpl orderService, PayServiceImpl payService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.orderService = orderService;</span><br><span class="line">        <span class="keyword">this</span>.payService = payService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/affirmPay"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">payOrder</span><span class="params">(@RequestParam(<span class="string">"masterOrderId"</span>)</span> String masterOrderId)</span>&#123;</span><br><span class="line">        Optional&lt;OrderMaster&gt; byId = orderService.findOrderById(masterOrderId);</span><br><span class="line"></span><br><span class="line">        AlipayBean alipayBean = <span class="keyword">new</span> AlipayBean();</span><br><span class="line">        alipayBean.setOut_trade_no(masterOrderId); <span class="comment">//设置订单Id</span></span><br><span class="line">        alipayBean.setSubject(<span class="string">"农家商城购物"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(byId.isPresent())&#123;</span><br><span class="line">            alipayBean.setTotal_amount(<span class="keyword">new</span> StringBuffer()</span><br><span class="line">                                       .append(byId.get().getOrderAmount()));</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                String aliPay = payService.aliPay(alipayBean);</span><br><span class="line">                log.info(<span class="string">"[pay.affirmPay] aliPay = &#123;&#125;"</span>, aliPay);</span><br><span class="line">                <span class="keyword">return</span> aliPay;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (AlipayApiException e) &#123;</span><br><span class="line">                <span class="keyword">return</span> JsonUtil.toJson(ResultVOUtil.error(<span class="number">2</span>, <span class="string">"支付过程出错"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JsonUtil.toJson(ResultVOUtil.error(<span class="number">1</span>, <span class="string">"不存在此订单"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支付成功的回调</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> trade_status 交易状态</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> out_trade_no 商户订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/payFinish"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">payFinishCallback</span><span class="params">(String trade_status, String out_trade_no)</span></span>&#123;</span><br><span class="line">        log.info(<span class="string">"支付回调：trade_status = "</span>+trade_status);</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"TRADE_SUCCESS"</span>.equals(trade_status))&#123;</span><br><span class="line">            <span class="comment">//支付成功</span></span><br><span class="line">            Optional&lt;OrderMaster&gt; orderById = orderService.findOrderById(out_trade_no);</span><br><span class="line">            <span class="keyword">if</span>(orderById.isPresent())&#123;</span><br><span class="line">                OrderMaster orderMaster = orderById.get();</span><br><span class="line">                <span class="comment">//修改支付状态</span></span><br><span class="line">                orderMaster.setPayStatus(PayStatusEnum.SUCCESS.getCode());</span><br><span class="line">                OrderMaster changeRet = orderService.change(orderMaster);</span><br><span class="line">                log.info(<span class="string">"changeRet"</span>, changeRet);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//支付失败</span></span><br><span class="line">            Optional&lt;OrderMaster&gt; orderById = orderService.findOrderById(out_trade_no);</span><br><span class="line">            <span class="keyword">if</span>(orderById.isPresent())&#123;</span><br><span class="line">                OrderMaster orderMaster = orderById.get();</span><br><span class="line">                <span class="comment">//修改支付状态</span></span><br><span class="line">                orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());</span><br><span class="line">                orderService.change(orderMaster);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/paySyncFinish"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paySyncFinishCallback</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"redirect:http://ahojcn.natapp1.cc/#/pay"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 支付宝支付信息实体类对象 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlipayBean</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*商户订单号，必填*/</span></span><br><span class="line">    <span class="keyword">private</span> String out_trade_no;</span><br><span class="line">    <span class="comment">/*订单名称，必填*/</span></span><br><span class="line">    <span class="keyword">private</span> String subject;</span><br><span class="line">    <span class="comment">/*付款金额，必填*/</span></span><br><span class="line">    <span class="keyword">private</span> StringBuffer total_amount;</span><br><span class="line">    <span class="comment">/*商品描述，可空*/</span></span><br><span class="line">    <span class="keyword">private</span> String body;</span><br><span class="line">    <span class="comment">/*超时时间参数*/</span></span><br><span class="line">    <span class="keyword">private</span> String timeout_express=<span class="string">"10m"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String product_code=<span class="string">"FAST_INSTANT_TRADE_PAY"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> Service层 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayServiceImpl</span> <span class="keyword">implements</span> <span class="title">PayService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">aliPay</span><span class="params">(AlipayBean alipayBean)</span> <span class="keyword">throws</span> AlipayApiException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> AlipayUtil.connect(alipayBean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>支付工具类 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlipayUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">connect</span><span class="params">(AlipayBean alipayBean)</span> <span class="keyword">throws</span> AlipayApiException </span>&#123;</span><br><span class="line">        AlipayClient alipayClient = <span class="keyword">new</span> DefaultAlipayClient(</span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"gatewayUrl"</span>),<span class="comment">//支付宝网关</span></span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"app_id"</span>),<span class="comment">//appid</span></span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"merchant_private_key"</span>),<span class="comment">//商户私钥</span></span><br><span class="line">                <span class="string">"json"</span>,</span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"charset"</span>),<span class="comment">//字符编码格式</span></span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"alipay_public_key"</span>),<span class="comment">//支付宝公钥</span></span><br><span class="line">                PropertiesConfig.getKey(<span class="string">"sign_type"</span>)<span class="comment">//签名方式</span></span><br><span class="line">        );</span><br><span class="line">        AlipayTradePagePayRequest alipayRequest = <span class="keyword">new</span> AlipayTradePagePayRequest();</span><br><span class="line">        alipayRequest.setReturnUrl(PropertiesConfig.getKey(<span class="string">"return_url"</span>));</span><br><span class="line">        alipayRequest.setNotifyUrl(PropertiesConfig.getKey(<span class="string">"notify_url"</span>));</span><br><span class="line">        alipayRequest.setBizContent(JSON.toJSONString(alipayBean));</span><br><span class="line">        <span class="keyword">return</span> alipayClient.pageExecute(alipayRequest).getBody();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200201/wRojEWhaoaMW.png" alt="mark"></p>
+<p>可以使用Android版本的沙箱支付宝支付，也可以登录账户支付，沙箱环境不是很稳定最好多测试几次，支付成功和支付失败的情景！ </p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/31/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%94%AF%E4%BB%98%E5%AE%9D/" data-id="ck6ufc7gd00b6c4wk7rzxat6v"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Jenkins自动部署
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/19/%E8%A7%A3%E5%86%B3ssh_exchange_identificationread%20connection%20reset%20by%20peer/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">解决ssh_exchange_identificationread connection reset by peer</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        John Doe
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8080" target="_blank" rel="noopener">Spring-Initializr</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>
