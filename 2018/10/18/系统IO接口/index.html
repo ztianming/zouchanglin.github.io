@@ -3,10 +3,12 @@
 
 <head>
   <meta charset="utf-8" />
-    
+   
+  <meta name="keywords" content="Java,C/C++,Python,golang,Linux,MySQL,Docker,K8S,Windows,虚拟化,计算机" />
+   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    系统IO接口 |  Hexo
+    系统IO接口 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -187,7 +189,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"myfile"</span>, O_RDONLY);</span><br><span class="line">  <span class="keyword">if</span>(fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    perror(<span class="string">"open"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *msg = <span class="string">"hello bit!\n"</span>;</span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">   <span class="keyword">ssize_t</span> s =  <span class="built_in">read</span>(fd, buf, <span class="built_in">strlen</span>(msg));<span class="comment">//返回实际读到的字节数</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span>(s &gt; <span class="number">0</span>)&#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"%s"</span>, buf);</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">close</span>(fd);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="三、文件描述符与FILE结构体"><a href="#三、文件描述符与FILE结构体" class="headerlink" title="三、文件描述符与FILE结构体"></a>三、文件描述符与FILE结构体</h2><p>文件描述符就是open函数成功之后的值，本质就是一个数字！<br>Linux进程默认有3个缺省打开的文件描述符，分别是标准输入0，标准输出1，标准错误2，对应的物理设备分别是：键盘、显示器、显示器</p>
-<h3 id="进程怎么知道打开了那些文件呢？下面是PCB-task-struct-的一部分"><a href="#进程怎么知道打开了那些文件呢？下面是PCB-task-struct-的一部分" class="headerlink" title="进程怎么知道打开了那些文件呢？下面是PCB(task_struct)的一部分"></a>进程怎么知道打开了那些文件呢？下面是PCB(task_struct)的一部分</h3><p>查看task_struct结构体请看：<a href="https://zouchanglin.cn/2018/09/27/深入理解进程/" target="_blank" rel="noopener">《深入理解进程》</a>中的task_struct，很显然，Linux的进程是通过files_struct 类型的一个属性来管理打开得文件列表：</p>
+<h3 id="进程怎么知道打开了那些文件呢？下面是PCB-task-struct-的一部分"><a href="#进程怎么知道打开了那些文件呢？下面是PCB-task-struct-的一部分" class="headerlink" title="进程怎么知道打开了那些文件呢？下面是PCB(task_struct)的一部分"></a>进程怎么知道打开了那些文件呢？下面是PCB(task_struct)的一部分</h3><p>查看task_struct结构体请看：<a href="https://zouchanglin.cn/2018/09/27/深入理解进程/">《深入理解进程》</a>中的task_struct，很显然，Linux的进程是通过files_struct 类型的一个属性来管理打开得文件列表：</p>
 <p><img src="http://img.zouchanglin.cn///20200201/eKAf9hFh3tLT.png" alt="mark"></p>
 <p>而现在知道，文件描述符就是从0开始的小整数。当我们打开文件时，操作系统在内存中要创建相应的数据结构来描述目标文件。于是就有了file结构体。表示一个已经打开的文件对象。而进程执行open系统调用，所以必须让进程和文件关联起来。每个进程都有一个指针*files，指向一张表files_ struct，该表最重要的部分就是包涵一个指针数组，每个元素都是一个指向打开文件的指针!所以，本质上，文件描述符就是该数组的下标。所以，只要拿着文件描述符，就可以找到对应的文件！</p>
 <h3 id="文件描述符的分配规则："><a href="#文件描述符的分配规则：" class="headerlink" title="文件描述符的分配规则："></a>文件描述符的分配规则：</h3><p><strong>从0开始分配最小的，可用的！</strong> 看代码理解一下：</p>
@@ -231,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" data-id="ck6ufc7gc00b3c4wke573655b"
+      <a data-url="http://zouchanglin.cn/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" data-id="ck6um3b5800b1d4wkh9ng3olt"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -330,7 +332,7 @@
       <li>
         &copy;
         2018-2020
-        John Doe
+        changlin zou
       </li>
       <li>
         
@@ -364,7 +366,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+    <a href="/"><img src="/images/code.svg" alt="Tim&#39;s Blog"></a>
   </div>
   
   <ul class="nav nav-main">

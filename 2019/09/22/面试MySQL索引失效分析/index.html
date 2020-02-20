@@ -3,10 +3,12 @@
 
 <head>
   <meta charset="utf-8" />
-    
+   
+  <meta name="keywords" content="Java,C/C++,Python,golang,Linux,MySQL,Docker,K8S,Windows,虚拟化,计算机" />
+   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【面试】MySQL索引失效分析 |  Hexo
+    【面试】MySQL索引失效分析 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -118,7 +120,7 @@
 <p><img src="http://img.zouchanglin.cn///20200202/BpAO3eS4nFpm.png" alt="mark"></p>
 <p>因为c2已经是常量了，在已知字段是常量的情况下需要排序吗？肯定不需要。所以即使你写成了order by c3,c2 但是实际上只是对c3排序！</p>
 <p><img src="http://img.zouchanglin.cn///20200202/qDbYwawpN1WI.png" alt="mark"></p>
-<p>由上面的例子可以看出，用到了c1来查找，c4由于中间兄弟的消失是失效的索引，c2、c3用于分组，但是c2、c3如果不按照顺序分组的话就基本是是死掉了，出现了using temporary，这个是什么意思呢？看这个<a href="http://zouchanglin.cn/articles/2019/09/17/1568720691924.html#b3_solo_h4_14" target="_blank" rel="noopener">Explain中的Using temporary</a> </p>
+<p>由上面的例子可以看出，用到了c1来查找，c4由于中间兄弟的消失是失效的索引，c2、c3用于分组，但是c2、c3如果不按照顺序分组的话就基本是是死掉了，出现了using temporary，这个是什么意思呢？看这个<a href="http://zouchanglin.cn/articles/2019/09/17/1568720691924.html#b3_solo_h4_14">Explain中的Using temporary</a> </p>
 <p>group 表面上是分组，分组之前必排序，所以说和order by排序的法则和索引优化的原则是一致的！</p>
 <p>定值、范围还是排序，一般order by是给个范围。group by 基本上都需要进行排序，会有临时表产生</p>
 <p>一般性建议：</p>
@@ -136,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" data-id="ck6ufc7gp00cmc4wkb28w0yiw"
+      <a data-url="http://zouchanglin.cn/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" data-id="ck6um3b5n00cnd4wkdk5d7buz"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
@@ -235,7 +237,7 @@
       <li>
         &copy;
         2018-2020
-        John Doe
+        changlin zou
       </li>
       <li>
         
@@ -269,7 +271,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/code.svg" alt="Hexo"></a>
+    <a href="/"><img src="/images/code.svg" alt="Tim&#39;s Blog"></a>
   </div>
   
   <ul class="nav nav-main">
