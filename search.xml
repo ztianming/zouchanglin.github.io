@@ -3,7 +3,9 @@
   <entry>
     <title>Apache Freemarker的一个小坑</title>
     <url>/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/</url>
-    <content><![CDATA[<p>前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：<a href="https://issues.apache.org/jira/browse/FREEMARKER-132" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/FREEMARKER-132</a></p>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn/FjkyX6iIHmYl6IFqrwnlZUnLBFXd" alt="xxx.png"><br>前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大<br>于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：<a href="https://issues.apache.org/jira/browse/FREEMARKER-132" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/FREEMARKER-132</a> ,果然是官方站点呀，反馈还是很快的，系统还自动发了邮件！</p>
+<a id="more"></a>
+
 <p>给出的回复是在需要加上一个 ? c 于是我试了一下：</p>
 <p>代码是这样的，非常简单的一个JavaBean</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> xpu.tim.freemarker_bug;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Long age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
