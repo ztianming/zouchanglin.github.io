@@ -74,6 +74,78 @@
     
     
     
+    <article id="post-通俗理解RAII" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/"
+    >通俗理解RAII</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/" class="article-date">
+  <time datetime="2018-12-10T10:09:30.000Z" itemprop="datePublished">2018-12-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>最近在学习c++多线程编程的时候，偶然看到了RAII的概念，有种这么多年c++白学了的感觉，路漫漫其修远兮啊。下面是我在查找RAII资料时候看到的一篇非常好的博客，因为觉得自己实在写不出比这篇更好的对于RAII的总结的博客了，所以就把文章转摘过来了。</p>
+<p>RAII是指C++语言中的一个惯用法(idiom)，它是“Resource Acquisition Is Initialization”的首字母缩写。中文可将其翻译为“资源获取就是初始化”。虽然从某种程度上说这个名称并没有体现出该惯性法的本质精神，但是作为标准C++资源管理的关键技术，RAII早已在C++社群中深入人心。</p>
+<p>我记得第一次学到RAII惯用法是在Bjarne Stroustrup的《C++程序设计语言(第3版)》一书中。当讲述C++资源管理时，Bjarne这样写道：使用局部对象管理资源的技术通常称为“资源获取就是初始化”。这种通用技术依赖于构造函数和析构函数的性质以及它们与异常处理的交互作用。</p>
+      
+      <a class="article-more-link" href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/" data-id="ck6um3b5l00cdd4wk395c0pef"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Linux进程通信之共享内存" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -735,82 +807,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C++类特性" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/"
-    >C++类特性</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" class="article-date">
-  <time datetime="2018-11-09T10:09:30.000Z" itemprop="datePublished">2018-11-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h3 id="访问限定符说明"><a href="#访问限定符说明" class="headerlink" title="访问限定符说明"></a>访问限定符说明</h3><ol>
-<li>public修饰的成员在类外可以直接被访问</li>
-<li>protected和private修饰的成员在类外不能直接被访问(此处protected和private是类似的)</li>
-<li>访问权限作用域从该访问限定符出现的位置开始直到下一个访问限定符出现时为止</li>
-<li>class的默认访问权限为private，struct为public(因为struct要兼容C)<br>注意：访问限定符只在编译时有用，当数据映射到内存后，没有任何访问限定符上的区别</li>
-</ol>
-<p><strong>C++的class与C的struct的区别</strong>：C++需要兼容C语言，所以C++中struct可以当成结构体去使用。另外C++中struct还可以用来定义类。和class是定义类是一样的，区别是struct的成员默认访问方式是public，class是struct的成员默认访问方式是private</p>
-      
-      <a class="article-more-link" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" data-id="ck6um3b1s000id4wkdeqz8q30"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
 
     </footer>
 

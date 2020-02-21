@@ -74,6 +74,83 @@
     
     
     
+    <article id="post-彻底解决ADB连接问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/"
+    >彻底解决ADB连接问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2019-07-31T03:55:47.000Z" itemprop="datePublished">2019-07-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Android 调试桥 (adb) 是一种功能多样的命令行工具，可让您与设备进行通信。adb 命令便于执行各种设备操作（例如安装和调试应用），并提供对 Unix shell（可用来在设备上运行各种命令）的访问权限。它是一种客户端-服务器程序，包括以下三个组件：</p>
+<ul>
+<li><strong>客户端</strong>：用于发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
+<li><strong>守护进程 (adbd)</strong>：在设备上运行命令。守护进程在每个设备上作为后台进程运行。</li>
+<li><strong>服务器</strong>：管理客户端和守护进程之间的通信。服务器在开发计算机上作为后台进程运行。</li>
+</ul>
+<p>但是经常出现的问题就是ADB无法连接，或者其他的ADB驱动问题等等..</p>
+<p><img src="http://img.zouchanglin.cn///20200202/h7mHP12Ov0oH.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" data-id="ck6um3b4m0096d4wkaru6bgn6"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Android快速集成OpenCV" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -723,76 +800,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-AsyncHttpClient如何进行Session的保存" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/"
-    >AsyncHttpClient如何进行Session的保存</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" class="article-date">
-  <time datetime="2019-05-11T10:09:30.000Z" itemprop="datePublished">2019-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在之前我从来没有通过AsyncHttp这个请求框架去保存Session，但是今天不得不用呀！接口设计有限，我也只好用专门给浏览器用的接口了，这次我把AsyncHttpClient封装成了一个单例，通过这样的方式来保存Session，暂时先这么用吧，等到找到其他解决方案了再更新此文！</p>
-      
-      <a class="article-more-link" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" data-id="ck6um3b1n0006d4wkc5igen9f"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
 
     </footer>
 

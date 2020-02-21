@@ -74,6 +74,76 @@
     
     
     
+    <article id="post-AsyncHttpClient如何进行Session的保存" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/"
+    >AsyncHttpClient如何进行Session的保存</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" class="article-date">
+  <time datetime="2019-05-11T10:09:30.000Z" itemprop="datePublished">2019-05-11</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在之前我从来没有通过AsyncHttp这个请求框架去保存Session，但是今天不得不用呀！接口设计有限，我也只好用专门给浏览器用的接口了，这次我把AsyncHttpClient封装成了一个单例，通过这样的方式来保存Session，暂时先这么用吧，等到找到其他解决方案了再更新此文！</p>
+      
+      <a class="article-more-link" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" data-id="ck6um3b1n0006d4wkc5igen9f"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-网易云的MV下载" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -696,78 +766,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-通俗理解RAII" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/"
-    >通俗理解RAII</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/" class="article-date">
-  <time datetime="2018-12-10T10:09:30.000Z" itemprop="datePublished">2018-12-10</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>最近在学习c++多线程编程的时候，偶然看到了RAII的概念，有种这么多年c++白学了的感觉，路漫漫其修远兮啊。下面是我在查找RAII资料时候看到的一篇非常好的博客，因为觉得自己实在写不出比这篇更好的对于RAII的总结的博客了，所以就把文章转摘过来了。</p>
-<p>RAII是指C++语言中的一个惯用法(idiom)，它是“Resource Acquisition Is Initialization”的首字母缩写。中文可将其翻译为“资源获取就是初始化”。虽然从某种程度上说这个名称并没有体现出该惯性法的本质精神，但是作为标准C++资源管理的关键技术，RAII早已在C++社群中深入人心。</p>
-<p>我记得第一次学到RAII惯用法是在Bjarne Stroustrup的《C++程序设计语言(第3版)》一书中。当讲述C++资源管理时，Bjarne这样写道：使用局部对象管理资源的技术通常称为“资源获取就是初始化”。这种通用技术依赖于构造函数和析构函数的性质以及它们与异常处理的交互作用。</p>
-      
-      <a class="article-more-link" href="/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/12/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3RAII/" data-id="ck6um3b5l00cdd4wk395c0pef"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
 
     </footer>
 
