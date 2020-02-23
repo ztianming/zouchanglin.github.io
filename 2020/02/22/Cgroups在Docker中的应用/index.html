@@ -98,7 +98,7 @@
       
 
       
-      <p>之前几篇文章讲述了Linux的Cgroups技术（<a href="[https://zouchanglin.cn/2020/02/20/Linux-Cgroups%E7%9A%84%E8%B5%84%E6%BA%90%E6%8E%A7%E5%88%B6/](https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/)">《Linux-Cgroups的资源控制》</a>），主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：<code>docker run -m 设置内存限制</code></p>
+      <p>之前几篇文章讲述了Linux的Cgroups技术（<a href="[https://zouchanglin.github.io/2020/02/20/Linux-Cgroups%E7%9A%84%E8%B5%84%E6%BA%90%E6%8E%A7%E5%88%B6/](https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/)">《Linux-Cgroups的资源控制》</a>），主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：<code>docker run -m 设置内存限制</code></p>
 <p><img src="http://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png" alt="mark"></p>
 <p><strong>可以看到Docker通过为每个容器创建Cgroup并通过Cgroup去配置的资源限制和资源监控。</strong> </p>
 <a id="more"></a>
