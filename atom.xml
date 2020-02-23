@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-23T04:27:50.607Z</updated>
+  <updated>2020-02-23T04:30:27.461Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,18 +21,12 @@
     <link href="https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
     <id>https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</id>
     <published>2020-02-23T03:37:40.000Z</published>
-    <updated>2020-02-23T04:27:50.607Z</updated>
+    <updated>2020-02-23T04:30:27.461Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;在之前的文章中我们探究了Docker是如何使用AUFS文件系统的，现在我们开始动手实践一下AUFS，用简单的命令来创建一个AUFS文件系统，感受下如何使用AUFS和COW实现文件管理&lt;/p&gt;
-&lt;p&gt;在目录下创建一个aufs的文件夹，然后在aufs目录下创建一个mnt的文件夹
-        
-      
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200223/8sHdcObI1bOG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在之前的文章中我们探究了Docker是如何使用AUFS文件系统的，现在我们开始动手实践一下AUFS，用简单的命令来创建一个AUFS文件系统，感受下如何使用AUFS和COW实现文件管理。&lt;/p&gt;
     
     </summary>
     
