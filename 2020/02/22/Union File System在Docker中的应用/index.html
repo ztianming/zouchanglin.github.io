@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    探究联合文件系统在Docker中的应用 |  Tim&#39;s Blog
+    Union File System在Docker中的应用 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,7 +34,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-联合文件系统" class="article article-type-post" itemscope
+  <article id="post-Union File System在Docker中的应用" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -42,7 +42,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  探究联合文件系统在Docker中的应用
+  Union File System在Docker中的应用
 </h1>
   
 
@@ -51,7 +51,7 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/22/%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-date">
+      <a href="/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="article-date">
   <time datetime="2020-02-22T07:15:41.000Z" itemprop="datePublished">2020-02-22</time>
 </a>
       
@@ -100,9 +100,9 @@
 
       
       <h2 id="Union-File-System"><a href="#Union-File-System" class="headerlink" title="Union File System"></a>Union File System</h2><p>Union File System，简称UnionFS，关于联合文件系统我之前的一篇博客里也写过的<a href="https://zouchanglin.cn/2019/08/03/Docker镜像与数据容器卷">《Docker镜像与数据容器卷》</a>，是一种为Linux、FreeBSD 和NetBSD操作系统设计的，把其他文件系统联合到一个联合挂载点的文件系统服务。它使用branch把不同文件系统的文件和目录“透明地”覆盖，形成一个单一一致的文件系统。这些branch或者是read-only的，或者是read-write的，所以当对这个虚拟后的联合文件系统进行写操作的时候，系统是真正写到了一个新的文件中。看起来这个虚拟后的联合文件系统是可以对任何文件进行操作的，但是其实它并没有改变原来的文件,这是因为unionfs用到了一个重要的资源管理技术，叫写时拷贝。</p>
-<p>关于写时拷贝技术用到的地方有很多，我在之前一篇转载的文章中也说到了写时拷贝技术，<a href="https://zouchanglin.cn/2018/11/10/谈谈写时拷贝">《谈谈写时拷贝》</a>，读者可以参考Unix的fork函数与vfork函数，还是很容易明白的，调用fork函数时，内核只为新生成的子进程创建虚拟空间结构，它们来复制于父进程的虚拟究竟结构，但是不为这些段分配物理内存，它们共享父进程的物理空间，当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间。 vfork函数调用时连内核连子进程的虚拟地址空间结构也不创建了，直接共享了父进程的虚拟空间，当然了，这种做法就顺水推舟的共享了父进程的物理空间。</p>
 <a id="more"></a>
 
+<p>关于写时拷贝技术用到的地方有很多，我在之前一篇转载的文章中也说到了写时拷贝技术，<a href="https://zouchanglin.cn/2018/11/10/谈谈写时拷贝">《谈谈写时拷贝》</a>，可以参考Unix的fork函数与vfork函数，还是很容易明白的，调用fork函数时，内核只为新生成的子进程创建虚拟空间结构，它们来复制于父进程的虚拟究竟结构，但是不为这些段分配物理内存，它们共享父进程的物理空间，当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间。 vfork函数调用时连内核连子进程的虚拟地址空间结构也不创建了，直接共享了父进程的虚拟空间，当然了，这种做法就顺水推舟的共享了父进程的物理空间。</p>
 <h2 id="高级多层统一文件系统-AUFS"><a href="#高级多层统一文件系统-AUFS" class="headerlink" title="高级多层统一文件系统 AUFS"></a>高级多层统一文件系统 AUFS</h2><p>AUFS（全称：advanced multi-layered unification filesystem<strong>，</strong>高级多层统一文件系统）用于为Linux文件系统实现联合挂载。AUFS完全重写了早期的UnionFS 1.x，其主要目的是为了可靠性和性能，并且引入了一些新的功能，比如可写分支的负载均衡。AUFS的一些实现已经被纳入UnionFS 2.x 版本。同UnionFS类似，它能够将不同类型的文件系统透明地层叠在一起，实现一个高效的分层文件系统。说白了AUFS就是能将不同的目录挂载到某一目录下，并将各个源目录下的内容联合到目标目录下，这里每个源目录对应aufsAUFS一层，用户在目标目录读写时，感觉不到此目录是联合而来的。早期的Docker就是使用了AUFS作为第一种存储驱动。从Linux对AUFS支持版本可以看出，最新的内核已经支持到了AUFS 5， <a href="http://aufs.sourceforge.net/" target="_blank" rel="noopener">http://aufs.sourceforge.net/</a> </p>
 <h2 id="Docker如何使用AUFS"><a href="#Docker如何使用AUFS" class="headerlink" title="Docker如何使用AUFS"></a>Docker如何使用AUFS</h2><p>首先得看一下Docker的镜像层，每一个Docker image 都是由一系列只读镜像层(image layer)组成的。镜像层的内容都存储在 Docker hosts filesystem 的/var/lib/docker/aufs/diff 目录下。而/var/lib/docker/aufs/layers 目录，则存储着镜像层如何堆叠这些镜像的元数据，可以近似看成是镜像层之间的依赖关系！</p>
 <p>我在我的Ubuntu16.04上安装了Docker1.11.2，执行<code>ls /var/lib/docker/aufs/diff/</code> 发现无任何文件</p>
@@ -142,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/22/%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" data-id="ck6xismqf0000gkwk87e73epm"
+      <a data-url="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" data-id="ck6yj7ec30001s8wkbmrs14wc"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -154,6 +154,15 @@
   
   
   <nav class="article-nav">
+    
+      <a href="/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            动手实现AUFS文件系统
+          
+        </div>
+      </a>
     
     
       <a href="/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="article-nav-link">

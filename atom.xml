@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-23T02:11:14.138Z</updated>
+  <updated>2020-02-23T04:27:50.607Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,16 +17,45 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>探究联合文件系统在Docker中的应用</title>
-    <link href="https://zouchanglin.cn/2020/02/22/%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
-    <id>https://zouchanglin.cn/2020/02/22/%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</id>
+    <title>动手实现AUFS文件系统</title>
+    <link href="https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</id>
+    <published>2020-02-23T03:37:40.000Z</published>
+    <updated>2020-02-23T04:27:50.607Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在之前的文章中我们探究了Docker是如何使用AUFS文件系统的，现在我们开始动手实践一下AUFS，用简单的命令来创建一个AUFS文件系统，感受下如何使用AUFS和COW实现文件管理&lt;/p&gt;
+&lt;p&gt;在目录下创建一个aufs的文件夹，然后在aufs目录下创建一个mnt的文件夹
+        
+      
+    
+    </summary>
+    
+    
+      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Union File System在Docker中的应用</title>
+    <link href="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</id>
     <published>2020-02-22T07:15:41.000Z</published>
-    <updated>2020-02-23T02:11:14.138Z</updated>
+    <updated>2020-02-23T03:38:38.028Z</updated>
     
     <summary type="html">
     
       &lt;h2 id=&quot;Union-File-System&quot;&gt;&lt;a href=&quot;#Union-File-System&quot; class=&quot;headerlink&quot; title=&quot;Union File System&quot;&gt;&lt;/a&gt;Union File System&lt;/h2&gt;&lt;p&gt;Union File System，简称UnionFS，关于联合文件系统我之前的一篇博客里也写过的&lt;a href=&quot;https://zouchanglin.cn/2019/08/03/Docker镜像与数据容器卷&quot;&gt;《Docker镜像与数据容器卷》&lt;/a&gt;，是一种为Linux、FreeBSD 和NetBSD操作系统设计的，把其他文件系统联合到一个联合挂载点的文件系统服务。它使用branch把不同文件系统的文件和目录“透明地”覆盖，形成一个单一一致的文件系统。这些branch或者是read-only的，或者是read-write的，所以当对这个虚拟后的联合文件系统进行写操作的时候，系统是真正写到了一个新的文件中。看起来这个虚拟后的联合文件系统是可以对任何文件进行操作的，但是其实它并没有改变原来的文件,这是因为unionfs用到了一个重要的资源管理技术，叫写时拷贝。&lt;/p&gt;
-&lt;p&gt;关于写时拷贝技术用到的地方有很多，我在之前一篇转载的文章中也说到了写时拷贝技术，&lt;a href=&quot;https://zouchanglin.cn/2018/11/10/谈谈写时拷贝&quot;&gt;《谈谈写时拷贝》&lt;/a&gt;，读者可以参考Unix的fork函数与vfork函数，还是很容易明白的，调用fork函数时，内核只为新生成的子进程创建虚拟空间结构，它们来复制于父进程的虚拟究竟结构，但是不为这些段分配物理内存，它们共享父进程的物理空间，当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间。 vfork函数调用时连内核连子进程的虚拟地址空间结构也不创建了，直接共享了父进程的虚拟空间，当然了，这种做法就顺水推舟的共享了父进程的物理空间。&lt;/p&gt;
     
     </summary>
     
@@ -474,34 +503,6 @@
     
     
       <category term="Gradle" scheme="https://zouchanglin.cn/tags/Gradle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Golang工程管理</title>
-    <link href="https://zouchanglin.cn/2020/02/04/Golang%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    <id>https://zouchanglin.cn/2020/02/04/Golang%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</id>
-    <published>2020-02-04T06:06:00.000Z</published>
-    <updated>2020-02-20T06:53:14.812Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;工作区介绍&quot;&gt;&lt;a href=&quot;#工作区介绍&quot; class=&quot;headerlink&quot; title=&quot;工作区介绍&quot;&gt;&lt;/a&gt;工作区介绍&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Go代码必须放在工作区中。&lt;/strong&gt;工作区其实就是一个对应于特定工程的目录，它应包含3个子目录: src目录、pkg目录和bin目录。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;src目录：用于以代码包的形式组织并保存Go源码文件。 (比如: &lt;code&gt;.go&lt;/code&gt; &lt;code&gt;.c&lt;/code&gt; &lt;code&gt;.h&lt;/code&gt; &lt;code&gt;.s&lt;/code&gt;等)&lt;/li&gt;
-&lt;li&gt;pkg目录：用于存放经由go install命令构建安装后的代码包(包含Go库源码文件)的&lt;code&gt;.a&lt;/code&gt;归档文件&lt;/li&gt;
-&lt;li&gt;bin目录：与pkg目录类似，在通过go install命令完成安装后，保存由Go俞令源码文件生成的可执行文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;目录src用于包含所有的源代码，是Go命令行工具一个强制的规则，而pkg和bin则无需手动创建，如果必要Go命令行工具在构建过程中会自动创建这些目录&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;需要特别注意的是，只有当环境变量GOPATH中只包含一个工作区的目录路径时，go install命令才会把命令源码安装到当前工作区的bin目录下。若环境变量GOPATH中包含多个工作区的目录路径，像这样执行go install命令就会失效，此时必须设置环境变量GOBIN。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
     
   </entry>
   
