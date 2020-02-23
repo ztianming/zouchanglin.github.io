@@ -66,7 +66,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">812字</span>
+            <span class="post-count">798字</span>
         </span>
     </span>
 
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -106,7 +106,7 @@
 <p>在目录下创建一个aufs的文件夹，然后在aufs目录下创建一个mnt的文件夹作挂载点。接着在aufs目录下创建一个名为container-layer的文件夹，里面有一个名为container-layer.txt的文件，文件内容为”I am container layer”。同样地，继续在aufs目录下创建4个名为image-layern的文件夹(n取值分别为l和4)，里面有一个名为image-layer{n}.txt的文件，文件内容为”I am image layer${n}”。使用如下命令检查文件内容。</p>
 <p><img src="http://img.zouchanglin.cn///20200223/oXETgkVUSyL4.png" alt="mark"></p>
 <p>要联合的文件目录都己经准备好了。接下来把container-layer和4个名为image-layer${n}的文件夹用AUFS的方式挂载到刚刚创建的mnt目录下。在mount aufs的命令中，没有指定待挂载的5个文件夹的权限，默认的行为是dirs指定的左边起第一个目录是read-write权限，后续的都是read-only权限。</p>
-<p>还是[《Union File System在Docker中的应用》](<a href="https://zouchanglin.cn/2020/02/22/Union">https://zouchanglin.cn/2020/02/22/Union</a> File System在Docker中的应用)文中曾经在系统aufs目录下查看文件读写权限的做法，这里依然使用如下命令来确认新mount的文件系统中每个目录的权限。</p>
+<p>还是<a href="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">《Union File System在Docker中的应用》</a>文中曾经在系统aufs目录下查看文件读写权限的做法，这里依然使用如下命令来确认新mount的文件系统中每个目录的权限。</p>
 <p><img src="http://img.zouchanglin.cn///20200223/qffn783zN4iy.png" alt="mark"></p>
 <p>接下来，执行一个有意思的操作，往mnt/image-layer1.txt的文件末尾添加一行文字 “write to mnt’s image-layer1.txt”。根据上面介绍的COW技术，大家猜想一下会产生什么样的行为。</p>
 <p><img src="http://img.zouchanglin.cn///20200223/QL2sBsowv2z0.png" alt="mark"></p>

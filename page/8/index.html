@@ -75,6 +75,84 @@
     
     
     
+    <article id="post-Jenkins自动部署" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"
+    >Jenkins自动部署</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="article-date">
+  <time datetime="2019-06-03T10:09:30.000Z" itemprop="datePublished">2019-06-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>事先确保服务器上有Java环境与Maven环境和 Git </p>
+<h2 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h2><p>这里是Jenkins的文档 <a href="https://jenkins.io/zh/doc/" target="_blank" rel="noopener">https://jenkins.io/zh/doc/</a></p>
+<p>这里是Jenkins的下载地址<a href="https://jenkins.io/zh/download/" target="_blank" rel="noopener">https://jenkins.io/zh/download/</a></p>
+<p><strong>最好的方式应该是自己去下载Jenkins的Jar包，直接像运行jar包即可</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar jenkins.war --httpPort=80</span><br></pre></td></tr></table></figure>
+
+<p>这样直接访问<code>172.16.45.112:8080</code> 即可！</p>
+<p>成功开启服务后应该是下面这个样子：</p>
+<p><img src="http://img.zouchanglin.cn///20200201/GOHlW2aYHfRd.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" data-id="ck6um3b2q002rd4wk044r79t7"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/" rel="tag">Jenkins</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-网站接入支付宝" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -709,76 +787,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2019/01/12/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E4%B8%8EC++%E6%A8%A1%E6%9D%BF/" data-id="ck6um3b4x00a6d4wkcwlsfbxq"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-你真的了解C语言吗" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/"
-    >你真的了解C语言吗</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/" class="article-date">
-  <time datetime="2019-01-08T10:09:30.000Z" itemprop="datePublished">2019-01-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>Dennis Ritchie 过世了，他发明了C语言，一个影响深远并彻底改变世界的计算机语言。一门经历40多年的到今天还长盛不衰的语言，今天很多语言都受到C的影响，C++，Java，C#，Perl， PHP， Javascript， 等等。但是，你对C了解吗？顺便注明一下，下面的一些例子来源于这个slides。</p>
-      
-      <a class="article-more-link" href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/" data-id="ck6um3b43007ed4wk5i3t7yt6"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
