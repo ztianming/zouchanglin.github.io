@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-23T04:39:19.043Z</updated>
+  <updated>2020-02-24T15:04:11.733Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>构造实现简单容器</title>
+    <link href="https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/"/>
+    <id>https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/</id>
+    <published>2020-02-24T14:38:52.806Z</published>
+    <updated>2020-02-24T15:04:11.733Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在即将开始真正踏上构造自己的容器的道路。我们会基于当前的操作系统创建一个与宿主机隔离的容器环境，下面就开始吧。在开始之前我们需要先对Linux的proc文件系统做一个介绍：&lt;/p&gt;
+&lt;p&gt;如果你对这些基本知识已经很熟悉了，请直接略过。Linux下的/proc文件系统是由内核提供的，它其实不是一个真正的文件系统，只包含了系统运行时的信息（比如系统内存、mount设备信息、一些硬件配置等），它只存在于内存中，而不占用外存空间。它以文件系统的形式，为访问内核数据的操作提供接口。实际上，很多系统工具都是简单地去读取这个文件系统的某个文件内容，比如lsmod，其实就是cat /proc/modules。当遍历这个目录的时候，会发现很多数字，这些都是为每个进程创建的空间，数字就是它们的PID。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
+    
+      <category term="文件系统" scheme="https://zouchanglin.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>动手实现AUFS文件系统</title>
@@ -475,28 +504,6 @@
     
     
       <category term="Spring Cloud" scheme="https://zouchanglin.cn/tags/Spring-Cloud/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradle的使用和配置</title>
-    <link href="https://zouchanglin.cn/2020/02/05/Gradle%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
-    <id>https://zouchanglin.cn/2020/02/05/Gradle%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E9%85%8D%E7%BD%AE/</id>
-    <published>2020-02-05T10:57:21.000Z</published>
-    <updated>2020-02-20T06:53:24.909Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Java作为一门世界级主流编程语言，有一款高效易用的项目管理工具是Java开发者共同追求的心愿和目标。&lt;br&gt;先是2000年Ant，后有2004年Maven两个工具的诞生，都在Java市场上取得了巨大的成功。但是二者都有一定的不足和局限性。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200205/KJPOqeL3Ikfs.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="工程构建" scheme="https://zouchanglin.cn/categories/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/"/>
-    
-    
-      <category term="Gradle" scheme="https://zouchanglin.cn/tags/Gradle/"/>
     
   </entry>
   

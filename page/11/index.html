@@ -75,6 +75,78 @@
     
     
     
+    <article id="post-系统IO接口" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/"
+    >系统IO接口</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2018-10-18T10:09:30.000Z" itemprop="datePublished">2018-10-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="一、fopen函数"><a href="#一、fopen函数" class="headerlink" title="一、fopen函数"></a>一、fopen函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p> 参数说明：<br>path：要打开的文件路径+文件名<br>mode：打开模式，下面是第二个参数的说明<br><code>来自CentOS 7：man 3 fopen</code> </p>
+      
+      <a class="article-more-link" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" data-id="ck6um3b5800b1d4wkh9ng3olt"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-函数重载实现原理" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -722,76 +794,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/" data-id="ck6um3b4e008dd4wk2cxz4w7p"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-OpenCV矩阵掩模" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/"
-    >OpenCV矩阵掩模</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" class="article-date">
-  <time datetime="2018-08-27T10:09:30.000Z" itemprop="datePublished">2018-08-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>OpenCV是计算机视觉开源库，主要算法涉及图像处理和机器学习相关方法。是Intel公司贡献出来的，俄罗斯工程师贡献大部分C/C++代码。官网：<a href="https://opencv.org/" target="_blank" rel="noopener">https://opencv.org/</a> 从这里 <a href="https://opencv.org/releases.html" target="_blank" rel="noopener">https://opencv.org/releases.html</a> 你可以下载到自己想要的版本！</p>
-      
-      <a class="article-more-link" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" data-id="ck6um3b3j005md4wkapesctrr"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
