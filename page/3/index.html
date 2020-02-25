@@ -75,6 +75,228 @@
     
     
     
+    <article id="post-SYN Cookie" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/07/SYN%20Cookie/"
+    >SYN Cookie</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/07/SYN%20Cookie/" class="article-date">
+  <time datetime="2020-02-07T14:20:45.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200207/zezNAjgSvS3I.png" alt="mark"></p>
+<h2 id="SYN泛洪攻击"><a href="#SYN泛洪攻击" class="headerlink" title="SYN泛洪攻击"></a>SYN泛洪攻击</h2><p>SYN攻击其实就是Server收到Client的SYN，Server向Client发送SYN-ACK之后未收到Client的ACK确认报文， 这样服务器就需要维护海量的半开连接 ，等待客户端的 ACK, 最终导致服务器资源耗尽(sync queue 满)而丢弃新的连接。  Server会不断重发SYN-ACK，Linux服务器默认直到63秒才断开连接！</p>
+<h2 id="SYN-Cookie"><a href="#SYN-Cookie" class="headerlink" title="SYN Cookie"></a>SYN Cookie</h2><p>其中一种防护方式是SYN Cookie， SYN Cookies 的应用允许服务器当 SYN 队列被填满时避免丢弃连接。相反，服务器会表现得像 SYN 队列扩大了一样。服务器会返回适当的SYN+ACK响应，但会丢弃 SYN 队列条目。如果服务器接收到客户端随后的ACK响应，服务器能够使用编码在 TCP 序号内的信息重构 SYN 队列条目。</p>
+      
+      <a class="article-more-link" href="/2020/02/07/SYN%20Cookie/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/07/SYN%20Cookie/" data-id="ck6um3b3o0066d4wkda3t1t0k"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-康威法则与微服务" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/"
+    >康威法则与微服务</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="article-date">
+  <time datetime="2020-02-07T11:19:53.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200207/ecqoKhvvOaPQ.png" alt="mark"></p>
+<h2 id="什么是康威法则"><a href="#什么是康威法则" class="headerlink" title="什么是康威法则"></a>什么是康威法则</h2><p>最开始是一个叫康威的人，他原来是一个程序员，在1967年的时候提出来。康威法则我们认为它是微服务的理论基础。康威法则的原话是这样讲的，<strong>设计系统的组织，其产生的设计和架构等价于组织的组织架构。</strong></p>
+      
+      <a class="article-more-link" href="/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/" data-id="ck6um3b4j008ud4wk8w11hjvs"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-服务注册与发现" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/"
+    >服务注册与发现</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" class="article-date">
+  <time datetime="2020-02-06T14:56:21.000Z" itemprop="datePublished">2020-02-06</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200206/AgFyrep334cb.png" alt="mark"></p>
+<p>本篇主要讲述了微服务架构的组成，每个组件的作用是什么，重点是实现了Eureka Server和Eureka Client的实战演练，总体来说服务注册与发现就是微服务入门的基础，了解并掌握了在SpringCloud体系中的服务注册与发现的组件原理以及使用方法，由于start.spring.io的访问速度实在是不能忍，白天自己编译了整个SpringBoot的初始化器，我直接给出地址了，方便其他的朋友也可以用：</p>
+<ul>
+<li><code>http://139.159.234.67:8080</code></li>
+<li><code>http://zouchanglin.cn:8080</code>  就是上面的IP地址</li>
+</ul>
+<p>如果还是很慢的话，可以下载我编译好的文件（<a href="http://img.zouchanglin.cn/Spring-Initializr.jar" target="_blank" rel="noopener">下载地址</a>），直接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar Spring-Initializr.jar</span><br></pre></td></tr></table></figure>
+
+<p>在IDEA自定义初始化器地址填写 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 即可，注意这个版本是没有Web UI的，只有供三分初始化器使用的JSON串，Web UI几乎不咋用所以没考虑编译进来！</p>
+      
+      <a class="article-more-link" href="/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" data-id="ck6um3b4u009vd4wk76y87exq"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Gradle的使用和配置" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -578,240 +800,13 @@
 
 </article>
     
-    <article id="post-使用Apacheab测压" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/30/%E4%BD%BF%E7%94%A8Apacheab%E6%B5%8B%E5%8E%8B/"
-    >使用Apache ab测压</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/01/30/%E4%BD%BF%E7%94%A8Apacheab%E6%B5%8B%E5%8E%8B/" class="article-date">
-  <time datetime="2020-01-30T05:56:39.000Z" itemprop="datePublished">2020-01-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/">软件测试技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>一个在高压访问下，能承受很高峰值的访问并发才能称得上是一个好的网站，那么作为一个程序员，当你搭建好你的网站之后，你应该怎么测试你的网站并发访问量呢？  </p>
-<p>Apache Benchmark(简称ab) 是Apache安装包中自带的压力测试工具 ，简单易用。 使用起来非常的简单和方便。 不仅仅是可以apache服务器进行网站访问压力测试，还可以对其他类型的服务器进行压力测试。 比如nginx,tomcat,等</p>
-      
-      <a class="article-more-link" href="/2020/01/30/%E4%BD%BF%E7%94%A8Apacheab%E6%B5%8B%E5%8E%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/01/30/%E4%BD%BF%E7%94%A8Apacheab%E6%B5%8B%E5%8E%8B/" data-id="ck6um3b43007bd4wk0dunag0j"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" rel="tag">压力测试</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-IDEA集成Docker实现一键打包部署" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/30/IDEA%E9%9B%86%E6%88%90Docker%E5%AE%9E%E7%8E%B0%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/"
-    >IDEA集成Docker实现一键打包部署</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/01/30/IDEA%E9%9B%86%E6%88%90Docker%E5%AE%9E%E7%8E%B0%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/" class="article-date">
-  <time datetime="2020-01-30T05:53:40.000Z" itemprop="datePublished">2020-01-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>1、在IDEA工具中开发代码</p>
-<p>2、代码打成jar包</p>
-<p>3、部署到Linux服务器上</p>
-<p>4、如果用Docker(编写Dockerfile文件)</p>
-<p>5、构建镜像</p>
-<p>6、运行容器</p>
-<p>现在使用IDEA集成Docker实现一键打包部署</p>
-      
-      <a class="article-more-link" href="/2020/01/30/IDEA%E9%9B%86%E6%88%90Docker%E5%AE%9E%E7%8E%B0%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/01/30/IDEA%E9%9B%86%E6%88%90Docker%E5%AE%9E%E7%8E%B0%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/" data-id="ck6um3b2i0022d4wk9nczh8pz"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Golang学习第一天" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/30/Golang%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/"
-    >Golang学习第一天</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/01/30/Golang%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" class="article-date">
-  <time datetime="2020-01-30T05:41:25.000Z" itemprop="datePublished">2020-01-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="Golang的优势和特点"><a href="#Golang的优势和特点" class="headerlink" title="Golang的优势和特点"></a>Golang的优势和特点</h1><ul>
-<li>可直接编译成机器码，不依赖其他库，glibc 的版本有一-定要求，部署就是扔一个文件上去就完成了</li>
-<li>静态类型语言，但是有动态语言的感觉，静态类型的语言就是可以在编译的时候检查出来隐藏的大多数问题，动态语言的感觉就是有很多的包可以使用，写起来的效率很高。</li>
-<li>语言层面支持并发，这个就是Go最大的特色，天生的支持并发。Go就是基因里面支持的并发，可以充分的利用多核，很容易的使用并发。</li>
-<li>内置runtime，支持垃圾回收，这属于动态语言的特性之一吧，虽然目前来说GC(内存垃圾回收机制)不算完美，但是足以应付我们所能遇到的大多数情况，特别是Go1.1之后的GC</li>
-<li>简单易学，Go语言的作者都有C的基因，那么Go自然而然就有了C的基因，那么Go关键字是25个，但是表达能力很强大，几乎支持大多数你在其他语言见过的特性:继承、重载、对象等</li>
-<li>丰富的标准库，Go目前已经内置了大量的库，特别是网络库非常强大。</li>
-<li>内置强大的工具，Go语言里面内置了很多工具链，最好的应该是gofmt工具，自动化格式化代码，能够让团队review变得如此的简单，代码格式一模一样，想不一样都很困难</li>
-<li>跨平台编译，如果你写的Go代码不包含cgo，那么就可以做到window系统编译linux的应用，如何做到的呢? Go引用了plan9的代码，这就是不依赖系统的信息。</li>
-<li>内嵌C支持，Go里面也可以直接包含C代码，利用现有的丰富的C库。</li>
-</ul>
-      
-      <a class="article-more-link" href="/2020/01/30/Golang%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/01/30/Golang%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" data-id="ck6um3b2d001md4wkgkynexhf"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>

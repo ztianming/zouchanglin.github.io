@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-24T15:04:11.733Z</updated>
+  <updated>2020-02-25T11:34:19.377Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,78 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTTPS协议实现原理</title>
+    <link href="https://zouchanglin.cn/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
+    <id>https://zouchanglin.cn/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</id>
+    <published>2020-02-25T11:01:35.000Z</published>
+    <updated>2020-02-25T11:34:19.377Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/meVCCACO399R.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;HTTP协议的信息传输完全以明文方式，不做任何加密，相当于是在网络上”裸奔”。意思就是如果我们以HTTP来传输数据的话由于是明文数据，则很容易发生不安全事故，比如我登陆一个网站，那么如果是HTTP明文传输肯定就会直接把用户名和密码放在明文中，这样是非常不安全的，处在同一个局域网下的小伙伴直接抓包就可以获取你的用户名和密码，那么应该怎么办呢？&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="网络安全" scheme="https://zouchanglin.cn/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="非对称加密" scheme="https://zouchanglin.cn/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP的高性能机制</title>
+    <link href="https://zouchanglin.cn/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/"/>
+    <id>https://zouchanglin.cn/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/</id>
+    <published>2020-02-25T04:01:35.000Z</published>
+    <updated>2020-02-25T08:18:01.949Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/WFp4qQSRpvoo.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;之前介绍了TCP的报文格式（&lt;a href=&quot;https://zouchanglin.cn/2019/11/21/TCP协议基本特性&quot;&gt;《TCP协议基本特性》&lt;/a&gt;），TCP的连接管理，学习了TCP如何建立连接，释放连接以及一些网络安装方面的问题，现在还剩下TCP的几个关键机制，主要是TPC的延迟应答和捎带应答、超时重传、快重传和快恢复、滑动窗口机制、拥塞避免算法；然后最后还记录了TCP的粘包问题和解决方案！&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈HTTP协议</title>
+    <link href="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/</id>
+    <published>2020-02-25T04:01:35.000Z</published>
+    <updated>2020-02-25T11:34:29.669Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/k8pW0raF9ync.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>构造实现简单容器</title>
@@ -429,81 +501,6 @@
       <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
     
       <category term="NIO" scheme="https://zouchanglin.cn/tags/NIO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SYN Cookie</title>
-    <link href="https://zouchanglin.cn/2020/02/07/SYN%20Cookie/"/>
-    <id>https://zouchanglin.cn/2020/02/07/SYN%20Cookie/</id>
-    <published>2020-02-07T14:20:45.000Z</published>
-    <updated>2020-02-20T06:53:48.452Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200207/zezNAjgSvS3I.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;SYN泛洪攻击&quot;&gt;&lt;a href=&quot;#SYN泛洪攻击&quot; class=&quot;headerlink&quot; title=&quot;SYN泛洪攻击&quot;&gt;&lt;/a&gt;SYN泛洪攻击&lt;/h2&gt;&lt;p&gt;SYN攻击其实就是Server收到Client的SYN，Server向Client发送SYN-ACK之后未收到Client的ACK确认报文， 这样服务器就需要维护海量的半开连接 ，等待客户端的 ACK, 最终导致服务器资源耗尽(sync queue 满)而丢弃新的连接。  Server会不断重发SYN-ACK，Linux服务器默认直到63秒才断开连接！&lt;/p&gt;
-&lt;h2 id=&quot;SYN-Cookie&quot;&gt;&lt;a href=&quot;#SYN-Cookie&quot; class=&quot;headerlink&quot; title=&quot;SYN Cookie&quot;&gt;&lt;/a&gt;SYN Cookie&lt;/h2&gt;&lt;p&gt;其中一种防护方式是SYN Cookie， SYN Cookies 的应用允许服务器当 SYN 队列被填满时避免丢弃连接。相反，服务器会表现得像 SYN 队列扩大了一样。服务器会返回适当的SYN+ACK响应，但会丢弃 SYN 队列条目。如果服务器接收到客户端随后的ACK响应，服务器能够使用编码在 TCP 序号内的信息重构 SYN 队列条目。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络" scheme="https://zouchanglin.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>康威法则与微服务</title>
-    <link href="https://zouchanglin.cn/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    <id>https://zouchanglin.cn/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/</id>
-    <published>2020-02-07T11:19:53.000Z</published>
-    <updated>2020-02-20T06:54:00.733Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200207/ecqoKhvvOaPQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;什么是康威法则&quot;&gt;&lt;a href=&quot;#什么是康威法则&quot; class=&quot;headerlink&quot; title=&quot;什么是康威法则&quot;&gt;&lt;/a&gt;什么是康威法则&lt;/h2&gt;&lt;p&gt;最开始是一个叫康威的人，他原来是一个程序员，在1967年的时候提出来。康威法则我们认为它是微服务的理论基础。康威法则的原话是这样讲的，&lt;strong&gt;设计系统的组织，其产生的设计和架构等价于组织的组织架构。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="微服务架构" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
-    
-    
-      <category term="微服务" scheme="https://zouchanglin.cn/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>服务注册与发现</title>
-    <link href="https://zouchanglin.cn/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/"/>
-    <id>https://zouchanglin.cn/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/</id>
-    <published>2020-02-06T14:56:21.000Z</published>
-    <updated>2020-02-20T06:53:52.397Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200206/AgFyrep334cb.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本篇主要讲述了微服务架构的组成，每个组件的作用是什么，重点是实现了Eureka Server和Eureka Client的实战演练，总体来说服务注册与发现就是微服务入门的基础，了解并掌握了在SpringCloud体系中的服务注册与发现的组件原理以及使用方法，由于start.spring.io的访问速度实在是不能忍，白天自己编译了整个SpringBoot的初始化器，我直接给出地址了，方便其他的朋友也可以用：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;http://139.159.234.67:8080&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;http://zouchanglin.cn:8080&lt;/code&gt;  就是上面的IP地址&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果还是很慢的话，可以下载我编译好的文件（&lt;a href=&quot;http://img.zouchanglin.cn/Spring-Initializr.jar&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;下载地址&lt;/a&gt;），直接&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -jar Spring-Initializr.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;在IDEA自定义初始化器地址填写 &lt;a href=&quot;http://localhost:8080&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://localhost:8080&lt;/a&gt; 即可，注意这个版本是没有Web UI的，只有供三分初始化器使用的JSON串，Web UI几乎不咋用所以没考虑编译进来！&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="微服务架构" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
-    
-    
-      <category term="Spring Cloud" scheme="https://zouchanglin.cn/tags/Spring-Cloud/"/>
     
   </entry>
   

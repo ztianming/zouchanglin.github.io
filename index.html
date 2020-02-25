@@ -75,6 +75,221 @@
     
     
     
+    <article id="post-HTTPS协议实现原理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"
+    >HTTPS协议实现原理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-02-25T11:01:35.000Z" itemprop="datePublished">2020-02-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200225/meVCCACO399R.png" alt="mark"></p>
+<p>HTTP协议的信息传输完全以明文方式，不做任何加密，相当于是在网络上”裸奔”。意思就是如果我们以HTTP来传输数据的话由于是明文数据，则很容易发生不安全事故，比如我登陆一个网站，那么如果是HTTP明文传输肯定就会直接把用户名和密码放在明文中，这样是非常不安全的，处在同一个局域网下的小伙伴直接抓包就可以获取你的用户名和密码，那么应该怎么办呢？</p>
+      
+      <a class="article-more-link" href="/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" data-id="ck71tbqj20000ncwk3t3uh358"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag">网络安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" rel="tag">非对称加密</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-TCP高性能的机制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/"
+    >TCP的高性能机制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2020-02-25T04:01:35.000Z" itemprop="datePublished">2020-02-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200225/WFp4qQSRpvoo.png" alt="mark"></p>
+<p>之前介绍了TCP的报文格式（<a href="https://zouchanglin.cn/2019/11/21/TCP协议基本特性">《TCP协议基本特性》</a>），TCP的连接管理，学习了TCP如何建立连接，释放连接以及一些网络安装方面的问题，现在还剩下TCP的几个关键机制，主要是TPC的延迟应答和捎带应答、超时重传、快重传和快恢复、滑动窗口机制、拥塞避免算法；然后最后还记录了TCP的粘包问题和解决方案！</p>
+      
+      <a class="article-more-link" href="/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/" data-id="ck71tbqj70001ncwkbp1g11m8"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-谈谈HTTP协议" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/"
+    >谈谈HTTP协议</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-02-25T04:01:35.000Z" itemprop="datePublished">2020-02-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：</p>
+<p><img src="http://img.zouchanglin.cn///20200225/k8pW0raF9ync.png" alt="mark"></p>
+<p>HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 </p>
+<p><img src="http://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" data-id="ck71tbqjv000ancwkheunap3l"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-构造实现简单容器" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -573,229 +788,13 @@
 
 </article>
     
-    <article id="post-虚拟化的基石——Namespace" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/"
-    >虚拟化的基石——Namespace</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" class="article-date">
-  <time datetime="2020-02-18T14:44:21.000Z" itemprop="datePublished">2020-02-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <blockquote>
-<p>每每被人问到：“Docker技术到底是怎么实现的呢？”我只能粗粗浅浅地说：“Docker是使用Linux Kernel的Namespace 和 Cgroups实现的一种容器技术。”那么，什么是Namespace，什么是Cgroups，Docker是怎么使用它们的，容器到底是怎么一步步被创建出来的？问到这些，我就会支支吾吾地不知所以。由此可见，了解容器技术的底层技术，然后明白它们是如何工作的，尤为重要，这些才是整个容器技术的基石，掌握了这些基石才能更加容易地向上攀登。 </p>
-</blockquote>
-<p>那今天就先看看Namespace吧！</p>
-<p><img src="http://img.zouchanglin.cn///20200218/07pgJ5CxHbna.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" data-id="ck6um3b5e00bld4wk9foh7u86"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-构建可复用的模块" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/"
-    >构建可复用模块</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" class="article-date">
-  <time datetime="2020-02-18T02:27:22.000Z" itemprop="datePublished">2020-02-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/">工程构建</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>Golang的工程管理一直是初学者所不能很好的理解的事物，本篇主要讲述了在Golang中如何进行工程管理，如何构建可复用模块，从GitHub获取Go的包是如何操作的，以及Golang的包管理工具的基本使用，这样再进行项目开发的时候就可以模块化的管理自己的工程，首先还得从Package说起！</p>
-<p><img src="http://img.zouchanglin.cn///20200218/9Uui7Swk4Vcp.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" data-id="ck6um3b4v009zd4wk9ss1hjvq"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-在Golang中处理异常" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/"
-    >在Golang中处理异常</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" class="article-date">
-  <time datetime="2020-02-17T12:04:22.000Z" itemprop="datePublished">2020-02-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>通常我们需要编写好的错误处理方式，在了避免某些程序员滥用异常，于是Go这里直接把异常这一块给砍掉了，最终还是通过返回值来判断程序的异常情况，毕竟Go可是支持多返回值的语言，比如atoi、itoa等函数，就不能忽略它的第二个返回值，因为第二个返回值代表了转换是否成功！不过Golang还是提供了一些错误处理机制的</p>
-<p><img src="http://img.zouchanglin.cn///20200217/IvGCHwjRpvVi.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" data-id="ck6um3b4g008gd4wkeipkfl6h"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="tag">异常处理</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    构造实现简单容器 |  Tim&#39;s Blog
+    谈谈HTTP协议 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,7 +34,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-构造实现简单容器" class="article article-type-post" itemscope
+  <article id="post-谈谈HTTP协议" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -42,7 +42,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  构造实现简单容器
+  谈谈HTTP协议
 </h1>
   
 
@@ -51,12 +51,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time datetime="2020-02-24T14:38:52.806Z" itemprop="datePublished">2020-02-24</time>
+      <a href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-02-25T04:01:35.000Z" itemprop="datePublished">2020-02-25</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
   </div>
 
       
@@ -66,7 +66,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">312字</span>
+            <span class="post-count">838字</span>
         </span>
     </span>
 
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -99,14 +99,42 @@
       
 
       
-      <p>现在即将开始真正踏上构造自己的容器的道路。我们会基于当前的操作系统创建一个与宿主机隔离的容器环境，下面就开始吧。在开始之前我们需要先对Linux的proc文件系统做一个介绍：</p>
-<p>如果你对这些基本知识已经很熟悉了，请直接略过。Linux下的/proc文件系统是由内核提供的，它其实不是一个真正的文件系统，只包含了系统运行时的信息（比如系统内存、mount设备信息、一些硬件配置等），它只存在于内存中，而不占用外存空间。它以文件系统的形式，为访问内核数据的操作提供接口。实际上，很多系统工具都是简单地去读取这个文件系统的某个文件内容，比如lsmod，其实就是cat /proc/modules。当遍历这个目录的时候，会发现很多数字，这些都是为每个进程创建的空间，数字就是它们的PID。</p>
-<p><img src="http://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png" alt="mark"></p>
+      <p>HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：</p>
+<p><img src="http://img.zouchanglin.cn///20200225/k8pW0raF9ync.png" alt="mark"></p>
+<p>HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 </p>
+<p><img src="http://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png" alt="mark"></p>
 <a id="more"></a>
 
-<p>下面介绍几个比较重要的部分：</p>
-<p><img src="http://img.zouchanglin.cn///20200224/IFAoL8uIgamJ.png" alt="mark"></p>
-<p> 实现一个简单版本的run命令,类似<code>docker run -ti [command]</code>  代码目录结构如下： </p>
+<p>HTTP是一种无连接协议， 无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间，并且可以提高并发性能，不能和每个用户建立长久的连接，请求一次相应一次，服务端和客户端就中断了。但是无连接有两种方式，早期的http协议是一个请求一个响应之后，直接就断开了，但是现在的http协议1.1版本不是直接就断开了，而是等几秒钟，这几秒钟是等什么呢，等着用户有后续的操作，如果用户在这几秒钟之内有新的请求，那么还是通过之前的连接通道来收发消息，如果过了这几秒钟用户没有发送新的请求，那么就会断开连接，这样可以提高效率，减少短时间内建立连接的次数，因为建立连接也是耗时的，默认的好像是3秒中现在，但是这个时间是可以通过咱们后端的代码来调整的，自己网站根据自己网站用户的行为来分析统计出一个最优的等待时间。 </p>
+<h2 id="HTTP请求-响应格式"><a href="#HTTP请求-响应格式" class="headerlink" title="HTTP请求/响应格式"></a>HTTP请求/响应格式</h2><p><img src="http://img.zouchanglin.cn///20200225/YKueLh0GaSeK.png" alt="mark"></p>
+<h2 id="HTTP的方法"><a href="#HTTP的方法" class="headerlink" title="HTTP的方法"></a>HTTP的方法</h2><p><img src="http://img.zouchanglin.cn///20200225/gQgfNMS83gJ2.png" alt="mark"></p>
+<h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><p><img src="http://img.zouchanglin.cn///20200225/NUano19H6rLy.png" alt="mark"></p>
+<p>我经常遇到的状态码：</p>
+<ul>
+<li>200 OK，代表请求正常处理完毕</li>
+<li>202 OK，在文件下载断点续传的时候用过</li>
+<li>304 使用缓存，响应体中无数据</li>
+<li>131，302 重定向请求， 301表示旧地址A的资源已经被永久地移除了 ，302是暂时移除</li>
+<li>400 请求参数有误</li>
+<li>403 对请求资源的访问被服务器拒绝 </li>
+<li>404 服务器找不到请求资源</li>
+<li>405 请求方式被拒绝</li>
+<li>500  服务器端在执行请求时发生了错误 </li>
+<li>502 服务器超负载/在维护</li>
+</ul>
+<h2 id="HTTP常见的Header"><a href="#HTTP常见的Header" class="headerlink" title="HTTP常见的Header"></a>HTTP常见的Header</h2><ul>
+<li>Content-Type: 数据类型(text/html等)</li>
+<li>Content-Length: Body的长度</li>
+<li>Host:客户端告知服务器所请求的资源是在哪个主机的哪个端口上;</li>
+<li>User-Agent:声明用户的操作系统和浏览器版本信息;</li>
+<li>referer: 当前页面是从哪个页面跳转过来的;</li>
+<li>location:搭配3xx状态码使用,告诉客户端接下来要去哪里访问;</li>
+<li>Cookie:用于在客户端存储少量信息.通常用于实现会话(session)的功能;</li>
+</ul>
+<h2 id="实现简易的HTTP服务器"><a href="#实现简易的HTTP服务器" class="headerlink" title="实现简易的HTTP服务器"></a>实现简易的HTTP服务器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">80</span>);</span><br><span class="line">        Socket accept = serverSocket.accept();</span><br><span class="line">        OutputStream outputStream = accept.getOutputStream();</span><br><span class="line">        Writer writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(outputStream, <span class="string">"UTF-8"</span>));</span><br><span class="line">        writer.write(<span class="string">"HTTP/1.0 200 OK\r\n"</span>);</span><br><span class="line">        writer.write(<span class="string">"Set-Cookie:CookieName=HelloCookie\r\n"</span>);</span><br><span class="line">        writer.write(<span class="string">"\r\n"</span>);</span><br><span class="line">        writer.write(<span class="string">"&lt;h1&gt;Hello, Http Server&lt;h1&gt;"</span>);</span><br><span class="line">        writer.flush();</span><br><span class="line">        writer.close();</span><br><span class="line">        outputStream.close();</span><br><span class="line">        serverSocket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而且还携带了Cookie</p>
+<p><img src="http://img.zouchanglin.cn///20200225/ECIEf2sbrKFO.png" alt="mark"></p>
 
       
       <!-- 打赏 -->
@@ -117,10 +145,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/" data-id="ck70lds6g0000o8wkhn947z0z"
+      <a data-url="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" data-id="ck71tbqjv000ancwkheunap3l"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">文件系统</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
 
@@ -130,19 +158,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" class="article-nav-link">
+      <a href="/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            谈谈HTTP协议
+            TCP的高性能机制
           
         </div>
       </a>
     
     
-      <a href="/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+      <a href="/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">动手实现AUFS文件系统</div>
+        <div class="article-nav-title">构造实现简单容器</div>
       </a>
     
   </nav>
