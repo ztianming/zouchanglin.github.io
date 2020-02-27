@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-27T01:22:53.445Z</updated>
+  <updated>2020-02-27T09:33:42.040Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,21 +17,16 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>分析数据库事务的实现</title>
-    <link href="https://zouchanglin.cn/2020/02/26/%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://zouchanglin.cn/2020/02/26/%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
-    <published>2020-02-26T12:01:35.000Z</published>
-    <updated>2020-02-27T01:22:53.445Z</updated>
+    <title>InnoDB秒级快照原理与当前读</title>
+    <link href="https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/"/>
+    <id>https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/</id>
+    <published>2020-02-27T12:01:35.000Z</published>
+    <updated>2020-02-27T09:33:42.040Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;关于MySQL的锁机制问题，在之前的博客中有谈到&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; ，里面对锁的讲解比较详细，现在是在原来的基础上谈谈数据库事务相关的问题。首先要知道的是数据库事务四大特性：ACID&lt;/p&gt;
-&lt;h2 id=&quot;事务四大特性-ACID&quot;&gt;&lt;a href=&quot;#事务四大特性-ACID&quot; class=&quot;headerlink&quot; title=&quot;事务四大特性 ACID&quot;&gt;&lt;/a&gt;事务四大特性 ACID&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;原子性 Atomic  事务是一个原子操作单元， 其对数据的修改，要么全都执行，要么全都不执行。 &lt;/li&gt;
-&lt;li&gt;一致性 Consistency  在事 务开始和完成时， 数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性；事务结束时，所有的内部数据结构(如B树索引或双向链表)也都必须是正确的。 &lt;/li&gt;
-&lt;li&gt;隔离性 Isolation  数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。 &lt;/li&gt;
-&lt;li&gt;持久性 Durability  事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持。 &lt;/li&gt;
-&lt;/ul&gt;
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在之前为文章&lt;a href=&quot;https://zouchanglin.cn/2020/02/26/分析事务隔离的实现&quot;&gt;《分析事务隔离的实现》&lt;/a&gt;中我们提到：如果是可重复读隔离级别，事务T启动的时候会创建一个视图 read-view，之后事务 T 执行期间，即使有其他事务修改了数据，事务 T 看到的仍然跟在启动时看到的一样。也就是说，一个在可重复读隔离级别下执行的事务，好像与世无争，不受外界影响。但是，我在介绍MySQL锁机制的文章中&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; 的时候，一个事务要更新一行，如果刚好有另外一个事务拥有这一行的行锁，它会被锁住，进入等待状态。问题是，既然进入了等待状态，那么等到这个事务自己获取到行锁要更新数据的时候，它读到的值又是什么呢？&lt;/p&gt;
     
     </summary>
     
@@ -64,6 +59,28 @@
     
     
       <category term="索引" scheme="https://zouchanglin.cn/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+      <category term="MySQL" scheme="https://zouchanglin.cn/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分析事务隔离的实现</title>
+    <link href="https://zouchanglin.cn/2020/02/26/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://zouchanglin.cn/2020/02/26/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
+    <published>2020-02-26T12:01:35.000Z</published>
+    <updated>2020-02-27T04:33:21.996Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200227/a3pBOiztLcnN.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;关于MySQL的锁机制问题，在之前的博客中有谈到&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; ，里面对锁的讲解比较详细，现在是在原来的基础上谈谈数据库事务相关的问题。简单来说事务就是要保证一组数据库操作，要么全部成功，要么全部失败。在MySQL中，事务支持是在引擎层实现的。你现在知道，MySQL是一个支持多引擎的系统，但并不是所有的引|擎都支持事务。比如MySQL原生的MyISAM引擎就不支持事务，这也是MyISAM被InnoDB取代的重要原因之一。首先要知道的是数据库事务四大特性：ACID&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据库" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
     
       <category term="MySQL" scheme="https://zouchanglin.cn/tags/MySQL/"/>
     
@@ -478,29 +495,6 @@
     
     
       <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IDEA插件推荐</title>
-    <link href="https://zouchanglin.cn/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/"/>
-    <id>https://zouchanglin.cn/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/</id>
-    <published>2020-02-14T16:00:00.000Z</published>
-    <updated>2020-02-20T06:53:28.240Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200216/igy99NdTRXcF.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Alibaba-Java-Coding-Guidelines&quot;&gt;&lt;a href=&quot;#Alibaba-Java-Coding-Guidelines&quot; class=&quot;headerlink&quot; title=&quot;Alibaba Java Coding Guidelines&quot;&gt;&lt;/a&gt;Alibaba Java Coding Guidelines&lt;/h2&gt;&lt;p&gt;写代码怎么能没有规范呢？这款插件是伴随阿里巴巴编码约规出现的，自我感觉是必须要安装的插件&lt;/p&gt;
-&lt;h2 id=&quot;Lombok&quot;&gt;&lt;a href=&quot;#Lombok&quot; class=&quot;headerlink&quot; title=&quot;Lombok&quot;&gt;&lt;/a&gt;Lombok&lt;/h2&gt;&lt;p&gt;以前的Java项目中，充斥着太多不友好的代码：各种getter/setter/toString；异常处理；I/O流的关闭操作等等，这些样板代码既没有技术含量，又影响着代码的美观，Lombok必备！不要忘记引入Lombok依赖&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="开发工具" scheme="https://zouchanglin.cn/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="IDEA" scheme="https://zouchanglin.cn/tags/IDEA/"/>
     
   </entry>
   
