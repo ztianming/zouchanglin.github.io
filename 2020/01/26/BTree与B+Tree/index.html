@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    解决跨域问题 |  Tim&#39;s Blog
+    BTree与B+Tree |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,7 +34,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-解决跨域问题" class="article article-type-post" itemscope
+  <article id="post-BTree与B+Tree" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -42,7 +42,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  解决跨域问题
+  BTree与B+Tree
 </h1>
   
 
@@ -51,12 +51,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2020-01-28T05:25:09.000Z" itemprop="datePublished">2020-01-28</time>
+      <a href="/2020/01/26/BTree%E4%B8%8EB+Tree/" class="article-date">
+  <time datetime="2020-01-26T11:01:35.000Z" itemprop="datePublished">2020-01-26</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
   </div>
 
       
@@ -66,7 +66,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">572字</span>
+            <span class="post-count">1.4k字</span>
         </span>
     </span>
 
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -86,8 +86,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -101,26 +99,52 @@
       
 
       
-      <h2 id="0、浏览器跨域问题"><a href="#0、浏览器跨域问题" class="headerlink" title="0、浏览器跨域问题"></a>0、浏览器跨域问题</h2><p>看到浏览器报Access-Control-Allow-Origin毫无疑问了，看来是跨域问题</p>
-<p><img src="http://img.zouchanglin.cn///20200202/2n3Iw8bl3nIN.png" alt="mark"></p>
-<p>CORS是一种访问机制，英文全称是Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到Access-Control-Allow-Origin 即可</p>
-<p>浏览器端：发送AJAX请求前需设置通信对象XHR的withCredentials 属性为true。</p>
-<p>服务器端：设置Access-Control-Allow-Credentials为true。</p>
-<p>两个条件缺一不可，否则即使服务器同意发送Cookie！</p>
+      <p>其实在之前的文章说说到过MySQL索引，只不过没细说，<a href="https://zouchanglin.cn/2019/09/12/JOIN查询与索引简介/#5、MySQL索引结构">《JOIN查询与索引简介》</a> ，现在来看看回顾一下索引相关的数据结构，首先看看索引的定义： 索引(Index)是帮助MySQL高效获取数据的数据结构。 我不会索引就是类似于字典这样的话泛泛而谈，而是如何真正去理解索引。</p>
 <a id="more"></a>
 
-<p><code>Access-Control-Allow-Methods</code> 表示允许哪些跨域请求的提交方式。（例如GET/POST）</p>
-<p><code>Access-Control-Allow-Headers</code>  表示跨域请求的头部的允许范围。</p>
-<p><code>Access-Control-Expose-Headers</code> 表示允许暴露哪些头部信息给客户端。</p>
-<p><code>Access-Control-Max-Age</code> 表示预检请求的最大缓存时间。</p>
-<h2 id="1、返回新的CorsFilter"><a href="#1、返回新的CorsFilter" class="headerlink" title="1、返回新的CorsFilter"></a>1、返回新的CorsFilter</h2><p>这是一种全局跨域的方式</p>
-<p>在任意配置类，返回一个新的CorsFilter Bean，并添加映射路径和具体的CORS配置信息。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> edu.xpu.cors.config;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalCorsConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.添加CORS配置信息</span></span><br><span class="line">        CorsConfiguration config = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">          <span class="comment">//放行哪些原始域</span></span><br><span class="line">          config.addAllowedOrigin(<span class="string">"*"</span>);</span><br><span class="line">          <span class="comment">//是否发送Cookie信息</span></span><br><span class="line">          config.setAllowCredentials(<span class="keyword">true</span>);</span><br><span class="line">          <span class="comment">//放行哪些原始域(请求方式)</span></span><br><span class="line">          config.addAllowedMethod(<span class="string">"*"</span>);</span><br><span class="line">          <span class="comment">//放行哪些原始域(头部信息)</span></span><br><span class="line">          config.addAllowedHeader(<span class="string">"*"</span>);</span><br><span class="line">          <span class="comment">//暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）</span></span><br><span class="line">          config.addExposedHeader(<span class="string">"*"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2.添加映射路径</span></span><br><span class="line">        UrlBasedCorsConfigurationSource configSource = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        configSource.registerCorsConfiguration(<span class="string">"/**"</span>, config);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3.返回新的CorsFilter.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(configSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2、重写WebMvcConfigurer"><a href="#2、重写WebMvcConfigurer" class="headerlink" title="2、重写WebMvcConfigurer"></a>2、重写WebMvcConfigurer</h2><p>在任意配置类，返回一个新的WebMvcConfigurer Bean，并重写其提供的跨域请求处理的接口，目的是添加映射路径和具体的CORS配置信息。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> edu.xpu.cors.config;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalCorsConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> WebMvcConfigurer <span class="title">corsConfigurer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> WebMvcConfigurer() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="comment">//重写父类提供的跨域请求处理的接口</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//添加映射路径</span></span><br><span class="line">                registry.addMapping(<span class="string">"/**"</span>)</span><br><span class="line">                        <span class="comment">//放行哪些原始域</span></span><br><span class="line">                        .allowedOrigins(<span class="string">"*"</span>)</span><br><span class="line">                        <span class="comment">//是否发送Cookie信息</span></span><br><span class="line">                        .allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">                        <span class="comment">//放行哪些原始域(请求方式)</span></span><br><span class="line">                        .allowedMethods(<span class="string">"GET"</span>,<span class="string">"POST"</span>, <span class="string">"PUT"</span>, <span class="string">"DELETE"</span>)</span><br><span class="line">                        <span class="comment">//放行哪些原始域(头部信息)</span></span><br><span class="line">                        .allowedHeaders(<span class="string">"*"</span>)</span><br><span class="line">                        <span class="comment">//暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）</span></span><br><span class="line">                        .exposedHeaders(<span class="string">"Header1"</span>, <span class="string">"Header2"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<p><img src="http://img.zouchanglin.cn///20200202/nEb0SX6ve9rT.png" alt="img"></p>
+<p>根据列字段信息的特点，去用一种数据结构存储这些特点，这就是索引，如上图：我们需要把第二列的值通过二叉查找树存储起来，每一个节点都是以Key-Vlaue的形式存在，把值当做Key，把物理地址当做Value，那么只要根据二叉查找树的特性，很快就可以找到对应的物理地址，从而取出数据。</p>
+<p>数据库常见的索引有Btree、B+tree、Hash索引等等，今天主要探讨的是BTree和B+Tree</p>
+<h2 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B Tree"></a>B Tree</h2><p>先看看Btree的定义：</p>
+<ul>
+<li>根节点至少包括两个孩子</li>
+<li>树中每个节点最多含有m个孩子( m&gt;=2 )</li>
+<li>除根节点和叶节点外，其他每个节点至少有ceil(m/2)个孩子，这里的ceil是取上限的意思</li>
+<li>所有叶子节点位于同一层</li>
+</ul>
+<p>假设每个非终端结点中包含有n个关键字信息，其中</p>
+<ul>
+<li>Ki (i=1..n)为关键字，且关键字按顺序升序排序K(i-1) &lt;  Ki</li>
+<li>关键字的个数n必须满足: [ceil(m / 2) -1] &lt;= n &lt;= m-1</li>
+<li>非叶子结点的指针: P[1]，P[2]，… P[M]；其中P[1]指向关键字小于K[1]的子树，P[M]指向关键字大于K[M-1]的子树，其它P[i]指向关键字属于(K[i-1]，K[i])的子树</li>
+</ul>
+<p>看起来是非常绕的，通过下面的图示其实是蛮好懂的：</p>
+<p><img src="http://img.zouchanglin.cn///20200226/oIYNGCJNhnBE.png" alt="mark"></p>
+<p>由于B-Tree的特性，在B-Tree中按key检索数据的算法非常直观：首先从根节点进行二分查找，如果找到则返回对应节点的data，否则对相应区间的指针指向的节点递归进行查找，直到找到节点或找到null指针，前者查找成功，后者查找失败。 </p>
+<p>但是由于插入删除新的数据记录会破坏B-Tree的性质，因此在插入删除时，需要对树进行一个分裂、合并、转移等操作以保持B-Tree性质，在这里先不讨论插入删除新的数据记录的问题。</p>
+<h2 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h2><p>B+树是B树的变体， B-Tree有许多变种，其中最常见的是B+Tree，例如MySQL就普遍使用B+Tree实现其索引结构。 B+树的定义基本与B树相同，除了:</p>
+<ul>
+<li>非叶子节点的子树指针与关键字个数相同</li>
+<li>非叶子节点的子树指针P[i]，指向关键字值[K[i]，K[i+1])的子树</li>
+<li>非叶子节点仅用来作为索引，数据都保存在叶子节点中</li>
+<li>所有叶子节点均有一个链指针指向下一个叶子结点</li>
+</ul>
+<p><img src="http://img.zouchanglin.cn///20200226/QA1FKx5yBV04.png" alt="mark"></p>
+<h2 id="B-Tree更适合做索引"><a href="#B-Tree更适合做索引" class="headerlink" title="B+Tree更适合做索引"></a>B+Tree更适合做索引</h2><p><strong>1、B+Tree的磁盘读写代价更低</strong></p>
+<p>B+Tree内部并没有指向关键字具体信息的指针，也就是不存放数据，只存放索引信息，所能容纳的关键字数量也就越多，一次性读入内存需要查找的关键字也就越多，相对来说IO读写次数也就降低了</p>
+<p><strong>2、B+Tree的查询效率更加稳定</strong></p>
+<p>由于B+Tree内部节点并不是直接指向文件内容的节点，而只是叶子节点中关键字的索引，所以任何关键字的查找必须走一条从根节点到叶子节点的路，所有关键字查询的路径长度相同，导致每一个数据的查询效率也几乎是相同的，所以查询效率更稳定</p>
+<p><strong>3、B+Tree更有利于对数据库的扫描</strong></p>
+<p>B Tree在提高了磁盘IO性能的同时，并没有解决元素遍历的效率底下的问题，而B+Tree只需要遍历叶子节点就可以解决对全部关键字信息的扫描，所以对于数据库频繁使用的范围查询是非常有利的</p>
+<p>这也就是选择B+Tree作为主流索引数据结构的原因</p>
+<h2 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h2><p>有些数据库存储引擎还支持Hash这个数据结构作为其索引哈希结构，想必大家已经非常熟悉了，就是根据哈希函数的运算，那只需经过一次定位便能找到需要的数据，相比起B+Tree索引，需要从根节点到非叶子节点，再到叶子节点才能访问到我们需要的数据，这样可能会经过多次的IO访问，所以呢，哈希索引的查询效率理论上要高于B+Tree索引。</p>
+<p><img src="http://img.zouchanglin.cn///20200226/HKLsLzXXqLMw.png" alt="mark"></p>
+<p>但是Hash也是有非常明显的缺点的：</p>
+<p>1、仅仅能满足“=” 、“IN”，不能使用范围查询</p>
+<p>2、无法被用来避免数据的排序操作</p>
+<p>3、不能利用部分索引建来查询</p>
+<p>4、不能避免表扫描</p>
+<p>5、遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高</p>
 
       
       <!-- 打赏 -->
@@ -131,10 +155,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" data-id="ck6um3b5c00bed4wk8kwaewub"
+      <a data-url="https://zouchanglin.cn/2020/01/26/BTree%E4%B8%8EB+Tree/" data-id="ck741rpgq0000i0wk1n4j15fo"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li></ul>
 
     </footer>
 
@@ -144,19 +168,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/01/29/CentOS7%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Nginx/" class="article-nav-link">
+      <a href="/2020/01/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            CentOS7编译安装nginx
+            密集索引和稀疏索引
           
         </div>
       </a>
     
     
-      <a href="/2020/01/26/%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="article-nav-link">
+      <a href="/2020/01/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">分析数据库事务的实现</div>
+        <div class="article-nav-title">计算机网络常见面试题</div>
       </a>
     
   </nav>

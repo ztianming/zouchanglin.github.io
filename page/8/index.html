@@ -75,6 +75,308 @@
     
     
     
+    <article id="post-Docker简介与安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/"
+    >Docker简介与安装</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2019-08-02T03:09:47.000Z" itemprop="datePublished">2019-08-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="1、前提知识"><a href="#1、前提知识" class="headerlink" title="1、前提知识"></a>1、前提知识</h2><ul>
+<li><p>熟悉Linux命令和相关背景</p>
+</li>
+<li><p>建议了解Git、Maven相关知识和概念</p>
+</li>
+</ul>
+<h2 id="2、Docker方向选择"><a href="#2、Docker方向选择" class="headerlink" title="2、Docker方向选择"></a>2、Docker方向选择</h2><ul>
+<li><p>JavaEE研发方向：掌握Docker基本用法和相关概念</p>
+</li>
+<li><p>Docker研发方向：主要开发语言是go，Swarm、Compose、Machine、K8S等</p>
+</li>
+</ul>
+<h2 id="3、Docker是什么"><a href="#3、Docker是什么" class="headerlink" title="3、Docker是什么"></a>3、Docker是什么</h2><p>一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种版本的迭代之后，不同版本环境的兼容，对运维人员都是考验  Docker之所以发展如此迅速，也是因为它对此给出了一个标准化的解决方案。</p>
+      
+      <a class="article-more-link" href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" data-id="ck6um3b27001ad4wk9uxq5tpv"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-彻底解决ADB连接问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/"
+    >彻底解决ADB连接问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2019-07-31T03:55:47.000Z" itemprop="datePublished">2019-07-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Android 调试桥 (adb) 是一种功能多样的命令行工具，可让您与设备进行通信。adb 命令便于执行各种设备操作（例如安装和调试应用），并提供对 Unix shell（可用来在设备上运行各种命令）的访问权限。它是一种客户端-服务器程序，包括以下三个组件：</p>
+<ul>
+<li><strong>客户端</strong>：用于发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
+<li><strong>守护进程 (adbd)</strong>：在设备上运行命令。守护进程在每个设备上作为后台进程运行。</li>
+<li><strong>服务器</strong>：管理客户端和守护进程之间的通信。服务器在开发计算机上作为后台进程运行。</li>
+</ul>
+<p>但是经常出现的问题就是ADB无法连接，或者其他的ADB驱动问题等等..</p>
+<p><img src="http://img.zouchanglin.cn///20200202/h7mHP12Ov0oH.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" data-id="ck6um3b4m0096d4wkaru6bgn6"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Android快速集成OpenCV" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/"
+    >Android快速集成OpenCV</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/" class="article-date">
+  <time datetime="2019-07-31T01:27:16.000Z" itemprop="datePublished">2019-07-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>之前集成OpenCV是通过NDK的方式，需要自己编译出so库，这是一种很低效的集成方式，很多时候需要自己写JNI的代码，不是一个很好的选择，而通过open CV官方的jar就可以引入很多种常用的API，下面来说说这种方式</p>
+<p>首先需要先下载一个OpenCV的Android开发SDK：<br><img src="http://img.zouchanglin.cn///20200202/nozycNcpzEbp.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/" data-id="ck6um3b1q000dd4wkccrhh3sm"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-深入理解HashMap" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/"
+    >深入理解HashMap</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/" class="article-date">
+  <time datetime="2019-07-27T16:26:59.000Z" itemprop="datePublished">2019-07-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="一、什么是HashMap"><a href="#一、什么是HashMap" class="headerlink" title="一、什么是HashMap"></a>一、什么是HashMap</h2><p>HashMap肯定是一个Java开发者经常用到的一个容器，不妨吧HashMap看成是Hash + Map</p>
+<p>Hash：散列讲一个任意的长度通过某种算法（哈希算法）转换为一个固定值<br>Map：这个Map被翻译过来是地图，地图是一种很明显的K-V模型，地图上的每一个点对应真实存在的某一个地方，所以我认为是一种K-V模型</p>
+<p>好了两个概念合二为一即是：把一个东西通过哈希算法找到对应的位置，并把它存储到这个位置！</p>
+      
+      <a class="article-more-link" href="/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/" data-id="ck6um3b5000agd4wkdx3qcnzn"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-KMP其实也没那么难" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -500,303 +802,6 @@
       <a data-url="https://zouchanglin.cn/2019/05/31/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%94%AF%E4%BB%98%E5%AE%9D/" data-id="ck6um3b5a00b8d4wk5ghg2pl7"
         class="article-share-link">分享</a>
       
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-解决ssh_exchange_identificationread connection reset by peer" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/19/%E8%A7%A3%E5%86%B3ssh_exchange_identificationread%20connection%20reset%20by%20peer/"
-    >解决ssh_exchange_identificationread connection reset by peer</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/19/%E8%A7%A3%E5%86%B3ssh_exchange_identificationread%20connection%20reset%20by%20peer/" class="article-date">
-  <time datetime="2019-05-19T10:09:30.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>最近好久没连接过自己的云服务器了，但是的时候使用ssh访问服务器时出现：<code>ssh_exchange_identification: read: Connection reset by peer</code>这样的连接错误</p>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><ul>
-<li>服务器防火墙限定</li>
-<li>是否达到ssh的最大连接数，超过之后会服务器端会拒绝新的连接，直到有新的连接释放出来</li>
-<li>/etc/hosts.allow和/etc/hosts.deny配置文件限定ip登录</li>
-</ul>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>先关闭防火墙，尤其是云服务厂商为你设定的防火墙，具体解决方式要参考云服务器厂商。看看网络状态，看看Linux是否运行着shhd服务，如果没有那么有可能是连ssh服务程序都没有安装，应该先安装ssh服务器才可以。接着如果还是不行的话：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts.allow</span><br></pre></td></tr></table></figure>
-
-<p> 追加上： </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sshd: ALL</span><br></pre></td></tr></table></figure>
-
-<p>接着重启shh服务 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/2019/05/19/%E8%A7%A3%E5%86%B3ssh_exchange_identificationread%20connection%20reset%20by%20peer/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/05/19/%E8%A7%A3%E5%86%B3ssh_exchange_identificationread%20connection%20reset%20by%20peer/" data-id="ck6um3b5d00bid4wk5s010h5u"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Nginx应用和选择" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/"
-    >Nginx应用和选择</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/" class="article-date">
-  <time datetime="2019-05-18T10:09:30.000Z" itemprop="datePublished">2019-05-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8/">高性能服务器</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="Nginx的应用场景"><a href="#Nginx的应用场景" class="headerlink" title="Nginx的应用场景"></a>Nginx的应用场景</h1><p>Nginx常见的应用场景如下图所示，下面这张图可以说是很详细了：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/KD3mSukeYmSh.png" alt="mark"></p>
-<h2 id="静态资源服务"><a href="#静态资源服务" class="headerlink" title="静态资源服务"></a>静态资源服务</h2><p>曾经的Web开发并不是完全的前后端分离，最明显的例子就是JSP，基本是前后端不分离，直到后来Spring生态体系和前端框架的发展，Web应用程序成了单纯的提供应用接口服务的程序，因此静态资源就没必要交给应用服务器去处理，而是交给Nginx</p>
-      
-      <a class="article-more-link" href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/" data-id="ck6um3b3k005rd4wkgfb083fx"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-AsyncHttpClient如何进行Session的保存" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/"
-    >AsyncHttpClient如何进行Session的保存</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" class="article-date">
-  <time datetime="2019-05-11T10:09:30.000Z" itemprop="datePublished">2019-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在之前我从来没有通过AsyncHttp这个请求框架去保存Session，但是今天不得不用呀！接口设计有限，我也只好用专门给浏览器用的接口了，这次我把AsyncHttpClient封装成了一个单例，通过这样的方式来保存Session，暂时先这么用吧，等到找到其他解决方案了再更新此文！</p>
-      
-      <a class="article-more-link" href="/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/05/11/AsyncHttpClient%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8CSession%E7%9A%84%E4%BF%9D%E5%AD%98/" data-id="ck6um3b1n0006d4wkc5igen9f"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-网易云的MV下载" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/03/%E7%BD%91%E6%98%93%E4%BA%91%E7%9A%84MV%E4%B8%8B%E8%BD%BD/"
-    >网易云的MV下载</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/03/%E7%BD%91%E6%98%93%E4%BA%91%E7%9A%84MV%E4%B8%8B%E8%BD%BD/" class="article-date">
-  <time datetime="2019-05-03T10:09:30.000Z" itemprop="datePublished">2019-05-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E5%B7%A5%E5%85%B7/">设计工具</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>最近想把自己喜欢的MV放在个人站点上面，但是Mac客户端和网页版的网易云连个下载按钮都没有！好吧， 是时候自己动手…丰衣足食了，网页上能播放出来的肯定是能拿到的，最神奇最稳定的办法当然是开启录屏软件啦。但是本次为了播放效果，能不用最低端的方式就尽量不用啦！</p>
-<p>很久没写过IO方面的东西了，现在拿这个例子来练练手：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/EipNfpCwwPrV.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2019/05/03/%E7%BD%91%E6%98%93%E4%BA%91%E7%9A%84MV%E4%B8%8B%E8%BD%BD/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/05/03/%E7%BD%91%E6%98%93%E4%BA%91%E7%9A%84MV%E4%B8%8B%E8%BD%BD/" data-id="ck6um3b5900b4d4wk3lcoeh6j"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/" rel="tag">上传下载</a></li></ul>
-
     </footer>
 
   </div>

@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives |  Tim&#39;s Blog
+    分析数据库事务的实现 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,254 +34,193 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article class="articles">
+  <article id="post-分析数据库事务的实现" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2019" class="archive-year">2019</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" class="archive-article-date">
-  <time datetime="2019-09-21T15:25:35.000Z" itemprop="datePublished">09/21</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/"
-    >如何避免MySQL索引失效与三个优化实例</a
-  >
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  分析数据库事务的实现
+</h1>
   
 
     </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/17/MySQL%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" class="archive-article-date">
-  <time datetime="2019-09-17T11:44:51.000Z" itemprop="datePublished">09/17</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/09/17/MySQL%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"
-    >MySQL性能分析</a
-  >
-</h2>
-  
 
-    </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/12/JOIN%E6%9F%A5%E8%AF%A2%E4%B8%8E%E7%B4%A2%E5%BC%95%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-  <time datetime="2019-09-12T01:29:32.000Z" itemprop="datePublished">09/12</time>
+    <div class="article-meta">
+      <a href="/2020/01/26/%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-01-26T12:01:35.000Z" itemprop="datePublished">2020-01-26</time>
 </a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/09/12/JOIN%E6%9F%A5%E8%AF%A2%E4%B8%8E%E7%B4%A2%E5%BC%95%E7%AE%80%E4%BB%8B/"
-    >JOIN查询与索引简介</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/MySQL%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
-  <time datetime="2019-09-04T12:36:35.000Z" itemprop="datePublished">09/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/09/04/MySQL%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/"
-    >MySQL配置与存储引擎介绍</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
   </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/18/%E5%9F%BA%E4%BA%8EDocker%E7%9A%84MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" class="archive-article-date">
-  <time datetime="2019-08-18T06:03:35.000Z" itemprop="datePublished">08/18</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/18/%E5%9F%BA%E4%BA%8EDocker%E7%9A%84MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/"
-    >基于Docker的MySQL主从复制</a
-  >
-</h2>
-  
 
-    </header>
-    
-    
-  </div>
-</article>
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/05/Thymeleaf%E5%AF%B9date%E7%B1%BB%E5%9E%8B%E7%9A%84input%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%94%AF%E6%8C%81/" class="archive-article-date">
-  <time datetime="2019-08-05T10:09:30.000Z" itemprop="datePublished">08/05</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/05/Thymeleaf%E5%AF%B9date%E7%B1%BB%E5%9E%8B%E7%9A%84input%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%94%AF%E6%8C%81/"
-    >Thymeleaf对date类型的input格式化支持</a
-  >
-</h2>
-  
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">919字</span>
+        </span>
+    </span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/04/Docker%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83/" class="archive-article-date">
-  <time datetime="2019-08-04T03:02:35.000Z" itemprop="datePublished">08/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/04/Docker%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83/"
-    >Docker常用软件安装与镜像发布</a
-  >
-</h2>
-  
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3分钟</span>
+        </span>
+    </span>
+</div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/" class="archive-article-date">
-  <time datetime="2019-08-03T10:31:28.000Z" itemprop="datePublished">08/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/"
-    >DockerFile快速构建自定义镜像</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/" class="archive-article-date">
-  <time datetime="2019-08-03T03:47:37.000Z" itemprop="datePublished">08/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/"
-    >Docker镜像与数据容器卷</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  <time datetime="2019-08-02T06:27:48.000Z" itemprop="datePublished">08/02</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"
-    >Docker底层原理与命令详解</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
       
     </div>
+    
+
+    
+    
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>关于MySQL的锁机制问题，在之前的博客中有谈到<a href="https://zouchanglin.cn/2019/10/25/探究MySQL锁机制">《探究MySQL锁机制》</a> ，里面对锁的讲解比较详细，现在是在原来的基础上谈谈数据库事务相关的问题。首先要知道的是数据库事务四大特性：ACID</p>
+<h2 id="事务四大特性-ACID"><a href="#事务四大特性-ACID" class="headerlink" title="事务四大特性 ACID"></a>事务四大特性 ACID</h2><ul>
+<li>原子性 Atomic  事务是一个原子操作单元， 其对数据的修改，要么全都执行，要么全都不执行。 </li>
+<li>一致性 Consistency  在事 务开始和完成时， 数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性；事务结束时，所有的内部数据结构(如B树索引或双向链表)也都必须是正确的。 </li>
+<li>隔离性 Isolation  数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。 </li>
+<li>持久性 Durability  事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持。 </li>
+</ul>
+<h2 id="并发事务处理带来的问题"><a href="#并发事务处理带来的问题" class="headerlink" title="并发事务处理带来的问题"></a>并发事务处理带来的问题</h2><p>1、更新丢失</p>
+<p>当两个或多个事务选择同一行，然后基于最初选定的值更新该行时，由于每个事务都不知道其他事务的存在，就会发生丢失更新问题，这就是最后的更新覆盖了由其他事务所做的更新。</p>
+<p>例如，两个程序员修改同一个Java文件。每程序员独立地更改其副本，然后保存更改后的副本，这样就覆盖了原始文档。最后保存其更改副本的编辑人员覆盖前一个程序员所做的更改。如果在一个程序员完成并提交事务之前，另一个程序员不能访问同一文件，则可避免此问题。</p>
+<p>2、脏读</p>
+<p>一个事务正在对一条记录做修改，在这个事务完成并提交前，这条记录的数据就处于不一致状态，这时，另一个事务也来读取同一条记录，如果不加控制，第二个事务读取了这些 “脏” 数据，并据此做进一步的处理， 就会产生未提交的数据依赖关系。这种现象被形象地叫做”脏读”。</p>
+<p>一句话：事务A读取到了事务B已修改但尚未提交的的数据，还在这个数据基础上做了操作。此时，如果B事务回滚，A读取的数据无效，不符合一致性要求。</p>
+<p>3、不可重复读</p>
+<p>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现其读出的数据已经发生了改变、或某些记录已经被删除了！这种现象就叫做“不可重复读”。<br>一句话：事务A读取到了事务B已经提交的修改数据，不符合隔离性</p>
+<p>4、幻读</p>
+<p>一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数据，这种现象就称为“幻读”。</p>
+<p>一句话：事务A读取到了事务B体提交的新增数据，不符合隔离性</p>
+<p>注意：幻读和脏读有点类似，脏读是事务B里面修改了数据，幻读是事务B里面新增了数据。</p>
+<h2 id="事务并发访问控制的"><a href="#事务并发访问控制的" class="headerlink" title="事务并发访问控制的"></a>事务并发访问控制的</h2><p><img src="http://img.zouchanglin.cn///20200226/lGciGjMhevyz.png" alt="mark"></p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/01/26/%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-id="ck741rpgv0001i0wkcea66noz"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
   </div>
-  
-  
 
   
-  <nav class="page-nav">
+  
+  <nav class="article-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/6/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/archives/page/8/">8</a><a class="page-number" href="/archives/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/15/">15</a><a class="extend next" rel="next" href="/archives/page/8/">下一页</a>
+      <a href="/2020/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            解决跨域问题
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">密集索引和稀疏索引</div>
+      </a>
+    
   </nav>
+
+
   
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -436,6 +375,30 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
 
 
 <script>
