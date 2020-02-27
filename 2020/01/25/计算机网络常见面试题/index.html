@@ -101,6 +101,8 @@
       
       <p><img src="http://img.zouchanglin.cn///20200226/plcYVa97lRmi.png" alt="mark"></p>
 <p>这篇文章主要是谈谈计算机网络常见的面试个考察点，记录一下，里面有很多问题之前面试也遇到过，特此记录一下！</p>
+<a id="more"></a>
+
 <h2 id="0、讲一下TCP三次握手"><a href="#0、讲一下TCP三次握手" class="headerlink" title="0、讲一下TCP三次握手"></a>0、讲一下TCP三次握手</h2><p>0、TCP三次握手是一个TCP连接的建立过程，为了确认双方的收发能力正常，并初始化seq，为后续传输做准备</p>
 <p>1、首先Client处于Closed状态，Server处于Listen状态，Client向Server发了SYN=1，seq=x，Server收到后确认了Server的接收能力正常，Client的发送能力正常；</p>
 <p>2、Server回复SYN=1，ACK=1，ack=x+1，seq=y，Client收到后做出判断：Client和Server的收发能力都正常，</p>
