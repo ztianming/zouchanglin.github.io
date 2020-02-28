@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Redis的数据类型</title>
+    <url>/2020/02/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>今天主要介绍的是Redis的数据类型，顺便说说Redis的ping-pong：</p>
+<p><img src="http://img.zouchanglin.cn///20200228/SRyi77FjHYPF.png" alt="mark"></p>
+<p>String类型：最基本的数据类型，二进制安全，最大存储长度为1G的字符串，String可以保存任何对象，无论是JPG图片，还是序列化的对象都是可以保存的！</p>
+<p><img src="http://img.zouchanglin.cn///20200228/CXicmm38VEae.png" alt="mark"></p>
+<p>如果要统计用户对网站的日访问量应该如何统计呢？其实很简单，如图只要把UserId+日期当成Key，并赋值为0，用户每访问一次就把key对应的值+1，这样就可以轻松统计了：</p>
+<p><img src="http://img.zouchanglin.cn///20200228/YfJRnir3yEsq.png" alt="mark"></p>
+<p>string类型的数据结构：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//保存字符串对象的数据结构</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">    <span class="comment">//buf中已占用空间长度</span></span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//buf中剩余空间</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//数据空间</span></span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Hash：看看Hash数据类型，String元素组成的，适合用于存储对象</p>
+<p><img src="http://img.zouchanglin.cn///20200228/JUqxbozQCDky.png" alt="mark"></p>
+<p>List：列表，按照String元素插入顺序排序，大约可以存储40亿成员，List可用于最新消息的展示，消息越新，越会立马展示</p>
+<p><img src="http://img.zouchanglin.cn///20200228/WcSpmARKHqvC.png" alt="mark"></p>
+<p>Set：String元素组成的无序集合，通过Hash表实现，不允许重复</p>
+<p><img src="http://img.zouchanglin.cn///20200228/1m78XIoTXITK.png" alt="mark"></p>
+<p>Redis提供了求交集、并集、差集等操作，就可以很方便的实现如共同关注、共同喜好等功能</p>
+<p>SortedSet：通过分数来为集合中的成员进行从小到大的排序</p>
+<p><img src="http://img.zouchanglin.cn///20200228/TaYnzKJgBqNo.png" alt="mark"></p>
+<p>其实Redis还支持存储很多类型，用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>InnoDB秒级快照原理与当前读</title>
     <url>/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png" alt="mark"></p>
@@ -81,35 +111,8 @@
       </tags>
   </entry>
   <entry>
-    <title>密集索引和稀疏索引</title>
-    <url>/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<p>密集索引：文件中的每个搜索码值都对应一个索引值，就是叶子节点保存了整行，比如InnoDB</p>
-<p>稀疏索引：文件只为索引码的某些值建立索引项，比如MyISAM</p>
-<p><img src="http://img.zouchanglin.cn///20200226/L4dIVF9GX4Si.png" alt="mark"></p>
-<p>密集索引的表数据按顺序存储，即索引顺序和表记录物理存储顺序一致，所以一个表只能创建一个密集索引</p>
-<a id="more"></a>
-
-<p>InnoDB的密集索引的选取规则是怎么样的呢？</p>
-<p>1、若一个主键被定义，该主键则作为密集索引<br>2、若没有主键被定义，该表的第一个唯一非空索引则作为密集索引<br>3、若不满足以上条件，InnoDB内部会生成一个隐藏主键(密集索引)<br>4、非主键索引存储相关键位和其对应的主键值，包含两次查找</p>
-<p><img src="http://img.zouchanglin.cn///20200226/pQQAWVjKefgC.png" alt="mark"> </p>
-<p>如上图示意：InooDB的主键索引和数据是保存在同一个文件中的，所以在检索的时候，在加载叶子节点的主键进入内存的同时也加载了对应的数据，如果是使用主键查询，只需要根据B+Tree的规则找到主键，就可以获得对应的行数据，如果稀疏索引进行数据筛选就会经历两个步骤，第一个步骤是在稀疏索引B+Tree中检索该键，比如检索Ellison，就会获取到主键信息，获取到主键信息之后，需要经历第二个步骤：在主键的B+Tree中进行查找。</p>
-<p>对于MyISAM，使用的均为稀疏索引，稀疏索引的两个B+Tree其实也没有什么不同，结构完全一致，只是存储的内容不一样而已，主键索引的B+Tree存储了主键，辅助键索的B+Tree引存储了辅助键，数据却存储在了独立的地方，也就是索引和数据是分开存储的，这两个B+Tree的叶子节点都存储了指向数据的地址，由于辅助键索是独立的，无需借助主键。</p>
-<p>下面我们可以建表验证一下，建表语句如下和效果如下：</p>
-<p><img src="http://img.zouchanglin.cn///20200226/ij8Tn2IKGnol.png" alt="mark"></p>
-<p>上面我们已经弄出清楚了密集索引和稀疏索引的区别，现在来思考一个问题：<strong>索引是越多越好吗？</strong></p>
-<p><strong>答案是当然是否定的，数据量小的表不需要建立索引，建立会增加额外的索引开销；数据变更需要维护索引，因此更多的索引意味着更多的维护成本，更多的索引意味着也需要更多的空间！</strong></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>索引</tag>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>分析事务隔离的实现</title>
-    <url>/2020/02/26/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    <url>/2020/02/27/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200227/a3pBOiztLcnN.png" alt="mark"></p>
 <p>关于MySQL的锁机制问题，在之前的博客中有谈到<a href="https://zouchanglin.cn/2019/10/25/探究MySQL锁机制">《探究MySQL锁机制》</a> ，里面对锁的讲解比较详细，现在是在原来的基础上谈谈数据库事务相关的问题。简单来说事务就是要保证一组数据库操作，要么全部成功，要么全部失败。在MySQL中，事务支持是在引擎层实现的。你现在知道，MySQL是一个支持多引擎的系统，但并不是所有的引|擎都支持事务。比如MySQL原生的MyISAM引擎就不支持事务，这也是MyISAM被InnoDB取代的重要原因之一。首先要知道的是数据库事务四大特性：ACID</p>
 <a id="more"></a>
@@ -164,6 +167,33 @@
         <category>数据库</category>
       </categories>
       <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>密集索引和稀疏索引</title>
+    <url>/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<p>密集索引：文件中的每个搜索码值都对应一个索引值，就是叶子节点保存了整行，比如InnoDB</p>
+<p>稀疏索引：文件只为索引码的某些值建立索引项，比如MyISAM</p>
+<p><img src="http://img.zouchanglin.cn///20200226/L4dIVF9GX4Si.png" alt="mark"></p>
+<p>密集索引的表数据按顺序存储，即索引顺序和表记录物理存储顺序一致，所以一个表只能创建一个密集索引</p>
+<a id="more"></a>
+
+<p>InnoDB的密集索引的选取规则是怎么样的呢？</p>
+<p>1、若一个主键被定义，该主键则作为密集索引<br>2、若没有主键被定义，该表的第一个唯一非空索引则作为密集索引<br>3、若不满足以上条件，InnoDB内部会生成一个隐藏主键(密集索引)<br>4、非主键索引存储相关键位和其对应的主键值，包含两次查找</p>
+<p><img src="http://img.zouchanglin.cn///20200226/pQQAWVjKefgC.png" alt="mark"> </p>
+<p>如上图示意：InooDB的主键索引和数据是保存在同一个文件中的，所以在检索的时候，在加载叶子节点的主键进入内存的同时也加载了对应的数据，如果是使用主键查询，只需要根据B+Tree的规则找到主键，就可以获得对应的行数据，如果稀疏索引进行数据筛选就会经历两个步骤，第一个步骤是在稀疏索引B+Tree中检索该键，比如检索Ellison，就会获取到主键信息，获取到主键信息之后，需要经历第二个步骤：在主键的B+Tree中进行查找。</p>
+<p>对于MyISAM，使用的均为稀疏索引，稀疏索引的两个B+Tree其实也没有什么不同，结构完全一致，只是存储的内容不一样而已，主键索引的B+Tree存储了主键，辅助键索的B+Tree引存储了辅助键，数据却存储在了独立的地方，也就是索引和数据是分开存储的，这两个B+Tree的叶子节点都存储了指向数据的地址，由于辅助键索是独立的，无需借助主键。</p>
+<p>下面我们可以建表验证一下，建表语句如下和效果如下：</p>
+<p><img src="http://img.zouchanglin.cn///20200226/ij8Tn2IKGnol.png" alt="mark"></p>
+<p>上面我们已经弄出清楚了密集索引和稀疏索引的区别，现在来思考一个问题：<strong>索引是越多越好吗？</strong></p>
+<p><strong>答案是当然是否定的，数据量小的表不需要建立索引，建立会增加额外的索引开销；数据变更需要维护索引，因此更多的索引意味着更多的维护成本，更多的索引意味着也需要更多的空间！</strong></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>索引</tag>
         <tag>MySQL</tag>
       </tags>
   </entry>
@@ -4404,7 +4434,7 @@
 <p>yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
 <p>4、安装DockerCE（CE是社区版）</p>
 <p>yum install docker-ce docker-ce-cli containerd.io</p>
-<p>如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配，则接受该指纹 :<br>Importing GPG key 0x621E9F35:<br>Userid     : “Docker Release (CE rpm) <a href="mailto:&#x64;&#x6f;&#x63;&#107;&#x65;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#101;&#114;&#46;&#99;&#x6f;&#109;">&#x64;&#x6f;&#x63;&#107;&#x65;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#101;&#114;&#46;&#99;&#x6f;&#109;</a>“<br>Fingerprint: 060a 61c5 1b55 8a7f 742b 77aa c52f eb6b 621e 9f35<br>From       : <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a></p>
+<p>如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配，则接受该指纹 :<br>Importing GPG key 0x621E9F35:<br>Userid     : “Docker Release (CE rpm) <a href="mailto:&#x64;&#111;&#99;&#107;&#x65;&#114;&#64;&#x64;&#x6f;&#x63;&#107;&#101;&#114;&#46;&#99;&#x6f;&#109;">&#x64;&#111;&#99;&#107;&#x65;&#114;&#64;&#x64;&#x6f;&#x63;&#107;&#101;&#114;&#46;&#99;&#x6f;&#109;</a>“<br>Fingerprint: 060a 61c5 1b55 8a7f 742b 77aa c52f eb6b 621e 9f35<br>From       : <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a></p>
 <p>5、启动Docker</p>
 <p>systemctl start docker</p>
 <p>6、验证安装Docker</p>
