@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-28T11:44:27.727Z</updated>
+  <updated>2020-02-28T14:38:14.027Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,18 +21,12 @@
     <link href="https://zouchanglin.cn/2020/02/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
     <id>https://zouchanglin.cn/2020/02/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
     <published>2020-02-28T12:01:35.000Z</published>
-    <updated>2020-02-28T11:44:27.727Z</updated>
+    <updated>2020-02-28T14:38:14.027Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;今天主要介绍的是Redis的数据类型，顺便说说Redis的ping-pong：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200228/SRyi77FjHYPF.png&quot;
-        
-      
+      &lt;p&gt;今天主要介绍的是Redis的数据类型，顺便说说Redis的ping-pong：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200228/SRyi77FjHYPF.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     

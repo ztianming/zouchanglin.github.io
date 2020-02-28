@@ -101,6 +101,8 @@
       
       <p>今天主要介绍的是Redis的数据类型，顺便说说Redis的ping-pong：</p>
 <p><img src="http://img.zouchanglin.cn///20200228/SRyi77FjHYPF.png" alt="mark"></p>
+<a id="more"></a>
+
 <p>String类型：最基本的数据类型，二进制安全，最大存储长度为1G的字符串，String可以保存任何对象，无论是JPG图片，还是序列化的对象都是可以保存的！</p>
 <p><img src="http://img.zouchanglin.cn///20200228/CXicmm38VEae.png" alt="mark"></p>
 <p>如果要统计用户对网站的日访问量应该如何统计呢？其实很简单，如图只要把UserId+日期当成Key，并赋值为0，用户每访问一次就把key对应的值+1，这样就可以轻松统计了：</p>
