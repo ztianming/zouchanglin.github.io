@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives |  Tim&#39;s Blog
+    通俗理解五种IO模型 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,265 +34,195 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article class="articles">
+  <article id="post-通俗理解五种IO模型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2018" class="archive-year">2018</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/" class="archive-article-date">
-  <time datetime="2018-03-07T10:09:24.000Z" itemprop="datePublished">03/07</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/"
-    >程序员偷偷深爱的9个不良编程习惯</a
-  >
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  通俗理解五种IO模型
+</h1>
   
 
     </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/" class="archive-article-date">
-  <time datetime="2018-02-28T16:00:00.000Z" itemprop="datePublished">03/01</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/"
-    >JVM内存配置参数说明</a
-  >
-</h2>
-  
 
-    </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/" class="archive-article-date">
-  <time datetime="2018-02-28T15:39:28.000Z" itemprop="datePublished">02/28</time>
+    <div class="article-meta">
+      <a href="/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2020-02-29T12:01:35.000Z" itemprop="datePublished">2020-02-29</time>
 </a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/"
-    >Java中数组复制的效率比较</a
-  >
-</h2>
-  
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
 
-    </header>
-    
-    
-  </div>
-</article>
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="archive-article-date">
-  <time datetime="2018-02-03T08:51:00.000Z" itemprop="datePublished">02/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/"
-    >网页启动本地Activity</a
-  >
-</h2>
-  
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.3k字</span>
+        </span>
+    </span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-  
-  </div>
-  </div>
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2017" class="archive-year">2017</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/" class="archive-article-date">
-  <time datetime="2017-12-21T08:51:00.000Z" itemprop="datePublished">12/21</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
-    >Ajax异步请求与JSON数据格式</a
-  >
-</h2>
-  
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4分钟</span>
+        </span>
+    </span>
+</div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/" class="archive-article-date">
-  <time datetime="2017-12-07T03:51:00.000Z" itemprop="datePublished">12/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/"
-    >忍受简单的能力</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  <time datetime="2017-11-04T13:51:00.000Z" itemprop="datePublished">11/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/"
-    >下载中文文件乱码解决方式</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/" class="archive-article-date">
-  <time datetime="2017-10-02T03:51:00.000Z" itemprop="datePublished">10/02</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/"
-    >Linux权限与重要目录</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="archive-article-date">
-  <time datetime="2017-09-17T03:20:29.000Z" itemprop="datePublished">09/17</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/"
-    >Windows与VS下载链接</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" class="archive-article-date">
-  <time datetime="2017-06-17T03:51:00.000Z" itemprop="datePublished">06/17</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/"
-    >Mac下制作Windows启动盘</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
       
     </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png" alt="mark"></p>
+<blockquote>
+<p><strong>任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。</strong></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="理解五种IO模型"><a href="#理解五种IO模型" class="headerlink" title="理解五种IO模型"></a>理解五种IO模型</h2><p>先来看看五种IO模型：</p>
+<p>1、阻塞式IO：在内核将数据准备好之前，系统调用会一直等待。所有的套接字，默认都是阻塞方式，阻塞式是最常见的IO模型，<strong>阻塞式IO属于同步IO模型</strong></p>
+<p>例子：A拿着一支鱼竿在河边钓鱼，并且一直在鱼竿前等，在等的时候不做其他的事情，十分专心。只有鱼上钩的时，才结束掉等的动作，把鱼钓上来。 </p>
+<p><img src="http://img.zouchanglin.cn///20200229/KqGQIn1a13gh.png" alt="mark"></p>
+<p>2、非阻塞式IO：如果内核还未将数据准备好，系统调用仍然会直接返回，并且返回EWOULDBLOCK错误码，非阻塞IO往往需要程序员循环的方式反复尝试读写文件描述符，这个过程称为轮询。这对CPU来说是较大的浪费，一般只有特定场景下才使用，<strong>非阻塞式IO也属于同步IO模型</strong></p>
+<p>例子： B也在河边钓鱼，但是B不想将自己的所有时间都花费在钓鱼上，在等鱼上钩这个时间段中，B在做其他的事情（刷牛客或者刷知乎），但B在做这些事情的时候，每隔一个固定的时间检查鱼是否上钩。一旦检查到有鱼上钩，就停下手中的事情，把鱼钓上来。 </p>
+<p><img src="http://img.zouchanglin.cn///20200229/hex7pX46UFhx.png" alt="mark"></p>
+<p>3、信号驱动IO：内核将数据准备好的时候，使用SIGIO信号通知应用程序进行IO操作，<strong>信号驱动IO也属于同步IO</strong>，信号驱动是不是有点异步的感觉？ 但是在将数据从内核复制到用户空间这段时间内用户态进程是阻塞的，所以也属于同步IO</p>
+<p>例子： C也在河边钓鱼，但与A、B不同的是，C比较聪明，他给鱼竿上挂一个铃铛，当有鱼上钩的时候，这个铃铛就会被碰响，C就会将鱼钓上来。 </p>
+<p><img src="http://img.zouchanglin.cn///20200229/jafb77BHqa68.png" alt="mark"></p>
+<p>4、IO多路复用：虽然从流程图上看起来和阻塞IO类似，实际上最核心在于IO多路转接能够同时等待多个文件描述符的就绪状态，<strong>IO多路复用也属于同步IO</strong></p>
+<p>例子： D同样也在河边钓鱼，但是D生活水平比较好，D拿了很多的鱼竿，一次性有很多鱼竿在等，D不断的查看每个鱼竿是否有鱼上钩。增加了效率，减少了等待的时间。 </p>
+<p><img src="http://img.zouchanglin.cn///20200229/MNIkfuYNMgpQ.png" alt="mark"></p>
+<p>5、异步IO：由内核在数据拷贝完成时，通知应用程序(而信号驱动是告诉应用程序何时可以开始拷贝数据)，<strong>异步IO就是异步IO</strong>，哈哈</p>
+<p>例子：E也想钓鱼，但E有事情，于是他雇来了F，让F帮他等待鱼上钩，一旦有鱼上钩，F就打电话给E，E就会将鱼钓上去。 </p>
+<p><img src="http://img.zouchanglin.cn///20200229/RmKbnXmTBJxO.png" alt="mark"></p>
+<p><strong>阻塞程度：阻塞IO&gt;非阻塞IO&gt;多路转接IO&gt;信号驱动IO&gt;异步IO，效率是由低到高</strong> </p>
+<h2 id="理解同步与异步通信"><a href="#理解同步与异步通信" class="headerlink" title="理解同步与异步通信"></a>理解同步与异步通信</h2><p>所谓同步，就是在发出一个调用时，在没有得到结果之前，该调用就不返回。但是一旦调用返回，就得到返回值了；换句话说，就是由调用者主动等待这个调用的结果；</p>
+<p>异步则是相反，调用在发出之后，这个调用就直接返回了，所以没有返回结果；换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果；而是在调用发出后，被调用者通过状态、通知来通知调用者，或通过回调函数处理这个调用；</p>
+<p><strong>对于同步通信来说，都是由调用者主动等待这个调用的结果</strong>，无论是“干等”，还是轮询式的等，还是信号通知式的等，还是一次等多个的形式，都是需要主动去等的，<strong>对于异步通信来说，这个调用就直接返回了，所以没有返回结果</strong>，不需要调用者主动的等待。</p>
+<h2 id="理解阻塞与非阻塞"><a href="#理解阻塞与非阻塞" class="headerlink" title="理解阻塞与非阻塞"></a>理解阻塞与非阻塞</h2><p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。</p>
+<p><strong>阻塞调用是指调用结果返回之前，当前线程会被挂起</strong>，比如阻塞式IO就是等待调用结果的时候会发生阻塞，啥也干不了，调用线程只有在得到结果之后才会返回；</p>
+<p><strong>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程</strong>，比如非阻塞IO，进程在等待的同时，还可以做其他事情。包括信号驱动也属于非阻塞，但是在数据从内核拷贝到用户空间时也是阻塞的；</p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" data-id="ck77lijm00000kcwk64rb4jhz"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
   </div>
-  
-  
 
   
-  <nav class="page-nav">
+  
+  <nav class="article-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/14/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><span class="page-number current">15</span>
+    
+      <a href="/2020/02/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Redis的数据类型</div>
+      </a>
+    
   </nav>
+
+
   
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -451,6 +381,30 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
 
 
 <script>

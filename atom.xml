@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-28T14:38:14.027Z</updated>
+  <updated>2020-02-29T12:24:47.279Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通俗理解五种IO模型</title>
+    <link href="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</id>
+    <published>2020-02-29T12:01:35.000Z</published>
+    <updated>2020-02-29T12:24:47.279Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis的数据类型</title>
@@ -473,28 +497,6 @@
       <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
     
       <category term="面向对象" scheme="https://zouchanglin.cn/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Golang值得注意的点</title>
-    <link href="https://zouchanglin.cn/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/"/>
-    <id>https://zouchanglin.cn/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/</id>
-    <published>2020-02-16T08:52:02.000Z</published>
-    <updated>2020-02-20T06:57:11.374Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录了一下最近学习golang语言遗忘的和模糊的知识点，主要涵盖主函数退出返回值、如何编写测试程序、如何定义常量、golang的类型转换、golang中的预定义值、指针与其他语言的差异（主要是C语言），以及运算符等等！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200216/SHPRYlCdVQO1.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
     
   </entry>
   

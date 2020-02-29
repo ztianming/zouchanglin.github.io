@@ -75,6 +75,80 @@
     
     
     
+    <article id="post-Linux进程通信之消息队列" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/22/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"
+    >Linux进程通信之消息队列</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/22/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="article-date">
+  <time datetime="2018-11-22T10:09:30.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>消息队列提供了一个从一个进程向另外一个进程发送一块数据的方法<br>每个数据块都被认为是有一个类型，接收者进程接收的数据块可以有不同的类型值<br>消息队列也有管道一样的不足，就是<strong>每个消息的最大长度是有上限的</strong>（MSGMAX），每个消息队列的总的字节数是有上限的（MSGMNB），系统上消息队列的总数也有一个上限（MSGMNI）</p>
+<p><strong>消息队列不提供同步与互斥</strong></p>
+<p><strong>消息队列不提供同步与互斥</strong></p>
+<p><strong>消息队列不提供同步与互斥</strong></p>
+<p><img src="http://img.zouchanglin.cn///20200201/rdHW6qDct3mF.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2018/11/22/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/22/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" data-id="ck7688d7l003wu8wkcurtfs99"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Linux进程通信之管道" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -736,79 +810,6 @@
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-工厂设计模式" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
-    >工厂设计模式</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time datetime="2018-10-23T10:09:30.000Z" itemprop="datePublished">2018-10-23</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h2><p>既然说到设计模式那就顺便回顾一下六大设计原则，六大设计原则是心法，二十三种设计模式是内功，下面只是简明的叙述了一下，后面还会有更详细的说明！<br><strong>一 、 类单一职责原则：Single Responsibility Principle (SRP)</strong><br>一个类只有一个引起这个类变化的原因。即一个类只完成一个功能，如果做不到一个类只完成一个功能，最少要保证一个方法只完成一个功能。</p>
-<p><strong>二、依赖倒置原则：Dependency Inversion Principle (DIP)</strong><br>高层组件应该依赖抽象而不依赖具体，即面向接口编程，一般依赖的成员变量或者参数都应该是抽象的不应该是具体的。</p>
-<p><strong>三、里氏替换原则：Liskov Substitution Principle (LSP)</strong><br>凡是父类出现的地方都可以用子类代替并且原功能没有发生变化，子类不应该覆盖父类的非抽象方法。</p>
-<p><strong>四、迪米特法则：Least Knowledge Principle (LKP)</strong><br>一个类要尽量的封装自己，一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。</p>
-<p><strong>五、接口隔离原则：Interface Segregation Principle (ISP)</strong><br>一个接口完成的功能尽可能的单一，不要让一个接口承担过多的责任。</p>
-<p><strong>六、开闭原则：The Open-Closed Principle (OCP)</strong><br>对扩展开放，对修改闭合。</p>
-      
-      <a class="article-more-link" href="/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="ck7688d9n00agu8wk5aluahao"
-        class="article-share-link">分享</a>
-      
     </footer>
 
   </div>
