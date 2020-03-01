@@ -75,6 +75,135 @@
     
     
     
+    <article id="post-图解epoll原理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"
+    >图解epoll原理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-03-01T12:01:35.000Z" itemprop="datePublished">2020-03-01</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png" alt="mark"></p>
+<h2 id="从硬件理解网卡接收数据过程"><a href="#从硬件理解网卡接收数据过程" class="headerlink" title="从硬件理解网卡接收数据过程"></a>从硬件理解网卡接收数据过程</h2><p>下图是一个典型的计算机结构图，计算机由CPU、存储器（内存）、网络接口等部件组成。了解epoll本质的第一步，要从硬件的角度看计算机怎样接收网络数据。 下面这幅图在我的另一篇文章里也用到了，<a href="https://zouchanglin.cn/2018/06/18/冯诺依曼架构">《冯诺依曼架构》</a></p>
+<p><img src="http://img.zouchanglin.cn///20200201/YJ2jWtPtuzRW.png" alt="img"></p>
+<p> 网卡收到网线传来的数据，通过硬件电路传输，网卡接收的数据存放到内存中，操作系统就可以去读取它们。 </p>
+<h2 id="正确理解CPU中断"><a href="#正确理解CPU中断" class="headerlink" title="正确理解CPU中断"></a>正确理解CPU中断</h2><p>一般而言，由硬件产生的信号需要CPU立马做出处理，不然数据可能就丢失，所以它的优先级很高。CPU理应中断掉正在执行的程序，去做出响应；当CPU完成对硬件的响应后，再重新执行用户程序。 比如我们按下键盘上的按键，会触发中断即（键盘会给cpu的中断引脚发出一个高电平，CPU能够捕获这个信号，然后执行键盘中断程序。）网卡也是硬件设备，和键盘不同的是我们用键盘可以主动触发中断，而网卡是收到数据之后向CPU发出信号，触发中断程序，即CPU去处理网卡设备的数据！</p>
+<p><img src="http://img.zouchanglin.cn///20200301/d7L8UwJVxShU.png" alt="mark"></p>
+<h2 id="什么是一切皆文件"><a href="#什么是一切皆文件" class="headerlink" title="什么是一切皆文件"></a>什么是一切皆文件</h2><p>在Java的学习中，我们可以有深刻的体会，那就是一切皆对象；在Linux的学习中，一切皆文件的理念无处不在，文档、目录、磁盘驱动器、CD-ROM、调制解调器、键盘、打印机、显示器、终端，甚至是一些进程间通信和网络通信。所有这些资源拥有一个通用的抽象，在Linux中将其称为“文件”，其实Unix就是这种思想，所以Linux也借鉴了这个思想，因为每个“文件”都通过相同的 API 暴露出来，所以你可以使用同一组基本命令来读取和写入磁盘、键盘、文档或网络设备， “一切皆文件”的思想提供了一个强大而简单的抽象，那就是无论是硬件设备、还是网络连接、还是我们日常解除的文件，都是文件，这样使得API的设计可以化繁为简，用户可以使用通用的方式去访问任何资源，自有相应的中间件做好对底层的适配。 所以在Linux操作系统看来，一切都是文件，也就意味着，网卡设备也是文件，Socket连接也是文件，文件的统一抽象使得都有共同的属性，我们这里只谈最重要的文件属性——文件描述符（file descriptor，简写fd）！</p>
+<p><img src="http://img.zouchanglin.cn///20200301/BBK836Te3uLx.png" alt="mark"></p>
+<h2 id="内核接收网络数据过程"><a href="#内核接收网络数据过程" class="headerlink" title="内核接收网络数据过程"></a>内核接收网络数据过程</h2><p>数据经由网卡传送到内存，然后网卡通过中断信号通知CPU有数据到达，CPU执行中断程序。此处的中断程序主要有两项功能，先将网络数据写入到对应socket的接收缓冲区里面，再唤醒进程A，重新将进程A放入工作队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png" alt="mark"></p>
+<p> 唤醒进程的过程如图所示：</p>
+<p><img src="http://img.zouchanglin.cn///20200301/zxRkGSAoCT86.png" alt="mark"></p>
+<p>操作系统如何知道网络数据对应于哪个socket呢？因为一个socket对应着一个端口号，而网络数据包中包含了ip和端口的信息，内核可以通过端口号找到对应的socket。当然，为了提高处理速度，操作系统会维护端口号到socket的索引结构，以快速读取。 </p>
+<h2 id="select如何同时监视多个socket"><a href="#select如何同时监视多个socket" class="headerlink" title="select如何同时监视多个socket"></a>select如何同时监视多个socket</h2><p>假如能够预先传入一个Socket列表，<strong>如果列表中的socket都没有数据，挂起进程，直到有一个socket收到数据，唤醒进程</strong>。这种方法很直接，也是select的设计思想。 </p>
+<p>先复习select的用法。在如下的代码中，先准备一个数组（下面代码中的fds），让fds存放着所有需要监视的socket。然后调用select，如果fds中的所有socket都没有数据，select会阻塞，直到有一个socket接收到数据，select返回，唤醒进程。用户可以遍历fds，通过FD_ISSET判断具体哪个socket收到数据，然后做出处理。 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);  </span><br><span class="line">bind(s, ...)</span><br><span class="line"><span class="built_in">listen</span>(s, ...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fds[] = 存放需要监听的socket</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = select(..., fds, ...)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; fds.count; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fds[i], ...))&#123;</span><br><span class="line">            <span class="comment">//fds[i]的数据处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200301/Q4b0KYvumY7A.png" alt="mark"></p>
+<p>select的实现思路很直接，假如程序同时监视如下图的sock1、sock2和sock3三个socket，那么在调用select之后，操作系统把进程A分别加入这三个socket的等待队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/Kdif5NLiUNDx.png" alt="mark"></p>
+<p>当任何一个socket收到数据后，中断程序将唤起进程。下图展示了socket2接收到了数据的处理流程。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/ziFvH0ek5buK.png" alt="mark"></p>
+<p>经由这些步骤，当进程A被唤醒后，它知道至少有一个socket接收了数据。程序只需遍历一遍socket列表，就可以得到就绪的socket。这种简单方式<strong>行之有效</strong>，在几乎所有操作系统都有对应的实现。</p>
+<p>我们不难发现：每次调用select都需要将进程加入到所有监视socket的等待队列，每次唤醒都需要从每个队列中移除。这里涉及了两次遍历，而且每次都要将整个fds列表（即文件描述符列表，上图中写的是文件列表）传递给内核，有一定的开销。正是因为遍历操作开销大，出于效率的考量，才会规定select的最大监视数量，默认只能监视1024个socket。  进程被唤醒后，程序并不知道哪些socket收到数据，还需要遍历一次。 </p>
+<blockquote>
+<ul>
+<li>当程序调用select时，内核会先遍历一遍socket，如果有一个以上的socket接收缓冲区有数据，那么select直接返回文件描述符状态已改变的个数，不会阻塞；</li>
+<li>如果没有socket有数据，且没有超过timeout时间，进程才会阻塞；</li>
+<li>如果返回0，代表在描述符状态改变前已超过timeout时间；</li>
+<li>如果有错误返回的是-1，错误原因存于errno。</li>
+</ul>
+</blockquote>
+<h2 id="epoll如何改进效率的"><a href="#epoll如何改进效率的" class="headerlink" title="epoll如何改进效率的"></a>epoll如何改进效率的</h2><p><strong>措施一：功能分离</strong></p>
+<p>还记得select的输入输出型参数吗fd_set吗？fd_set是一个位图，使用位图中对应的位来表示要监视的文件描述符。所以select能监视的socket有上限，我的centos支持的描述符上限是1024个。</p>
+<p>select低效的原因之一是将<code>维护等待队列</code>和<code>阻塞进程</code>两个步骤合二为一。如下图所示，每次调用select都需要这两步操作</p>
+<p><img src="http://img.zouchanglin.cn///20200301/XeF41rdW1jst.png" alt="mark"></p>
+<p>如果上图看不懂，先复习本文中select用法的伪代码，然后复习下epoll的用法。如下的代码中，先用epoll_create创建一个epoll对象epfd，再通过epoll_ctl将需要监视的socket添加到epfd中，最后调用epoll_wait等待数据。 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);   </span><br><span class="line">bind(s, ...)</span><br><span class="line"><span class="built_in">listen</span>(s, ...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> epfd = epoll_create(...);</span><br><span class="line">epoll_ctl(epfd, ...); <span class="comment">//将所有需要监听的socket添加到epfd中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = epoll_wait(...)</span><br><span class="line">    <span class="keyword">for</span>(接收到数据的socket)&#123;</span><br><span class="line">        <span class="comment">//处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过以上代码是不是可以看出，对于select来说，每次都要传入文件描述符列表（虽然是位图，但是信息表达的就是一个文件描述符列表），而对于epoll来说，只传入了一次文件描述符列表； 功能分离，使得epoll有了优化的可能。</p>
+<p><strong>措施二： 就绪列表</strong></p>
+<p>select低效的另一个原因在于程序不知道哪些socket收到数据，只能一个个遍历。如果内核维护一个“就绪列表”，引用收到数据的socket，就能避免遍历。 </p>
+<p>如下图所示，计算机共有三个socket，收到数据的sock2和sock3被rdlist（就绪列表）所引用。当进程被唤醒后，只要获取rdlist的内容，就能够知道哪些socket收到数据。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/41WhBthGNuqA.png" alt="mark"></p>
+<h2 id="epoll的原理的流程"><a href="#epoll的原理的流程" class="headerlink" title="epoll的原理的流程"></a>epoll的原理的流程</h2><blockquote>
+<p><strong>创建epoll对象</strong></p>
+</blockquote>
+<p>如下图所示，当某个进程调用epoll_create方法时，内核会创建一个eventpoll对象（也就是程序中epfd所代表的对象）。eventpoll对象也是文件系统中的一员，和socket一样，它也会有等待队列。</p>
+<p><img src="http://img.zouchanglin.cn///20200301/C8SQGUlzmr08.png" alt="mark"></p>
+<p>创建一个代表该epoll的eventpoll对象是必须的，因为内核要维护<code>就绪列表</code>等数据，<code>就绪列表</code>作为eventpoll的成员。 </p>
+<blockquote>
+<p><strong>维护监视列表</strong> </p>
+</blockquote>
+<p>创建epoll对象后，可以用epoll_ctl添加或删除所要监听的socket。以添加socket为例，如下图，如果通过epoll_ctl添加sock1、sock2和sock3的监视，内核会将eventpoll添加到这三个socket的等待队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/gExYdpPoHwCq.png" alt="mark"></p>
+<p>当socket收到数据后，中断程序会操作eventpoll对象，而不是直接操作进程</p>
+<blockquote>
+<p><strong>接收数据</strong></p>
+</blockquote>
+<p>当socket收到数据后，中断程序会给eventpoll的<code>就绪列表</code>添加socket引用。如下图展示的是sock2和sock3收到数据后，中断程序让rdlist引用这两个socket </p>
+<p><img src="http://img.zouchanglin.cn///20200301/kiJgg7TLnKeY.png" alt="mark"></p>
+<p>eventpoll对象相当于是socket和进程之间的中介，socket的数据接收并不直接影响进程，而是通过改变eventpoll的就绪列表来改变进程状态。 当程序执行到epoll_wait时，如果rdlist已经引用了socket，那么epoll_wait直接返回，如果rdlist为空，阻塞进程。 </p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/" data-id="ck78z5a9d0003bcwkhg8g3m3m"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-通俗理解五种IO模型" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -130,6 +259,81 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" data-id="ck77lijm00000kcwk64rb4jhz"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-select、poll和epoll多路复用" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"
+    >select、poll和epoll多路复用</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" class="article-date">
+  <time datetime="2020-02-29T12:01:35.000Z" itemprop="datePublished">2020-02-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png" alt="mark"></p>
+<p>Nginx和Redis中都用到了epoll多路复用模型，本节将讲述常见的多路复用模型：select、poll和epoll，以及部分示例代码，还是先回顾IO的两个重要过程：</p>
+<blockquote>
+<p><strong>任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。</strong></p>
+</blockquote>
+<p>在以前的文章中介绍了五种IO模型，分别是阻塞式IO、非阻塞式IO、信号驱动IO、多路复用IO、异步IO；前四种都属于同步IO。今天重点介绍的是多路复用IO，多路复用IO通俗讲就是一次等待多个文件描述符，减少了等待时间，提高了IO过程的效率（此IO过程并不是只是从内核态到用户态数据的拷贝，而是从发起IO请求直到IO完成的过程），接下来将介绍Linux的三种多路复用模型。</p>
+      
+      <a class="article-more-link" href="/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-id="ck78z5a9b0001bcwk74j31k2c"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -646,158 +850,13 @@
 
 </article>
     
-    <article id="post-谈谈HTTP协议" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/"
-    >谈谈HTTP协议</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" class="article-date">
-  <time datetime="2020-02-25T04:01:35.000Z" itemprop="datePublished">2020-02-25</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：</p>
-<p><img src="http://img.zouchanglin.cn///20200225/k8pW0raF9ync.png" alt="mark"></p>
-<p>HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 </p>
-<p><img src="http://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/" data-id="ck7688dag00dau8wk9h4j61w6"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-构造实现简单容器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/"
-    >构造实现简单容器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time datetime="2020-02-24T14:38:52.000Z" itemprop="datePublished">2020-02-24</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>现在即将开始真正踏上构造自己的容器的道路。我们会基于当前的操作系统创建一个与宿主机隔离的容器环境，下面就开始吧。在开始之前我们需要先对Linux的proc文件系统做一个介绍：</p>
-<p>如果你对这些基本知识已经很熟悉了，请直接略过。Linux下的/proc文件系统是由内核提供的，它其实不是一个真正的文件系统，只包含了系统运行时的信息（比如系统内存、mount设备信息、一些硬件配置等），它只存在于内存中，而不占用外存空间。它以文件系统的形式，为访问内核数据的操作提供接口。实际上，很多系统工具都是简单地去读取这个文件系统的某个文件内容，比如lsmod，其实就是cat /proc/modules。当遍历这个目录的时候，会发现很多数字，这些都是为每个进程创建的空间，数字就是它们的PID。</p>
-<p><img src="http://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/" data-id="ck7688d9x00bku8wk2k2z0ipr"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">文件系统</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

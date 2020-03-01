@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-02-29T12:24:47.279Z</updated>
+  <updated>2020-03-01T11:51:48.244Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图解epoll原理</title>
+    <link href="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"/>
+    <id>https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</id>
+    <published>2020-03-01T12:01:35.000Z</published>
+    <updated>2020-03-01T11:51:48.244Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;从硬件理解网卡接收数据过程&quot;&gt;&lt;a href=&quot;#从硬件理解网卡接收数据过程&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>通俗理解五种IO模型</title>
@@ -29,6 +57,32 @@
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>select、poll和epoll多路复用</title>
+    <link href="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</id>
+    <published>2020-02-29T12:01:35.000Z</published>
+    <updated>2020-03-01T08:34:50.239Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Nginx和Redis中都用到了epoll多路复用模型，本节将讲述常见的多路复用模型：select、poll和epoll，以及部分示例代码，还是先回顾IO的两个重要过程：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在以前的文章中介绍了五种IO模型，分别是阻塞式IO、非阻塞式IO、信号驱动IO、多路复用IO、异步IO；前四种都属于同步IO。今天重点介绍的是多路复用IO，多路复用IO通俗讲就是一次等待多个文件描述符，减少了等待时间，提高了IO过程的效率（此IO过程并不是只是从内核态到用户态数据的拷贝，而是从发起IO请求直到IO完成的过程），接下来将介绍Linux的三种多路复用模型。&lt;/p&gt;
     
     </summary>
     
@@ -448,55 +502,6 @@
     
     
       <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在Golang中处理异常</title>
-    <link href="https://zouchanglin.cn/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/"/>
-    <id>https://zouchanglin.cn/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/</id>
-    <published>2020-02-17T12:04:22.000Z</published>
-    <updated>2020-02-20T06:54:25.469Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;通常我们需要编写好的错误处理方式，在了避免某些程序员滥用异常，于是Go这里直接把异常这一块给砍掉了，最终还是通过返回值来判断程序的异常情况，毕竟Go可是支持多返回值的语言，比如atoi、itoa等函数，就不能忽略它的第二个返回值，因为第二个返回值代表了转换是否成功！不过Golang还是提供了一些错误处理机制的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200217/IvGCHwjRpvVi.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
-    
-      <category term="异常处理" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实践Go的面向对象</title>
-    <link href="https://zouchanglin.cn/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>https://zouchanglin.cn/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</id>
-    <published>2020-02-17T09:22:21.000Z</published>
-    <updated>2020-02-20T06:54:06.178Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Go是一种面向对象的语言吗？ &lt;/p&gt;
-&lt;p&gt;关于Go是一种面向对象的语言吗这种问题，官方的解释是难说，说不准，这回答就有意思了！在我看来尽管Go具有类型和方法，并允许使用面向对象的编程风格，但没有类型层次结构。 Go的接口完全提供了一种不同的方法，可以将类型嵌入其他类型，达到继承的效果，其实又完全不同于继承，因为Go其中一个特点是可以为任何类型的数据定义方法，所以再讨论Go是不是面向对象的语言的时候还是可以先体验体验Go的Functional Programming&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200217/KzljGvryaBkw.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
-    
-      <category term="面向对象" scheme="https://zouchanglin.cn/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
     
   </entry>
   

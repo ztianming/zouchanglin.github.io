@@ -75,6 +75,305 @@
     
     
     
+    <article id="post-C++类特性" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/"
+    >C++类特性</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2018-11-09T10:09:30.000Z" itemprop="datePublished">2018-11-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="访问限定符说明"><a href="#访问限定符说明" class="headerlink" title="访问限定符说明"></a>访问限定符说明</h3><ol>
+<li>public修饰的成员在类外可以直接被访问</li>
+<li>protected和private修饰的成员在类外不能直接被访问(此处protected和private是类似的)</li>
+<li>访问权限作用域从该访问限定符出现的位置开始直到下一个访问限定符出现时为止</li>
+<li>class的默认访问权限为private，struct为public(因为struct要兼容C)<br>注意：访问限定符只在编译时有用，当数据映射到内存后，没有任何访问限定符上的区别</li>
+</ol>
+<p><strong>C++的class与C的struct的区别</strong>：C++需要兼容C语言，所以C++中struct可以当成结构体去使用。另外C++中struct还可以用来定义类。和class是定义类是一样的，区别是struct的成员默认访问方式是public，class是struct的成员默认访问方式是private</p>
+      
+      <a class="article-more-link" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" data-id="ck7688d6f000nu8wk4pm47eb5"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-C++11新特性" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/"
+    >C++11新特性</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2018-11-04T10:09:30.000Z" itemprop="datePublished">2018-11-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="auto关键字"><a href="#auto关键字" class="headerlink" title="auto关键字"></a>auto关键字</h2><p>C语言中其实就有auto关键字，修饰可变化的量，但是由于平时我们直接使用<code>int a = 10;</code>也是声明变量，编译器已经自动帮我们加上了auto关键字，是C语言中应用最广泛的一种类型，也就是说，省去类型说明符auto的都是自动变量！<br>随着时代进步，Java10中有一个新特性，就是使用<code>var</code>来定义变量，当然前提是类型可推导，语言总是在演化，C++11也是支持了这个新特性，不过在C++11中是<code>auto</code>关键字：使用auto的时候，编译器根据上下文情况，确定auto变量的真正类型！<br>接下来演示一下auto的使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">auto</span> b = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; s;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator be = s.begin();</span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator en = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> be2 = s.begin(); <span class="comment">//很显然使用auto可以减少很多不必要的代码</span></span><br><span class="line">	<span class="keyword">auto</span> en2 = s.end();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很显然使用auto可以减少很多不必要的代码，但是:</p>
+<ul>
+<li>auto不能作为函数参数</li>
+<li>auto不能直接用来声明数组</li>
+<li>auto不能定义类的非静态成员变量</li>
+<li>实例化模板时不能使用auto作为模板参数</li>
+<li>auto作为函数返回值时，只能用于定义函数，不能用于声明函数</li>
+<li>为了避免与C++98中的auto发生混淆，C++11只保留了auto作为类型指示符的用法</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/04/C++11%E6%96%B0%E7%89%B9%E6%80%A7/" data-id="ck7688d6d000ju8wk23lu5f7k"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Linux下打包静动态库" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/"
+    >Linux下打包静动态库</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" class="article-date">
+  <time datetime="2018-10-29T10:09:30.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="静态库和动态库概念"><a href="#静态库和动态库概念" class="headerlink" title="静态库和动态库概念"></a>静态库和动态库概念</h2><h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h3><p>在Linux下是<code>.a</code>的后缀名，在windows下是<code>.lib</code>的后缀名，程序在编译链接的时候吧库代码链接到可执行文件中，运行时不再需要静态库</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>在Linux下是<code>.so</code> ，在windows下是<code>.dll</code>，程序在运行的时候才去链接动态库的代码，多个程序共享库的代码！<br>一个与动态库链接的可执行文件仅仅包含它用到的函数的入口地址的一个表，而不是外部函数所在目标文件的整个机器码<br>在可执行文件运行以前，外部函数的机器码，由操作系统从磁盘上复制到内存中，这个过程就是动态链接<br>动态库可以在多个程序直接共享，所以使得可执行文件变得更小，节省磁盘空间，操作系统采用虚拟内存机制允许物理内存中的一份动态库被要用到该库的所有进程共用，节省了内存和磁盘空间</p>
+      
+      <a class="article-more-link" href="/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/10/29/Linux%E4%B8%8B%E6%89%93%E5%8C%85%E9%9D%99%E5%8A%A8%E6%80%81%E5%BA%93/" data-id="ck7688d7f003hu8wk0a1b8kcx"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-软硬链接与Linux文件系统" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"
+    >软硬链接与Linux文件系统</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2018-10-26T10:09:30.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>想要理解硬链接和软链接必须要了解一下什么是Linux的文件系统</p>
+<h2 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h2><p><img src="http://img.zouchanglin.cn///20200201/HgwootMjSUWr.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/10/26/%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8ELinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" data-id="ck7688dai00dku8wk1y743wt5"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-工厂设计模式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -518,302 +817,13 @@
 
 </article>
     
-    <article id="post-深入理解进程" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/"
-    >深入理解进程</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" class="article-date">
-  <time datetime="2018-09-27T10:09:30.000Z" itemprop="datePublished">2018-09-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="现代计算机体系结构"><a href="#现代计算机体系结构" class="headerlink" title="现代计算机体系结构"></a>现代计算机体系结构</h2><h3 id="冯·诺依曼结构"><a href="#冯·诺依曼结构" class="headerlink" title="冯·诺依曼结构"></a>冯·诺依曼结构</h3><p>要了解进程的概念得先从计算机的体系结构说起，首先了解一些世界上用得最多的计算机体系结构：冯·诺依曼结构(还有其他的计算机体系结构：如哈佛结构)</p>
-<p><img src="http://img.zouchanglin.cn///20200201/2BqIjDIWful9.png" alt="mark"></p>
-<p>冯·诺曼结构处理器具有以下几个特点：必须有一个<strong>存储器</strong>；必须有一个<strong>控制器</strong>；必须有一个<strong>运算器</strong>，用于完成算术运算和逻辑运算；必须有<strong>输入和输出设备</strong>，用于进行人机通信</p>
-<h3 id="存储设备对比"><a href="#存储设备对比" class="headerlink" title="存储设备对比"></a>存储设备对比</h3><p><img src="http://img.zouchanglin.cn///20200201/eKrhr0zIISk7.png" alt="mark"></p>
-<p>上图从容量、传输速度、价格上来作比较，可以看出来为什么我们平时见到的计算机为什么硬盘几百G甚至几个T，而内存却只有8G或者16G，内存的IO速度是非常快的，跟硬盘的IO速度是 <strong>数量级</strong> 的差距，和内存相比寄存器就更快了，也是数量级的差距，于是出现了缓存，现在(2018/09/27)都是三级缓存，也就几M的大小，每次CPU在执行一些指令的时候会将需要的数据放在缓存中，其实就相当于是一个过渡元件！</p>
-      
-      <a class="article-more-link" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" data-id="ck7688d9z00buu8wkfg0749jw"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-哈希与海量数据处理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"
-    >哈希与海量数据处理</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" class="article-date">
-  <time datetime="2018-09-23T10:09:30.000Z" itemprop="datePublished">2018-09-23</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="哈希切割、Top-K问题"><a href="#哈希切割、Top-K问题" class="headerlink" title="哈希切割、Top K问题"></a>哈希切割、Top K问题</h2><blockquote>
-<p><strong>问题一：给一个超过100G大小的log file, log中存着IP地址, 设计算法找到出现次数最多的IP地址？</strong><br><strong>问题二：与上题目条件相同，如何找出Top K的IP？</strong><br><strong>问题三：直接用Linux命令如何实现？</strong></p>
-</blockquote>
-      
-      <a class="article-more-link" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-id="ck7688d9c009hu8wkfr8c9p7s"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-神奇的卷积核" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/"
-    >神奇的卷积核</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/" class="article-date">
-  <time datetime="2018-08-31T10:09:30.000Z" itemprop="datePublished">2018-08-31</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="关于卷积"><a href="#关于卷积" class="headerlink" title="关于卷积"></a>关于卷积</h2><p>卷积是分析数学中一种重要的运算。卷积是一种线性运算,图像处理中常见的mask运算都是卷积，广泛应用于图像滤波。高斯变换就是用高斯函数对图像进行卷积，卷积操作是图像变换的基础。</p>
-      
-      <a class="article-more-link" href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/" data-id="ck7688da200c8u8wk8l5o7xfa"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mat与基本图形绘制" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/"
-    >Mat与基本图形绘制</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" class="article-date">
-  <time datetime="2018-08-30T10:09:30.000Z" itemprop="datePublished">2018-08-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="Mat对象与IplImage对象"><a href="#Mat对象与IplImage对象" class="headerlink" title="Mat对象与IplImage对象"></a>Mat对象与IplImage对象</h2><ul>
-<li>Mat对象OpenCV2.0之后引进的图像数据结构、自动分配内存、不存在内存泄漏的问题，是面向对象的数据结构。分了两个部分，头部与数据部分</li>
-<li>IplImage是从2001年OpenCV发布之后就一直存在，是C语言风格的数据结构，需要开发者自己分配与管理内存，对大的程序使用它容易导致内存泄漏问题，下面是IplImage结构体的定义：</li>
-</ul>
-      
-      <a class="article-more-link" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" data-id="ck7688d7u004ru8wk1ltsgyzv"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
   </nav>
   
 </section>

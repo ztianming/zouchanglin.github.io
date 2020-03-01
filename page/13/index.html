@@ -75,6 +75,295 @@
     
     
     
+    <article id="post-深入理解进程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/"
+    >深入理解进程</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" class="article-date">
+  <time datetime="2018-09-27T10:09:30.000Z" itemprop="datePublished">2018-09-27</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="现代计算机体系结构"><a href="#现代计算机体系结构" class="headerlink" title="现代计算机体系结构"></a>现代计算机体系结构</h2><h3 id="冯·诺依曼结构"><a href="#冯·诺依曼结构" class="headerlink" title="冯·诺依曼结构"></a>冯·诺依曼结构</h3><p>要了解进程的概念得先从计算机的体系结构说起，首先了解一些世界上用得最多的计算机体系结构：冯·诺依曼结构(还有其他的计算机体系结构：如哈佛结构)</p>
+<p><img src="http://img.zouchanglin.cn///20200201/2BqIjDIWful9.png" alt="mark"></p>
+<p>冯·诺曼结构处理器具有以下几个特点：必须有一个<strong>存储器</strong>；必须有一个<strong>控制器</strong>；必须有一个<strong>运算器</strong>，用于完成算术运算和逻辑运算；必须有<strong>输入和输出设备</strong>，用于进行人机通信</p>
+<h3 id="存储设备对比"><a href="#存储设备对比" class="headerlink" title="存储设备对比"></a>存储设备对比</h3><p><img src="http://img.zouchanglin.cn///20200201/eKrhr0zIISk7.png" alt="mark"></p>
+<p>上图从容量、传输速度、价格上来作比较，可以看出来为什么我们平时见到的计算机为什么硬盘几百G甚至几个T，而内存却只有8G或者16G，内存的IO速度是非常快的，跟硬盘的IO速度是 <strong>数量级</strong> 的差距，和内存相比寄存器就更快了，也是数量级的差距，于是出现了缓存，现在(2018/09/27)都是三级缓存，也就几M的大小，每次CPU在执行一些指令的时候会将需要的数据放在缓存中，其实就相当于是一个过渡元件！</p>
+      
+      <a class="article-more-link" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" data-id="ck7688d9z00buu8wkfg0749jw"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-哈希与海量数据处理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"
+    >哈希与海量数据处理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2018-09-23T10:09:30.000Z" itemprop="datePublished">2018-09-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="哈希切割、Top-K问题"><a href="#哈希切割、Top-K问题" class="headerlink" title="哈希切割、Top K问题"></a>哈希切割、Top K问题</h2><blockquote>
+<p><strong>问题一：给一个超过100G大小的log file, log中存着IP地址, 设计算法找到出现次数最多的IP地址？</strong><br><strong>问题二：与上题目条件相同，如何找出Top K的IP？</strong><br><strong>问题三：直接用Linux命令如何实现？</strong></p>
+</blockquote>
+      
+      <a class="article-more-link" href="/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/09/23/%E5%93%88%E5%B8%8C%E4%B8%8E%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-id="ck7688d9c009hu8wkfr8c9p7s"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-神奇的卷积核" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/"
+    >神奇的卷积核</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/" class="article-date">
+  <time datetime="2018-08-31T10:09:30.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="关于卷积"><a href="#关于卷积" class="headerlink" title="关于卷积"></a>关于卷积</h2><p>卷积是分析数学中一种重要的运算。卷积是一种线性运算,图像处理中常见的mask运算都是卷积，广泛应用于图像滤波。高斯变换就是用高斯函数对图像进行卷积，卷积操作是图像变换的基础。</p>
+      
+      <a class="article-more-link" href="/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/31/%E7%A5%9E%E5%A5%87%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8/" data-id="ck7688da200c8u8wk8l5o7xfa"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Mat与基本图形绘制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/"
+    >Mat与基本图形绘制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" class="article-date">
+  <time datetime="2018-08-30T10:09:30.000Z" itemprop="datePublished">2018-08-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="Mat对象与IplImage对象"><a href="#Mat对象与IplImage对象" class="headerlink" title="Mat对象与IplImage对象"></a>Mat对象与IplImage对象</h2><ul>
+<li>Mat对象OpenCV2.0之后引进的图像数据结构、自动分配内存、不存在内存泄漏的问题，是面向对象的数据结构。分了两个部分，头部与数据部分</li>
+<li>IplImage是从2001年OpenCV发布之后就一直存在，是C语言风格的数据结构，需要开发者自己分配与管理内存，对大的程序使用它容易导致内存泄漏问题，下面是IplImage结构体的定义：</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" data-id="ck7688d7u004ru8wk1ltsgyzv"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-图像亮度对比度调整" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -513,309 +802,13 @@
 
 </article>
     
-    <article id="post-一个故事告诉你什么才是好的程序员" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/"
-    >一个故事告诉你什么才是好的程序员</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/" class="article-date">
-  <time datetime="2018-07-03T10:09:30.000Z" itemprop="datePublished">2018-07-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>大学生经常思考的一个问题，学底层到底还有没有用？这篇文章非常能说明到底有没有必要把底层学好！</p>
-      
-      <a class="article-more-link" href="/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/" data-id="ck7688d8x0088u8wk5bazcqvw"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Java内置的序列化方式" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/"
-    >Java内置的序列化方式</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time datetime="2018-06-19T10:09:30.000Z" itemprop="datePublished">2018-06-19</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>网络数据传输的是一个二进制的字节数组。把对象序列化为二进制字节数组和把二进制字节数组反序列化为对象的时间加起来，时间越少，性能越高。使用JSON 和XML的居多！</p>
-      
-      <a class="article-more-link" href="/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/" data-id="ck7688d7a0031u8wkgjd2ag6y"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-冯诺依曼架构" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/"
-    >冯诺依曼架构</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/" class="article-date">
-  <time datetime="2018-06-18T10:09:30.000Z" itemprop="datePublished">2018-06-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="冯诺依曼计算机特点"><a href="#冯诺依曼计算机特点" class="headerlink" title="冯诺依曼计算机特点"></a>冯诺依曼计算机特点</h2><ul>
-<li>计算机由运算器、控制器、存储器、输入设备、输出设备五大部件组成</li>
-<li>指令与数据以同等地位存放在存储器，并可按地址寻访</li>
-<li>指令与数据均以二进制数表示</li>
-<li>指令由操作码和地址码组成，操作码用来表示操作的性质，地址码用来表示操作数在存储器中的位置</li>
-<li>指令在存储器中顺序存放。通常也顺序执行，在特定条件下，可根据运算结果或设定条件改变执行顺序</li>
-<li>机器以运算器为中心，输入输出设备与存储器间的数据传递通过运算器完成</li>
-</ul>
-<p><img src="http://img.zouchanglin.cn///20200201/5knhXG3R2uDU.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/" data-id="ck7688d94008yu8wk4k0z0oki"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-MySQL库表操作" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/"
-    >MySQL库表操作</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2018-06-08T10:09:30.000Z" itemprop="datePublished">2018-06-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="字符集与校验规则"><a href="#字符集与校验规则" class="headerlink" title="字符集与校验规则"></a>字符集与校验规则</h3><p>当我们创建数据库没有指定字符集和校验规则时，系统使用默认字符集：<code>utf8</code>，校验规则<br>是：<code>utf8_ general_ ci</code> ，这个校验规则中的 <code>ci</code>就是Case insensitive意为不区分大小写</p>
-<p>创建一个使用<code>utf8</code> 的字符集，并带校对规则为<code>utf8_general_ci</code>的数据库。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database DBName charset&#x3D;utf8 collate utf8_general_ci;</span><br></pre></td></tr></table></figure>
-
-<p>查看系统默认字符集、默认校验规则</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;character_set_database&#39;; </span><br><span class="line">show variables like &#39;collation_database&#39;;</span><br></pre></td></tr></table></figure>
-
-<p> 支持的字符集、支持的校验规则 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show charset;</span><br><span class="line">show collation;</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" data-id="ck7688d7w004zu8wk3qpmenqx"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/12/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/12/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/">下一页</a>
   </nav>
   
 </section>

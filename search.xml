@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图解epoll原理</title>
+    <url>/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png" alt="mark"></p>
+<h2 id="从硬件理解网卡接收数据过程"><a href="#从硬件理解网卡接收数据过程" class="headerlink" title="从硬件理解网卡接收数据过程"></a>从硬件理解网卡接收数据过程</h2><p>下图是一个典型的计算机结构图，计算机由CPU、存储器（内存）、网络接口等部件组成。了解epoll本质的第一步，要从硬件的角度看计算机怎样接收网络数据。 下面这幅图在我的另一篇文章里也用到了，<a href="https://zouchanglin.cn/2018/06/18/冯诺依曼架构">《冯诺依曼架构》</a></p>
+<p><img src="http://img.zouchanglin.cn///20200201/YJ2jWtPtuzRW.png" alt="img"></p>
+<p> 网卡收到网线传来的数据，通过硬件电路传输，网卡接收的数据存放到内存中，操作系统就可以去读取它们。 </p>
+<h2 id="正确理解CPU中断"><a href="#正确理解CPU中断" class="headerlink" title="正确理解CPU中断"></a>正确理解CPU中断</h2><p>一般而言，由硬件产生的信号需要CPU立马做出处理，不然数据可能就丢失，所以它的优先级很高。CPU理应中断掉正在执行的程序，去做出响应；当CPU完成对硬件的响应后，再重新执行用户程序。 比如我们按下键盘上的按键，会触发中断即（键盘会给cpu的中断引脚发出一个高电平，CPU能够捕获这个信号，然后执行键盘中断程序。）网卡也是硬件设备，和键盘不同的是我们用键盘可以主动触发中断，而网卡是收到数据之后向CPU发出信号，触发中断程序，即CPU去处理网卡设备的数据！</p>
+<p><img src="http://img.zouchanglin.cn///20200301/d7L8UwJVxShU.png" alt="mark"></p>
+<h2 id="什么是一切皆文件"><a href="#什么是一切皆文件" class="headerlink" title="什么是一切皆文件"></a>什么是一切皆文件</h2><p>在Java的学习中，我们可以有深刻的体会，那就是一切皆对象；在Linux的学习中，一切皆文件的理念无处不在，文档、目录、磁盘驱动器、CD-ROM、调制解调器、键盘、打印机、显示器、终端，甚至是一些进程间通信和网络通信。所有这些资源拥有一个通用的抽象，在Linux中将其称为“文件”，其实Unix就是这种思想，所以Linux也借鉴了这个思想，因为每个“文件”都通过相同的 API 暴露出来，所以你可以使用同一组基本命令来读取和写入磁盘、键盘、文档或网络设备， “一切皆文件”的思想提供了一个强大而简单的抽象，那就是无论是硬件设备、还是网络连接、还是我们日常解除的文件，都是文件，这样使得API的设计可以化繁为简，用户可以使用通用的方式去访问任何资源，自有相应的中间件做好对底层的适配。 所以在Linux操作系统看来，一切都是文件，也就意味着，网卡设备也是文件，Socket连接也是文件，文件的统一抽象使得都有共同的属性，我们这里只谈最重要的文件属性——文件描述符（file descriptor，简写fd）！</p>
+<p><img src="http://img.zouchanglin.cn///20200301/BBK836Te3uLx.png" alt="mark"></p>
+<h2 id="内核接收网络数据过程"><a href="#内核接收网络数据过程" class="headerlink" title="内核接收网络数据过程"></a>内核接收网络数据过程</h2><p>数据经由网卡传送到内存，然后网卡通过中断信号通知CPU有数据到达，CPU执行中断程序。此处的中断程序主要有两项功能，先将网络数据写入到对应socket的接收缓冲区里面，再唤醒进程A，重新将进程A放入工作队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png" alt="mark"></p>
+<p> 唤醒进程的过程如图所示：</p>
+<p><img src="http://img.zouchanglin.cn///20200301/zxRkGSAoCT86.png" alt="mark"></p>
+<p>操作系统如何知道网络数据对应于哪个socket呢？因为一个socket对应着一个端口号，而网络数据包中包含了ip和端口的信息，内核可以通过端口号找到对应的socket。当然，为了提高处理速度，操作系统会维护端口号到socket的索引结构，以快速读取。 </p>
+<h2 id="select如何同时监视多个socket"><a href="#select如何同时监视多个socket" class="headerlink" title="select如何同时监视多个socket"></a>select如何同时监视多个socket</h2><p>假如能够预先传入一个Socket列表，<strong>如果列表中的socket都没有数据，挂起进程，直到有一个socket收到数据，唤醒进程</strong>。这种方法很直接，也是select的设计思想。 </p>
+<p>先复习select的用法。在如下的代码中，先准备一个数组（下面代码中的fds），让fds存放着所有需要监视的socket。然后调用select，如果fds中的所有socket都没有数据，select会阻塞，直到有一个socket接收到数据，select返回，唤醒进程。用户可以遍历fds，通过FD_ISSET判断具体哪个socket收到数据，然后做出处理。 </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);  </span><br><span class="line">bind(s, ...)</span><br><span class="line"><span class="built_in">listen</span>(s, ...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fds[] = 存放需要监听的socket</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = select(..., fds, ...)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; fds.count; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fds[i], ...))&#123;</span><br><span class="line">            <span class="comment">//fds[i]的数据处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200301/Q4b0KYvumY7A.png" alt="mark"></p>
+<p>select的实现思路很直接，假如程序同时监视如下图的sock1、sock2和sock3三个socket，那么在调用select之后，操作系统把进程A分别加入这三个socket的等待队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/Kdif5NLiUNDx.png" alt="mark"></p>
+<p>当任何一个socket收到数据后，中断程序将唤起进程。下图展示了socket2接收到了数据的处理流程。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/ziFvH0ek5buK.png" alt="mark"></p>
+<p>经由这些步骤，当进程A被唤醒后，它知道至少有一个socket接收了数据。程序只需遍历一遍socket列表，就可以得到就绪的socket。这种简单方式<strong>行之有效</strong>，在几乎所有操作系统都有对应的实现。</p>
+<p>我们不难发现：每次调用select都需要将进程加入到所有监视socket的等待队列，每次唤醒都需要从每个队列中移除。这里涉及了两次遍历，而且每次都要将整个fds列表（即文件描述符列表，上图中写的是文件列表）传递给内核，有一定的开销。正是因为遍历操作开销大，出于效率的考量，才会规定select的最大监视数量，默认只能监视1024个socket。  进程被唤醒后，程序并不知道哪些socket收到数据，还需要遍历一次。 </p>
+<blockquote>
+<ul>
+<li>当程序调用select时，内核会先遍历一遍socket，如果有一个以上的socket接收缓冲区有数据，那么select直接返回文件描述符状态已改变的个数，不会阻塞；</li>
+<li>如果没有socket有数据，且没有超过timeout时间，进程才会阻塞；</li>
+<li>如果返回0，代表在描述符状态改变前已超过timeout时间；</li>
+<li>如果有错误返回的是-1，错误原因存于errno。</li>
+</ul>
+</blockquote>
+<h2 id="epoll如何改进效率的"><a href="#epoll如何改进效率的" class="headerlink" title="epoll如何改进效率的"></a>epoll如何改进效率的</h2><p><strong>措施一：功能分离</strong></p>
+<p>还记得select的输入输出型参数吗fd_set吗？fd_set是一个位图，使用位图中对应的位来表示要监视的文件描述符。所以select能监视的socket有上限，我的centos支持的描述符上限是1024个。</p>
+<p>select低效的原因之一是将<code>维护等待队列</code>和<code>阻塞进程</code>两个步骤合二为一。如下图所示，每次调用select都需要这两步操作</p>
+<p><img src="http://img.zouchanglin.cn///20200301/XeF41rdW1jst.png" alt="mark"></p>
+<p>如果上图看不懂，先复习本文中select用法的伪代码，然后复习下epoll的用法。如下的代码中，先用epoll_create创建一个epoll对象epfd，再通过epoll_ctl将需要监视的socket添加到epfd中，最后调用epoll_wait等待数据。 </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);   </span><br><span class="line">bind(s, ...)</span><br><span class="line"><span class="built_in">listen</span>(s, ...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> epfd = epoll_create(...);</span><br><span class="line">epoll_ctl(epfd, ...); <span class="comment">//将所有需要监听的socket添加到epfd中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = epoll_wait(...)</span><br><span class="line">    <span class="keyword">for</span>(接收到数据的socket)&#123;</span><br><span class="line">        <span class="comment">//处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过以上代码是不是可以看出，对于select来说，每次都要传入文件描述符列表（虽然是位图，但是信息表达的就是一个文件描述符列表），而对于epoll来说，只传入了一次文件描述符列表； 功能分离，使得epoll有了优化的可能。</p>
+<p><strong>措施二： 就绪列表</strong></p>
+<p>select低效的另一个原因在于程序不知道哪些socket收到数据，只能一个个遍历。如果内核维护一个“就绪列表”，引用收到数据的socket，就能避免遍历。 </p>
+<p>如下图所示，计算机共有三个socket，收到数据的sock2和sock3被rdlist（就绪列表）所引用。当进程被唤醒后，只要获取rdlist的内容，就能够知道哪些socket收到数据。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/41WhBthGNuqA.png" alt="mark"></p>
+<h2 id="epoll的原理的流程"><a href="#epoll的原理的流程" class="headerlink" title="epoll的原理的流程"></a>epoll的原理的流程</h2><blockquote>
+<p><strong>创建epoll对象</strong></p>
+</blockquote>
+<p>如下图所示，当某个进程调用epoll_create方法时，内核会创建一个eventpoll对象（也就是程序中epfd所代表的对象）。eventpoll对象也是文件系统中的一员，和socket一样，它也会有等待队列。</p>
+<p><img src="http://img.zouchanglin.cn///20200301/C8SQGUlzmr08.png" alt="mark"></p>
+<p>创建一个代表该epoll的eventpoll对象是必须的，因为内核要维护<code>就绪列表</code>等数据，<code>就绪列表</code>作为eventpoll的成员。 </p>
+<blockquote>
+<p><strong>维护监视列表</strong> </p>
+</blockquote>
+<p>创建epoll对象后，可以用epoll_ctl添加或删除所要监听的socket。以添加socket为例，如下图，如果通过epoll_ctl添加sock1、sock2和sock3的监视，内核会将eventpoll添加到这三个socket的等待队列中。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/gExYdpPoHwCq.png" alt="mark"></p>
+<p>当socket收到数据后，中断程序会操作eventpoll对象，而不是直接操作进程</p>
+<blockquote>
+<p><strong>接收数据</strong></p>
+</blockquote>
+<p>当socket收到数据后，中断程序会给eventpoll的<code>就绪列表</code>添加socket引用。如下图展示的是sock2和sock3收到数据后，中断程序让rdlist引用这两个socket </p>
+<p><img src="http://img.zouchanglin.cn///20200301/kiJgg7TLnKeY.png" alt="mark"></p>
+<p>eventpoll对象相当于是socket和进程之间的中介，socket的数据接收并不直接影响进程，而是通过改变eventpoll的就绪列表来改变进程状态。 当程序执行到epoll_wait时，如果rdlist已经引用了socket，那么epoll_wait直接返回，如果rdlist为空，阻塞进程。 </p>
+]]></content>
+      <categories>
+        <category>高性能网络</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>通俗理解五种IO模型</title>
     <url>/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png" alt="mark"></p>
@@ -32,6 +105,137 @@
 <h2 id="理解阻塞与非阻塞"><a href="#理解阻塞与非阻塞" class="headerlink" title="理解阻塞与非阻塞"></a>理解阻塞与非阻塞</h2><p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。</p>
 <p><strong>阻塞调用是指调用结果返回之前，当前线程会被挂起</strong>，比如阻塞式IO就是等待调用结果的时候会发生阻塞，啥也干不了，调用线程只有在得到结果之后才会返回；</p>
 <p><strong>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程</strong>，比如非阻塞IO，进程在等待的同时，还可以做其他事情。包括信号驱动也属于非阻塞，但是在数据从内核拷贝到用户空间时也是阻塞的；</p>
+]]></content>
+      <categories>
+        <category>高性能网络</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>select、poll和epoll多路复用</title>
+    <url>/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</url>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png" alt="mark"></p>
+<p>Nginx和Redis中都用到了epoll多路复用模型，本节将讲述常见的多路复用模型：select、poll和epoll，以及部分示例代码，还是先回顾IO的两个重要过程：</p>
+<blockquote>
+<p><strong>任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。</strong></p>
+</blockquote>
+<p>在以前的文章中介绍了五种IO模型，分别是阻塞式IO、非阻塞式IO、信号驱动IO、多路复用IO、异步IO；前四种都属于同步IO。今天重点介绍的是多路复用IO，多路复用IO通俗讲就是一次等待多个文件描述符，减少了等待时间，提高了IO过程的效率（此IO过程并不是只是从内核态到用户态数据的拷贝，而是从发起IO请求直到IO完成的过程），接下来将介绍Linux的三种多路复用模型。</p>
+<a id="more"></a>
+
+<h2 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h2><p>在介绍多路复用IO之前，先看看非阻塞IO吧：一个文件描述符，默认都是阻塞IO，我们可以通过fcntl函数来将文件描述符设置为非阻塞</p>
+<p><img src="http://img.zouchanglin.cn///20200301/H5h4ajUPcQz2.png" alt="mark"></p>
+<p>传入的cmd的值不同，后面追加的参数也不相同。fcntl函数有5种功能：</p>
+<ul>
+<li>复制一个现有的描述符（cmd=F_DUPFD）</li>
+<li>获得/设置文件描述符标记(cmd=F_GETFD或F_SETFD).</li>
+<li>获得/设置文件状态标记(cmd=F_GETFL或F_SETFL).</li>
+<li>获得/设置异步I/O所有权(cmd=F_GETOWN或F_SETOWN).</li>
+<li>获得/设置记录锁(cmd=F_GETLK,F_SETLK或F_SETLKW).</li>
+</ul>
+<p>我们此处只是用第三种功能，获取/设置文件状态标记，就可以将一个文件描述符设置为非阻塞。对fcntl封装实现一个将文件描述符更改为非阻塞的功能：</p>
+<p><img src="http://img.zouchanglin.cn///20200301/b0fsosYUHTKN.png" alt="mark"></p>
+<p>使用F_GETFL将当前的文件描述符的属性取出来(这是一个位图)，然后再使用F_SETFL将文件描述符设置回去。设置回去的同时，加上一个O_NONBLOCK参数。下面使用轮询方式读取标准输入：</p>
+<p><img src="http://img.zouchanglin.cn///20200301/oTbeBPB8vQgJ.png" alt="mark"></p>
+<p><img src="http://img.zouchanglin.cn///20200301/oDUqQwLq3R4n.png" alt="mark"></p>
+<h2 id="select-多路复用"><a href="#select-多路复用" class="headerlink" title="select 多路复用"></a>select 多路复用</h2><p>系统提供select函数来实现多路复用输入/输出模型，select系统调用是用来让我们的程序监视多个文件描述符的状态变化的；程序会停在select这里等待，直到被监视的文件描述符有一个或多个发生了状态改变；</p>
+<h3 id="select函数"><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h3><p><img src="http://img.zouchanglin.cn///20200301/pyW2PhrWIVrm.png" alt="mark"></p>
+<p>参数nfds是需要监视的最大的文件描述符值+1；rdset、wrset、exset分别对应于需要检测的可读文件描述符的集合，可写文件描述符的集合及异常文件描述符的集合；参数timeout为结构timeval，用来设置select()的等待时间</p>
+<blockquote>
+<ul>
+<li>NULL：则表示select()没有timeout，select将一直被阻塞，直到某个文件描述符上发生了事件;</li>
+<li>0：仅检测描述符集合的状态，然后立即返回，并不等待外部事件的发生。</li>
+<li>特定的时间值：如果在指定的时间段里没有事件发生，select将超时返回。</li>
+</ul>
+</blockquote>
+<p>void FD_CLR(int fd, fd_set *set)  用来清除描述词组set中相关fd的位<br>int FD_ISSET(int fd, fd_set *set) 用来测试描述词组set中相关fd的位是否为真<br>void FD_SET(int fd, fd_set *set) 用来设置描述词组set中相关fd的位<br>void FD_ZERO(fd_set *set) 用来清除描述词组set的全部位</p>
+<p><strong>select 函数返回值</strong>：执行成功则返回文件描述词状态已改变的个数；如果返回0代表在描述词状态改变前已超过timeout时间，没有返回；当有错误发生时则返回-1，错误原因存于errno，此时参数readfds，writefds，exceptfds和timeout的值变成不可预测。</p>
+<p>错误值可能为：</p>
+<ul>
+<li>EBADF 文件描述词为无效的或该文件已关闭</li>
+<li>EINTR 此调用被信号所中断</li>
+<li>EINVAL 参数n为负值</li>
+<li>ENOMEM 核心内存不足</li>
+</ul>
+<h3 id="select特点"><a href="#select特点" class="headerlink" title="select特点"></a>select特点</h3><p>可监控的文件描述符个数取决与sizeof(fd_set)的值，我的服务器上sizeof(fd_set)＝128，每bit表示一个文件<br>描述符，则我服务器上支持的最大文件描述符是128*8=1024。fd_set的大小可以调整，可能涉及重新编译内核。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lu\n"</span>, <span class="keyword">sizeof</span>(fd_set)); <span class="comment">//128</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将fd加入select监控集的同时，还要再使用一个数据结构array保存放到select监控集中的fd，一是用于再select 返回后，array作为源数据和fd_set进行FD_ISSET判断。二是select返回后会把以前加入的但并无事件发生的fd清空，则每次开始select前都要重新从array取得fd逐一加入(FD_ZERO最先)，扫描array的同时取得fd最大值maxfd，用于select的第一个参数。</p>
+<h3 id="select缺点"><a href="#select缺点" class="headerlink" title="select缺点"></a>select缺点</h3><p>每次调用select, 都需要手动设置fd集合, 从接口使用角度来说也非常不便，每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大，同时每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大，select支持的文件描述符数量太小。</p>
+<h3 id="使用select监控stdin"><a href="#使用select监控stdin" class="headerlink" title="使用select监控stdin"></a>使用select监控stdin</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;zconf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fd_set read_fds;</span><br><span class="line">    <span class="comment">//清除全部标志位</span></span><br><span class="line">    FD_ZERO(&amp;read_fds);</span><br><span class="line">    FD_SET(<span class="number">0</span>, &amp;read_fds);</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"&gt;"</span>);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">        <span class="keyword">int</span> ret = select(<span class="number">1</span>, &amp;read_fds, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            perror(<span class="string">"select"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(<span class="number">0</span>, &amp;read_fds))&#123;</span><br><span class="line">            <span class="keyword">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">            <span class="built_in">read</span>(<span class="number">0</span>, buf, <span class="keyword">sizeof</span>(buf) - <span class="number">1</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"input:%s\n"</span>, buf);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"error!"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        FD_ZERO(&amp;read_fds);</span><br><span class="line">        FD_SET(<span class="number">0</span>, &amp;read_fds);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200301/3ThPkA11Ab6S.png" alt="mark"></p>
+<h2 id="poll-多路复用"><a href="#poll-多路复用" class="headerlink" title="poll 多路复用"></a>poll 多路复用</h2><h3 id="poll函数"><a href="#poll函数" class="headerlink" title="poll函数"></a>poll函数</h3><p><img src="http://img.zouchanglin.cn///20200301/WMlqrLvKDnwN.png" alt="mark"></p>
+<p>对于poll这个系统函数来说，fds是一个poll函数监听的结构列表。每一个元素中，包含了三部分内容：文件描述符，监听的事件集合，返回的事件集合。nfds表示fds数组的长度，timeout表示poll函数的超时时间，单位是毫秒(ms)。</p>
+<p>下面是events和revents的取值</p>
+<p><img src="http://img.zouchanglin.cn///20200301/yHLoEo1rk4C4.png" alt="mark"></p>
+<p>返回值：返回值小于0，表示出错；返回值等于0，表示poll函数等待超时；返回值大于0，表示poll由于监听的文件描述符就绪而返回。</p>
+<h3 id="poll特点"><a href="#poll特点" class="headerlink" title="poll特点"></a>poll特点</h3><p>不同与select使用三个位图来表示三个fdset的方式，poll使用一个pollfd的指针实现，pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式（因为select三个集合简直要命），接口使用比select更方便。poll并没有最大数量限制 (但是数量过大后性能也是会下降)，因为列表长度可以任意长，当然指的是内存充足的情况下；</p>
+<h3 id="poll缺点"><a href="#poll缺点" class="headerlink" title="poll缺点"></a>poll缺点</h3><p>poll中监听的文件描述符数目增多时，和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符，每次调用poll都需要把大量的pollfd结构从用户态拷贝到内核中。同时连接的大量客户端在一时刻可能只有很少的处于就绪状态，因此随着监视的描述符数量的增长，其效率也会线性下降。</p>
+<h3 id="使用poll监控stdin"><a href="#使用poll监控stdin" class="headerlink" title="使用poll监控stdin"></a>使用poll监控stdin</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;zconf.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;poll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> <span class="title">poll_fd</span>;</span></span><br><span class="line">    poll_fd.fd = <span class="number">0</span>;</span><br><span class="line">    poll_fd.events = POLLIN;<span class="comment">//数据可读事件</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> ret = poll(&amp;poll_fd, <span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            perror(<span class="string">"poll"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(ret == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"poll timeout\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(poll_fd.revents == POLLIN)&#123;</span><br><span class="line">            <span class="keyword">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">            <span class="built_in">read</span>(<span class="number">0</span>, buf, <span class="keyword">sizeof</span>(buf) - <span class="number">1</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"stdin:%s\n"</span>, buf);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="epoll-多路复用"><a href="#epoll-多路复用" class="headerlink" title="epoll 多路复用"></a>epoll 多路复用</h2><p>按照man手册的说法: 是为处理大批量句柄而作了改进的poll，它是在2.5.44内核中被引进的，对于有大量的连接，但是却只有少数连接是活跃的这种情况非常适用。</p>
+<p>epoll有三个系统调用：</p>
+<h3 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a>epoll_create</h3><p>创建一个epoll的句柄，自从linux2.6.8之后，size参数是被忽略的。用完之后，必须调用close()关闭。</p>
+<p><img src="http://img.zouchanglin.cn///20200301/gMlx28Fdosdc.png" alt="mark"></p>
+<h3 id="epoll-ctl"><a href="#epoll-ctl" class="headerlink" title="epoll_ctl"></a>epoll_ctl</h3><p>epoll_ctl是epoll的事件注册函数</p>
+<p><img src="http://img.zouchanglin.cn///20200301/TzY28qGcyjN2.png" alt="mark"></p>
+<blockquote>
+<p>它不同于select()是在监听事件时告诉内核要监听什么类型的事件，而是在这里先注册要监听的事件类型。</p>
+<ul>
+<li>第一个参数是epoll_create()的返回值(epoll的句柄)</li>
+<li>第二个参数表示动作，用三个宏来表示</li>
+<li>第三个参数是需要监听的fd</li>
+<li>第四个参数是告诉内核需要监听什么事</li>
+</ul>
+</blockquote>
+<p>第二个参数的取值也如上图，分别是注册新的fd到epfd中；修改已经注册的fd的监听事件；从epfd中删除一个fd；第三个参数的取值如下图：</p>
+<p><img src="http://img.zouchanglin.cn///20200301/opHwQFSapS8D.png" alt="mark"></p>
+<p>events可以是以下几个宏的集合</p>
+<blockquote>
+<ul>
+<li>EPOLLIN : 表示对应的文件描述符可以读 (包括对端SOCKET正常关闭)</li>
+<li>EPOLLOUT : 表示对应的文件描述符可以写</li>
+<li>EPOLLPRI : 表示对应的文件描述符有紧急的数据可读 (这里应该表示有带外数据到来)</li>
+<li>EPOLLERR : 表示对应的文件描述符发生错误</li>
+<li>EPOLLHUP : 表示对应的文件描述符被挂断</li>
+<li>EPOLLET : 将EPOLL设为边缘触发(Edge Triggered)模式, 这是相对于水平触发(Level Triggered)来说的</li>
+<li>EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</li>
+</ul>
+</blockquote>
+<h3 id="epoll-wait"><a href="#epoll-wait" class="headerlink" title="epoll_wait"></a>epoll_wait</h3><p>收集在epoll监控的事件中已经发送的事件。</p>
+<blockquote>
+<ul>
+<li>参数events是分配好的epoll_event结构体数组</li>
+<li>epoll将会把发生的事件赋值到events数组中 (events不可以是空指针，内核只负责把数据复制到这个events数组中，不会去帮助我们在用户态中分配内存)</li>
+<li>maxevents告之内核这个events有多大，这个maxevents的值不能大于创建epoll_create()时的size</li>
+<li>参数timeout是超时时间 (毫秒，0会立即返回，-1是永久阻塞)</li>
+</ul>
+</blockquote>
+<p>如果函数调用成功，返回对应I/O上已准备好的文件描述符数目，如返回0表示已超时, 返回小于0表示函数失败。</p>
+<p><img src="http://img.zouchanglin.cn///20200301/YvSKXbOB2CJ9.png" alt="mark"></p>
+<h3 id="epoll工作原理"><a href="#epoll工作原理" class="headerlink" title="epoll工作原理"></a>epoll工作原理</h3><p><img src="http://img.zouchanglin.cn///20200301/XRBaHLJHUMvD.png" alt="mark"></p>
+<p>当某一进程调用epoll_create方法时，Linux内核会创建一个eventpoll结构体，这个结构体中有两个成员与epoll的使用方式密切相关。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">eventpoll</span>&#123;</span></span><br><span class="line">	....</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/*红黑树的根节点，这颗树中存储着所有添加到epoll中的需要监控的事件*/</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">rb_root</span> <span class="title">rbr</span>;</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">/*双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">rdlist</span>;</span></span><br><span class="line">	</span><br><span class="line">    ....</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>每一个epoll对象都有一个独立的eventpoll结构体，用于存放通过epoll_ctl方法向epoll对象中添加进来的事件。</li>
+<li>这些事件都会挂载在红黑树中，如此，重复添加的事件就可以通过红黑树而高效的识别出来(红黑树的插入时间效率是lgN，其中n为树的高度)。</li>
+<li>而所有添加到epoll中的事件都会与设备(网卡)驱动程序建立回调关系，也就是说，当响应的事件发生时会调用这个回调方法。</li>
+<li>这个回调方法在内核中叫ep_poll_callback,它会将发生的事件添加到rdlist双链表中。</li>
+<li>在epoll中，对于每一个事件，都会建立一个epitem结构体。</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epitem</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> <span class="title">rbn</span>;</span><span class="comment">//红黑树节点</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">rdllink</span>;</span><span class="comment">//双向链表节点</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">epoll_filefd</span> <span class="title">ffd</span>;</span> <span class="comment">//事件句柄信息</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">eventpoll</span> *<span class="title">ep</span>;</span> <span class="comment">//指向其所属的eventpoll对象</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">event</span>;</span> <span class="comment">//期待发生的事件类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当调用epoll_wait检查是否有事件发生时，只需要检查eventpoll对象中的rdlist双链表中是否有epitem元素即可。<br>如果rdlist不为空，则把发生的事件复制到用户态，同时将事件数量返回给用户。这个操作的时间复杂度是O(1)。</p>
+<p>总结一下, epoll的使用过程就是三部曲：<br>1、调用epoll_create创建一个epoll句柄；<br>2、调用epoll_ctl，将要监控的文件描述符进行注册；<br>3、调用epoll_wait，等待文件描述符就绪；</p>
+<h3 id="epoll的优点"><a href="#epoll的优点" class="headerlink" title="epoll的优点"></a>epoll的优点</h3><p>1、接口使用方便：虽然拆分成了三个函数，但是反而使用起来更方便高效，不需要每次循环都设置关注的文件描述符，也做到了输入输出参数分离开；</p>
+<p>2、数据拷贝轻量：只在合适的时候调用 EPOLL_CTL_ADD 将文件描述符结构拷贝到内核中，这个操作并不频繁，而select/poll都是每次循环都要进行拷贝；</p>
+<p>3、事件回调机制：避免使用遍历，而是使用回调函数的方式，将就绪的文件描述符结构加入到就绪队列中，epoll_wait 返回直接访问就绪队列就知道哪些文件描述符就绪。这个操作时间复杂度O(1)，即使文件描述符数目很多，效率也不会受到影响；</p>
+<p>4、没有数量限制：文件描述符数目无上限；</p>
 ]]></content>
       <categories>
         <category>高性能网络</category>
@@ -2081,6 +2285,160 @@
       </categories>
       <tags>
         <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高效的Linux系统编程环境</title>
+    <url>/2019/12/13/%E9%AB%98%E6%95%88%E7%9A%84Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200301/w3XwYriSoTQ9.png" alt="mark"></p>
+<p>因为笔者的电脑是Windows，所以要进行Linux系统编程不得不准备一台虚拟机，当然子系统Ubuntu也是可以的，因为昨天解决了一个虚拟机固定IP的问题，<a href="https://zouchanglin.cn/2019/12/12/CentOS7虚拟机设置固定IP">《CentOS7虚拟机设置固定IP》</a>所以一旦连接稳定，那么就可以开始开发了，哈哈，今天主要是通过Clion这个工具（和IDEA是亲兄弟）来进行高效的Linux系统编程环境搭建！</p>
+<a id="more"></a>
+
+<h2 id="一、准备Linux环境"><a href="#一、准备Linux环境" class="headerlink" title="一、准备Linux环境"></a>一、准备Linux环境</h2><p>只要有一台装了Linux的虚拟机就可以，我使用的是CentOS7 Server版，所以，平时使用起来也是直接拿Xshell一连接就可以使用了</p>
+<h2 id="二、在Linux下准备开发工具"><a href="#二、在Linux下准备开发工具" class="headerlink" title="二、在Linux下准备开发工具"></a>二、在Linux下准备开发工具</h2><p>Cmake 3.x 以上 + gdb 7.8.x 以上 + gcc + gcc-g++</p>
+<p>首先卸载预装Cmake 2</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum remove cmake</span><br></pre></td></tr></table></figure>
+
+<p>安装必要环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y gcc g++ gcc-c++ make automake texinfo wget</span><br></pre></td></tr></table></figure>
+
+<p>安装Cmake</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz</span><br><span class="line">tar -xf cmake-3.14.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> cmake-3.14.0</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装好后的Cmake位于 /usr/local/share/cmake-3.13/，可执行程序位于/usr/local/bin/cmake</span></span><br><span class="line"><span class="comment"># 为了让CLion能够自动识别，构建软连接</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/cmake /usr/bin/cmake</span><br></pre></td></tr></table></figure>
+
+<p>如果wget很慢，推荐使用我的</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/cmake-3.14.0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>安装gdb</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首先安装依赖，termcap</span></span><br><span class="line">wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz</span><br><span class="line">tar -xf termcap-1.3.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> termcap-1.3.1</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>如果安装的依赖包下载很慢，推荐用我的</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/termcap-1.3.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>如果依赖包安装完成，开始下一步</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载预装gdb</span></span><br><span class="line">yum remove -y gdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装gbd</span></span><br><span class="line">wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-7.9.tar.xz</span><br><span class="line">tar -xf gdb-7.9.tar.xz</span><br><span class="line"><span class="built_in">cd</span> gdb-7.9</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb将被安装到/usr/local/share/gdb目录，可执行程序位于/usr/local/bin/gdb</span></span><br><span class="line"><span class="comment"># 为了让CLion能够自动识别，构建软连接。</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/gdb /usr/bin/gdb</span><br></pre></td></tr></table></figure>
+
+<p>如果gdb下载很慢，推荐用我的</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/gdb-7.9.tar.xz</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、CLion配置remote主机"><a href="#三、CLion配置remote主机" class="headerlink" title="三、CLion配置remote主机"></a>三、CLion配置remote主机</h2><p><img src="http://img.zouchanglin.cn///20200301/N7T2oRGNHs9z.png" alt="mark"></p>
+<h2 id="四、愉快的写代码吧"><a href="#四、愉快的写代码吧" class="headerlink" title="四、愉快的写代码吧"></a>四、愉快的写代码吧</h2><p><img src="http://img.zouchanglin.cn///20200301/nmkM5BIs2XN2.png" alt="mark"></p>
+<p>自动同步代码，超人性化提示，唯一的缺点就是对于不懂CMakeList的同学就Over了，下面复习一下CMakeList</p>
+<h2 id="五、CMakeList构建项目"><a href="#五、CMakeList构建项目" class="headerlink" title="五、CMakeList构建项目"></a>五、CMakeList构建项目</h2><p>cmake 是一个跨平台、开源的构建系统。它是一个集软件构建、测试、打包于一身的软件。它使用与平台和编译器独立的配置文件来对软件编译过程进行控制。 在Windows下也可以使用Cmake进行大型项目的构建，比如我之前编译过OpenCV的源码，就是通过VisualStudio的编译器配合Cmake来完成的！</p>
+<h3 id="1-指定-cmake-的最小版本"><a href="#1-指定-cmake-的最小版本" class="headerlink" title="1. 指定 cmake 的最小版本"></a>1. 指定 cmake 的最小版本</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.4</span>.<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这行命令是可选的，我们可以不写这句话，但在有些情况下，如果 CMakeLists.txt 文件中使用了一些高版本 cmake 特有的一些命令的时候，就需要加上这样一行，提醒用户升级到该版本之后再执行 cmake。 </p>
+<h3 id="2-设置项目名称"><a href="#2-设置项目名称" class="headerlink" title="2. 设置项目名称"></a>2. 设置项目名称</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">project</span>(demo)</span><br></pre></td></tr></table></figure>
+
+<p>这个命令不是强制性的，但最好都加上。它会引入两个变量 demo_BINARY_DIR 和 demo_SOURCE_DIR，同时，cmake 自动定义了两个等价的变量 PROJECT_BINARY_DIR 和 PROJECT_SOURCE_DIR。 </p>
+<h3 id="3-设置编译类型"><a href="#3-设置编译类型" class="headerlink" title="3. 设置编译类型"></a>3. 设置编译类型</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(demo demo.cpp) <span class="comment"># 生成可执行文件</span></span><br><span class="line"><span class="keyword">add_library</span>(common STATIC util.cpp) <span class="comment"># 生成静态库</span></span><br><span class="line"><span class="keyword">add_library</span>(common SHARED util.cpp) <span class="comment"># 生成动态库或共享库</span></span><br></pre></td></tr></table></figure>
+
+<p>add_library 默认生成是静态库，通过以上命令生成文件名字，</p>
+<ul>
+<li>在 Linux 下是：<br>demo<br>libcommon.a<br>libcommon.so</li>
+<li>在 Windows 下是：<br>demo.exe<br>common.lib<br>common.dll</li>
+</ul>
+<h3 id="4-指定编译包含的源文件"><a href="#4-指定编译包含的源文件" class="headerlink" title="4. 指定编译包含的源文件"></a>4. 指定编译包含的源文件</h3><p>4.1 明确指定包含哪些源文件</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(demo demo.cpp <span class="keyword">test</span>.cpp util.cpp)</span><br></pre></td></tr></table></figure>
+
+<p>4.2 搜索所有的 cpp 文件</p>
+<p>aux_source_directory(dir VAR) 发现一个目录下所有的源代码文件并将列表存储在一个变量中。</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">aux_source_directory</span>(. SRC_LIST) <span class="comment"># 搜索当前目录下的所有.cpp文件</span></span><br><span class="line"><span class="keyword">add_library</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>自定义搜索规则</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">"*.cpp"</span> <span class="string">"protocol/*.cpp"</span>)</span><br><span class="line"><span class="keyword">add_library</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">"*.cpp"</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_PROTOCOL_LIST <span class="string">"protocol/*.cpp"</span>)</span><br><span class="line"><span class="keyword">add_library</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span> <span class="variable">$&#123;SRC_PROTOCOL_LIST&#125;</span>)</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="keyword">aux_source_directory</span>(. SRC_LIST)</span><br><span class="line"><span class="keyword">aux_source_directory</span>(protocol SRC_PROTOCOL_LIST)</span><br><span class="line"><span class="keyword">add_library</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span> <span class="variable">$&#123;SRC_PROTOCOL_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-查找指定的库文件"><a href="#5-查找指定的库文件" class="headerlink" title="5. 查找指定的库文件"></a>5. 查找指定的库文件</h3><p> find_library(VAR name path)查找到指定的预编译库，并将它的路径存储在变量中。<br>默认的搜索路径为 cmake 包含的系统库，因此如果是 NDK 的公共库只需要指定库的 name 即可 </p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">find_library</span>( <span class="comment"># Sets the name of the path variable.</span></span><br><span class="line">              log-lib</span><br><span class="line"> </span><br><span class="line">              <span class="comment"># Specifies the name of the NDK library that</span></span><br><span class="line">              <span class="comment"># you want CMake to locate.</span></span><br><span class="line">              log )</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-设置包含的目录"><a href="#6-设置包含的目录" class="headerlink" title="6. 设置包含的目录"></a>6. 设置包含的目录</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include_directories</span>(</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span></span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span></span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Linux 下还可以通过如下方式设置包含的目录</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -I$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-设置链接库搜索目录"><a href="#7-设置链接库搜索目录" class="headerlink" title="7. 设置链接库搜索目录"></a>7. 设置链接库搜索目录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">link_directories(</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/libs</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Linux 下还可以通过如下方式设置包含的目录 </p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -L$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/libs"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-设置-target-需要链接的库"><a href="#8-设置-target-需要链接的库" class="headerlink" title="8. 设置 target 需要链接的库"></a>8. 设置 target 需要链接的库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">target_link_libraries( <span class="comment"># 目标库</span></span><br><span class="line">                       demo</span><br><span class="line"> </span><br><span class="line">                       <span class="comment"># 目标库需要链接的库</span></span><br><span class="line">                       <span class="comment"># log-lib 是上面 find_library 指定的变量名</span></span><br><span class="line">                       <span class="variable">$&#123;log-lib&#125;</span> )</span><br></pre></td></tr></table></figure>
+
+<p>在 Windows 下，系统会根据链接库目录，搜索xxx.lib 文件，Linux 下会搜索 xxx.so 或者 xxx.a 文件，如果都存在会优先链接动态库（so 后缀） </p>
+<p>8.1 指定链接动态库或静态库</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(demo libface.a) <span class="comment"># 链接libface.a</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo libface.so) <span class="comment"># 链接libface.so</span></span><br></pre></td></tr></table></figure>
+
+<p>8.2 指定全路径</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(demo <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/libs/libface.a)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/libs/libface.so)</span><br></pre></td></tr></table></figure>
+
+<p> 8.3 指定链接多个库</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(demo</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/libs/libface.a</span><br><span class="line">    boost_system.a</span><br><span class="line">    boost_thread</span><br><span class="line">    pthread)</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-设置变量"><a href="#9-设置变量" class="headerlink" title="9. 设置变量"></a>9. 设置变量</h3><p>9.1 set 直接设置变量的值</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(SRC_LIST main.cpp <span class="keyword">test</span>.cpp)</span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>9.2 set 追加设置变量的值</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(SRC_LIST main.cpp)</span><br><span class="line"><span class="keyword">set</span>(SRC_LIST <span class="variable">$&#123;SRC_LIST&#125;</span> <span class="keyword">test</span>.cpp)</span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>9.3 list 追加或者删除变量的值</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(SRC_LIST main.cpp)</span><br><span class="line"><span class="keyword">list</span>(APPEND SRC_LIST <span class="keyword">test</span>.cpp)</span><br><span class="line"><span class="keyword">list</span>(REMOVE_ITEM SRC_LIST main.cpp)</span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、CMake项目示例"><a href="#六、CMake项目示例" class="headerlink" title="六、CMake项目示例"></a>六、CMake项目示例</h2><h3 id="1、简单项目"><a href="#1、简单项目" class="headerlink" title="1、简单项目"></a>1、简单项目</h3><p>新建文件 main.c，内容如下，新建文件 CMakeLists.txt（命名必须是 CMakeLists.txt，注意大小写）</p>
+<p><img src="http://img.zouchanglin.cn///20200301/gh0XkkvbFuCU.png" alt="mark"></p>
+<p>一般我们采用 cmake 的 out-of-source 方式来构建（即生成的中间产物和源代码分离），这样做可以让生成的文件和源文件不会弄混，且目录结构看起来也会清晰明了。所以推荐使用这种方式，至于这个文件夹的命名并无限制，我们习惯命名为 build。</p>
+<p>我们进入build文件夹，执行<code>cmake..</code>， <code>..</code> 表示上一级目录，cmake 会在上一级目录下找到 CMakeLists.txt 文件并编译，并生成如下图所示的一些中间文件 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/GqkqB7dXUnvw.png" alt="mark"></p>
+<p>直接执行 make命令，生成可执行程序，如下图： </p>
+<p><img src="http://img.zouchanglin.cn///20200301/it3537Jsml8s.png" alt="mark"></p>
+<h3 id="2、复杂项目"><a href="#2、复杂项目" class="headerlink" title="2、复杂项目"></a>2、复杂项目</h3><p><img src="http://img.zouchanglin.cn///20200301/mpOWOWwHf53M.png" alt="mark"></p>
+<p>CMakeList.txt</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span> (VERSION <span class="number">2.8</span>)</span><br><span class="line"><span class="keyword">project</span>(demo)</span><br><span class="line"><span class="keyword">aux_source_directory</span>(. DIR_SRCS)</span><br><span class="line"><span class="comment"># 添加math子目录</span></span><br><span class="line"><span class="keyword">add_subdirectory</span>(<span class="keyword">math</span>)</span><br><span class="line"><span class="comment"># 指定生成目标</span></span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;DIR_SRCS&#125;</span>)</span><br><span class="line"><span class="comment"># 添加链接库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo MathFunctions)</span><br></pre></td></tr></table></figure>
+
+<p>main.c</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"math/MathFunctions.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Add(1,2) ret = %d\n"</span>, add(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>math里的CMakeList.txt</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">aux_source_directory</span>(. DIR_LIB_SRCS)</span><br><span class="line"><span class="comment"># 生成链接库</span></span><br><span class="line"><span class="keyword">add_library</span>(MathFunctions <span class="variable">$&#123;DIR_LIB_SRCS&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>math里的MathFunctions.h 和MathFunctions.c</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> <span class="meta-keyword">define</span> _MATHFUNCTIONS_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _MATHFUNCTIONS_H__</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> num2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">//!define _MATHFUNCTIONS_H__</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"MathFunctions.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> num2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num + num2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样的也只需要进入build目录，进行cmake ..</p>
+<p><img src="http://img.zouchanglin.cn///20200301/c9kNmr0HwG9h.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>开发工具</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7虚拟机设置固定IP</title>
+    <url>/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/</url>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200301/NOwCYlkoT90r.png" alt="mark"></p>
+<p>虚拟机设置为固定IP，不管主机在什么网络环境下，是断网环境，还是连接任何网段访问外网的环境下，虚拟机的IP都固定不变，而且使用终端连接，始终不变，正常连接；  虚拟机的固定IP可以按照自己想设置的IP地址网段随意设置，比如我就想设置固定IP为192.168.2.2；</p>
+<p>经过查询资料，终于得出一个完美解决方案：<strong>采用方式为NAT模式+固定IP的模式</strong> 。</p>
+<p>配置环境说明：主机为Win10专业版，虚拟机为VMware Workstation 15 Pro，虚拟机中的Linux系统为CentOS 7.3_64位。 </p>
+<a id="more"></a>
+
+<h2 id="1、虚拟机设置NAT模式"><a href="#1、虚拟机设置NAT模式" class="headerlink" title="1、虚拟机设置NAT模式"></a>1、虚拟机设置NAT模式</h2><p>无论有几个网络适配器都设置成NAT模式！</p>
+<p><img src="http://img.zouchanglin.cn///20200301/MNygsF3sEGiW.png" alt="mark"></p>
+<h2 id="2、配置虚拟机NAT模式参数"><a href="#2、配置虚拟机NAT模式参数" class="headerlink" title="2、配置虚拟机NAT模式参数"></a>2、配置虚拟机NAT模式参数</h2><p>修改子网IP设置，实现自由设置固定IP，若你想设置固定IP为192.168.2.2-255，比如192.168.2.2，则子网IP为192.168.2.0；建议不要用：192.168.1.2-255，亲测1网段无法成功 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/4UMTjMldFCBx.png" alt="mark"></p>
+<h2 id="3、配置物理主机VMnet8参数"><a href="#3、配置物理主机VMnet8参数" class="headerlink" title="3、配置物理主机VMnet8参数"></a>3、配置物理主机VMnet8参数</h2><p>其中的IP地址随意设置，但是要保证不能跟你要设置虚拟机的固定IP一样。 </p>
+<p><img src="http://img.zouchanglin.cn///20200301/9z84rc3aaPeM.png" alt="mark"></p>
+<h2 id="4、配置Centos网络配置文件"><a href="#4、配置Centos网络配置文件" class="headerlink" title="4、配置Centos网络配置文件"></a>4、配置Centos网络配置文件</h2><p><img src="http://img.zouchanglin.cn///20200301/2ratXcv5P4fF.png" alt="mark"></p>
+<p><img src="http://img.zouchanglin.cn///20200301/mz9DzcjiC6nr.png" alt="mark"></p>
+<h2 id="5、重启CentOS"><a href="#5、重启CentOS" class="headerlink" title="5、重启CentOS"></a>5、重启CentOS</h2><p>reboot，ping一下baidu.com试试，SSH连接一下试试！</p>
+]]></content>
+      <categories>
+        <category>开发工具</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
