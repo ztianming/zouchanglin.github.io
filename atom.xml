@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-01T11:51:48.244Z</updated>
+  <updated>2020-03-01T15:03:13.556Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,18 +21,12 @@
     <link href="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"/>
     <id>https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</id>
     <published>2020-03-01T12:01:35.000Z</published>
-    <updated>2020-03-01T11:51:48.244Z</updated>
+    <updated>2020-03-01T15:03:13.556Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;从硬件理解网卡接收数据过程&quot;&gt;&lt;a href=&quot;#从硬件理解网卡接收数据过程&quot;
-        
-      
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;poll翻译过来是轮询的意思， 可以看到poll和epoll都有轮询的过程， 不同点在于：poll轮询的是所有的socket，而epoll只轮询就绪的socket。 epoll是开发linux高性能服务器的必备技术至，epoll本质，是服务端程序员的必须掌握的知识。 本文主要是利用图文讲述了select的原理和epoll相对于做出的优化，以及epoll的部分细节问题。&lt;/p&gt;
     
     </summary>
     
