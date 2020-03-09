@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-01T15:03:13.556Z</updated>
+  <updated>2020-03-09T08:34:06.008Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ClassLoader</title>
+    <link href="https://zouchanglin.cn/2020/03/08/ClassLoader/"/>
+    <id>https://zouchanglin.cn/2020/03/08/ClassLoader/</id>
+    <published>2020-03-07T23:01:35.000Z</published>
+    <updated>2020-03-09T08:34:06.008Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;ClassLoader在Java中有着非常重要的作用，它主要工作在Class装载的加载阶段，其主要作用是从系统外部获得Class二进制数据流。它是Java的核心组件。所有的Class都是由ClassLoader 进行加载的。ClassLoader负责通过将Class文件里的二进制数据流装载进系统，然后交给Java虚拟机进行连接、初始化等操作。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
+    
+  </entry>
   
   <entry>
     <title>图解epoll原理</title>
@@ -473,28 +497,6 @@
       <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
     
       <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>构建可复用模块</title>
-    <link href="https://zouchanglin.cn/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/"/>
-    <id>https://zouchanglin.cn/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/</id>
-    <published>2020-02-18T02:27:22.000Z</published>
-    <updated>2020-02-20T06:53:57.117Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Golang的工程管理一直是初学者所不能很好的理解的事物，本篇主要讲述了在Golang中如何进行工程管理，如何构建可复用模块，从GitHub获取Go的包是如何操作的，以及Golang的包管理工具的基本使用，这样再进行项目开发的时候就可以模块化的管理自己的工程，首先还得从Package说起！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200218/9Uui7Swk4Vcp.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="工程构建" scheme="https://zouchanglin.cn/categories/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/"/>
-    
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
     
   </entry>
   

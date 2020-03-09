@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ClassLoader</title>
+    <url>/2020/03/08/ClassLoader/</url>
+    <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png" alt="mark"></p>
+<p>ClassLoader在Java中有着非常重要的作用，它主要工作在Class装载的加载阶段，其主要作用是从系统外部获得Class二进制数据流。它是Java的核心组件。所有的Class都是由ClassLoader 进行加载的。ClassLoader负责通过将Class文件里的二进制数据流装载进系统，然后交给Java虚拟机进行连接、初始化等操作。</p>
+<a id="more"></a>
+
+<h2 id="ClassLoader的种类"><a href="#ClassLoader的种类" class="headerlink" title="ClassLoader的种类"></a>ClassLoader的种类</h2><ul>
+<li>BootStrapClassLoader：C++编写，这个类加载器负责将\lib目录下的类库加载到虚拟机内存中，用来加载Java的核心库，此类加载器并不继承于java.lang.ClassLoader，不能被Java程序直接调用，代码是使用C++编写的，它虚拟机自身的一部分。</li>
+<li>ExtClassLoader：Java编写，加载扩展库。 这个类加载器负责加载\lib\ext目录下的类库，用来加载Java的扩展库，开发者可以直接使用这个类加载器。 </li>
+<li>AppClassLoader：Java编写，加载程序所在目录的Class，这个类加载器负责加载用户类路径(CLASSPATH)下的类库，一般我们编写的Java类都是由这个类加载器加载，这个类加载器是CLassLoader中的getSystemClassLoader()方法的返回值，所以也称为系统类加载器。一般情况下这就是系统默认的类加载器。</li>
+<li>自定义ClassLoader：Java编写，定制化加载</li>
+</ul>
+<p><img src="http://img.zouchanglin.cn///20200308/n8biTBhYSNkO.png" alt="mark"></p>
+<h2 id="实现自己的ClassLoader"><a href="#实现自己的ClassLoader" class="headerlink" title="实现自己的ClassLoader"></a>实现自己的ClassLoader</h2><p>如何实现自己的类加载器呢？其实无非是把class文件转化成二进制流加载到JVM中：</p>
+<p><img src="http://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png" alt="mark"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String path;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">(String name, String path)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.path = path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = loadClassData(name);</span><br><span class="line">        <span class="keyword">return</span> defineClass(name, bytes, <span class="number">0</span>, bytes.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] loadClassData(String name) &#123;</span><br><span class="line">        name = path + name + <span class="string">".class"</span>;</span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        ByteArrayOutputStream byteArrayOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(name));</span><br><span class="line">            <span class="keyword">int</span> i;</span><br><span class="line">            <span class="keyword">while</span> ((i = in.read()) != -<span class="number">1</span>)&#123;</span><br><span class="line">                byteArrayOutputStream.write(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                in.close();</span><br><span class="line">                byteArrayOutputStream.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> byteArrayOutputStream.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我在桌面编写了简单的Demo.java，并编译成了class文件，也放在桌面的：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello Demo!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是我们可以开始测试自己写的类加载器了：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        MyClassLoader classLoader = <span class="keyword">new</span> MyClassLoader(<span class="string">"Tim's ClassLoader"</span>, <span class="string">"C:\\Users\\15291\\Desktop\\"</span>);</span><br><span class="line">        System.out.println(classLoader); <span class="comment">//MyClassLoader@4554617c</span></span><br><span class="line">        System.out.println(classLoader.getParent()); <span class="comment">//sun.misc.Launcher$AppClassLoader@18b4aac2</span></span><br><span class="line">        System.out.println(classLoader.getParent().getParent()); <span class="comment">//sun.misc.Launcher$ExtClassLoader@74a14482</span></span><br><span class="line">        System.out.println(classLoader.getParent().getParent().getParent()); <span class="comment">//null</span></span><br><span class="line">        Class&lt;?&gt; loaderClass = classLoader.loadClass(<span class="string">"Demo"</span>); <span class="comment">//Hello Demo!</span></span><br><span class="line">        loaderClass.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.zouchanglin.cn///20200308/E2eoz1B5xebF.png" alt="mark"></p>
+<p>由此也证明了ClassLoader之间的继承关系。</p>
+<h2 id="什么是双亲委派机制"><a href="#什么是双亲委派机制" class="headerlink" title="什么是双亲委派机制"></a>什么是双亲委派机制</h2><p>这么多类加载器，那么它们之间是如何配合的呢？下面是双亲委派机制的模型图：</p>
+<p><img src="http://img.zouchanglin.cn///20200309/kVHwyUxx63Te.png" alt="mark"></p>
+<p>双亲委派机制工作过程：</p>
+<p>1、类加载器收到类加载的请求，如果已经加载过，则不需要再次加载；</p>
+<p>2、如果未加载过，则把这个请求委托给父加载器去完成，一直向上委托，直到启动类加载器；</p>
+<p>3、启动器加载器检查能不能加载（使用findClass()方法），能就加载（结束）；否则，抛出异常，通知子加载器进行加载。</p>
+<p>4、重复步骤3；</p>
+<p><img src="http://img.zouchanglin.cn///20200309/Q8QMAknAfE7Y.png" alt="mark"></p>
+<p>其实也可以看到这个递归调用流程的代码，可以看到findBootstrapClass是一个native方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// return null if not found</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> Class&lt;?&gt; findBootstrapClass(String name);</span><br></pre></td></tr></table></figure>
+<p>那么这个native方法的实现在哪看呢？ <a href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/beb15266ba1a/src/share/native/java/lang/ClassLoader.c" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/beb15266ba1a/src/share/native/java/lang/ClassLoader.c</a> </p>
+<p><img src="http://img.zouchanglin.cn///20200309/35L8idNVGJhV.png" alt="mark"></p>
+<p>最终调用了JVM_FindClassFromBootLoader这个方法，在这里暂且先不研究这个Native方法了。</p>
+<h2 id="为什么要使用双亲委派机制"><a href="#为什么要使用双亲委派机制" class="headerlink" title="为什么要使用双亲委派机制"></a>为什么要使用双亲委派机制</h2><p>首先明确一点是JVM如何认定两个对象同属于一个类型，必须同时满足下面两个条件：<br>1、都是用同名的类完成实例化的。</p>
+<p>2、两个实例各自对应的同名的类的加载器必须是同一个。比如两个相同名字的类，一个是用系统加载器加载的，一个扩展类加载器加载的，两个类生成的对象将被JVM认定为不同类型的对象。</p>
+<p>所以，为了系统类的安全，类似java.lang.Object这种核心类，JVM需要保证他们生成的对象都会被认定为同一种类型。即通过代理模式，对于 Java 核心库的类的加载工作由引导类加载器来统一完成，保证了 Java 应用所使用的都是同一个版本的 Java 核心库的类，是互相兼容的，同时也就避免了多分同样的字节码加载。</p>
+<h2 id="能不能自己写个类叫java-lang-System？"><a href="#能不能自己写个类叫java-lang-System？" class="headerlink" title="能不能自己写个类叫java.lang.System？"></a>能不能自己写个类叫java.lang.System？</h2><p>当然可以，通过自定义类加载器的方式，只要让我们自己的类无法让父类加载器加载最终肯定就会让我们自定义的类加载器来加载这个类。</p>
+<p>由于系统自带的三个类加载器都加载特定目录下的类，如果我们自己的类加载器加载一个特殊的目录，那么系统的加载器就无法加载，也就是最终还是由我们自己的加载器加载。</p>
+<h2 id="类的加载方式（loadClass与forName）"><a href="#类的加载方式（loadClass与forName）" class="headerlink" title="类的加载方式（loadClass与forName）"></a>类的加载方式（loadClass与forName）</h2><p>1、new</p>
+<p>使用new关键字去操作对象的时候会触发隐式加载，比如new Demo()，那么最终AppClassLoader就会加载这个Demo类</p>
+<p>2、loadClass、forName</p>
+<p>这种方式加做显式加载</p>
+<p>那么loadClass与forName有什么区别呢？先来看看整个类的装载过程吧：</p>
+<p><img src="http://img.zouchanglin.cn///20200309/M3PlDtjryOmD.png" alt="mark"></p>
+<p>在loadClass方法中，我们注意到一个boolean类型的参数叫做resolve，false即表示不执行链接的过程，即不解析这个类。</p>
+<p><img src="http://img.zouchanglin.cn///20200309/p7cHaFq4bHHJ.png" alt="mark"></p>
+<p>再看看forName</p>
+<p><img src="http://img.zouchanglin.cn///20200309/oLzfa72u0Shu.png" alt="mark"></p>
+<p>所以上述表明，使用forName显式加载可以选择是否执行初始化，如果只是传类名称的话默认是要执行初始化的，但是loadClass却没有链接和初始化的步骤，这种行为加做延迟加载，IOC为了提高启动速度就选择了使用延迟加载，在IOC容器中被广泛使用。forName什么时候用呢？比如使用MySQL驱动的时候，就是直接初始化MySQL驱动的一些对象，而不是延迟加载。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图解epoll原理</title>
     <url>/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png" alt="mark"></p>
