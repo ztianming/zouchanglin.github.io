@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-09T08:34:06.008Z</updated>
+  <updated>2020-03-10T14:34:23.896Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java内存模型的回顾</title>
+    <link href="https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/"/>
+    <id>https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/</id>
+    <published>2020-03-09T23:01:35.000Z</published>
+    <updated>2020-03-10T14:34:23.896Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200310/6jem5nNs1Jug.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本篇文章主要讲述了Java内存模型中的程序计数器、虚拟机栈、本地方法栈、元空间与堆，以及堆中的常量池。前面通过javap反编译class文件得到&lt;code&gt;int add(int a, int b)&lt;/code&gt;函数的栈帧，主要分析了栈帧中JVM指令对应的局部变量表、操作数栈、程序计数器的状态变化。以及JDK7以后出现了替代永久代的元数据区，并分析了元数据区替换了永久代有哪些好处，主要分析了给字符串常量池带来的影响，并通过代码验证了元数据区相比永久代的优越性。学习了JVM性能调优的三个参数的意义和普通用法，最后探讨了并验证了JDK1.6与JDK1.7+的版本String类的intern方法的不同表现结果，分析了出现不同结果的原因，其实主要是JDK1.6的版本是建立副本再放入字符串常量池，而JDK1.7+版本时直接把堆上的对象的引用入池。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
+    
+      <category term="字符串" scheme="https://zouchanglin.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>ClassLoader</title>
@@ -460,33 +486,6 @@
     
       &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200219/96tchOUQRfiQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在上次的文章&lt;a href=&quot;[https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/](https://zouchanglin.cn/2020/02/18/虚拟化的基石——Namespace/)&quot;&gt;《虚拟化的基石——Namespace》&lt;/a&gt; 中主要讲述了Namespace的作用，却没有详细的拿代码举证，上次仅仅证明了UTS Namespace，剩下五个命名空间全在这篇文章了，主要是IPC Namespace、PID Namespace、Mount Namespace、User Namespace、Network Namespace的概念的理解以及使用代码证明！&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>虚拟化的基石——Namespace</title>
-    <link href="https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/"/>
-    <id>https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/</id>
-    <published>2020-02-18T14:44:21.000Z</published>
-    <updated>2020-02-20T06:54:14.123Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;每每被人问到：“Docker技术到底是怎么实现的呢？”我只能粗粗浅浅地说：“Docker是使用Linux Kernel的Namespace 和 Cgroups实现的一种容器技术。”那么，什么是Namespace，什么是Cgroups，Docker是怎么使用它们的，容器到底是怎么一步步被创建出来的？问到这些，我就会支支吾吾地不知所以。由此可见，了解容器技术的底层技术，然后明白它们是如何工作的，尤为重要，这些才是整个容器技术的基石，掌握了这些基石才能更加容易地向上攀登。 &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;那今天就先看看Namespace吧！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200218/07pgJ5CxHbna.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     
