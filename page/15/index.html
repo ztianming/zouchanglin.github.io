@@ -75,6 +75,76 @@
     
     
     
+    <article id="post-浅谈函数栈帧" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/"
+    >浅谈函数栈帧</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/" class="article-date">
+  <time datetime="2018-05-21T15:29:01.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>先说说函数栈帧的概念，函数栈帧又叫函数运行时堆栈，栈帧也叫过程活动记录，是编译器用来实现函数调用的一种数据结构。这个该概念说起来比较抽象，简单的说就是函数在被调用时的一块空间，这个空间由esp寄存器和ebp寄存器共同维护。首先应该明白，栈是从高地址向低地址延伸的。每个函数的每次调用，都有它自己独立的一个栈帧，这个栈帧中维持着所需要的各种信息。寄存器ebp指向当前的栈帧的底部(高地址)，寄存器esp指向当前的栈帧的顶部(低地址)。</p>
+      
+      <a class="article-more-link" href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/" data-id="ck7688d9y00bru8wk6vgz6clp"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Listener和Filter" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -705,76 +775,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-网页启动本地Activity" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/"
-    >网页启动本地Activity</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="article-date">
-  <time datetime="2018-02-03T08:51:00.000Z" itemprop="datePublished">2018-02-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Intent这个类在开发中是很常用的类，代表了着一个意图（获取理解为目标、目的），首先我们需要明确一点的就是：任何一个浏览器链接都是一个隐式意图，打开一个浏览器的方式无非就是显式意图和隐式意图，所以我们配置过滤器即可！</p>
-      
-      <a class="article-more-link" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" data-id="ck7688da800cpu8wkgmm144n4"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
 
     </footer>
 

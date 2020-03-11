@@ -75,6 +75,77 @@
     
     
     
+    <article id="post-探究MySQL锁机制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/"
+    >探究MySQL锁机制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2019-10-25T03:36:09.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="锁的理解"><a href="#锁的理解" class="headerlink" title="锁的理解"></a>锁的理解</h1><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。</p>
+<p>在数据库中，除传统的计算资源(如CPU、RAM、l/O等) 的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一一个重要因素。从这个角度来说锁对数据库而言显得尤其重要，也更加复杂。</p>
+      
+      <a class="article-more-link" href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" data-id="ck7688d9u00b6u8wkbcnq9055"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-MySQL全局查询日志" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -699,76 +770,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" data-id="ck7688dar00ecu8wk2t8kah8f"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-如何避免MySQL索引失效与三个优化实例" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/"
-    >如何避免MySQL索引失效与三个优化实例</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" class="article-date">
-  <time datetime="2019-09-21T15:25:35.000Z" itemprop="datePublished">2019-09-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>最好是查找的值都是建立索引的字段，要遵守最佳左前缀匹配法则，第一个索引没用上其他的都用不上，中间的索引没用上后面的也用不上。索引字段不要函数计算、自动或手动的类型转换。凡是在范围条件之后的索引全部失效，like的百分号写在最后边，实在是需要两边都是百分号那么建立索引，并且别查找其他非索引字段，也就是尽量别写select * 。尽量不使用不等于、大于、小于等条件，尽量不要使用or进行连接，否则会导致索引失效。对于varchar类型的字段不要忘记写引号，避免发生隐式类型转换。</p>
-      
-      <a class="article-more-link" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" data-id="ck7688d9j00a2u8wk733zbsgg"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
