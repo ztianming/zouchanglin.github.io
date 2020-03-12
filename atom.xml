@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-12T07:28:13.595Z</updated>
+  <updated>2020-03-12T08:21:55.685Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,14 +21,12 @@
     <link href="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</id>
     <published>2020-03-11T23:01:35.000Z</published>
-    <updated>2020-03-12T07:28:13.595Z</updated>
+    <updated>2020-03-12T08:21:55.685Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。&lt;/p&gt;
-&lt;p&gt;Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。&lt;/p&gt;
-&lt;p&gt;安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
+&lt;p&gt;目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
     
     </summary>
     

@@ -4,9 +4,7 @@
     <title>9种垃圾收集器</title>
     <url>/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
-<p>垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。</p>
-<p>Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。</p>
-<p>安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
+<p>目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
 <a id="more"></a>
 
 <h1 id="各种收集器的关系"><a href="#各种收集器的关系" class="headerlink" title="各种收集器的关系"></a>各种收集器的关系</h1><p>JVM的两种运行模式，在[《HotSpot JVM类型以及编译模式》]( <a href="https://zouchanglin.cn/2019/10/25/HotSpot">https://zouchanglin.cn/2019/10/25/HotSpot</a> JVM类型以及编译模式) 一文中说道了，JVM有Server和Client型、Server型启动比较慢，属于做了重量级的优化，Client型启动较Server快。</p>
