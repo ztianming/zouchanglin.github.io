@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    垃圾标记与收集算法 |  Tim&#39;s Blog
+    垃圾标记 |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,7 +34,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-垃圾标记与收集算法" class="article article-type-post" itemscope
+  <article id="post-垃圾标记与收集算法 - 副本" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -42,7 +42,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  垃圾标记与收集算法
+  垃圾标记
 </h1>
   
 
@@ -51,7 +51,7 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" class="article-date">
+      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95%20-%20%E5%89%AF%E6%9C%AC/" class="article-date">
   <time datetime="2020-03-10T23:01:35.000Z" itemprop="datePublished">2020-03-11</time>
 </a>
       
@@ -66,7 +66,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.5k字</span>
+            <span class="post-count">2.2k字</span>
         </span>
     </span>
 
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">7分钟</span>
         </span>
     </span>
 </div>
@@ -101,68 +101,70 @@
       
 
       
-      <p>本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。</p>
+      <p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
+<p>垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。</p>
+<p>Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。</p>
+<p>安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
 <a id="more"></a>
 
-<h2 id="标记算法"><a href="#标记算法" class="headerlink" title="标记算法"></a>标记算法</h2><blockquote>
-<p><strong>1、引用计数法</strong></p>
-</blockquote>
-<p>回收对象之前得判断那些是需要被清除的对象，首先出现的是引用计数算法，判断对象的引用数量，通过判断对象的引用数量来决定对象是否可以被回收，每个对象实例都有一个引用计数器，被引用则+1，完成引用则-1，任何引用计数为0的对象实例可以被当作垃圾收集。</p>
-<p>优点：执行效率高，程序执行受影响较小</p>
-<p>缺点：无法检测出循环引用的情况，导致内存泄露</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObject</span></span>&#123;</span><br><span class="line">    MyObject object;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyObject myObject = <span class="keyword">new</span> MyObject();</span><br><span class="line">        MyObject myObject2 = <span class="keyword">new</span> MyObject();</span><br><span class="line">        myObject.object = myObject2;</span><br><span class="line">        myObject2.object = myObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h1 id="各种收集器的关系"><a href="#各种收集器的关系" class="headerlink" title="各种收集器的关系"></a>各种收集器的关系</h1><p>JVM的两种运行模式，在[《HotSpot JVM类型以及编译模式》]( <a href="https://zouchanglin.cn/2019/10/25/HotSpot">https://zouchanglin.cn/2019/10/25/HotSpot</a> JVM类型以及编译模式) 一文中说道了，JVM有Server和Client型、Server型启动比较慢，属于做了重量级的优化，Client型启动较Server快。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
 <blockquote>
-<p><strong>2、可达性分析算法</strong></p>
+<p>下面来看看三个新生代的收集器：Serial收集器、Serial收集器和Parallel Scavenge收集器</p>
 </blockquote>
-<p>通过判断对象的引用链是否可达来决定对象是否可以被回收</p>
-<p><img src="http://img.zouchanglin.cn///20200311/1TdhcjeRK9dr.png" alt="mark"></p>
-<p>可以作为GC Root的对象</p>
-<p>1、虚拟机栈中引用的对象(栈帧中的本地变量表)</p>
-<p>2、方法区中的常量引用的对象</p>
-<p>3、方法区中的类静态属性引用的对象</p>
-<p>4、本地方法栈中JNI ( Native方法)的引用对象</p>
-<p>5、活跃线程的引用对象</p>
-<h2 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h2><blockquote>
-<p><strong>1、标记-清除（Mark and Sweep）</strong></p>
-</blockquote>
-<p>没有解决内存碎片化的问题</p>
-<p><img src="http://img.zouchanglin.cn///20200311/5308arz5hqhL.png" alt="mark"></p>
+<h1 id="1、Serial收集器"><a href="#1、Serial收集器" class="headerlink" title="1、Serial收集器"></a>1、Serial收集器</h1><p>Serial收集器（-XX:+UseSerialGC，复制算法）是Java中最基本的收集器，历史悠久，在JDK1.3.1之前是Java虚拟机新生代的唯一选择。单线程收集，进行垃圾收集时，必须暂停所有工作线程。由于Serial收集器采用复制算法，简单高效，Client模式下默认的年轻代收集器就是Serial。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/LnTVebt88Fib.png" alt="mark"></p>
+<h1 id="2、ParNew收集器"><a href="#2、ParNew收集器" class="headerlink" title="2、ParNew收集器"></a>2、ParNew收集器</h1><p>ParNew收集器（-XX:+UseParNewGC，复制算法），多线程收集， ParNew收集器其实是Serial收集器的多线程版本，它是许多运行在Server模式下的虚拟机中首选的新生代收集器，其余的行为特点和Serial收集器一样。单核执行效率不如Serial（因为存在线程切换的开销），在多核下执行才有优势。</p>
+<p>同时ParNew也是一个很重要的垃圾收集器， 因为除了Serial收集器外，目前只有它能与CMS收集器配合工作。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
 <blockquote>
-<p><strong>2、复制算法 （Copying）</strong></p>
+<p><strong>Serial与ParNew收集器都是比较强调很短的停顿时间。</strong></p>
 </blockquote>
-<p>分为对象面和空闲面，对象在对象面上创建，存活的对象被从对象面复制到空闲面，将对象面所有对象内存清除，解决了内存空间碎片化的问题，合适只有少数存活对象的情况，因为只复制一小部分对象就OK了</p>
-<p><img src="http://img.zouchanglin.cn///20200311/nPdCkdquFenB.png" alt="mark"></p>
-<p>从图中可以看出复制算法能解决碎片化问题，顺序分配内存，简单高效。适用于对象存活率低的场景。</p>
+<h1 id="3、Parallel-Scavenge收集器"><a href="#3、Parallel-Scavenge收集器" class="headerlink" title="3、Parallel Scavenge收集器"></a>3、Parallel Scavenge收集器</h1><p>Parallel Scavenge收集器（-XX:+UseParallelGC，复制算法），多线程收集，比起关注用户线程停顿时间，更关注系统的吞吐量。在多核下执行才有优势，Server模式下默认的年轻代收集器</p>
+<p>吞吐量即CPU用于运行用户代码的时间与CPU总消耗时间的比值，吞吐量=运行用户代码时间 /（运行用户代码时间+垃圾收集时间）， 假设虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，吞吐量就是99%。 </p>
 <blockquote>
-<p><strong>3、标记整理算法（Compacting）</strong></p>
+<p><strong>对于需要与用户交互的程序来说停顿时间越短越好，良好的响应速度能提升用户的体验。</strong></p>
+<p><strong>对于后台计算等任务，需要最高效率地利用CPU时间，尽快地完成程序的运算任务，这就是高吞吐量</strong></p>
 </blockquote>
-<p>标记：从根集合进行扫描，对存活的对象进行标记。清除：移动所有存活的对象，且按照内存地址次序依次排列，然后将末端内存地址以后的内存全部回收。</p>
-<p><img src="http://img.zouchanglin.cn///20200311/WT0zds2ysMgx.png" alt="mark"></p>
-<p>标记整理算法避免内存的不连续性，不用设置两块内存互换，但是效率成问题，如果第一个对象被标记为可回收，那么剩下的对象都要往前移动，损失性能。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
+<p>上图与ParNew收集器的一致，因为都是多线程+复制算法收集，只不过关注点不同，ParNew收集器关注停顿时间，而Parallel Scavenge收集器关注吞吐量。下面看看相关参数：</p>
+<p><code>-XX:MaxGCPauseMillis</code> 控制最大垃圾收集停顿时间（大于0的毫秒数）。停顿时间缩短是以牺牲吞吐量和新生代空间换取的。（新生代调的小，吞吐量跟着小，垃圾收集时间就短，停顿就小）。</p>
+<p><code>-XX:GCTimeRatio</code> 直接设置吞吐量大小，0&lt;x&lt;100 的整数，允许的最大GC时间=1/(1+x)。</p>
+<p><code>-XX:+UseAdaptiveSizePolicy</code>  一个开关参数，开启GC自适应调节策略（GC Ergonomics），将内存管理的调优任务（新生代大小-Xmn、Eden与Survivor区的比例-XX:SurvivorRatio、晋升老年代对象年龄-XX:PretenureSizeThreshold 、等细节参数）交给虚拟机完成。</p>
 <blockquote>
-<p><strong>4、分代收集算法（Generational Collector）</strong></p>
+<p>下面来看看三个老年代的收集器：Serial Old收集器、Serial收集器和Parallel Scavenge收集器</p>
 </blockquote>
-<p>分代收集算法是垃圾回收算法的组合拳，按照对象生命周期的不同划分区域以采用不同的垃圾回收算法，目的在于提高JVM的回收效率。</p>
-<p>在JDK6、JDK7中，Heap主要分为：新生代、老年代和永久代，JDK8以及以后的版本中去掉了永久代，而且使用MetaSpace替代，新生代对象存活率低，宜采用复制算法，老年代对象存活率高，采用标记清除算法或标记整理算法。</p>
-<h2 id="GC的分类"><a href="#GC的分类" class="headerlink" title="GC的分类"></a>GC的分类</h2><p>Minor GC：发生在新生代中的垃圾收集动作，采用的是复制算法，新生代是垃圾收集比较频繁的区域</p>
-<p>Full GC：一般对老年代的回收会伴随着新生代的垃圾收集</p>
-<p>现在主要看看新生代，新生代主要分为一个Eden区和两个Survivor区（to区和from区，在垃圾收集中相互转换），对象一开始被创建的时候就是放在Eden区的，如果Eden去放不下，就会放到Survivor区甚至是老年代中。Eden区：两个Survivor区默认比例是<code>8:1:1</code> </p>
-<p><img src="http://img.zouchanglin.cn///20200311/dRKnRvQqUlTe.png" alt="mark"></p>
-<p>对象年龄在默认情况下超过15岁（意思是经过15次Minor GC）就会晋升到老年代，Survivor去放不下的时候也会进入到老年代中，通过设置<code>-XX:+PretenuserSizeThreshold</code> 参数来指定如果对象的大小查过指定值对象一生成就直接放入老年代，常用的性能调优的参数：</p>
+<h1 id="4、Serial-Old收集器"><a href="#4、Serial-Old收集器" class="headerlink" title="4、Serial Old收集器"></a>4、Serial Old收集器</h1><p>Serial Old收集器（-XX:+UseSerialOldGC，标记-整理算法），单线程收集，进行垃圾收集时，必须暂停所有工作线程。简单高效，Client模式下默认的老年代收集器。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/CkIzw5MKaF77.png" alt="mark"></p>
+<h1 id="5、Parallel-Old收集器"><a href="#5、Parallel-Old收集器" class="headerlink" title="5、Parallel Old收集器"></a>5、Parallel Old收集器</h1><p>Parallel Old收集器（-XX : +UseParallelOldGC，标记-整理算法）JDK6以后提供的。</p>
+<p>Parallel Scavenge收集器其实在Parallel Old收集器没有出现之前一直处于比较尴尬的地位，因为能与之配合的老年代收集器只有Serial Old，Serial Old性能上拖累了Parallel Scavenge，所以即使在需要高吞吐量的情况下，虽然使用了Parallel Scavenge收集器，但是由于只能跟Serial Old收集器配合，结果性能还不如ParNew和CMS的组合收集器，Parallel Old收集器的出现总算是给Parallel Scavenge收集器搭配了一个好基友！</p>
+<p><img src="http://img.zouchanglin.cn///20200312/GdPddhTBdmwL.png" alt="mark"></p>
 <blockquote>
-<p><strong>-XX:SurvivorRatio：Eden和Survivor的比值，默认8 : 1</strong></p>
-<p><strong>-XX:NewRatio：老年代和新生代内存大小的比例</strong></p>
-<p><strong>-XX:MaxTenuring Threshold：对象从新生代晋升到老生代经过GC次数的最大阈值</strong></p>
+<p><strong>所以在注重吞吐量及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge+Parallel Old收集器</strong></p>
 </blockquote>
-<p>老年代使用的最多的是标记清除算法或者标记整理算法进行垃圾回收，通常触发老年代的垃圾回收的时候也会触发新生代的垃圾回收，这便是Full GC。Full GC比Minor GC慢，但是执行的频率很低。</p>
-<h2 id="触发Full-GC的条件"><a href="#触发Full-GC的条件" class="headerlink" title="触发Full GC的条件"></a>触发Full GC的条件</h2><p>1、老年代空间不足</p>
-<p>2、永久代空间不足</p>
-<p>3、CMS GC时出现promotion failed , concurrent mode failure</p>
-<p>当使用CMS垃圾收集器的时候，如果出现了promotion failed，那就说明在进行Minor  GC时，Survivor空间不足，对象只嗯呢该放入老年代，但是此时老年代也出现了空间不足，就会出现promotion failed，就会触发Full GC； concurrent mode failure也是CMS垃圾收集器在执行的过程中，同时有对象要放入老年代，此时老年代空间不足，就会造成concurrent mode failure，从而触发Full GC</p>
-<p>4、Minor GC晋升到老年代的平均大小大于老年代的剩余空间，Hotspot在设计时，在进行Minor GC的时候进行了判断，如果之前统计得到的Minor GC的平均大小已经达到了老年代的剩余空间大小，就会直接触发Full GC。比如第一次Minor GC剩余的对象大小为6M，如果此时老年代剩余空间小于6M，就会触发Full GC。</p>
-<p>5、调用System.gc()，只是提醒一下虚拟机此时应该触发Full GC，至于回不回收由虚拟机自己决定，只是System.gc()增加了Full GC的可能。</p>
-<p>6、使用RMI来进行RPC或管理的JDK应用，每小时执行1次Full GC。</p>
+<h1 id="6、CMS收集器"><a href="#6、CMS收集器" class="headerlink" title="6、CMS收集器"></a>6、CMS收集器</h1><p>CMS收集器（-XX: +UseConcMarkSweepGC，标记-清除算法）， 以获取最短回收停顿时间为目标的收集器。优点：并发收集，低停顿。CMS收集器主要由以下6个步骤完成垃圾收集工作：</p>
+<ul>
+<li>初始标记：stop-the-world，标记GC Roots能直接关联到的对象，虽然暂停了JVM，但是速度非常快</li>
+<li>并发标记：在初始标记上并发追溯标记，程序不会停顿</li>
+<li>并发预清理：查找执行并发标记阶段从年轻代晋升到老年代的对象，通过重新扫描减少下一个阶段的标记工作</li>
+<li><strong>重新标记：暂停虚拟机，扫描CMS堆中的剩余对象，速度较慢一些</strong></li>
+<li>并发清理：清理垃圾对象，程序不会停顿</li>
+<li>并发重置：重置CMS收集器的数据结构</li>
+</ul>
+<p>这6个步骤中初始标记和重新标记是需要暂停JVM的，是费时操作</p>
+<p><img src="http://img.zouchanglin.cn///20200312/DPxBI6qcesti.png" alt="mark"></p>
+<p>CMS收集器对CPU资源非常敏感，面向并发设计的程序都会对CPU资源较敏感。CMS默认的回收线程数:(CPU数量+3)/4， 而且CMS收集器是基于标记-清除算法会产生大量空间碎片。</p>
+<h1 id="7、G1收集器"><a href="#7、G1收集器" class="headerlink" title="7、G1收集器"></a>7、G1收集器</h1><p>G1收集器（-XX:+UseG1GC，复制算法 + 标记-整理算法），G1收集器全称是GarBage First。</p>
+<p>G1收集器可以在几乎不牺牲吞吐量的前提下完成低停顿的内存回收，这是由于它能够极力避免全区域的垃圾收集，之前的收集器进行收集的范围都是整个新生代或老年代，而G1将整个Java堆（包括新生代、老年代）划分为多个大小固定的独立区域（Region），并且跟踪这些区域里面的垃圾堆积程度，在后台维护一个优先列表，每次根据允许的收集时间，优先回收垃圾最多的区域（这就是Garbage First名称的由来）。区域划分、有优先级的区域回收，保证了G1收集器在有限的时间内可以获得最高的收集效率。</p>
+<p><img src="http://img.zouchanglin.cn///20200312/Ai7bWBvLJ9Pm.png" alt="mark"></p>
+<p>G1收集器的特点：并行和并发、分代收集、空间整合、可预测的停顿。G1将整个Java堆（包括新生代、老年代）划分为多个大小固定的独立区域（Region），物理上可以不是连续的，年轻代和老年代空间大小动态可调整。</p>
+<h1 id="8、Epsilon垃圾收集器"><a href="#8、Epsilon垃圾收集器" class="headerlink" title="8、Epsilon垃圾收集器"></a>8、Epsilon垃圾收集器</h1><p>-XX: +UnlockExperimentalVMOptions、-XX:+UseEpsilonGC，Epsilon垃圾收集器是Java11出现的垃圾收集器， JDK上对这个特性的描述是：开发一个处理内存分配但不实现任何实际内存回收机制的GC，一旦可用堆内存用完，JVM就会退出。</p>
+<p>Epsilon垃圾收集器提供完全被动的GC实现，具有有限的分配限制和尽可能低的延迟开销，但代价是内存占用和内存吞吐量。使用场景：</p>
+<p>1、使用此GC来做性能测试(因为可以帮助过滤掉GC引起的性能假象) 还是不错的；</p>
+<p>2、用来做内存压力测试也还行；</p>
+<p>3、 如果是执行非常短的任务，根据不需要垃圾清理的话，使用此GC是合理的；</p>
+<h1 id="9、ZGC垃圾收集器"><a href="#9、ZGC垃圾收集器" class="headerlink" title="9、ZGC垃圾收集器"></a>9、ZGC垃圾收集器</h1><p>ZGC的目标就是缩短Stop The World的时间：ZGC是一个并发，基于region（和G1对内存区域的管理方式一致）， 压缩型的垃圾收集器，只有root扫描阶段会Stop The World， 因此GC停顿时间不会随着堆的增长和存活对象的增长而变长。  ZGC垃圾收集器并且支持TB级内存容量，反正ZGC垃圾收集器也是Java11出现的垃圾收集器，目前开发中…</p>
+<p><img src="http://img.zouchanglin.cn///20200312/lX50PBhv0PBg.png" alt="mark"></p>
 
       
       <!-- 打赏 -->
@@ -173,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" data-id="ck7o21uem0000h0wkd4y4fyne"
+      <a data-url="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95%20-%20%E5%89%AF%E6%9C%AC/" data-id="ck7ofhedz00000swkeo328zja"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
@@ -186,10 +188,19 @@
   
   <nav class="article-nav">
     
+      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            垃圾标记与收集算法
+          
+        </div>
+      </a>
     
-      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95%20-%20%E5%89%AF%E6%9C%AC/" class="article-nav-link">
+    
+      <a href="/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">垃圾标记</div>
+        <div class="article-nav-title">Java内存模型的回顾</div>
       </a>
     
   </nav>
