@@ -1,82 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>垃圾标记与收集算法</title>
-    <url>/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。</p>
-<a id="more"></a>
-
-<h2 id="标记算法"><a href="#标记算法" class="headerlink" title="标记算法"></a>标记算法</h2><blockquote>
-<p><strong>1、引用计数法</strong></p>
-</blockquote>
-<p>回收对象之前得判断那些是需要被清除的对象，首先出现的是引用计数算法，判断对象的引用数量，通过判断对象的引用数量来决定对象是否可以被回收，每个对象实例都有一个引用计数器，被引用则+1，完成引用则-1，任何引用计数为0的对象实例可以被当作垃圾收集。</p>
-<p>优点：执行效率高，程序执行受影响较小</p>
-<p>缺点：无法检测出循环引用的情况，导致内存泄露</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObject</span></span>&#123;</span><br><span class="line">    MyObject object;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyObject myObject = <span class="keyword">new</span> MyObject();</span><br><span class="line">        MyObject myObject2 = <span class="keyword">new</span> MyObject();</span><br><span class="line">        myObject.object = myObject2;</span><br><span class="line">        myObject2.object = myObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>2、可达性分析算法</strong></p>
-</blockquote>
-<p>通过判断对象的引用链是否可达来决定对象是否可以被回收</p>
-<p><img src="http://img.zouchanglin.cn///20200311/1TdhcjeRK9dr.png" alt="mark"></p>
-<p>可以作为GC Root的对象</p>
-<p>1、虚拟机栈中引用的对象(栈帧中的本地变量表)</p>
-<p>2、方法区中的常量引用的对象</p>
-<p>3、方法区中的类静态属性引用的对象</p>
-<p>4、本地方法栈中JNI ( Native方法)的引用对象</p>
-<p>5、活跃线程的引用对象</p>
-<h2 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h2><blockquote>
-<p><strong>1、标记-清除（Mark and Sweep）</strong></p>
-</blockquote>
-<p>没有解决内存碎片化的问题</p>
-<p><img src="http://img.zouchanglin.cn///20200311/5308arz5hqhL.png" alt="mark"></p>
-<blockquote>
-<p><strong>2、复制算法 （Copying）</strong></p>
-</blockquote>
-<p>分为对象面和空闲面，对象在对象面上创建，存活的对象被从对象面复制到空闲面，将对象面所有对象内存清除，解决了内存空间碎片化的问题，合适只有少数存活对象的情况，因为只复制一小部分对象就OK了</p>
-<p><img src="http://img.zouchanglin.cn///20200311/nPdCkdquFenB.png" alt="mark"></p>
-<p>从图中可以看出复制算法能解决碎片化问题，顺序分配内存，简单高效。适用于对象存活率低的场景。</p>
-<blockquote>
-<p><strong>3、标记整理算法（Compacting）</strong></p>
-</blockquote>
-<p>标记：从根集合进行扫描，对存活的对象进行标记。清除：移动所有存活的对象，且按照内存地址次序依次排列，然后将末端内存地址以后的内存全部回收。</p>
-<p><img src="http://img.zouchanglin.cn///20200311/WT0zds2ysMgx.png" alt="mark"></p>
-<p>标记整理算法避免内存的不连续性，不用设置两块内存互换，但是效率成问题，如果第一个对象被标记为可回收，那么剩下的对象都要往前移动，损失性能。</p>
-<blockquote>
-<p><strong>4、分代收集算法（Generational Collector）</strong></p>
-</blockquote>
-<p>分代收集算法是垃圾回收算法的组合拳，按照对象生命周期的不同划分区域以采用不同的垃圾回收算法，目的在于提高JVM的回收效率。</p>
-<p>在JDK6、JDK7中，Heap主要分为：新生代、老年代和永久代，JDK8以及以后的版本中去掉了永久代，而且使用MetaSpace替代，新生代对象存活率低，宜采用复制算法，老年代对象存活率高，采用标记清除算法或标记整理算法。</p>
-<h2 id="GC的分类"><a href="#GC的分类" class="headerlink" title="GC的分类"></a>GC的分类</h2><p>Minor GC：发生在新生代中的垃圾收集动作，采用的是复制算法，新生代是垃圾收集比较频繁的区域</p>
-<p>Full GC：一般对老年代的回收会伴随着新生代的垃圾收集</p>
-<p>现在主要看看新生代，新生代主要分为一个Eden区和两个Survivor区（to区和from区，在垃圾收集中相互转换），对象一开始被创建的时候就是放在Eden区的，如果Eden去放不下，就会放到Survivor区甚至是老年代中。Eden区：两个Survivor区默认比例是<code>8:1:1</code> </p>
-<p><img src="http://img.zouchanglin.cn///20200311/dRKnRvQqUlTe.png" alt="mark"></p>
-<p>对象年龄在默认情况下超过15岁（意思是经过15次Minor GC）就会晋升到老年代，Survivor去放不下的时候也会进入到老年代中，通过设置<code>-XX:+PretenuserSizeThreshold</code> 参数来指定如果对象的大小查过指定值对象一生成就直接放入老年代，常用的性能调优的参数：</p>
-<blockquote>
-<p><strong>-XX:SurvivorRatio：Eden和Survivor的比值，默认8 : 1</strong></p>
-<p><strong>-XX:NewRatio：老年代和新生代内存大小的比例</strong></p>
-<p><strong>-XX:MaxTenuring Threshold：对象从新生代晋升到老生代经过GC次数的最大阈值</strong></p>
-</blockquote>
-<p>老年代使用的最多的是标记清除算法或者标记整理算法进行垃圾回收，通常触发老年代的垃圾回收的时候也会触发新生代的垃圾回收，这便是Full GC。Full GC比Minor GC慢，但是执行的频率很低。</p>
-<h2 id="触发Full-GC的条件"><a href="#触发Full-GC的条件" class="headerlink" title="触发Full GC的条件"></a>触发Full GC的条件</h2><p>1、老年代空间不足</p>
-<p>2、永久代空间不足</p>
-<p>3、CMS GC时出现promotion failed , concurrent mode failure</p>
-<p>当使用CMS垃圾收集器的时候，如果出现了promotion failed，那就说明在进行Minor  GC时，Survivor空间不足，对象只嗯呢该放入老年代，但是此时老年代也出现了空间不足，就会出现promotion failed，就会触发Full GC； concurrent mode failure也是CMS垃圾收集器在执行的过程中，同时有对象要放入老年代，此时老年代空间不足，就会造成concurrent mode failure，从而触发Full GC</p>
-<p>4、Minor GC晋升到老年代的平均大小大于老年代的剩余空间，Hotspot在设计时，在进行Minor GC的时候进行了判断，如果之前统计得到的Minor GC的平均大小已经达到了老年代的剩余空间大小，就会直接触发Full GC。比如第一次Minor GC剩余的对象大小为6M，如果此时老年代剩余空间小于6M，就会触发Full GC。</p>
-<p>5、调用System.gc()，只是提醒一下虚拟机此时应该触发Full GC，至于回不回收由虚拟机自己决定，只是System.gc()增加了Full GC的可能。</p>
-<p>6、使用RMI来进行RPC或管理的JDK应用，每小时执行1次Full GC。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>JavaSE</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>9种垃圾收集器</title>
-    <url>/2020/03/11/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</url>
+    <url>/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</url>
     <content><![CDATA[<p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
 <p>垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。</p>
 <p>Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。</p>
@@ -141,6 +67,80 @@
 <p>3、 如果是执行非常短的任务，根据不需要垃圾清理的话，使用此GC是合理的；</p>
 <h1 id="9、ZGC垃圾收集器"><a href="#9、ZGC垃圾收集器" class="headerlink" title="9、ZGC垃圾收集器"></a>9、ZGC垃圾收集器</h1><p>ZGC的目标就是缩短Stop The World的时间：ZGC是一个并发，基于region（和G1对内存区域的管理方式一致）， 压缩型的垃圾收集器，只有root扫描阶段会Stop The World， 因此GC停顿时间不会随着堆的增长和存活对象的增长而变长。  ZGC垃圾收集器并且支持TB级内存容量，反正ZGC垃圾收集器也是Java11出现的垃圾收集器，目前开发中…</p>
 <p><img src="http://img.zouchanglin.cn///20200312/lX50PBhv0PBg.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>垃圾标记与收集算法</title>
+    <url>/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。</p>
+<a id="more"></a>
+
+<h2 id="标记算法"><a href="#标记算法" class="headerlink" title="标记算法"></a>标记算法</h2><blockquote>
+<p><strong>1、引用计数法</strong></p>
+</blockquote>
+<p>回收对象之前得判断那些是需要被清除的对象，首先出现的是引用计数算法，判断对象的引用数量，通过判断对象的引用数量来决定对象是否可以被回收，每个对象实例都有一个引用计数器，被引用则+1，完成引用则-1，任何引用计数为0的对象实例可以被当作垃圾收集。</p>
+<p>优点：执行效率高，程序执行受影响较小</p>
+<p>缺点：无法检测出循环引用的情况，导致内存泄露</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObject</span></span>&#123;</span><br><span class="line">    MyObject object;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyObject myObject = <span class="keyword">new</span> MyObject();</span><br><span class="line">        MyObject myObject2 = <span class="keyword">new</span> MyObject();</span><br><span class="line">        myObject.object = myObject2;</span><br><span class="line">        myObject2.object = myObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>2、可达性分析算法</strong></p>
+</blockquote>
+<p>通过判断对象的引用链是否可达来决定对象是否可以被回收</p>
+<p><img src="http://img.zouchanglin.cn///20200311/1TdhcjeRK9dr.png" alt="mark"></p>
+<p>可以作为GC Root的对象</p>
+<p>1、虚拟机栈中引用的对象(栈帧中的本地变量表)</p>
+<p>2、方法区中的常量引用的对象</p>
+<p>3、方法区中的类静态属性引用的对象</p>
+<p>4、本地方法栈中JNI ( Native方法)的引用对象</p>
+<p>5、活跃线程的引用对象</p>
+<h2 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h2><blockquote>
+<p><strong>1、标记-清除（Mark and Sweep）</strong></p>
+</blockquote>
+<p>没有解决内存碎片化的问题</p>
+<p><img src="http://img.zouchanglin.cn///20200311/5308arz5hqhL.png" alt="mark"></p>
+<blockquote>
+<p><strong>2、复制算法 （Copying）</strong></p>
+</blockquote>
+<p>分为对象面和空闲面，对象在对象面上创建，存活的对象被从对象面复制到空闲面，将对象面所有对象内存清除，解决了内存空间碎片化的问题，合适只有少数存活对象的情况，因为只复制一小部分对象就OK了</p>
+<p><img src="http://img.zouchanglin.cn///20200311/nPdCkdquFenB.png" alt="mark"></p>
+<p>从图中可以看出复制算法能解决碎片化问题，顺序分配内存，简单高效。适用于对象存活率低的场景。</p>
+<blockquote>
+<p><strong>3、标记整理算法（Compacting）</strong></p>
+</blockquote>
+<p>标记：从根集合进行扫描，对存活的对象进行标记。清除：移动所有存活的对象，且按照内存地址次序依次排列，然后将末端内存地址以后的内存全部回收。</p>
+<p><img src="http://img.zouchanglin.cn///20200311/WT0zds2ysMgx.png" alt="mark"></p>
+<p>标记整理算法避免内存的不连续性，不用设置两块内存互换，但是效率成问题，如果第一个对象被标记为可回收，那么剩下的对象都要往前移动，损失性能。</p>
+<blockquote>
+<p><strong>4、分代收集算法（Generational Collector）</strong></p>
+</blockquote>
+<p>分代收集算法是垃圾回收算法的组合拳，按照对象生命周期的不同划分区域以采用不同的垃圾回收算法，目的在于提高JVM的回收效率。</p>
+<p>在JDK6、JDK7中，Heap主要分为：新生代、老年代和永久代，JDK8以及以后的版本中去掉了永久代，而且使用MetaSpace替代，新生代对象存活率低，宜采用复制算法，老年代对象存活率高，采用标记清除算法或标记整理算法。</p>
+<h2 id="GC的分类"><a href="#GC的分类" class="headerlink" title="GC的分类"></a>GC的分类</h2><p>Minor GC：发生在新生代中的垃圾收集动作，采用的是复制算法，新生代是垃圾收集比较频繁的区域</p>
+<p>Full GC：一般对老年代的回收会伴随着新生代的垃圾收集</p>
+<p>现在主要看看新生代，新生代主要分为一个Eden区和两个Survivor区（to区和from区，在垃圾收集中相互转换），对象一开始被创建的时候就是放在Eden区的，如果Eden去放不下，就会放到Survivor区甚至是老年代中。Eden区：两个Survivor区默认比例是<code>8:1:1</code> </p>
+<p><img src="http://img.zouchanglin.cn///20200311/dRKnRvQqUlTe.png" alt="mark"></p>
+<p>对象年龄在默认情况下超过15岁（意思是经过15次Minor GC）就会晋升到老年代，Survivor去放不下的时候也会进入到老年代中，通过设置<code>-XX:+PretenuserSizeThreshold</code> 参数来指定如果对象的大小查过指定值对象一生成就直接放入老年代，常用的性能调优的参数：</p>
+<blockquote>
+<p><strong>-XX:SurvivorRatio：Eden和Survivor的比值，默认8 : 1</strong></p>
+<p><strong>-XX:NewRatio：老年代和新生代内存大小的比例</strong></p>
+<p><strong>-XX:MaxTenuring Threshold：对象从新生代晋升到老生代经过GC次数的最大阈值</strong></p>
+</blockquote>
+<p>老年代使用的最多的是标记清除算法或者标记整理算法进行垃圾回收，通常触发老年代的垃圾回收的时候也会触发新生代的垃圾回收，这便是Full GC。Full GC比Minor GC慢，但是执行的频率很低。</p>
+<h2 id="触发Full-GC的条件"><a href="#触发Full-GC的条件" class="headerlink" title="触发Full GC的条件"></a>触发Full GC的条件</h2><p>1、老年代空间不足</p>
+<p>2、永久代空间不足</p>
+<p>3、CMS GC时出现promotion failed , concurrent mode failure</p>
+<p>当使用CMS垃圾收集器的时候，如果出现了promotion failed，那就说明在进行Minor  GC时，Survivor空间不足，对象只嗯呢该放入老年代，但是此时老年代也出现了空间不足，就会出现promotion failed，就会触发Full GC； concurrent mode failure也是CMS垃圾收集器在执行的过程中，同时有对象要放入老年代，此时老年代空间不足，就会造成concurrent mode failure，从而触发Full GC</p>
+<p>4、Minor GC晋升到老年代的平均大小大于老年代的剩余空间，Hotspot在设计时，在进行Minor GC的时候进行了判断，如果之前统计得到的Minor GC的平均大小已经达到了老年代的剩余空间大小，就会直接触发Full GC。比如第一次Minor GC剩余的对象大小为6M，如果此时老年代剩余空间小于6M，就会触发Full GC。</p>
+<p>5、调用System.gc()，只是提醒一下虚拟机此时应该触发Full GC，至于回不回收由虚拟机自己决定，只是System.gc()增加了Full GC的可能。</p>
+<p>6、使用RMI来进行RPC或管理的JDK应用，每小时执行1次Full GC。</p>
 ]]></content>
       <categories>
         <category>编程语言</category>

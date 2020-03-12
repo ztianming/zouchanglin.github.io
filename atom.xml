@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-12T01:09:40.403Z</updated>
+  <updated>2020-03-12T07:28:13.595Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,15 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>垃圾标记与收集算法</title>
-    <link href="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"/>
-    <id>https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</id>
-    <published>2020-03-10T23:01:35.000Z</published>
-    <updated>2020-03-12T01:09:40.403Z</updated>
+    <title>9种垃圾收集器</title>
+    <link href="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
+    <id>https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</id>
+    <published>2020-03-11T23:01:35.000Z</published>
+    <updated>2020-03-12T07:28:13.595Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。&lt;/p&gt;
+&lt;p&gt;Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。&lt;/p&gt;
+&lt;p&gt;安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
     
     </summary>
     
@@ -40,18 +43,15 @@
   </entry>
   
   <entry>
-    <title>9种垃圾收集器</title>
-    <link href="https://zouchanglin.cn/2020/03/11/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
-    <id>https://zouchanglin.cn/2020/03/11/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</id>
+    <title>垃圾标记与收集算法</title>
+    <link href="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"/>
+    <id>https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</id>
     <published>2020-03-10T23:01:35.000Z</published>
-    <updated>2020-03-12T07:27:19.570Z</updated>
+    <updated>2020-03-12T01:09:40.403Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。&lt;/p&gt;
-&lt;p&gt;Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。&lt;/p&gt;
-&lt;p&gt;安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
+      &lt;p&gt;本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。&lt;/p&gt;
     
     </summary>
     
