@@ -103,7 +103,7 @@
       
       <h2 id="一、条件概率公式"><a href="#一、条件概率公式" class="headerlink" title="一、条件概率公式"></a>一、条件概率公式</h2><p>举个例子，比如让你背对着一个人，让你猜猜背后这个人是女孩的概率是多少？直接猜测，肯定是只有５０％的概率，假如现在告诉你背后这个人是个长头发，那么女的概率就变为９０％。所以条件概率的意义就是，当给定条件发生变化后，会导致事件发生的可能性发生变化。</p>
 <p>条件概率由文氏图出发，比较容易理解：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/MHRlLIlz7XSP.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/MHRlLIlz7XSP.png" alt="mark"></p>
 <a id="more"></a>
 
 <p><code>P(A|B)</code>表示B发生后A发生的概率，由上图可以看出B发生后，A再发生的概率就是<code>P(AnB)/P(B)</code>，因此<code>P(A|B)=P(AnB)/P(B)</code>，由<code>P(A|B)=P(AnB)/P(B)</code>又可以得到<code>P(AnB) = P(A|B)*P(B)</code>，则可以得到<code>P(AnB) = P(B|A)*P(A)</code> ，由此可得：<code>P(A|B) = P(AnB)/P(B) = P(B|A) * P(A)/P(B)</code>这就是条件概率公式。</p>
@@ -114,7 +114,7 @@
 <p>每天上述三条路不拥堵的概率分别为：</p>
 <p>P(C1) = 0.3、P(C2) = 0.4、P(C3) = 0.7</p>
 <p>假设遇到拥堵会迟到，那么小张从Home到Company不迟到的概率是多少？</p>
-<p><img src="http://img.zouchanglin.cn///20200201/9brLYqOESPmr.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/9brLYqOESPmr.png" alt="mark"></p>
 <p>其实不迟到就是对应着不拥堵，设事件Ｃ为到公司不迟到，事件Li为选择第i条路，则</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P(C) &#x3D; P(L1) * P(C|L1) + P(L2) * P(C|L2) + P(L3) * P(C|L3)</span><br><span class="line">P(C) &#x3D; P(L1) * P(C1) + P(L2) * P(C2) + P(L3) * P(C3)</span><br><span class="line">P(C) &#x3D; 0.5 * 0.2 + 0.3 * 0.4 + 0.2 * 0.7 &#x3D; 0.36</span><br></pre></td></tr></table></figure>
 

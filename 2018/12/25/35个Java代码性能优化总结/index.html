@@ -144,7 +144,7 @@
 </ul>
 <p>这样，既浪费内存空间又降低代码运行效率。所以，给底层以数组实现的集合、工具类设置一个合理的初始化容量是错不了的，这会带来立竿见影的效果。但是，注意，像HashMap这种是以数组+链表实现的集合，别把初始大小和你估计的大小设置得一样，因为一个table上只连接一个对象的可能性几乎为0。初始大小建议设置为2的N次幂，如果能估计到有2000个元素，设置成new HashMap(128)、new HashMap(256)都可以。</p>
 <p>10、当复制大量数据时，使用System.arraycopy()命令</p>
-<p>这个在我之前的博客中有提到：<a href="https://blog.csdn.net/m0_38032942/article/details/79362690" target="_blank" rel="noopener">《Java中数组复制的效率比较》</a></p>
+<p>这个在我之前的博客中有提到：<a href="https://zouchanglin.cn/2018/02/28/Java中数组复制的效率比较">《Java中数组复制的效率比较》</a></p>
 <p>11、乘法和除法使用移位操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (val = <span class="number">0</span>; val &lt; <span class="number">100000</span>; val += <span class="number">5</span>)&#123;</span><br><span class="line">	a = val * <span class="number">8</span>;</span><br><span class="line">	b = val / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

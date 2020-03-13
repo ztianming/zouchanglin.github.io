@@ -116,7 +116,7 @@
 <li>最后只要一个Key对应着最大的Value即是我们想要的结果</li>
 </ul>
 <p>对于问题二：<br>要想统计次数最多的前K个IP，这里需要建K个元素的小堆，每次选出的IP与堆顶元素比较如果大于堆顶元素就替换掉堆顶元素并且向下调堆，这样到最后堆中的数据就是出现次数最多的前K个IP<br>对于问题三：<br><code>cat logfile | sort -r | uniq | awk NR==排行数</code><br>先使用sort -r进行次数由多到少的排序，再使用uniq去重，最后使用awk获取结果</p>
-<p><img src="http://img.zouchanglin.cn///20200201/8kdGXbvdYoiG.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/8kdGXbvdYoiG.png" alt="mark"></p>
 <h2 id="位图应用"><a href="#位图应用" class="headerlink" title="位图应用"></a>位图应用</h2><blockquote>
 <p><strong>问题四：给定100亿个整数，设计算法找到只出现一次的整数？</strong><br><strong>问题五：给两个文件，分别有100亿个整数，只有1G内存，如何找到两个文件的交集？</strong></p>
 </blockquote>
@@ -138,7 +138,7 @@
 <h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><blockquote>
 <p><strong>问题十：给上千个文件,每个文件大小为1K—100M。给n个词,设计算法对每个词找到所有包含它的文件,你只有100K内存</strong></p>
 </blockquote>
-<p><img src="http://img.zouchanglin.cn///20200201/QkMvAsIm1ueU.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/QkMvAsIm1ueU.png" alt="mark"></p>
 <p>这种做法就是根据文件中的Key去建立哈希表，采用拉链法，凡是包含key的文件都会被挂载到对应的位置，搜索引擎就是这种做法，很显然那些能被百度排在最前面的位置的网页很可能就是在拉链的前几个位置，所以会呈现在前面！ </p>
 
       

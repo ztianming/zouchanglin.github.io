@@ -109,14 +109,14 @@
 
 <p>这样直接访问<code>172.16.45.112:8080</code> 即可！</p>
 <p>成功开启服务后应该是下面这个样子：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/GOHlW2aYHfRd.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/GOHlW2aYHfRd.png" alt="mark"></p>
  <a id="more"></a>
 
 <p>登录密码： </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
 
 <p> 我直接选择推荐插件了： </p>
-<p><img src="http://img.zouchanglin.cn///20200201/XJoxP1To4CLd.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/XJoxP1To4CLd.png" alt="mark"></p>
 <h2 id="Jenkins自动构建"><a href="#Jenkins自动构建" class="headerlink" title="Jenkins自动构建"></a>Jenkins自动构建</h2><p>原文参考 <a href="https://blog.csdn.net/boling_cavalry/article/details/78943061" target="_blank" rel="noopener">《Jenkins自动构建》</a></p>
 <p>当我们提交代码到GitHub后，可以在Jenkins上执行构建，但是每次都要动手去执行略显麻烦，今天我们就来实战Jenkins的自动构建功能，每次提交代码到GitHub后，Jenkins会进行自动构建！</p>
 <h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>GitHub收到提交的代码后要主动通知Jenkins，所以Jenkins所在服务器一定要有外网IP，否则GitHub无法访问，我的Jenkins服务器是部署在腾讯云的云主机上，带有外网IP；</p>

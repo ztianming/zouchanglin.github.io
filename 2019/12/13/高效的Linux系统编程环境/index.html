@@ -101,7 +101,7 @@
       
 
       
-      <p><img src="http://img.zouchanglin.cn///20200301/w3XwYriSoTQ9.png" alt="mark"></p>
+      <p><img src="https://img.zouchanglin.cn///20200301/w3XwYriSoTQ9.png" alt="mark"></p>
 <p>因为笔者的电脑是Windows，所以要进行Linux系统编程不得不准备一台虚拟机，当然子系统Ubuntu也是可以的，因为昨天解决了一个虚拟机固定IP的问题，<a href="https://zouchanglin.cn/2019/12/12/CentOS7虚拟机设置固定IP">《CentOS7虚拟机设置固定IP》</a>所以一旦连接稳定，那么就可以开始开发了，哈哈，今天主要是通过Clion这个工具（和IDEA是亲兄弟）来进行高效的Linux系统编程环境搭建！</p>
 <a id="more"></a>
 
@@ -117,22 +117,22 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz</span><br><span class="line">tar -xf cmake-3.14.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> cmake-3.14.0</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装好后的Cmake位于 /usr/local/share/cmake-3.13/，可执行程序位于/usr/local/bin/cmake</span></span><br><span class="line"><span class="comment"># 为了让CLion能够自动识别，构建软连接</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/cmake /usr/bin/cmake</span><br></pre></td></tr></table></figure>
 
 <p>如果wget很慢，推荐使用我的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/cmake-3.14.0.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://img.zouchanglin.cn/cmake-3.14.0.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p>安装gdb</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先安装依赖，termcap</span></span><br><span class="line">wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz</span><br><span class="line">tar -xf termcap-1.3.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> termcap-1.3.1</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 
 <p>如果安装的依赖包下载很慢，推荐用我的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/termcap-1.3.1.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://img.zouchanglin.cn/termcap-1.3.1.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p>如果依赖包安装完成，开始下一步</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载预装gdb</span></span><br><span class="line">yum remove -y gdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装gbd</span></span><br><span class="line">wget http://mirrors.ustc.edu.cn/gnu/gdb/gdb-7.9.tar.xz</span><br><span class="line">tar -xf gdb-7.9.tar.xz</span><br><span class="line"><span class="built_in">cd</span> gdb-7.9</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb将被安装到/usr/local/share/gdb目录，可执行程序位于/usr/local/bin/gdb</span></span><br><span class="line"><span class="comment"># 为了让CLion能够自动识别，构建软连接。</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/gdb /usr/bin/gdb</span><br></pre></td></tr></table></figure>
 
 <p>如果gdb下载很慢，推荐用我的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://img.zouchanglin.cn/gdb-7.9.tar.xz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://img.zouchanglin.cn/gdb-7.9.tar.xz</span><br></pre></td></tr></table></figure>
 
-<h2 id="三、CLion配置remote主机"><a href="#三、CLion配置remote主机" class="headerlink" title="三、CLion配置remote主机"></a>三、CLion配置remote主机</h2><p><img src="http://img.zouchanglin.cn///20200301/N7T2oRGNHs9z.png" alt="mark"></p>
-<h2 id="四、愉快的写代码吧"><a href="#四、愉快的写代码吧" class="headerlink" title="四、愉快的写代码吧"></a>四、愉快的写代码吧</h2><p><img src="http://img.zouchanglin.cn///20200301/nmkM5BIs2XN2.png" alt="mark"></p>
+<h2 id="三、CLion配置remote主机"><a href="#三、CLion配置remote主机" class="headerlink" title="三、CLion配置remote主机"></a>三、CLion配置remote主机</h2><p><img src="https://img.zouchanglin.cn///20200301/N7T2oRGNHs9z.png" alt="mark"></p>
+<h2 id="四、愉快的写代码吧"><a href="#四、愉快的写代码吧" class="headerlink" title="四、愉快的写代码吧"></a>四、愉快的写代码吧</h2><p><img src="https://img.zouchanglin.cn///20200301/nmkM5BIs2XN2.png" alt="mark"></p>
 <p>自动同步代码，超人性化提示，唯一的缺点就是对于不懂CMakeList的同学就Over了，下面复习一下CMakeList</p>
 <h2 id="五、CMakeList构建项目"><a href="#五、CMakeList构建项目" class="headerlink" title="五、CMakeList构建项目"></a>五、CMakeList构建项目</h2><p>cmake 是一个跨平台、开源的构建系统。它是一个集软件构建、测试、打包于一身的软件。它使用与平台和编译器独立的配置文件来对软件编译过程进行控制。 在Windows下也可以使用Cmake进行大型项目的构建，比如我之前编译过OpenCV的源码，就是通过VisualStudio的编译器配合Cmake来完成的！</p>
 <h3 id="1-指定-cmake-的最小版本"><a href="#1-指定-cmake-的最小版本" class="headerlink" title="1. 指定 cmake 的最小版本"></a>1. 指定 cmake 的最小版本</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.4</span>.<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -193,13 +193,13 @@
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(SRC_LIST main.cpp)</span><br><span class="line"><span class="keyword">list</span>(APPEND SRC_LIST <span class="keyword">test</span>.cpp)</span><br><span class="line"><span class="keyword">list</span>(REMOVE_ITEM SRC_LIST main.cpp)</span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
 
 <h2 id="六、CMake项目示例"><a href="#六、CMake项目示例" class="headerlink" title="六、CMake项目示例"></a>六、CMake项目示例</h2><h3 id="1、简单项目"><a href="#1、简单项目" class="headerlink" title="1、简单项目"></a>1、简单项目</h3><p>新建文件 main.c，内容如下，新建文件 CMakeLists.txt（命名必须是 CMakeLists.txt，注意大小写）</p>
-<p><img src="http://img.zouchanglin.cn///20200301/gh0XkkvbFuCU.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200301/gh0XkkvbFuCU.png" alt="mark"></p>
 <p>一般我们采用 cmake 的 out-of-source 方式来构建（即生成的中间产物和源代码分离），这样做可以让生成的文件和源文件不会弄混，且目录结构看起来也会清晰明了。所以推荐使用这种方式，至于这个文件夹的命名并无限制，我们习惯命名为 build。</p>
 <p>我们进入build文件夹，执行<code>cmake..</code>， <code>..</code> 表示上一级目录，cmake 会在上一级目录下找到 CMakeLists.txt 文件并编译，并生成如下图所示的一些中间文件 </p>
-<p><img src="http://img.zouchanglin.cn///20200301/GqkqB7dXUnvw.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200301/GqkqB7dXUnvw.png" alt="mark"></p>
 <p>直接执行 make命令，生成可执行程序，如下图： </p>
-<p><img src="http://img.zouchanglin.cn///20200301/it3537Jsml8s.png" alt="mark"></p>
-<h3 id="2、复杂项目"><a href="#2、复杂项目" class="headerlink" title="2、复杂项目"></a>2、复杂项目</h3><p><img src="http://img.zouchanglin.cn///20200301/mpOWOWwHf53M.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200301/it3537Jsml8s.png" alt="mark"></p>
+<h3 id="2、复杂项目"><a href="#2、复杂项目" class="headerlink" title="2、复杂项目"></a>2、复杂项目</h3><p><img src="https://img.zouchanglin.cn///20200301/mpOWOWwHf53M.png" alt="mark"></p>
 <p>CMakeList.txt</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span> (VERSION <span class="number">2.8</span>)</span><br><span class="line"><span class="keyword">project</span>(demo)</span><br><span class="line"><span class="keyword">aux_source_directory</span>(. DIR_SRCS)</span><br><span class="line"><span class="comment"># 添加math子目录</span></span><br><span class="line"><span class="keyword">add_subdirectory</span>(<span class="keyword">math</span>)</span><br><span class="line"><span class="comment"># 指定生成目标</span></span><br><span class="line"><span class="keyword">add_executable</span>(demo <span class="variable">$&#123;DIR_SRCS&#125;</span>)</span><br><span class="line"><span class="comment"># 添加链接库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo MathFunctions)</span><br></pre></td></tr></table></figure>
 
@@ -215,7 +215,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"MathFunctions.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> num2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num + num2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>同样的也只需要进入build目录，进行cmake ..</p>
-<p><img src="http://img.zouchanglin.cn///20200301/c9kNmr0HwG9h.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200301/c9kNmr0HwG9h.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

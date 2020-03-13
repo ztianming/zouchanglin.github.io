@@ -103,13 +103,13 @@
       
       <h2 id="NIO的通道"><a href="#NIO的通道" class="headerlink" title="NIO的通道"></a>NIO的通道</h2><p>通道( Channel) ：由java.nio.channels包定义的。Channel 表示IO源与目标打开的连接。Channel类似于传统的“流”， 只不过Channel本身不能直接访问数据，Channel只能与Buffer进行交互。</p>
 <p>应用程序与磁盘之间的数据写入或者读出，都需要由用户地址空间和内存地址空间之间来回复制数据，内存地址空间中的数据通过操作系统层面的IO接口，完成与磁盘的数据存取。在应用程序调用这些系统IO接口时，由CPU完成一系列调度、任务分配，在早期这些IO接口都是由CPU独立负责。所以当发生大规模读写请求时，CPU的占用率很高。 </p>
-<p><img src="http://img.zouchanglin.cn///20200208/ERDg8DebUJIv.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/ERDg8DebUJIv.png" alt="mark"></p>
 <a id="more"></a>
 
 <p>之后，操作系统为了避免CPU完全被各种IO接口调用占用，引入了DMA，也就是直接存储器。当应用程序对操作系统发出一个读写请求时，会由DMA先向CPU申请权限，申请到权限之后，内存地址空间与磁盘之间的IO操作就全由DMA来负责操作。这样，在读写请求的过程中，CPU不需要再参与，CPU去做其他事情。当然，DMA来独立完成数据在磁盘与内存空间中的复制，需要借助于DMA总线。当频繁发生IO操作时，会导致DMA总线增多，但是当DMA总线过多时，大量的IO操作也会造成总线冲突的问题，即也会影响最终的读写性能。 </p>
-<p><img src="http://img.zouchanglin.cn///20200208/DL24jwADvOgu.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/DL24jwADvOgu.png" alt="mark"></p>
 <p>为了避免DMA总线冲突对性能的影响，后来便有了通道的方式。通道，它是一个完全独立的处理器。CPU是中央处理器，通道本身也是一个处理器，完全独立的处理器，但是也附属于CPU，专门负责IO操作。既然是处理器，通道有自己的IO命令，与CPU无关。它更适用于大型的IO操作，性能更高。 </p>
-<p><img src="http://img.zouchanglin.cn///20200208/BWvOPzGGQotn.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/BWvOPzGGQotn.png" alt="mark"></p>
 <p>直接存储器DMA有独立总线。但在大量数据面前，可能会存在总线冲突，还是需要CPU来处理。通道是一个独立的处理器，DMA方式还是需要向CPU申请DMA总线的。通道有自己的处理器，适合与大量IO请求的场景，数据传输直接通过通道进行传输，不再需要请求CPU，这样便避免了大量IO导致CPU资源占用过高的问题！</p>
 <h2 id="NIO完成文件复制"><a href="#NIO完成文件复制" class="headerlink" title="NIO完成文件复制"></a>NIO完成文件复制</h2><p>Channel 用于源节点与目标节点的连接，在JavaNIO中负责缓冲区数据的传输，本身不存储数据，所以需要配置缓冲区进行数据传输（铁路配合火车）</p>
 <p>一、通道的主要实现类</p>
@@ -134,32 +134,32 @@
 <p>2、JDK1.7中的NIO.2针对各种通道提供了静态方法</p>
 <p>3、JDK1.7中的NIO.2的Files工具类的newByteChannel()</p>
 <p>1、FileInputStream打开的通道，通过通道+非直接缓冲区完成文件复制</p>
-<p><img src="http://img.zouchanglin.cn///20200208/BmJ6IT1xTIBx.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/BmJ6IT1xTIBx.png" alt="mark"></p>
 <p>2、这是通过把缓冲区建立在物理内存中的做法，使用了FileChannel的静态方法打开的通道</p>
-<p><img src="http://img.zouchanglin.cn///20200208/GbhIIAl2sn0q.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/GbhIIAl2sn0q.png" alt="mark"></p>
 <p>3、这是使用直接操作缓冲区完成的文件复制</p>
-<p><img src="http://img.zouchanglin.cn///20200208/63KgGwBE1lL4.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/63KgGwBE1lL4.png" alt="mark"></p>
 <p>4、这是不建立缓冲区，直接通道数据传输</p>
-<p><img src="http://img.zouchanglin.cn///20200208/bTk0MTHOiWuJ.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/bTk0MTHOiWuJ.png" alt="mark"></p>
 <p>我试了一下，复制1.3G的压缩包，四种方式分别用时为：</p>
 <p>1、通道+非直接缓冲区完成文件复制：5956、 5645（内存有波动，不明显）</p>
 <p>2、通道+直接缓冲区完成文件复制：5439、5302（内存有波动，不明显）</p>
 <p>3、直接操作缓冲区完成的文件复制：1581、1560、1523（内存波动特别明显，见下图）</p>
 <p>4、这是不建立缓冲区，直接通道数据传输：704、685、615 （内存几乎无波动）</p>
-<p><img src="http://img.zouchanglin.cn///20200208/xh4xBqqaYipz.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/xh4xBqqaYipz.png" alt="mark"></p>
 <p>得出结论：直接缓冲区肯定比非直接缓冲区快，但是我这次测试效果不是很明显，直接操作内存映射文件速度明显提升，但是也会导致内存突然爆涨（因为是直接操作的内存映射文件），方式4就更狠了，直接通道传输数据，压根与内存没关系，因为没有缓冲区的存在，所以也是最快的！</p>
 <h2 id="分散读取和聚集写入"><a href="#分散读取和聚集写入" class="headerlink" title="分散读取和聚集写入"></a>分散读取和聚集写入</h2><p>分散读取( Scattering Reads)是指从Channel中读取的数据“分散”到多个Buffer中。</p>
-<p><img src="http://img.zouchanglin.cn///20200208/MeGdxhhKGTmQ.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/MeGdxhhKGTmQ.png" alt="mark"></p>
 <p> 注意：按照缓冲区的顺序，从 Channel 中读取的数据依次将 Buffer 填满。 </p>
 <p> 聚集写入（ Gathering Writes）是指将多个 Buffer 中的数据“聚集”到 Channel中，与分散读取是反的。  注意：按照缓冲区的顺序，写入 position 和 limit 之间的数据到 Channel 。 </p>
-<p><img src="http://img.zouchanglin.cn///20200208/OuLJjDpur3rD.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/OuLJjDpur3rD.png" alt="mark"></p>
 <p>下面是一个分散读取&amp;聚集写入的示例：</p>
-<p><img src="http://img.zouchanglin.cn///20200209/wArb2DMjxIgh.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200209/wArb2DMjxIgh.png" alt="mark"></p>
 <p>分散读取（Scattering Reads）：将通道中的数据分散到多个缓冲区中</p>
 <p>聚集写入（Gathering Writes）：将多个缓冲区中的数据聚集到通道中 </p>
 <h2 id="字符集Charset"><a href="#字符集Charset" class="headerlink" title="字符集Charset"></a>字符集Charset</h2><p>只要是需要知道CharBuffer和ByteBuffer 的相互装换即可</p>
-<p><img src="http://img.zouchanglin.cn///20200208/qEGkaWWvsw8A.png" alt="mark"></p>
-<h2 id="FileChannel常用的API"><a href="#FileChannel常用的API" class="headerlink" title="FileChannel常用的API"></a>FileChannel常用的API</h2><p><img src="http://img.zouchanglin.cn///20200208/gpy47ikxFTqV.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200208/qEGkaWWvsw8A.png" alt="mark"></p>
+<h2 id="FileChannel常用的API"><a href="#FileChannel常用的API" class="headerlink" title="FileChannel常用的API"></a>FileChannel常用的API</h2><p><img src="https://img.zouchanglin.cn///20200208/gpy47ikxFTqV.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

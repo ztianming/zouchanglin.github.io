@@ -102,7 +102,7 @@
 
       
       <p>今天主要是说说Linux的Cgroup技术，之前介绍的是构建Linux容器的namespace技术，它能够很好的帮助进程隔离出自己单独的空间，但Docker又是怎么限制每个空间的大小，保证他们不会互相争抢呢？这就要用到Linux的Cgroups技术。</p>
-<p><img src="http://img.zouchanglin.cn///20200221/EHaOfXGVfWwE.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200221/EHaOfXGVfWwE.png" alt="mark"></p>
 <p>Linux Cgroups(Control Groups) 提供了对一组进程及将来的子进程的资源的限制 ，控制和统计的能力，这些资源包括CPU，内存，存储，网络等。通过Cgroups，可以方便的限制某个进程的资源占用，并且可以实时的监控进程的监控和统计信息。</p>
 <a id="more"></a>
 
@@ -122,7 +122,7 @@
 </ul>
 <p>每个subsystem会关联到定义了相应限制的cgroup上，并对这个cgroup中的进程做相应的限制和控制，这些subsystem是逐步合并到内核中的</p>
 <p>可以通过安装cgroup的命令行工具(apt-get install cgroup-bin)看到当前的内核支持哪些subsystem，然后通过lssubsys看到kernel支持的subsystem。</p>
-<p><img src="http://img.zouchanglin.cn///20200221/sCBdfAsvyshf.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200221/sCBdfAsvyshf.png" alt="mark"></p>
 <h3 id="3、hierarchy"><a href="#3、hierarchy" class="headerlink" title="3、hierarchy"></a>3、hierarchy</h3><p>hierarchy 的功能是<strong>把一组cgroup串成一个树状的结构</strong>，一个这样的树便是一个hierarchy，通过这种树状的结构，Cgroups可以做到继承。比如我的系统对一组定时的任务进程通过cgroup1限制了CPU的使用率，然后其中有一个定时dump日志的进程还需要限制磁盘IO，为了避免限制了影响到其他进程，就可以创建cgroup2继承于cgroup1并限制磁盘的IO，这样cgroup2便继承了cgroup1中的CPU的限制，并且又增加了磁盘IO的限制而不影响到cgroup1中的其他进程。</p>
 <h2 id="三个组件之间的关系"><a href="#三个组件之间的关系" class="headerlink" title="三个组件之间的关系"></a>三个组件之间的关系</h2><p>Cgroups的是靠这三个组件的相互协作实现的，那么三个组件之间的关系是怎样的呢？</p>
 <ul>
@@ -137,13 +137,13 @@
 <li><p>一个进程fork出子进程的时候，子进程是和父进程在同一个cgroup中的，也可以根据需要将其移动到其他的cgroup中</p>
 </li>
 </ul>
-<p><img src="http://img.zouchanglin.cn///20200221/EHaOfXGVfWwE.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200221/EHaOfXGVfWwE.png" alt="mark"></p>
 <p><strong>其实上图很能说明问题，Cgroup包括了一组进程，subsystem(子系统)负责控制资源，资源控制包括CPU调度策略、块设备访问控制、内存占用、设备访问、进程的挂起和恢复等，很多Cgroup组成树状结构形成hierarchy，subsystem不但可以控制一个Cgroup，也可以控制多个Cgroup，Cgroup与Cgroup之间形树状，可以有继承关系，进程不但可以属于一个Cgroup、还可以属于多个Cgroup，但是肯定不是在同一个hierarchy中，Cgroup中的进程可以移动</strong></p>
 <h2 id="调用Kernel配置Cgroups"><a href="#调用Kernel配置Cgroups" class="headerlink" title="调用Kernel配置Cgroups"></a>调用Kernel配置Cgroups</h2><p>之前了解到Cgroups中的hierarchy是一种树状的组织结构，Kernel为了让对Cgroups的配置更直观，<strong>Cgroups通过一个虚拟的树状文件系统去做配置的</strong>，通过层级的目录虚拟出cgroup树，下面我们就以一个配置的例子来了解下如何操作Cgroups。</p>
 <p> 首先，我们要创建并挂载一个hierarchy(cgroup树)： </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># mkdir cgroup-test</span></span><br><span class="line">root@ubuntu:~<span class="comment"># mount -t cgroup -o none,name=cgroup-test cgroup-test ./cgroup-test</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200220/3TfoTDlea5mP.png" alt=""></p>
+<p><img src="https://img.zouchanglin.cn///20200220/3TfoTDlea5mP.png" alt=""></p>
 <p>如上图，接下来挂载后我们就可以看到系统在这个目录下生成了一些默认文件 ：cgroup.clone_children  cgroup.procs  cgroup.sane_behavior  notify_on_release  release_agent  tasks</p>
 <p>这些文件就是这个hierarchy中根节点cgroup配置项 ：</p>
 <ul>
@@ -164,14 +164,14 @@
 <li>可以将进程在cgroup节点间移动，只需要将进程ID写到移动到的cgroup节点的tasks文件中。</li>
 </ul>
 <p>可以看出我的当前进程是1449，通过把进程号写入task中的方式已经成功把当前进程，也就是Bash进程加入到了cgroup-test中，又开了一个Bash，把Bash进程加入到cgroup-1中：</p>
-<p><img src="http://img.zouchanglin.cn///20200221/RbMyIV4996RY.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200222/gSF7c2L9wRCu.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200221/RbMyIV4996RY.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/gSF7c2L9wRCu.png" alt="mark"></p>
 <p>接下来看看如何通过subsystem限制cgroup中进程的资源 ？</p>
 <p><strong>上面我们创建hierarchy的时候，但这个hierarchy并没有关联到任何subsystem</strong>，所以没办法通过那个hierarchy中的cgroup限制进程的资源占用，<strong>其实系统默认就已经把每个subsystem创建了一个默认的hierarchy</strong>，比如memory的hierarchy:</p>
-<p><img src="http://img.zouchanglin.cn///20200222/NemNWmWOyKMi.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/NemNWmWOyKMi.png" alt="mark"></p>
 <p>可以看到，在<code>/sys/fs/cgroup/memory</code>目录便是挂在了memory subsystem的hierarchy。下面我们就通过在这个hierarchy中创建cgroup，限制下占用的进程占用的内存：</p>
 <p>首先，我们不做限制启动一个占用内存的stress进程， stress 命令主要用来模拟系统负载较高时的场景，关于stress指令可以看看这篇文章 <a href="https://www.cnblogs.com/sparkdev/p/10354947.html" target="_blank" rel="noopener">《Linux stress 命令》</a></p>
-<p><img src="http://img.zouchanglin.cn///20200222/w9ujejHQpYGf.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/w9ujejHQpYGf.png" alt="mark"></p>
 <p>可以看到通过cgroup，我们成功的将stress进程的最大内存占用限制到了100m以内。</p>
 
       

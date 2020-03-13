@@ -175,7 +175,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop table user;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">+---------------+</span><br><span class="line">| Tables_in_db1 |</span><br><span class="line">+---------------+</span><br><span class="line">| person        |</span><br><span class="line">+---------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
 
 <h3 id="Mysql数据类型"><a href="#Mysql数据类型" class="headerlink" title="Mysql数据类型"></a>Mysql数据类型</h3><h4 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h4><h4 id="tinyint-bigint"><a href="#tinyint-bigint" class="headerlink" title="tinyint-bigint"></a>tinyint-bigint</h4><p>这是有符号的范围，无符号的返回自行推导，和C的无符号是一致的</p>
-<p><img src="http://img.zouchanglin.cn///20200201/IMGDPPQdThD5.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/IMGDPPQdThD5.png" alt="mark"></p>
 <p>在MySQL中，整型可以指定是有符号的和无符号的，默认是有符号的。<br>可以通过UNSIGNED来说明某个字段是无符号的，但是一般遇到存储类型不足以存储数据的大小时，应该换成更大的类型，而不是换成对应的无符号类型！</p>
 <h4 id="bit"><a href="#bit" class="headerlink" title="bit"></a>bit</h4><p><code>bit[(M)]</code>: 位字段类型。M表示每个值的位数，范围从1到64。如果M被忽略，默认为1<br>注意bit类型，bit字段在显示时，是按照ASCII码对应的值显示！<br>如果我们有这样的值:只存放0或1，这时可以定义bit(1)，这样可以节省空间！</p>
 <h4 id="float"><a href="#float" class="headerlink" title="float"></a>float</h4><p><code>float[(m, d)] [unsigned]</code>: M指定显示长度，d指定小数位数，占用空间4个字节！</p>
@@ -192,7 +192,7 @@
 <h5 id="varchar"><a href="#varchar" class="headerlink" title="varchar"></a>varchar</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">varchar(L)</span><br></pre></td></tr></table></figure>
 
 <p>可变长度字符串，L表示字符长度，最大长度65535个字节<br>关于varchar(len)，len到底是多大，这个len值，和表的编码密切相关：varchar长度可以指定为0到65535之间的值，但是有两个字节用于记录数据大小，所以说有效字节数65532。<br>当我们的表的编码是utf8时，varchar(n)的参数n最大值是65532/3=21844[因为utf中，一个字符占用3个字节]，如果编码是gbk，varchar(n)的参数n最大是65532/2=32766（因为gbk中，一个字符占用2字节）</p>
-<h5 id="char和varcahr比较"><a href="#char和varcahr比较" class="headerlink" title="char和varcahr比较"></a>char和varcahr比较</h5><p><img src="http://img.zouchanglin.cn///20200201/x96YqR8BPgFm.png" alt="mark"></p>
+<h5 id="char和varcahr比较"><a href="#char和varcahr比较" class="headerlink" title="char和varcahr比较"></a>char和varcahr比较</h5><p><img src="https://img.zouchanglin.cn///20200201/x96YqR8BPgFm.png" alt="mark"></p>
 <p>两者如何选择？<br>如果数据确定长度都一样，就使用定长（char），比如：身份证，手机号，md5<br>如果数据长度有变化,就使用变长(varchar), 比如：名字，地址，但是你要保证最长的能存的进去<br>定长的磁盘空间比较浪费，但是效率高<br>变长的磁盘空间比较节省，但是效率</p>
 <h4 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h4><p>常用的日期有如下三个：</p>
 <ul>

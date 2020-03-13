@@ -101,20 +101,20 @@
       
 
       
-      <p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
+      <p><img src="https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
 <p>目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
 <a id="more"></a>
 
 <h1 id="各种收集器的关系"><a href="#各种收集器的关系" class="headerlink" title="各种收集器的关系"></a>各种收集器的关系</h1><p>JVM的两种运行模式，在[《HotSpot JVM类型以及编译模式》]( <a href="https://zouchanglin.cn/2019/10/25/HotSpot">https://zouchanglin.cn/2019/10/25/HotSpot</a> JVM类型以及编译模式) 一文中说道了，JVM有Server和Client型、Server型启动比较慢，属于做了重量级的优化，Client型启动较Server快。</p>
-<p><img src="http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
 <blockquote>
 <p>下面来看看三个新生代的收集器：Serial收集器、Serial收集器和Parallel Scavenge收集器</p>
 </blockquote>
 <h1 id="1、Serial收集器"><a href="#1、Serial收集器" class="headerlink" title="1、Serial收集器"></a>1、Serial收集器</h1><p>Serial收集器（-XX:+UseSerialGC，复制算法）是Java中最基本的收集器，历史悠久，在JDK1.3.1之前是Java虚拟机新生代的唯一选择。单线程收集，进行垃圾收集时，必须暂停所有工作线程。由于Serial收集器采用复制算法，简单高效，Client模式下默认的年轻代收集器就是Serial。</p>
-<p><img src="http://img.zouchanglin.cn///20200312/LnTVebt88Fib.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/LnTVebt88Fib.png" alt="mark"></p>
 <h1 id="2、ParNew收集器"><a href="#2、ParNew收集器" class="headerlink" title="2、ParNew收集器"></a>2、ParNew收集器</h1><p>ParNew收集器（-XX:+UseParNewGC，复制算法），多线程收集， ParNew收集器其实是Serial收集器的多线程版本，它是许多运行在Server模式下的虚拟机中首选的新生代收集器，其余的行为特点和Serial收集器一样。单核执行效率不如Serial（因为存在线程切换的开销），在多核下执行才有优势。</p>
 <p>同时ParNew也是一个很重要的垃圾收集器， 因为除了Serial收集器外，目前只有它能与CMS收集器配合工作。</p>
-<p><img src="http://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
 <blockquote>
 <p><strong>Serial与ParNew收集器都是比较强调很短的停顿时间。</strong></p>
 </blockquote>
@@ -124,7 +124,7 @@
 <p><strong>对于需要与用户交互的程序来说停顿时间越短越好，良好的响应速度能提升用户的体验。</strong></p>
 <p><strong>对于后台计算等任务，需要最高效率地利用CPU时间，尽快地完成程序的运算任务，这就是高吞吐量</strong></p>
 </blockquote>
-<p><img src="http://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/cIldVTMEv8cm.png" alt="mark"></p>
 <p>上图与ParNew收集器的一致，因为都是多线程+复制算法收集，只不过关注点不同，ParNew收集器关注停顿时间，而Parallel Scavenge收集器关注吞吐量。下面看看相关参数：</p>
 <p><code>-XX:MaxGCPauseMillis</code> 控制最大垃圾收集停顿时间（大于0的毫秒数）。停顿时间缩短是以牺牲吞吐量和新生代空间换取的。（新生代调的小，吞吐量跟着小，垃圾收集时间就短，停顿就小）。</p>
 <p><code>-XX:GCTimeRatio</code> 直接设置吞吐量大小，0&lt;x&lt;100 的整数，允许的最大GC时间=1/(1+x)。</p>
@@ -133,10 +133,10 @@
 <p>下面来看看三个老年代的收集器：Serial Old收集器、Serial收集器和Parallel Scavenge收集器</p>
 </blockquote>
 <h1 id="4、Serial-Old收集器"><a href="#4、Serial-Old收集器" class="headerlink" title="4、Serial Old收集器"></a>4、Serial Old收集器</h1><p>Serial Old收集器（-XX:+UseSerialOldGC，标记-整理算法），单线程收集，进行垃圾收集时，必须暂停所有工作线程。简单高效，Client模式下默认的老年代收集器。</p>
-<p><img src="http://img.zouchanglin.cn///20200312/CkIzw5MKaF77.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/CkIzw5MKaF77.png" alt="mark"></p>
 <h1 id="5、Parallel-Old收集器"><a href="#5、Parallel-Old收集器" class="headerlink" title="5、Parallel Old收集器"></a>5、Parallel Old收集器</h1><p>Parallel Old收集器（-XX : +UseParallelOldGC，标记-整理算法）JDK6以后提供的。</p>
 <p>Parallel Scavenge收集器其实在Parallel Old收集器没有出现之前一直处于比较尴尬的地位，因为能与之配合的老年代收集器只有Serial Old，Serial Old性能上拖累了Parallel Scavenge，所以即使在需要高吞吐量的情况下，虽然使用了Parallel Scavenge收集器，但是由于只能跟Serial Old收集器配合，结果性能还不如ParNew和CMS的组合收集器，Parallel Old收集器的出现总算是给Parallel Scavenge收集器搭配了一个好基友！</p>
-<p><img src="http://img.zouchanglin.cn///20200312/GdPddhTBdmwL.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/GdPddhTBdmwL.png" alt="mark"></p>
 <blockquote>
 <p><strong>所以在注重吞吐量及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge+Parallel Old收集器</strong></p>
 </blockquote>
@@ -150,11 +150,11 @@
 <li>并发重置：重置CMS收集器的数据结构</li>
 </ul>
 <p>这6个步骤中初始标记和重新标记是需要暂停JVM的，是费时操作</p>
-<p><img src="http://img.zouchanglin.cn///20200312/DPxBI6qcesti.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/DPxBI6qcesti.png" alt="mark"></p>
 <p>CMS收集器对CPU资源非常敏感，面向并发设计的程序都会对CPU资源较敏感。CMS默认的回收线程数:(CPU数量+3)/4， 而且CMS收集器是基于标记-清除算法会产生大量空间碎片。</p>
 <h1 id="7、G1收集器"><a href="#7、G1收集器" class="headerlink" title="7、G1收集器"></a>7、G1收集器</h1><p>G1收集器（-XX:+UseG1GC，复制算法 + 标记-整理算法），G1收集器全称是GarBage First。</p>
 <p>G1收集器可以在几乎不牺牲吞吐量的前提下完成低停顿的内存回收，这是由于它能够极力避免全区域的垃圾收集，之前的收集器进行收集的范围都是整个新生代或老年代，而G1将整个Java堆（包括新生代、老年代）划分为多个大小固定的独立区域（Region），并且跟踪这些区域里面的垃圾堆积程度，在后台维护一个优先列表，每次根据允许的收集时间，优先回收垃圾最多的区域（这就是Garbage First名称的由来）。区域划分、有优先级的区域回收，保证了G1收集器在有限的时间内可以获得最高的收集效率。</p>
-<p><img src="http://img.zouchanglin.cn///20200312/Ai7bWBvLJ9Pm.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/Ai7bWBvLJ9Pm.png" alt="mark"></p>
 <p>G1收集器的特点：并行和并发、分代收集、空间整合、可预测的停顿。G1将整个Java堆（包括新生代、老年代）划分为多个大小固定的独立区域（Region），物理上可以不是连续的，年轻代和老年代空间大小动态可调整。</p>
 <h1 id="8、Epsilon垃圾收集器"><a href="#8、Epsilon垃圾收集器" class="headerlink" title="8、Epsilon垃圾收集器"></a>8、Epsilon垃圾收集器</h1><p>-XX: +UnlockExperimentalVMOptions、-XX:+UseEpsilonGC，Epsilon垃圾收集器是Java11出现的垃圾收集器， JDK上对这个特性的描述是：开发一个处理内存分配但不实现任何实际内存回收机制的GC，一旦可用堆内存用完，JVM就会退出。</p>
 <p>Epsilon垃圾收集器提供完全被动的GC实现，具有有限的分配限制和尽可能低的延迟开销，但代价是内存占用和内存吞吐量。使用场景：</p>
@@ -162,7 +162,7 @@
 <p>2、用来做内存压力测试也还行；</p>
 <p>3、 如果是执行非常短的任务，根据不需要垃圾清理的话，使用此GC是合理的；</p>
 <h1 id="9、ZGC垃圾收集器"><a href="#9、ZGC垃圾收集器" class="headerlink" title="9、ZGC垃圾收集器"></a>9、ZGC垃圾收集器</h1><p>ZGC的目标就是缩短Stop The World的时间：ZGC是一个并发，基于region（和G1对内存区域的管理方式一致）， 压缩型的垃圾收集器，只有root扫描阶段会Stop The World， 因此GC停顿时间不会随着堆的增长和存活对象的增长而变长。  ZGC垃圾收集器并且支持TB级内存容量，反正ZGC垃圾收集器也是Java11出现的垃圾收集器，目前开发中…</p>
-<p><img src="http://img.zouchanglin.cn///20200312/lX50PBhv0PBg.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200312/lX50PBhv0PBg.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

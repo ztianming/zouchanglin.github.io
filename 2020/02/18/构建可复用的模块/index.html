@@ -102,7 +102,7 @@
 
       
       <p>Golang的工程管理一直是初学者所不能很好的理解的事物，本篇主要讲述了在Golang中如何进行工程管理，如何构建可复用模块，从GitHub获取Go的包是如何操作的，以及Golang的包管理工具的基本使用，这样再进行项目开发的时候就可以模块化的管理自己的工程，首先还得从Package说起！</p>
-<p><img src="http://img.zouchanglin.cn///20200218/9Uui7Swk4Vcp.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/9Uui7Swk4Vcp.png" alt="mark"></p>
 <a id="more"></a>
 
 <h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>1、基本复用模块单元，以首字母大写来表明可被包外代码访问<br>2、代码的package可以和所在的目录不一致<br>3、同一目录里的Go代码的package要保持一致<br>4、通过go get来获取远程依赖</p>
@@ -115,12 +115,12 @@
 </ul>
 <p>注意GOPATH的配置</p>
 <h2 id="init函数"><a href="#init函数" class="headerlink" title="init函数"></a>init函数</h2><p>1、在main被执行前，所有依赖的package的init方法都会被执行<br>2、不同包的init函数按照包导入的依赖关系决定执行顺序<br>3、每个包可以有多个init 函数<br>4、包的每个源文件也可以有多个init函数，这点比较特殊</p>
-<p><img src="http://img.zouchanglin.cn///20200217/75gDskvmtEyt.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/75gDskvmtEyt.png" alt="mark"></p>
 <h2 id="远程获取包"><a href="#远程获取包" class="headerlink" title="远程获取包"></a>远程获取包</h2><p>就拿这个concurrentMap来说吧，这是一个Go语言的concurrentMap实现， <a href="https://github.com/easierway/concurrent_map" target="_blank" rel="noopener">https://github.com/easierway/concurrent_map</a> 现在假设我们需要引入这个包，（在配置好GOPATH的情况下）直接使用命令搞定：</p>
-<p><img src="http://img.zouchanglin.cn///20200217/U4trNakueXSw.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/U4trNakueXSw.png" alt="mark"></p>
 <p>命令执行完毕就会在GOPATH的目录下直接把go源文件拉下来，接下来导入就好了</p>
-<p><img src="http://img.zouchanglin.cn///20200217/fYMwO5SqxYHL.png" alt="mark"></p>
-<p>所以我们在提交自己的开源项目的时候，别把src目录放进去，只要把代码的路径放在相对根目录下就好了，比如：<img src="http://img.zouchanglin.cn///20200217/dmFDD1SYsk9t.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/fYMwO5SqxYHL.png" alt="mark"></p>
+<p>所以我们在提交自己的开源项目的时候，别把src目录放进去，只要把代码的路径放在相对根目录下就好了，比如：<img src="https://img.zouchanglin.cn///20200217/dmFDD1SYsk9t.png" alt="mark"></p>
 <h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><p>Go未解决的依赖问题：<br>1、同一环境下，不同项目使用同一包的不同版本<br>2、无法管理对包的特定版本的依赖</p>
 <blockquote>
 <p><strong>vender路径</strong></p>
@@ -128,7 +128,7 @@
 <p>随着Go 1.5 release版本的发布，vendor目录被添加到除了GOPATH和GOROOT之外的依赖目录查找的解决方案。在Go1.6之前，你需要手动的设置环境变量</p>
 <p><strong>查找依赖包路径的解决方案如下:</strong><br>1、当前包下的vendor目录<br>2、向上级目录查找，直到找到src下的vendor目录<br>3、在GOPATH下面查找依赖包<br>4、在GOROOT目录下查找</p>
 <p>常用的依赖管理工具：</p>
-<p><img src="http://img.zouchanglin.cn///20200217/f9w6gjrywe8F.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/f9w6gjrywe8F.png" alt="mark"></p>
 <p>接下来就简单演示一下glide在Windows下的使用：</p>
 <p>1、首先安装glide，推荐直接通过go的源码安装</p>
 <p>进入GOPATH路径：比如我的GOPATH路径是<code>D:\mycode\practic_code\go_learning\</code></p>
@@ -139,11 +139,11 @@
 
 <p>如何配置正确glide.exe应该是在bin目录中，但是执行glide install 命令的时候有错误，需要更改</p>
 <p><strong>github.com\Masterminds\glide\path\winbug.go</strong> </p>
-<p><img src="http://img.zouchanglin.cn///20200218/HBHjdk2Qpo1W.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/HBHjdk2Qpo1W.png" alt="mark"></p>
 <p>好了，接下来重新编译出glide.exe，如果没在bin中，把它放到bin目录就好了</p>
 <p>2、glide init命令</p>
 <p>假设我的一个工程依赖与某个远程package</p>
-<p><img src="http://img.zouchanglin.cn///20200218/LIXg777Om8wY.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/LIXg777Om8wY.png" alt="mark"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">D:\mycode\practic_code\go_learning\src\ch15\remote&gt;glide init</span><br><span class="line">[INFO]  Generating a YAML configuration file and guessing the dependencies</span><br><span class="line">[INFO]  Attempting to import from other package managers (use --skip-import to skip)</span><br><span class="line">[INFO]  Scanning code to look <span class="keyword">for</span> dependencies</span><br><span class="line">[INFO]  --&gt; Found <span class="built_in">test</span> reference to github.com\easierway\concurrent_map</span><br><span class="line">[INFO]  Writing configuration file (glide.yaml)</span><br><span class="line">[INFO]  Would you like Glide to <span class="built_in">help</span> you find ways to improve your glide.yaml configuration?</span><br><span class="line">[INFO]  If you want to revisit this step you can use the config-wizard <span class="built_in">command</span> at any time.</span><br><span class="line">[INFO]  Yes (Y) or No (N)?</span><br><span class="line">Y</span><br><span class="line">[INFO]  Looking <span class="keyword">for</span> dependencies to make suggestions on</span><br><span class="line">[INFO]  --&gt; Scanning <span class="keyword">for</span> dependencies not using version ranges</span><br><span class="line">[INFO]  --&gt; Scanning <span class="keyword">for</span> dependencies using commit ids</span><br><span class="line">[INFO]  Gathering information on each dependency</span><br><span class="line">[INFO]  --&gt; This may take a moment. Especially on a codebase with many dependencies</span><br><span class="line">[INFO]  --&gt; Gathering release information <span class="keyword">for</span> dependencies</span><br><span class="line">[INFO]  --&gt; Looking <span class="keyword">for</span> dependency imports <span class="built_in">where</span> versions are commit ids</span><br><span class="line">[INFO]  Here are some suggestions...</span><br><span class="line">[INFO]  The package github.com/easierway/concurrent_map appears to have Semantic Version releases (http://semver.org).</span><br><span class="line">[INFO]  The latest release is 0.9.1. You are currently not using a release. Would you like</span><br><span class="line">[INFO]  to use this release? Yes (Y) or No (N)</span><br><span class="line">Y</span><br><span class="line">[INFO]  Would you like to remember the previous decision and apply it to future</span><br><span class="line">[INFO]  dependencies? Yes (Y) or No (N)</span><br><span class="line">Y</span><br><span class="line">[INFO]  Updating github.com/easierway/concurrent_map to use the release 0.9.1 instead of no release</span><br><span class="line">[INFO]  The package github.com/easierway/concurrent_map appears to use semantic versions (http://semver.org).</span><br><span class="line">[INFO]  Would you like to track the latest minor or patch releases (major.minor.patch)?</span><br><span class="line">[INFO]  The choices are:</span><br><span class="line">[INFO]   - Tracking minor version releases would use <span class="string">'&gt;= 0.9.1, &lt; 1.0.0'</span> (<span class="string">'^0.9.1'</span>)</span><br><span class="line">[INFO]   - Tracking patch version releases would use <span class="string">'&gt;= 0.9.1, &lt; 0.10.0'</span> (<span class="string">'~0.9.1'</span>)</span><br><span class="line">[INFO]   - Skip using ranges</span><br><span class="line">[INFO]  For more information on Glide versions and ranges see https://glide.sh/docs/versions</span><br><span class="line">[INFO]  Minor (M), Patch (P), or Skip Ranges (S)?</span><br><span class="line">S</span><br><span class="line">[INFO]  Would you like to remember the previous decision and apply it to future</span><br><span class="line">[INFO]  dependencies? Yes (Y) or No (N)</span><br><span class="line">Y</span><br><span class="line">[INFO]  Configuration changes have been made. Would you like to write these</span><br><span class="line">[INFO]  changes to your configuration file? Yes (Y) or No (N)</span><br><span class="line">Y</span><br><span class="line">[INFO]  Writing updates to configuration file (glide.yaml)</span><br><span class="line">[INFO]  You can now edit the glide.yaml file.:</span><br><span class="line">[INFO]  --&gt; For more information on versions and ranges see https://glide.sh/docs/versions/</span><br><span class="line">[INFO]  --&gt; For details on additional metadata see https://glide.sh/docs/glide.yaml/</span><br><span class="line"></span><br><span class="line">D:\mycode\practic_code\go_learning\src\ch15\remote&gt;</span><br></pre></td></tr></table></figure>
 
 <p>提示的意思其实很清楚，按照它的提示一步一步来就好了，会在目录下生成glide.yaml，就和Maven一样的：</p>
@@ -151,7 +151,7 @@
 
 <p>3、glide install命令</p>
 <p>执行完毕后，发现依赖被弄到了vender文件夹底下，所以与其说是导包，不如说是直接把依赖的go文件下载下来了，放到vender目录下，这就是glide的管理方式：</p>
-<p><img src="http://img.zouchanglin.cn///20200218/B2JnT9tRtyHT.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/B2JnT9tRtyHT.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

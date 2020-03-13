@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-12T08:21:55.685Z</updated>
+  <updated>2020-03-13T03:06:29.627Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</id>
     <published>2020-03-11T23:01:35.000Z</published>
-    <updated>2020-03-12T08:21:55.685Z</updated>
+    <updated>2020-03-13T03:06:29.627Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
     
     </summary>
@@ -45,7 +45,7 @@
     <link href="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"/>
     <id>https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</id>
     <published>2020-03-10T23:01:35.000Z</published>
-    <updated>2020-03-12T01:09:40.403Z</updated>
+    <updated>2020-03-13T03:06:29.731Z</updated>
     
     <summary type="html">
     
@@ -68,11 +68,11 @@
     <link href="https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/"/>
     <id>https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/</id>
     <published>2020-03-09T23:01:35.000Z</published>
-    <updated>2020-03-10T14:34:23.896Z</updated>
+    <updated>2020-03-13T03:06:29.664Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200310/6jem5nNs1Jug.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200310/6jem5nNs1Jug.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;本篇文章主要讲述了Java内存模型中的程序计数器、虚拟机栈、本地方法栈、元空间与堆，以及堆中的常量池。前面通过javap反编译class文件得到&lt;code&gt;int add(int a, int b)&lt;/code&gt;函数的栈帧，主要分析了栈帧中JVM指令对应的局部变量表、操作数栈、程序计数器的状态变化。以及JDK7以后出现了替代永久代的元数据区，并分析了元数据区替换了永久代有哪些好处，主要分析了给字符串常量池带来的影响，并通过代码验证了元数据区相比永久代的优越性。学习了JVM性能调优的三个参数的意义和普通用法，最后探讨了并验证了JDK1.6与JDK1.7+的版本String类的intern方法的不同表现结果，分析了出现不同结果的原因，其实主要是JDK1.6的版本是建立副本再放入字符串常量池，而JDK1.7+版本时直接把堆上的对象的引用入池。&lt;/p&gt;
     
     </summary>
@@ -94,11 +94,11 @@
     <link href="https://zouchanglin.cn/2020/03/08/ClassLoader/"/>
     <id>https://zouchanglin.cn/2020/03/08/ClassLoader/</id>
     <published>2020-03-07T23:01:35.000Z</published>
-    <updated>2020-03-09T08:34:06.008Z</updated>
+    <updated>2020-03-13T03:06:29.642Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;ClassLoader在Java中有着非常重要的作用，它主要工作在Class装载的加载阶段，其主要作用是从系统外部获得Class二进制数据流。它是Java的核心组件。所有的Class都是由ClassLoader 进行加载的。ClassLoader负责通过将Class文件里的二进制数据流装载进系统，然后交给Java虚拟机进行连接、初始化等操作。&lt;/p&gt;
     
     </summary>
@@ -118,11 +118,11 @@
     <link href="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"/>
     <id>https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</id>
     <published>2020-03-01T12:01:35.000Z</published>
-    <updated>2020-03-01T15:03:13.556Z</updated>
+    <updated>2020-03-13T03:06:29.730Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;poll翻译过来是轮询的意思， 可以看到poll和epoll都有轮询的过程， 不同点在于：poll轮询的是所有的socket，而epoll只轮询就绪的socket。 epoll是开发linux高性能服务器的必备技术至，epoll本质，是服务端程序员的必须掌握的知识。 本文主要是利用图文讲述了select的原理和epoll相对于做出的优化，以及epoll的部分细节问题。&lt;/p&gt;
     
     </summary>
@@ -140,11 +140,11 @@
     <link href="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"/>
     <id>https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</id>
     <published>2020-02-29T12:01:35.000Z</published>
-    <updated>2020-02-29T12:24:47.279Z</updated>
+    <updated>2020-03-13T03:06:29.774Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -164,11 +164,11 @@
     <link href="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</id>
     <published>2020-02-29T12:01:35.000Z</published>
-    <updated>2020-03-01T08:34:50.239Z</updated>
+    <updated>2020-03-13T03:06:29.704Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Nginx和Redis中都用到了epoll多路复用模型，本节将讲述常见的多路复用模型：select、poll和epoll，以及部分示例代码，还是先回顾IO的两个重要过程：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
@@ -190,11 +190,11 @@
     <link href="https://zouchanglin.cn/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
     <id>https://zouchanglin.cn/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</id>
     <published>2020-02-28T12:01:35.000Z</published>
-    <updated>2020-03-07T15:12:37.115Z</updated>
+    <updated>2020-03-13T03:06:29.703Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Redis最常用的数据类型有String类型、Hash、List、Set、SortedSet（分数控制的有序Set）。&lt;br&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200307/gsrpCh9AXzc9.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;Redis最常用的数据类型有String类型、Hash、List、Set、SortedSet（分数控制的有序Set）。&lt;br&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200307/gsrpCh9AXzc9.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -211,11 +211,11 @@
     <link href="https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/"/>
     <id>https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/</id>
     <published>2020-02-27T12:01:35.000Z</published>
-    <updated>2020-02-27T09:33:42.040Z</updated>
+    <updated>2020-03-13T03:06:29.661Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在之前为文章&lt;a href=&quot;https://zouchanglin.cn/2020/02/26/分析事务隔离的实现&quot;&gt;《分析事务隔离的实现》&lt;/a&gt;中我们提到：如果是可重复读隔离级别，事务T启动的时候会创建一个视图 read-view，之后事务 T 执行期间，即使有其他事务修改了数据，事务 T 看到的仍然跟在启动时看到的一样。也就是说，一个在可重复读隔离级别下执行的事务，好像与世无争，不受外界影响。但是，我在介绍MySQL锁机制的文章中&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; 的时候，一个事务要更新一行，如果刚好有另外一个事务拥有这一行的行锁，它会被锁住，进入等待状态。问题是，既然进入了等待状态，那么等到这个事务自己获取到行锁要更新数据的时候，它读到的值又是什么呢？&lt;/p&gt;
     
     </summary>
@@ -233,11 +233,11 @@
     <link href="https://zouchanglin.cn/2020/02/27/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
     <id>https://zouchanglin.cn/2020/02/27/%E5%88%86%E6%9E%90%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
     <published>2020-02-27T00:01:35.000Z</published>
-    <updated>2020-02-27T09:41:45.016Z</updated>
+    <updated>2020-03-13T03:06:29.724Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200227/a3pBOiztLcnN.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200227/a3pBOiztLcnN.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;关于MySQL的锁机制问题，在之前的博客中有谈到&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; ，里面对锁的讲解比较详细，现在是在原来的基础上谈谈数据库事务相关的问题。简单来说事务就是要保证一组数据库操作，要么全部成功，要么全部失败。在MySQL中，事务支持是在引擎层实现的。你现在知道，MySQL是一个支持多引擎的系统，但并不是所有的引|擎都支持事务。比如MySQL原生的MyISAM引擎就不支持事务，这也是MyISAM被InnoDB取代的重要原因之一。首先要知道的是数据库事务四大特性：ACID&lt;/p&gt;
     
     </summary>
@@ -255,13 +255,13 @@
     <link href="https://zouchanglin.cn/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/"/>
     <id>https://zouchanglin.cn/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/</id>
     <published>2020-02-26T12:01:35.000Z</published>
-    <updated>2020-02-27T09:37:13.115Z</updated>
+    <updated>2020-03-13T03:06:29.735Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;密集索引：文件中的每个搜索码值都对应一个索引值，就是叶子节点保存了整行，比如InnoDB&lt;/p&gt;
 &lt;p&gt;稀疏索引：文件只为索引码的某些值建立索引项，比如MyISAM&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200226/L4dIVF9GX4Si.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200226/L4dIVF9GX4Si.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;密集索引的表数据按顺序存储，即索引顺序和表记录物理存储顺序一致，所以一个表只能创建一个密集索引&lt;/p&gt;
     
     </summary>
@@ -281,7 +281,7 @@
     <link href="https://zouchanglin.cn/2020/02/26/BTree%E4%B8%8EB+Tree/"/>
     <id>https://zouchanglin.cn/2020/02/26/BTree%E4%B8%8EB+Tree/</id>
     <published>2020-02-26T11:01:35.000Z</published>
-    <updated>2020-02-27T09:37:19.929Z</updated>
+    <updated>2020-03-13T03:06:29.631Z</updated>
     
     <summary type="html">
     
@@ -304,11 +304,11 @@
     <link href="https://zouchanglin.cn/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
     <id>https://zouchanglin.cn/2020/02/25/HTTPS%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</id>
     <published>2020-02-25T11:01:35.000Z</published>
-    <updated>2020-02-27T09:37:33.784Z</updated>
+    <updated>2020-03-13T03:06:29.659Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/meVCCACO399R.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/meVCCACO399R.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;HTTP协议的信息传输完全以明文方式，不做任何加密，相当于是在网络上”裸奔”。意思就是如果我们以HTTP来传输数据的话由于是明文数据，则很容易发生不安全事故，比如我登陆一个网站，那么如果是HTTP明文传输肯定就会直接把用户名和密码放在明文中，这样是非常不安全的，处在同一个局域网下的小伙伴直接抓包就可以获取你的用户名和密码，那么应该怎么办呢？&lt;/p&gt;
     
     </summary>
@@ -330,11 +330,11 @@
     <link href="https://zouchanglin.cn/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/"/>
     <id>https://zouchanglin.cn/2020/02/25/TCP%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%9C%BA%E5%88%B6/</id>
     <published>2020-02-25T04:01:35.000Z</published>
-    <updated>2020-03-11T05:05:39.413Z</updated>
+    <updated>2020-03-13T03:06:29.709Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/WFp4qQSRpvoo.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/WFp4qQSRpvoo.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;之前介绍了TCP的报文格式（&lt;a href=&quot;https://zouchanglin.cn/2019/11/21/TCP协议基本特性&quot;&gt;《TCP协议基本特性》&lt;/a&gt;），TCP的连接管理，学习了TCP如何建立连接，释放连接以及一些网络安装方面的问题，现在还剩下TCP的几个关键机制，主要是TPC的延迟应答和捎带应答、超时重传、快重传和快恢复、滑动窗口机制、拥塞避免算法；然后最后还记录了TCP的粘包问题和解决方案！&lt;/p&gt;
     
     </summary>
@@ -352,14 +352,14 @@
     <link href="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/"/>
     <id>https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/</id>
     <published>2020-02-25T04:01:35.000Z</published>
-    <updated>2020-02-27T09:37:41.548Z</updated>
+    <updated>2020-03-13T03:06:29.767Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/k8pW0raF9ync.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/k8pW0raF9ync.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 &lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -376,13 +376,13 @@
     <link href="https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/"/>
     <id>https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/</id>
     <published>2020-02-24T14:38:52.000Z</published>
-    <updated>2020-02-27T09:38:13.923Z</updated>
+    <updated>2020-03-13T03:06:29.746Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;现在即将开始真正踏上构造自己的容器的道路。我们会基于当前的操作系统创建一个与宿主机隔离的容器环境，下面就开始吧。在开始之前我们需要先对Linux的proc文件系统做一个介绍：&lt;/p&gt;
 &lt;p&gt;如果你对这些基本知识已经很熟悉了，请直接略过。Linux下的/proc文件系统是由内核提供的，它其实不是一个真正的文件系统，只包含了系统运行时的信息（比如系统内存、mount设备信息、一些硬件配置等），它只存在于内存中，而不占用外存空间。它以文件系统的形式，为访问内核数据的操作提供接口。实际上，很多系统工具都是简单地去读取这个文件系统的某个文件内容，比如lsmod，其实就是cat /proc/modules。当遍历这个目录的时候，会发现很多数字，这些都是为每个进程创建的空间，数字就是它们的PID。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -405,11 +405,11 @@
     <link href="https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
     <id>https://zouchanglin.cn/2020/02/23/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0AUFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</id>
     <published>2020-02-23T03:37:40.000Z</published>
-    <updated>2020-02-27T09:38:27.994Z</updated>
+    <updated>2020-03-13T03:06:29.725Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200223/8sHdcObI1bOG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200223/8sHdcObI1bOG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在之前的文章中我们探究了Docker是如何使用AUFS文件系统的，现在我们开始动手实践一下AUFS，用简单的命令来创建一个AUFS文件系统，感受下如何使用AUFS和COW实现文件管理。&lt;/p&gt;
     
     </summary>
@@ -429,7 +429,7 @@
     <link href="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</id>
     <published>2020-02-22T07:15:41.000Z</published>
-    <updated>2020-02-27T09:38:35.225Z</updated>
+    <updated>2020-03-13T03:06:29.712Z</updated>
     
     <summary type="html">
     
@@ -452,12 +452,12 @@
     <link href="https://zouchanglin.cn/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</id>
     <published>2020-02-22T04:20:19.000Z</published>
-    <updated>2020-02-27T09:38:42.118Z</updated>
+    <updated>2020-03-13T03:06:29.640Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;之前几篇文章讲述了Linux的Cgroups技术，&lt;a href=&quot;https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/&quot;&gt;《Linux-Cgroups的资源控制》&lt;/a&gt;，主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：&lt;code&gt;docker run -m 设置内存限制&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;可以看到Docker通过为每个容器创建Cgroup并通过Cgroup去配置的资源限制和资源监控。&lt;/strong&gt; &lt;/p&gt;
     
     </summary>
@@ -477,11 +477,11 @@
     <link href="https://zouchanglin.cn/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/"/>
     <id>https://zouchanglin.cn/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/</id>
     <published>2020-02-21T03:38:53.000Z</published>
-    <updated>2020-02-27T09:38:50.135Z</updated>
+    <updated>2020-03-13T03:06:29.630Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn/FjkyX6iIHmYl6IFqrwnlZUnLBFXd&quot; alt=&quot;xxx.png&quot;&gt;&lt;br&gt;前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大&lt;br&gt;于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：&lt;a href=&quot;https://issues.apache.org/jira/browse/FREEMARKER-132&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://issues.apache.org/jira/browse/FREEMARKER-132&lt;/a&gt; ,果然是官方站点呀，反馈还是很快的，系统还自动发了邮件！&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn/FjkyX6iIHmYl6IFqrwnlZUnLBFXd&quot; alt=&quot;xxx.png&quot;&gt;&lt;br&gt;前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大&lt;br&gt;于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：&lt;a href=&quot;https://issues.apache.org/jira/browse/FREEMARKER-132&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://issues.apache.org/jira/browse/FREEMARKER-132&lt;/a&gt; ,果然是官方站点呀，反馈还是很快的，系统还自动发了邮件！&lt;/p&gt;
     
     </summary>
     

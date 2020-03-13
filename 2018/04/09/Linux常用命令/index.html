@@ -110,17 +110,17 @@
 <p><strong>-a或-all 显示目录中个别文件的大小。</strong><br><strong>-b或-bytes 显示目录或文件大小时，以byte为单位。</strong><br><strong>-c或–total 除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和。</strong><br><strong>-k或–kilobytes 以KB(1024bytes)为单位输出。</strong><br><strong>-m或–megabytes 以MB为单位输出。</strong><br><strong>-s或–summarize 仅显示总计，只列出最后加总的值。</strong><br><strong>-h或–human-readable 以K，M，G为单位，提高信息的可读性。</strong><br><strong>-x或–one-file-xystem 以一开始处理时的文件系统为准，若遇上其它不同的文件系统目录则略过。</strong><br><strong>-L&lt;符号链接&gt;或–dereference&lt;符号链接&gt; 显示选项中所指定符号链接的源文件大小。</strong><br><strong>-S或–separate-dirs 显示个别目录的大小时，并不含其子目录的大小。</strong><br><strong>-X&lt;文件&gt;或–exclude-from=&lt;文件&gt; 在&lt;文件&gt;指定目录或文件。</strong><br><strong>–exclude=&lt;目录或文件&gt; 略过指定的目录或文件。</strong><br><strong>-D或–dereference-args 显示指定符号链接的源文件大小。</strong><br><strong>-H或–si 与-h参数相同，但是K，M，G是以1000为换算单位。</strong><br><strong>-l或–count-links 重复计算硬件链接的文件。</strong></p>
 </blockquote>
 <h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>接下来看看这样一个现象，大小不一样，对于.viminfo 这个文件 ls 查看信息查出是862字节，为什么到du命令下就变成4k了？</p>
-<p><img src="http://img.zouchanglin.cn///20200131/lsi74tIQmV0a.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/lsi74tIQmV0a.png" alt="mark"></p>
 <p> 原因解释：因为底层的内存管理是以页面为单位，Linux内核的默认页面大小就是4k，至于为什么这个设计，详见：<a href="https://blog.csdn.net/justlinux2010/article/details/8910136" target="_blank" rel="noopener">《为什么Linux内核页面最小单位是4K》</a><br>注意最下面的是一个总结值，也可以使用-s直接显示总结值，对显示结果排序： </p>
-<p><img src="http://img.zouchanglin.cn///20200131/akbTgYkmJmjk.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/akbTgYkmJmjk.png" alt="mark"></p>
 <h1 id="df命令"><a href="#df命令" class="headerlink" title="df命令"></a>df命令</h1><p>df命令作用是列出文件系统的整体磁盘空间使用情况。可以用来查看磁盘已被使用多少空间和还剩余多少空间。<br>df命令显示系统中包含每个文件名参数的磁盘使用情况，如果没有文件名参数，则显示所有当前已挂载文件系统的磁盘空间使用情况 ，在默认情况下，磁盘空间是以1KB为单位进行显示的，但是，如果POSIXLY_CORRECT环境变量被设置为true，这种情况下默认使用512字节为单位显示！</p>
 <h2 id="格式：-df-选项-文件名"><a href="#格式：-df-选项-文件名" class="headerlink" title="格式： df [选项] [文件名]"></a>格式： <code>df [选项] [文件名]</code></h2><h2 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h2><blockquote>
 <p><strong>-a：–all，显示所有的文件系统，包括虚拟文件系统</strong><br><strong>-B：–block-size，指定单位大小。比如1k，1m等</strong><br><strong>-h：–human-readable，以人们易读的GB、MB、KB等格式显示</strong>。<br><strong>-H：–si，和-h参数一样，但是不是以1024，而是1000，即1k=1000，而不是1k=1024。</strong><br><strong>-i：–inodes，不用硬盘容量，而是以inode的数量来显示</strong><br><strong>-k：以KB的容量显示各文件系统，相当于–block-size=1k。</strong><br><strong>-m：以KB的容量显示各文件系统，相当于–block-size=1m。</strong><br><strong>-l：–local，只显示本地文件系统。</strong><br><strong>–no-sync：在统计使用信息之前不调用sync命令(默认)。</strong><br><strong>-sync：在统计使用信息之前调用sync命令。</strong><br><strong>-P：–portability，使用POSIX格式显示</strong><br><strong>-t：–type=TYPE，只显示指定类型的文件系统.</strong><br><strong>-T：–print-type，显示文件系统类型</strong><br><strong>-x：–exclude-type=TYPE，不显示指定类型的文件系统</strong><br><strong>–help：显示帮助信息。</strong><br><strong>–version：显示版本信息。</strong></p>
 </blockquote>
-<p><img src="http://img.zouchanglin.cn///20200131/L2brrTB4RrDG.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/L2brrTB4RrDG.png" alt="mark"></p>
 <p>Filesystem：代表该文件系统时哪个分区，所以列出的是设备名称。<br>1K-blocks：说明下面的数字单位是1KB，可利用-h或-m来改变单位大小，也可以用-B来设置。<br>Used：已经使用的空间大小。<br>Available：剩余的空间大小。<br>Use%：磁盘使用率。如果使用率在90%以上时，就需要注意了，避免磁盘容量不足出现系统问题，尤其是对于文件内容增加较快的情况(如/home、/var/spool/mail等)。<br>Mounted on：磁盘挂载的目录，即该磁盘挂载到了哪个目录下面。 </p>
-<p><img src="http://img.zouchanglin.cn///20200131/CLOYEaD8HgL4.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200131/0SKjM4NwRo7i.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/CLOYEaD8HgL4.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/0SKjM4NwRo7i.png" alt="mark"></p>
 <h1 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h1><p>实时动态地查看系统的整体运行情况，是一个综合了多方信息监测系统性能和运行信息的实用工具。通过top命令所提供的互动式界面，用热键可以管理。</p>
 <h2 id="格式：top-选项"><a href="#格式：top-选项" class="headerlink" title="格式：top [选项]"></a>格式：<code>top [选项]</code></h2><h2 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h2><blockquote>
 <p><strong>-b：以批处理模式操作</strong><br><strong>-c：显示完整的治命令</strong><br><strong>-d：屏幕刷新间隔时间</strong><br><strong>-I：忽略失效过程</strong><br><strong>-s：保密模式</strong><br><strong>-S：累积模式</strong><br><strong>-i&lt;时间&gt;：设置间隔时间</strong><br><strong>-u&lt;用户名&gt;：指定用户名</strong><br><strong>-p&lt;进程号&gt;：指定进程</strong><br><strong>-n&lt;次数&gt;：循环显示的次数</strong></p>
@@ -152,22 +152,22 @@
 <li>数据占用的内存。如果top没有显示，按f键可以显示出来。</li>
 <li>真正的该程序要求的数据空间，是真正在运行中要使用的。</li>
 </ul>
-<p><img src="http://img.zouchanglin.cn///20200131/nL7rhtA2f0e6.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/nL7rhtA2f0e6.png" alt="mark"></p>
 <p> 显示完整命令示例 </p>
 <blockquote>
 <p><strong>显示完整命令</strong> <code>top -c</code><br><strong>以批处理模式显示程序信息</strong> <code>top -b</code><br><strong>以累积模式显示程序信息</strong> <code>top -S</code><br><strong>设置信息更新次数</strong> <code>top -n 2</code>(表示更新两次后终止更新显示)<br><strong>设置信息更新时间</strong> <code>top -d 3</code>(表示更新周期为3秒)<br><strong>显示指定的进程信息</strong> <code>top -p 139</code>(显示进程号为139的进程信息，CPU、内存占用率等)<br><strong>显示更新十次后退出</strong> <code>top -n 10</code><br><strong>使用者将不能利用交谈式指令来对行程下命令</strong> <code>top -s</code><br><strong>将更新显示二次的结果输入到名称为 top.log 的档案里</strong> <code>top -n 2 -b &lt; top.log</code></p>
 </blockquote>
-<h3 id="使用示例-1"><a href="#使用示例-1" class="headerlink" title="使用示例"></a>使用示例</h3><p><img src="http://img.zouchanglin.cn///20200131/3ql6u1D1Ok35.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200131/BqiJ1F5HloKM.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200131/DjsRR3Y1fMO6.png" alt="mark"></p>
+<h3 id="使用示例-1"><a href="#使用示例-1" class="headerlink" title="使用示例"></a>使用示例</h3><p><img src="https://img.zouchanglin.cn///20200131/3ql6u1D1Ok35.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/BqiJ1F5HloKM.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/DjsRR3Y1fMO6.png" alt="mark"></p>
 <h1 id="free命令"><a href="#free命令" class="headerlink" title="free命令"></a>free命令</h1><p>Linux free命令用于显示内存状态。<br>free指令会显示内存的使用情况，包括实体内存，虚拟的交换文件内存，共享内存区段，以及系统核心使用的缓冲区等。</p>
 <h3 id="格式：free-选项-s-lt-间隔秒数-gt"><a href="#格式：free-选项-s-lt-间隔秒数-gt" class="headerlink" title="格式：free [-选项][-s &lt;间隔秒数&gt;]"></a>格式：<code>free [-选项][-s &lt;间隔秒数&gt;]</code></h3><p>###参数说明</p>
 <blockquote>
 <p><strong>-b 　以Byte为单位显示内存使用情况。</strong><br><strong>-k 　以KB为单位显示内存使用情况。</strong><br><strong>-m 　以MB为单位显示内存使用情况。</strong><br><strong>-o 　不显示缓冲区调节列。</strong><br><strong>-s&lt;间隔秒数&gt; 　持续观察内存使用状况。</strong><br><strong>-t 　显示内存总和列。</strong><br><strong>-V 　显示版本信息</strong></p>
 </blockquote>
-<p><img src="http://img.zouchanglin.cn///20200131/g1DvliFKjLBY.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/g1DvliFKjLBY.png" alt="mark"></p>
 <p> 详细解释 </p>
-<p><img src="http://img.zouchanglin.cn///20200131/WlUi6BonkifX.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/WlUi6BonkifX.png" alt="mark"></p>
 <p>我们可以发现，free命令会输出这4行，第二行是站在操作系统的角度去看待的内存使用情况，也就是总共有2054224KB（默认情况下单位是KB），换算过来大约是1.96G，这些内存中只有1917816KB被使用了，剩余为136804KB，0.13G 可用。<br>shared是共享的意思，表示几个进程的共享内存，buffer缓冲区之意，cached也是缓存的意思，接下来说说他们的区别，先看看外语解释：</p>
 <blockquote>
 <p>A buffer is something that has yet to be “written” to disk.<br>A cache is something that has been “read” from the disk and stored for later use.</p>
@@ -176,8 +176,8 @@
 <p>buffer是用于存放要输出到disk（块设备）的数据的，而cache是存放从disk上读出的数据。这二者是为了提高IO性能的，并由OS管理。Linux和其他成熟的操作系统（例如windows），为了提高IO的性能，总是要多cache一些数据，这也就是为什么cached memory比较大，而free比较小的原因！</p>
 <p>free输出的第三行是从一个应用程序的角度看系统内存的使用情况。<br>对于-buffers/cache，表示一个应用程序认为系统被用掉多少内存；<br>对于+buffers/cache，表示一个应用程序认为系统还有多少内存；<br>因为被系统cache和buffer占用的内存可以被快速回收，所以通常+buffers/cache比-buffers/cache会大很多！</p>
 <h1 id="pstack命令"><a href="#pstack命令" class="headerlink" title="pstack命令"></a>pstack命令</h1><h2 id="格式：pstack-lt-PID-gt"><a href="#格式：pstack-lt-PID-gt" class="headerlink" title="格式：pstack &lt;-PID&gt;"></a>格式：<code>pstack &lt;-PID&gt;</code></h2><p>显示每个进程的栈跟踪。pstack 命令必须由相应进程的属主或 root 运行。可以使用 pstack 来确定进程挂起的位置。此命令允许使用的唯一选项是要检查的进程的 PID。<br>需要先安装此工具：</p>
-<p><img src="http://img.zouchanglin.cn///20200131/XJJmNsTKoxHx.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200131/dTraQ0xkT2Yf.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/XJJmNsTKoxHx.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200131/dTraQ0xkT2Yf.png" alt="mark"></p>
 <p>这个命令在排查进程问题时非常有用，比如我们发现一个服务一直处于work状态（如假死状态，好似死循环），使用这个命令就能轻松定位问题所在；可以在一段时间内，多执行几次pstack，若发现代码栈总是停在同一个位置，那个位置就需要重点关注，很可能就是出问题的地方!</p>
 <h2 id="作用归纳"><a href="#作用归纳" class="headerlink" title="作用归纳"></a>作用归纳</h2><ul>
 <li>查看线程数(比pstree, 包含了详细的堆栈信息)</li>
@@ -225,7 +225,7 @@
 <p><code>必要参数</code><br><strong>-d 删除密码</strong><br><strong>-f 强制执行</strong><br><strong>-k 更新只能发送在过期之后</strong><br><strong>-l 停止账号使用</strong><br><strong>-S 显示密码信息</strong><br><strong>-u 启用已被停止的账户</strong><br><strong>-x 设置密码的有效期</strong><br><strong>-g 修改群组密码</strong><br><strong>-i 过期后停止用户账号</strong><br><code>选择参数</code><br><strong>–help 显示帮助信息</strong><br><strong>–version 显示版本信息</strong></p>
 </blockquote>
 <h2 id="使用示例-3"><a href="#使用示例-3" class="headerlink" title="使用示例"></a>使用示例</h2><p>删除Tim的密码 <code>passwd -d Tim</code></p>
-<h1 id="Linux下的命令分类"><a href="#Linux下的命令分类" class="headerlink" title="Linux下的命令分类"></a>Linux下的命令分类</h1><p><img src="http://img.zouchanglin.cn///20200131/BPphOxUvDWY6.png" alt="mark"></p>
+<h1 id="Linux下的命令分类"><a href="#Linux下的命令分类" class="headerlink" title="Linux下的命令分类"></a>Linux下的命令分类</h1><p><img src="https://img.zouchanglin.cn///20200131/BPphOxUvDWY6.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

@@ -125,7 +125,7 @@
 <p>（5）执行dockerfile中的下一条指令直到所有指令都执行完成</p>
 <p>从应用软件的角度来看，Dockerfile、Docker镜像与Docker容器分别代表软件的三个不同阶段：</p>
 <p>1、Dockerfile 是软件的原材料<br>2、Docker 镜像是软件的交付品<br>3、Docker 容器则可以认为是软件的运行态。</p>
-<p>Dockerfile面向开发，Docker镜像成为交付标准<br><img src="http://img.zouchanglin.cn///20200202/5NpB4H84AAJ9.png" alt="mark"></p>
+<p>Dockerfile面向开发，Docker镜像成为交付标准<br><img src="https://img.zouchanglin.cn///20200202/5NpB4H84AAJ9.png" alt="mark"></p>
 <p>1 Dockerfile，需要定义一个Dockerfile，Dockerfile定义了进程需要的一切东西。Dockerfile涉及的内容包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进程和内核进程(当应用进程需要和系统服务和内核进程打交道，这时需要考虑如何设计namespace的权限控制)等等;</p>
 <p>2 Docker镜像，在用Dockerfile定义一个文件之后，docker build时会产生一个Docker镜像，当运行 Docker镜像时，会真正开始提供服务;</p>
 <p>3 Docker容器，容器是直接提供服务的。</p>
@@ -156,9 +156,9 @@
 <p>ENTRYPOINT 的目的和 CMD 一样，都是在指定容器启动程序及参数</p>
 <p>ONBUILD</p>
 <p>当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发</p>
-<p><img src="http://img.zouchanglin.cn///20200202/4G3sNG4z3bIW.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/4G3sNG4z3bIW.png" alt="mark"></p>
 <h2 id="Dockerfile案例"><a href="#Dockerfile案例" class="headerlink" title="Dockerfile案例"></a>Dockerfile案例</h2><p>Docker Hub 中 99% 的镜像都是通过在 base 镜像中安装和配置需要的软件构建出来的</p>
-<h3 id="一、自定义一个CentOS"><a href="#一、自定义一个CentOS" class="headerlink" title="一、自定义一个CentOS"></a>一、自定义一个CentOS</h3><p><img src="http://img.zouchanglin.cn///20200202/LluLKUas0LJW.png" alt="mark"></p>
+<h3 id="一、自定义一个CentOS"><a href="#一、自定义一个CentOS" class="headerlink" title="一、自定义一个CentOS"></a>一、自定义一个CentOS</h3><p><img src="https://img.zouchanglin.cn///20200202/LluLKUas0LJW.png" alt="mark"></p>
 <p>现在我们需要自定义一个镜像来支持vim、ifconfig、并且登录后的默认路径改做修改</p>
 <p>编写Dockerfile：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从标准centos构建</span></span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义作者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> tim&lt;<span class="number">15291418231</span>@<span class="number">163</span>.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个变量</span></span><br><span class="line"><span class="keyword">ENV</span> mypath /tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置登录后的落脚点</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$mypath</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装vim和net-tools工具</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install net-tools</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$mypath</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"success----------ok"</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
@@ -166,13 +166,13 @@
 <p>接下来开始构建</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -f &#x2F;mydocker&#x2F;Dockerfile -t mycentos:1.3 .</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200202/IDCMRrgh6ftG.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/IDCMRrgh6ftG.png" alt="mark"></p>
 <p>然后启动镜像，测试一下：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/GtAujGTT6x7Y.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/GtAujGTT6x7Y.png" alt="mark"></p>
 <p>看看构建过程是否是如前面所说，这也证实了镜像的分层：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/7VMhR0cwrDMI.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/7VMhR0cwrDMI.png" alt="mark"></p>
 <h3 id="二、制作可以查询IP信息的镜像"><a href="#二、制作可以查询IP信息的镜像" class="headerlink" title="二、制作可以查询IP信息的镜像"></a>二、制作可以查询IP信息的镜像</h3><p>Dockerfile 中可以有多个 CMD 指令，但只有最后一个生效，CMD 会被 docker run 之后的参数替换，这是什么意思呢？</p>
-<p><img src="http://img.zouchanglin.cn///20200202/2iJF1mRar04N.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/2iJF1mRar04N.png" alt="mark"></p>
 <p>Tomcat 并没有运行起来，就是因为Docker的run命令后面加了参数！所以ENTRYPOINT命令就更好用了，ENTRYPOINT不会覆盖，只是追加命令！</p>
 <p>首先解释一下curl命令</p>
 <p>curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout使用命令：curl <a href="http://www.baidu.com，执行后，www.baidu.com的html页面就会以文本的形式显示在屏幕上了。" target="_blank" rel="noopener">http://www.baidu.com，执行后，www.baidu.com的html页面就会以文本的形式显示在屏幕上了。</a></p>
@@ -180,22 +180,22 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y curl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://ip.cn"</span>]</span></span><br></pre></td></tr></table></figure>
 
 <p>使用curl这个工具就可以查看IP，现在使用构件好的镜像run一下：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/lJTmfUync9Pd.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/lJTmfUync9Pd.png" alt="mark"></p>
 <p>哈哈，居然给我识别成渭南的，这个工具不是很准呀！如果要显示HTML的header需要加参数-i，下面我们来试一下：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/EEEWr4o6EYPl.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/EEEWr4o6EYPl.png" alt="mark"></p>
 <p>很显然不好使了，这就是为什么CMD指令不生效的原因，就是因为后面加的参数，所以出现了ENTRYPOINT指令，接下来使用ENTRYPOINT指令构建一下镜像：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y curl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://ip.cn"</span>]</span></span><br></pre></td></tr></table></figure>
 
 <p>果然，在ENTRYPOINT指令下加参数是可用的</p>
-<p><img src="http://img.zouchanglin.cn///20200202/wjt4KANNXyVr.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/wjt4KANNXyVr.png" alt="mark"></p>
 <h3 id="三、ONBUILD指令的使用"><a href="#三、ONBUILD指令的使用" class="headerlink" title="三、ONBUILD指令的使用"></a>三、ONBUILD指令的使用</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y curl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://ip.cn"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ONBUILD</span> <span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"father build finished! 886"</span></span></span><br></pre></td></tr></table></figure>
 
 <p>在父镜像构建完成的时候执行ONBUILD的指令，执行构建，构建出父镜像为mycentos:1.6</p>
-<p><img src="http://img.zouchanglin.cn///20200202/9lizdqu6hQq1.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/9lizdqu6hQq1.png" alt="mark"></p>
 <p>接下来编写子镜像的Dockerfile</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于需要从父镜像构建，所以FROM写成mycentos1.6</span></span><br><span class="line"><span class="keyword">FROM</span> mycentos:<span class="number">1.6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y curl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://ip.cn"</span>]</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200202/SXWQq58ChX0v.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/SXWQq58ChX0v.png" alt="mark"></p>
 <p>可以看到，在构建父镜像完成后执行了ONBUILD的后面的内容！</p>
 <h3 id="四、自定义构建Tomcat"><a href="#四、自定义构建Tomcat" class="headerlink" title="四、自定义构建Tomcat"></a>四、自定义构建Tomcat</h3><p>新建一个文件夹，里面包含（apache-tomcat-9.0.8.tar.gz、jdk-8u171-linux-x64.tar.gz、a.txt）</p>
 <p>编写Dockerfile</p>
@@ -208,7 +208,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 --name mytomcat9 -v /tim/mydockerfile/tomcat9/<span class="built_in">test</span>:/usr/<span class="built_in">local</span>/apache-tomcat-9.0.8/webapps/<span class="built_in">test</span> -v /tim/mydockerfile/tomcat9/tomcat9logs/:/usr/<span class="built_in">local</span>/apache-tomcat-9.0.8/logs --privileged=<span class="literal">true</span> mytomcat9</span><br></pre></td></tr></table></figure>
 
 <p>其实这条命令虽然看起来很长，但是无非是启动镜像并且添加了两个数据卷，privileged 是Docker挂载主机目录Docker访问出现cannot open directory .: Permission denied的时候需要加上的参数！</p>
-<h2 id="Dockerfile的总结"><a href="#Dockerfile的总结" class="headerlink" title="Dockerfile的总结"></a>Dockerfile的总结</h2><p><img src="http://img.zouchanglin.cn///20200202/uukKNghPmbDw.png" alt="mark"></p>
+<h2 id="Dockerfile的总结"><a href="#Dockerfile的总结" class="headerlink" title="Dockerfile的总结"></a>Dockerfile的总结</h2><p><img src="https://img.zouchanglin.cn///20200202/uukKNghPmbDw.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

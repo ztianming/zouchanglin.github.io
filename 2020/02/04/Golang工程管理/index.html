@@ -137,7 +137,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	_ <span class="string">"fmt"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <p><code>_</code> 操作其实是引入该包，而不直接使用包里面的函数，而是调用了该包里面的init函数。</p>
-<p><img src="http://img.zouchanglin.cn///20200204/Apboc2MhaXfr.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200204/Apboc2MhaXfr.png" alt="mark"></p>
 <h2 id="main包"><a href="#main包" class="headerlink" title="main包"></a>main包</h2><p>在Go语言里，命名为main的包具有特殊的含义。Go语言的编译程序会试图把这种名字的包编译为二进制可执行文件。所有用Go语言编译的可执行程序都必须有一个名叫main的包。一个可执行程序有且仅有一个main 包。</p>
 <p>当编译器发现某个包的名字为main 时，它一定也会发现名为main()的函数，否则不会创建可执行文件。main()函数是程序的入口， 所以，如果没有这个函数，程序就没有办法开始执行。程序编译时，会使用声明main包的代码所在的目录的目录名作为二进制可执行文件的文件名。</p>
 <h2 id="main函数和init函数"><a href="#main函数和init函数" class="headerlink" title="main函数和init函数"></a>main函数和init函数</h2><p>Go里面有两个保留的函数：init函数(能够应用于所有的package)和main函数(只能应用于package main)。这两个函数在定义时不能有任何的参数和返回值。虽然一个package里面可以写任意多个init函数，但这无论是对于可读性还是以后的可维护性来说，我们都强烈建议用户在一个package中每个文件只写一个init函数。</p>
@@ -145,7 +145,7 @@
 <p>每个包可以包含任意多个init 函数，这些函数都会在程序执行开始的时候被调用。所有被编译器发现的init函数都会安排在main 函数之前执行。init 函数用在设置包、初始化变量或者其他要在程序运行前优先完成的引导工作。</p>
 <p>程序的初始化和执行都起始于main包。如果main包还导入了其它的包，那么就会在编译时将它们依次导入。<br>有时一个包会被多个包同时导入，那么它只会被导入一次( 例如很多包可能都会用到fmt包，但它只会被导入一次，因为没有必要导入多次)。</p>
 <p>当一个包被导入时，如果该包还导入了其它的包，那么会先将其它包导入进来，然后再对这些包中的包级常量和变量进行初始化，接着执行init函数(如果有的话)，依次类推。等所有被导入的包都加载完毕了，就会开始对main包中的包级常量和变量进行初始化，然后执行main包中的init函数(如果存在的话)，最后执行main函数。下图详细地解释了整个执行过程:</p>
-<p><img src="http://img.zouchanglin.cn///20200204/aTAE63uPaXP1.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200204/aTAE63uPaXP1.png" alt="mark"></p>
 <h2 id="go-install命令"><a href="#go-install命令" class="headerlink" title="go install命令"></a>go install命令</h2><p>设置环境变量GOBIN，通过go install 命令可以自动生成pkg、bin目录</p>
 <h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><p>src：放源代码，如果有多个文件或多个包</p>
 <p>1、配置GOPATH环境变量， 配置src同级目录的绝对路径<br>2、自动生成bin或pkg目录，需要使用go install命令。除了要配置GOPATH环境变量，还要配置G0BIN环境变量工<br>src：放源代码<br>bin：放可执行程序<br>pkg：放平台相关的库</p>

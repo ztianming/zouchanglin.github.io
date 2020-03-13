@@ -100,14 +100,14 @@
 
       
       <p>之前几篇文章讲述了Linux的Cgroups技术，<a href="https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/">《Linux-Cgroups的资源控制》</a>，主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：<code>docker run -m 设置内存限制</code></p>
-<p><img src="http://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png" alt="mark"></p>
 <p><strong>可以看到Docker通过为每个容器创建Cgroup并通过Cgroup去配置的资源限制和资源监控。</strong> </p>
 <a id="more"></a>
 
 <p>现在通过Go语言来实现一个可以限制资源的容器，配合之前的Namespace使用嘛</p>
-<p><img src="http://img.zouchanglin.cn///20200222/cTNyEw0rgQwO.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/cTNyEw0rgQwO.png" alt="mark"></p>
 <p>通过对Cgroups虚拟文件系统的配置，我们让容器中的把stress进程的内存占用限制到了<code>100m</code>。 </p>
-<p><img src="http://img.zouchanglin.cn///20200222/6uIOzaNy3zVK.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/6uIOzaNy3zVK.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

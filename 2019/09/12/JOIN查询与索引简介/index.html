@@ -111,42 +111,42 @@
 <p>复合索引的建立：</p>
 <p>与上面的例子是相似的，假设要执行查询<code>select * from user where name=&#39;&#39; and email=&#39;&#39;</code>，那么如果要建立复合索引，<code>create index idx_user_nameEmail on user(name, email)</code></p>
 <p>比如：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/ppPaGmvwN6UT.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/ppPaGmvwN6UT.png" alt="mark"></p>
 <h3 id="3、关联查询太多join"><a href="#3、关联查询太多join" class="headerlink" title="3、关联查询太多join"></a>3、关联查询太多join</h3><p>设计缺陷或者不得已的需求，大多发生在老旧的系统中</p>
 <h3 id="4、服务器调优及各个参数设置"><a href="#4、服务器调优及各个参数设置" class="headerlink" title="4、服务器调优及各个参数设置"></a>4、服务器调优及各个参数设置</h3><p>比如缓冲区大小、线程数、连接数等等</p>
 <h2 id="二、常见通用的Join查询"><a href="#二、常见通用的Join查询" class="headerlink" title="二、常见通用的Join查询"></a>二、常见通用的Join查询</h2><h3 id="1、SQL执行顺序"><a href="#1、SQL执行顺序" class="headerlink" title="1、SQL执行顺序"></a>1、SQL执行顺序</h3><p>手写顺序</p>
-<p><img src="http://img.zouchanglin.cn///20200202/XuWqTkgePzak.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/XuWqTkgePzak.png" alt="mark"></p>
 <p>机读顺序</p>
-<p><img src="http://img.zouchanglin.cn///20200202/rQd65WdDBN0u.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/rQd65WdDBN0u.png" alt="mark"></p>
 <p>所以整个SQL的解析流程为：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/9PlakTTtnjxB.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/9PlakTTtnjxB.png" alt="mark"></p>
 <p>Join总结</p>
-<p><img src="http://img.zouchanglin.cn///20200202/7vXiHNDV1ruj.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/7vXiHNDV1ruj.png" alt="mark"></p>
 <h3 id="2、SQL-Join的练习"><a href="#2、SQL-Join的练习" class="headerlink" title="2、SQL Join的练习"></a>2、SQL Join的练习</h3><p>建表插入数据，做练习准备</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> day01;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tbl_dept(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">not</span> <span class="literal">NULL</span> auto_increment,</span><br><span class="line">    deptName <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">default</span> <span class="literal">NULL</span>,</span><br><span class="line">    locAdd <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">default</span> <span class="literal">NULL</span>,</span><br><span class="line">    primary <span class="keyword">key</span> (<span class="keyword">id</span>)</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">INNODB</span> auto_increment=<span class="number">1</span> <span class="keyword">default</span> <span class="keyword">charset</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tbl_emp(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">not</span> <span class="literal">null</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">default</span> <span class="literal">null</span>,</span><br><span class="line">    deptId <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">default</span> <span class="literal">null</span>,</span><br><span class="line">    primary <span class="keyword">key</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">key</span> fk_dept_id(deptId)</span><br><span class="line">    <span class="comment">#constraint fk_dept_id foregin key('deptId') references tbl_dept(id)</span></span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">innodb</span> auto_increment=<span class="number">1</span> <span class="keyword">default</span> <span class="keyword">charset</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_dept(deptName, locAdd) <span class="keyword">values</span> (<span class="string">'RD'</span>, <span class="number">11</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_dept(deptName, locAdd) <span class="keyword">values</span> (<span class="string">'HR'</span>, <span class="number">12</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_dept(deptName, locAdd) <span class="keyword">values</span> (<span class="string">'MK'</span>, <span class="number">13</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_dept(deptName, locAdd) <span class="keyword">values</span> (<span class="string">'MIS'</span>, <span class="number">14</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_dept(deptName, locAdd) <span class="keyword">values</span> (<span class="string">'FD'</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'z3'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'z4'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'z5'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'z3'</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'w5'</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">VALUES</span> (<span class="string">'w6'</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">values</span> (<span class="string">'s7'</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">values</span> (<span class="string">'s8'</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tbl_emp(<span class="keyword">name</span>, deptId) <span class="keyword">values</span> (<span class="string">'s9'</span>, <span class="number">51</span>);</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200202/D6CYkKjFWLMu.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/D6CYkKjFWLMu.png" alt="mark"></p>
 <p>下面是INNER JOIN的查询示例，可以看出查询结果是AB的共有部分：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/hHx45QROv3Jb.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/hHx45QROv3Jb.png" alt="mark"></p>
 <p>A独有+AB共有</p>
-<p><img src="http://img.zouchanglin.cn///20200202/zMrojWICbGmF.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/zMrojWICbGmF.png" alt="mark"></p>
 <p>B独有+AB共有</p>
-<p><img src="http://img.zouchanglin.cn///20200202/K4tPfaVGLoCM.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/K4tPfaVGLoCM.png" alt="mark"></p>
 <p>A排除AB共有</p>
-<p><img src="http://img.zouchanglin.cn///20200202/XlRqQu4G5L7X.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/XlRqQu4G5L7X.png" alt="mark"></p>
 <p>B排除AB共有</p>
-<p><img src="http://img.zouchanglin.cn///20200202/qMzHYUid0DBS.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/qMzHYUid0DBS.png" alt="mark"></p>
 <p>AB全有，下面是full join</p>
-<p><img src="http://img.zouchanglin.cn///20200202/MRrpX1WJnNv0.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/MRrpX1WJnNv0.png" alt="mark"></p>
 <p>但是却报错了，是因为MySQL是不支持这种语法的，但是Orcal数据库却是支持的，所以这么干：A的独有+B的独有+AB共有，所以需要合并去重的操作，使用<code>union</code></p>
-<p><img src="http://img.zouchanglin.cn///20200202/3xmahIeLPX9d.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/3xmahIeLPX9d.png" alt="mark"></p>
 <p>AB 的独有</p>
-<p><img src="http://img.zouchanglin.cn///20200202/Th67Jbcob3Yf.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/Th67Jbcob3Yf.png" alt="mark"></p>
 <h2 id="三、索引简介"><a href="#三、索引简介" class="headerlink" title="三、索引简介"></a>三、索引简介</h2><h3 id="1、什么是索引"><a href="#1、什么是索引" class="headerlink" title="1、什么是索引"></a>1、什么是索引</h3><p>MySQL官方对索引的定义为：索引(Index)是帮助MySQL高效获取数据的数据结构。</p>
 <p>可以得到索引的本质：索引是数据结构</p>
 <p>很简单，如果对于一个无顺字典，我要查找Mysql这个单词，那么唯一的方法是遍历， 如果词典按照A-Z排序的话，只需要从M开始的页就好了！这就是索引，所以索引有两大功能：排序和快速查找。则索引就是<strong>排好序的快速查找数据结构</strong></p>
 <p>在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向数据），这样就可以在这些数据结枃上实现高级査找算法。这种数据结构，就是索引，如下图：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/nEb0SX6ve9rT.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/nEb0SX6ve9rT.png" alt="mark"></p>
 <p>为了加快 Col2 的查找，可以维护一个右边所示的二叉査找树，每个节点分别包含素引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找在一定的复杂度内获取到相应数据，从而快速的检索出符合条件的记录！</p>
 <p>数据本身之外，数据库还维护着一个满足特定査找算法的数据结构，这些数据结构以某种方式指向数据，这样就可以在这些数据结构的基础上实现高级查找算法，这种数据结构就是索引。</p>
 <p>一般来说索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上，我们平常所说的素引，如果没有特别指明，都是指 B 树（多路搜素树，并不一定是二又的）结构组织的索引。其中聚集索引，次要索引复合索引，前缀索引，唯一索引默认都是使用 B+树索引，统称索引。当然，除了 B+树这种类型的索引之外，还有哈稀索引（hash index等）</p>
@@ -179,7 +179,7 @@
 <p><code>ALTER TABLE tbl_name ADD INDEX index_name (column_list）</code> 添加普通索引，索引值可出现多次</p>
 <p><code>ALTER TABLE tbl_name ADD FULLTEXT index_name (column_list）</code>该语句指定了索引为 FULLTEXT，用于全文索引</p>
 <h3 id="5、MySQL索引结构"><a href="#5、MySQL索引结构" class="headerlink" title="5、MySQL索引结构"></a>5、MySQL索引结构</h3><p>BTree索引、Hash索引、full-text全文索引、R-Tree索引</p>
-<p>我们主要看看BTree索引：<br><img src="http://img.zouchanglin.cn///20200202/QsTVWKGMvRTp.png" alt="mark"></p>
+<p>我们主要看看BTree索引：<br><img src="https://img.zouchanglin.cn///20200202/QsTVWKGMvRTp.png" alt="mark"></p>
 <p>颗 b+树，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示）如磁盘块 1 包合数据项 17 和 35, 包含指针 P1、P2、P3,</p>
 <p>P1 表示小于 17 的磁盘块，P2 表示在 17 和 35 之间的磁盘块，P3 表示大于 35 的磁盘块</p>
 <p>真实的数据存在于叶子点即 3、5、9、10、13、15、28、29、36、60、75、79、90、99 非叶子节点只不存储真实的数据，只存储指引搜索方向的数据项，如 17、35 并不真实存在于数据表中</p>

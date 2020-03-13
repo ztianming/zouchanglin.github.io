@@ -99,7 +99,7 @@
       
 
       
-      <p><img src="http://img.zouchanglin.cn///20200223/jO5uuWJR4wTG.png" alt="mark"></p>
+      <p><img src="https://img.zouchanglin.cn///20200223/jO5uuWJR4wTG.png" alt="mark"></p>
 <blockquote>
 <p>目前此操作方法不支持Ubuntu18.04</p>
 </blockquote>
@@ -109,7 +109,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面这个Docker的源</span></span><br><span class="line">deb https://apt.dockerproject.org/repo ubuntu-xenial main</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
 
 <p>版本对应关系如下：</p>
-<p><img src="http://img.zouchanglin.cn///20200223/0qSj8Sp7n3C4.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200223/0qSj8Sp7n3C4.png" alt="mark"></p>
 <p>所以在写的时候这样写就好了 </p>
 <p>Precise 12.04 (LTS)  deb <a href="https://apt.dockerproject.org/repo" target="_blank" rel="noopener">https://apt.dockerproject.org/repo</a> ubuntu-precise main</p>
 <p>Trusty 14.04 (LTS)  deb <a href="https://apt.dockerproject.org/repo" target="_blank" rel="noopener">https://apt.dockerproject.org/repo</a> ubuntu-trusty main</p>
@@ -124,7 +124,7 @@
 <p>第四步：查看可选的Docker版本   </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200223/6kjEPbT3dE8K.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200223/6kjEPbT3dE8K.png" alt="mark"></p>
 <p>第五步：安装想要的版本的Docker   </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker-engine=1.11.2-0~xenial</span><br></pre></td></tr></table></figure>
 

@@ -106,30 +106,30 @@
 <a id="more"></a>
 
 <p>下图是一个单CPU多核心的架构图：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/24FFIEvLSVIm.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/24FFIEvLSVIm.png" alt="mark"></p>
 <h1 id="2、CPU缓存一致性协议"><a href="#2、CPU缓存一致性协议" class="headerlink" title="2、CPU缓存一致性协议"></a>2、CPU缓存一致性协议</h1><p>先看这样一段代码：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/iDRYlT3KP4bK.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/iDRYlT3KP4bK.png" alt="mark"></p>
 <p>加载过程就是ThreadA通过read指令读取到flag，在通过load指令加载到缓存，也就是JMM中的本地内存，CPU再通过寄存器去使用flag，ThreadB也是同样的流程，通过assign指令为本地内存中的flag赋值，再写入主存：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/iPetMyQrMYAi.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/iPetMyQrMYAi.png" alt="mark"></p>
 <p>由于while(true)并没有释放时间片，所以在这里可以让它去进行上下文切换，则就会有时间清除缓存</p>
-<p><img src="http://img.zouchanglin.cn///20200201/gi6mMfLRsxgH.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/gi6mMfLRsxgH.png" alt="mark"></p>
 <p>两次的执行结果肯定很简单</p>
-<p><img src="http://img.zouchanglin.cn///20200201/T5hyPEeWBOYV.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/T5hyPEeWBOYV.png" alt="mark"></p>
 <p>什么情况下的上下文切换不会清除缓存呢？可以设置一个非常小的休眠时间</p>
-<p><img src="http://img.zouchanglin.cn///20200201/8bSnHw0qSx8D.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/8bSnHw0qSx8D.png" alt="mark"></p>
 <p>这个时候，设置500纳秒的Sleep和500000纳秒的等待会导致结果完全不一样！！</p>
 <p>这与CPU多核心架构有关系，CPU修改之后的值并不会立即刷新到主存，这便导致了缓存不一致的问题，这是属于CPU架构的问题，不仅仅存在于JVM层面，只要是这种的CPU架构都会出现这种问题，所以首先得靠加锁来解决这种问题，在早期有一种东西叫做总线锁：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/Dg18RIUeEYKI.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/Dg18RIUeEYKI.png" alt="mark"></p>
 <p>一旦发生数据修改的回写操作，直接把总线加锁，这样别的线程在使用数据的时候就不得不重新从主存得到新的数据，而且存在严重的性能问题，如果存在大量IO操作时，还使用这种总线锁，那么肯定IO性能肯定会下降！</p>
 <p>于是出现了缓存一致性协议：</p>
 <p>主要用到的缓存一致性协议时MESI协议（M修改、E独占、S共享、I无效四种状态，这四种状态记录的是缓存行的转态）。</p>
 <p>这里还有一个机制叫做总线嗅探机制，嗅探通过总线的数据，如果只有一个核心用到，那么就会给这个缓存行一个状态叫做E状态（独占状态），当另一个线程也用到了这个变量的时候，CPU就会通过广播机制通知其他的核心把这个缓存行的状态修改为S状态（共享状态），接下来其中一个线程对这个变量进行了修改，那么对于这个线程来说，这个变量的缓存行变成了M状态（修改状态），回写的时候会通过总线，总线嗅探机制嗅探到这个变量的缓存行已经是M状态，它就会通过其他的核心，说缓存无效，则其他核心上的缓存行就会变成I状态（无效状态），变成无效状态后如果还需要使用这个变量，那么肯定只能重新从主存中去加载这个变量到缓存，而且必须等待修改核心修改（回写主存）完成！</p>
-<p><img src="http://img.zouchanglin.cn///20200201/Id5pv2ES62r4.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/Id5pv2ES62r4.png" alt="mark"></p>
 <p>这里锁的缓存行最大值为 64 byte ，总线锁主要是用到了lock原语</p>
 <h1 id="3、内存模型JMM实现原理"><a href="#3、内存模型JMM实现原理" class="headerlink" title="3、内存模型JMM实现原理"></a>3、内存模型JMM实现原理</h1><p>JMM描述的是一种抽象的概念，一组规则，通过这组规则控制程序中各个变量在共享数据区域和私有数据区域的访问方式，JMM是围绕原子性、有序性、可见性展开的</p>
-<p><img src="http://img.zouchanglin.cn///20200201/SoIbOydo9ypK.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/SoIbOydo9ypK.png" alt="mark"></p>
 <p>这个JMM模型只是一个抽象的概念，图上画出的也只是逻辑空间，通过对应到硬件内存架构是这样的：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/oXWAj2CVMNxg.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/oXWAj2CVMNxg.png" alt="mark"></p>
 <h1 id="4、Volatile关键字原理剖析"><a href="#4、Volatile关键字原理剖析" class="headerlink" title="4、Volatile关键字原理剖析"></a>4、Volatile关键字原理剖析</h1><p>在上面的例子中，我们明显可以通过volatile关键字来解决这个问题，那么volatile又是如何实现的呢？</p>
 <p>通过汇编指令来看看就知道了，运行时加虚拟机运行参数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -Xcomp</span><br></pre></td></tr></table></figure>
@@ -137,26 +137,26 @@
 <p>但是Mac环境可能会由于缺少部分包：hsdis-amd64.dylib，在这里下载就好了 <a href="https://github.com/evolvedmicrobe/benchmarks/blob/master/hsdis-amd64.dylib，下载完毕后放在：/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre" target="_blank" rel="noopener">https://github.com/evolvedmicrobe/benchmarks/blob/master/hsdis-amd64.dylib，下载完毕后放在：/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre</a> 就好了</p>
 <p>先看看如何保证可见性的：</p>
 <p>底层实现了 lock addl $0x0,(%rsp) ，触发了缓存一致性协议 </p>
-<p><img src="http://img.zouchanglin.cn///20200201/IWgK9WdYGyPp.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/IWgK9WdYGyPp.png" alt="mark"></p>
 <p>什么是重排序呢？是指编译器生成了指令序列，处理乱序执行！</p>
 <p>接下来看看指令重排序的一个例子：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/nPft5BeoBtvy.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/nPft5BeoBtvy.png" alt="mark"></p>
 <p>打印出来（0，0）（0，1）（1，0）（1，1）都有</p>
 <p>这就好比单例模式，请看下面这个例子：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/cocuuCxlyLWi.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200201/8fiF6sAm3ipw.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/cocuuCxlyLWi.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/8fiF6sAm3ipw.png" alt="mark"></p>
 <p>myInstance = new SingletonFactory()，这句话主要是三个指令构成的，如果不能保证指令有序性的话，那么拿到的对象就是未被初始化的对象，是无效的！</p>
 <p>对于x86架构的CPU，加上volatile写后面的storeLoad内存屏障，我们也可以手动加上内存屏障：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/UlVphp4q2knW.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/UlVphp4q2knW.png" alt="mark"></p>
 <p>这个加上内存屏障的方法定义是 public native void storeFence(); 因此是原生实现，可以看看OpenJDK的虚拟机实现，可以看到对于64位机器使用的是rsp寄存器，对于非64位用的是esp寄存器</p>
-<p><img src="http://img.zouchanglin.cn///20200201/vAA6EPpKUhth.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/vAA6EPpKUhth.png" alt="mark"></p>
 <h1 id="5、可见性、有序性、原子性详解"><a href="#5、可见性、有序性、原子性详解" class="headerlink" title="5、可见性、有序性、原子性详解"></a>5、可见性、有序性、原子性详解</h1><p>并发编程的三大特性：</p>
 <p>可见性、有序性、原子性</p>
 <p>volatile保证可见性与有序性，但是不能保证原子性，要保证原子性需要借助 synchronized、Lock锁机制，同理也能保证有序性与可见性，因为 synchronized和Lock能够保证任一时刻只有个线程访问该代码块。关于volatile不保证原子性这个其实很好证明：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/HA5SKqo66Jcm.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/HA5SKqo66Jcm.png" alt="mark"></p>
 <p>因为线程进行了很多次无效计算，所以结果并不是100000，他们都是从主存中拿的值，而且值都是对的，但是计算过程却不是原子的，准确的说应该是资源并没有被锁定，导致自己修改的时候别人也在修改，所以正确理解volatile的作用是很重要的！ </p>
 <p>最后看看CAS操作对应的汇编指令：</p>
-<p><img src="http://img.zouchanglin.cn///20200201/L2dPr9fjKqMH.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/L2dPr9fjKqMH.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

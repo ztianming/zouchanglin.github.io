@@ -102,7 +102,7 @@
 
       
       <p>想要理解硬链接和软链接必须要了解一下什么是Linux的文件系统</p>
-<h2 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h2><p><img src="http://img.zouchanglin.cn///20200201/HgwootMjSUWr.png" alt="mark"></p>
+<h2 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h2><p><img src="https://img.zouchanglin.cn///20200201/HgwootMjSUWr.png" alt="mark"></p>
 <a id="more"></a>
 
 <h3 id="普通文件"><a href="#普通文件" class="headerlink" title="普通文件 (-)"></a>普通文件 (-)</h3><p>这个不用说，常见的音频、视频、文本、可执行程序都是普通文件</p>
@@ -116,7 +116,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[zcl@localhost ~]$ ll</span><br><span class="line">total 12</span><br><span class="line">drwxrwxr-x. 28 zcl zcl 4096 Oct 24 21:56 Code</span><br><span class="line">drwxr-xr-x.  3 zcl zcl   34 Oct 25 05:02 Desktop</span><br><span class="line">drwxr-xr-x.  2 zcl zcl    6 Oct  5 00:07 Documents</span><br><span class="line">drwxr-xr-x.  2 zcl zcl    6 Oct  5 00:07 Downloads</span><br><span class="line">-rw-rw-r--.  1 zcl zcl  827 Oct  5 00:12 install.sh</span><br><span class="line">-rw-rw-r--.  1 zcl zcl   60 Oct 11 06:46 makefile</span><br><span class="line">[zcl@localhost ~]$ <span class="built_in">stat</span> Code</span><br><span class="line">  File: ‘Code’</span><br><span class="line">  Size: 4096      	Blocks: 8          IO Block: 4096   directory</span><br><span class="line">Device: fd00h/64768d	Inode: 3270049     Links: 28</span><br><span class="line">Access: (0775/drwxrwxr-x)  Uid: ( 1000/     zcl)   Gid: ( 1000/     zcl)</span><br><span class="line">Context: unconfined_u:object_r:user_home_t:s0</span><br><span class="line">Access: 2018-10-25 22:29:03.493269180 -0400</span><br><span class="line">Modify: 2018-10-24 21:56:01.089329792 -0400</span><br><span class="line">Change: 2018-10-24 21:56:01.089329792 -0400</span><br><span class="line"> Birth: -</span><br></pre></td></tr></table></figure>
 
 <p>Access：最后访问时间<br>Modif：文件内容最后修改时间<br>Change：属性最后修改时间 </p>
-<h2 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h2><p><img src="http://img.zouchanglin.cn///20200201/eQ7dLRvzPxhu.png" alt="mark"></p>
+<h2 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h2><p><img src="https://img.zouchanglin.cn///20200201/eQ7dLRvzPxhu.png" alt="mark"></p>
 <p>所以，新建一个文件的主要操作是：</p>
 <ol>
 <li>存储属性<br>内核首先找到一个空闲的inode，在这里是34192477，内核把文件信息记录到其中</li>
@@ -133,7 +133,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[tim@xpu code]$ touch myfile</span><br><span class="line">[tim@xpu code]$ ln myfile mylink</span><br><span class="line">[tim@xpu code]$ ll</span><br><span class="line">total 0</span><br><span class="line">-rw-rw-r-- 2 tim tim 0 Oct 26 18:00 myfile</span><br><span class="line">-rw-rw-r-- 2 tim tim 0 Oct 26 18:00 mylink</span><br><span class="line">[tim@xpu code]$ ln -s myfile _mylink                                                                                                                                           </span><br><span class="line">[tim@xpu code]$ ls -li</span><br><span class="line">total 0</span><br><span class="line">1067046 -rw-rw-r-- 2 tim tim 0 Oct 26 18:00 myfile</span><br><span class="line">1067046 -rw-rw-r-- 2 tim tim 0 Oct 26 18:00 mylink</span><br><span class="line">1067047 lrwxrwxrwx 1 tim tim 6 Oct 26 18:01 _mylink -&gt; myfile</span><br></pre></td></tr></table></figure>
 
 <p> 接下来加入我们删除myfile，硬链接mylink是正常的，但是软链接却报警告： </p>
-<p><img src="http://img.zouchanglin.cn///20200201/QT1z3tnJcIgk.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/QT1z3tnJcIgk.png" alt="mark"></p>
 <p>不难理解， 对于硬链接只要还存在硬链接那么即使删除其中一个，那么inode也不会释放，那么磁盘数据也不会释放，对于软链接来说，软链接由于是一个独立的文件保存了其指向文件的路径，所以只要myfile被删除，那么路径也就没有意义了！ </p>
 
       

@@ -105,20 +105,20 @@
 <a id="more"></a>
 
 <h1 id="1、秒杀示例"><a href="#1、秒杀示例" class="headerlink" title="1、秒杀示例"></a>1、秒杀示例</h1><p>首先，下面的例子是一个特价商品得秒杀案例，直接看代码</p>
-<p><img src="http://img.zouchanglin.cn///20200202/s4HB1MLjH93M.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/s4HB1MLjH93M.png" alt="mark"></p>
 <p>服务层</p>
-<p><img src="http://img.zouchanglin.cn///20200202/nAnvwkbU2vWx.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200202/0Ntyj0iQtqaN.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/nAnvwkbU2vWx.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/0Ntyj0iQtqaN.png" alt="mark"></p>
 <p>单个电脑上直接拿鼠标点链接肯定不会有问题，因为是串行的操作，接下用使用Apache ab工具模拟并发的情况：</p>
 <p><code>http://httpd.apache.org/docs/2.0/programs/ab.html</code> 这个是它的官网，使用说明里面也有，下面直接使用它进行模拟测压：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/KBdkg8IEO5dr.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/KBdkg8IEO5dr.png" alt="mark"></p>
 <p>经过测试之后发现：卖超了，意料之中的事情</p>
-<p><img src="http://img.zouchanglin.cn///20200202/T5DaRI4dOza2.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/T5DaRI4dOza2.png" alt="mark"></p>
 <p>为什么会出现这种情况呢？ 没有做同步呗，很正常，首先要解决的是数据同步问题</p>
 <p>使用synchronized对方法加锁：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/n4Xa2iApU5Ci.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/n4Xa2iApU5Ci.png" alt="mark"></p>
 <p>加了synchronized之后肯定是数据同步了：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/aTWdPX4N3ubL.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/aTWdPX4N3ubL.png" alt="mark"></p>
 <p>但是速度却太慢了，无法实现细粒度控制，而且系统根本无法实现水平拓展，问题很多，下面用分布式锁来解决这些问题。</p>
 <h1 id="2、Redis的几个命令"><a href="#2、Redis的几个命令" class="headerlink" title="2、Redis的几个命令"></a>2、Redis的几个命令</h1><p><a href="http://www.redis.cn/commands/setnx.html" target="_blank" rel="noopener">http://www.redis.cn/commands/setnx.html</a> 可以先看看这个文档：</p>
 <p>第一个命令：SETNX</p>
@@ -134,28 +134,28 @@
 <p>其实就是先GET、再SET，所以返回SET之前的值</p>
 <h1 id="3、使用Redis实现分布式锁"><a href="#3、使用Redis实现分布式锁" class="headerlink" title="3、使用Redis实现分布式锁"></a>3、使用Redis实现分布式锁</h1><p>首先搞清楚锁的是什么，即搞清楚什么是进行同步和互斥的数据，对于上面的秒杀系统示例程序来说，当然是商品，而且是同样的商品需要同步与互斥，假设现在是华为Mate30 Pro的秒杀活动，大家肯定买的都是这一款产品，所以其实需要关心的就是成交订单量和库存的关系，如果不进行同步与互斥，那么肯定会出现买超的情况，限量秒杀1000台，可能实际成交订单变成了1200或更多，所以需要进行数据的同步与互斥</p>
 <p>我直接使用Docker跑了一个Redis实例</p>
-<p><img src="http://img.zouchanglin.cn///20200202/qQ8xwSNxNHII.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/qQ8xwSNxNHII.png" alt="mark"></p>
 <p>测试通过可以使用！</p>
 <p>pom文件引入redis-starter</p>
-<p><img src="http://img.zouchanglin.cn///20200202/rwtsygu5pXRS.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/rwtsygu5pXRS.png" alt="mark"></p>
 <p>写入最基础的连接配置</p>
-<p><img src="http://img.zouchanglin.cn///20200202/UQOEd1vmNsNl.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/UQOEd1vmNsNl.png" alt="mark"></p>
 <p>RedisLock实现:</p>
-<p><img src="http://img.zouchanglin.cn///20200202/zmNwClkmOViQ.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/zmNwClkmOViQ.png" alt="mark"></p>
 <p>在秒杀系统中使用：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/s7c81EHhnKWi.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/s7c81EHhnKWi.png" alt="mark"></p>
 <p>在设计的时候把商品的Id设置为Key，当前时间+超时时间为Value</p>
 <p>通过代码注释可以看清楚实现流程：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/D3x9AjAvqSJA.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/D3x9AjAvqSJA.png" alt="mark"></p>
 <p>如果锁未超时也是返回False，这说明别的线程已经持有锁！</p>
 <h1 id="4、Redis分布式锁的好处"><a href="#4、Redis分布式锁的好处" class="headerlink" title="4、Redis分布式锁的好处"></a>4、Redis分布式锁的好处</h1><p>保证了数据的同步与互斥，通过模拟10个线程模拟500次请求的结果，对了我还统计了一下未能成功获得锁的请求次数，本次实验是469次请求未能成功获得锁，所以订单成交了31个，仓库剩余99969份！</p>
-<p><img src="http://img.zouchanglin.cn///20200202/NWUCJdrcpLOx.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/NWUCJdrcpLOx.png" alt="mark"></p>
 <p>另外分布式锁可以很好的支持分布式部署，本例中因为为了方便直接在一个服务中写死了，所以就不演示集群似的测试了。</p>
 <p>效率上也是很大的进步：</p>
 <p>使用Redis分布式锁：</p>
-<p><img src="http://img.zouchanglin.cn/sync08-966e272e.gif" alt=""></p>
+<p><img src="https://img.zouchanglin.cn/sync08-966e272e.gif" alt=""></p>
 <p>使用synchronized：</p>
-<p><img src="http://img.zouchanglin.cn/sync09-461b14339.gif" alt=""></p>
+<p><img src="https://img.zouchanglin.cn/sync09-461b14339.gif" alt=""></p>
 
       
       <!-- 打赏 -->

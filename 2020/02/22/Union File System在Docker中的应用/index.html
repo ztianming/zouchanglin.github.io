@@ -108,30 +108,30 @@
 <h2 id="高级多层统一文件系统-AUFS"><a href="#高级多层统一文件系统-AUFS" class="headerlink" title="高级多层统一文件系统 AUFS"></a>高级多层统一文件系统 AUFS</h2><p>AUFS（全称：advanced multi-layered unification filesystem<strong>，</strong>高级多层统一文件系统）用于为Linux文件系统实现联合挂载。AUFS完全重写了早期的UnionFS 1.x，其主要目的是为了可靠性和性能，并且引入了一些新的功能，比如可写分支的负载均衡。AUFS的一些实现已经被纳入UnionFS 2.x 版本。同UnionFS类似，它能够将不同类型的文件系统透明地层叠在一起，实现一个高效的分层文件系统。说白了AUFS就是能将不同的目录挂载到某一目录下，并将各个源目录下的内容联合到目标目录下，这里每个源目录对应aufsAUFS一层，用户在目标目录读写时，感觉不到此目录是联合而来的。早期的Docker就是使用了AUFS作为第一种存储驱动。从Linux对AUFS支持版本可以看出，最新的内核已经支持到了AUFS 5， <a href="http://aufs.sourceforge.net/" target="_blank" rel="noopener">http://aufs.sourceforge.net/</a> </p>
 <h2 id="Docker如何使用AUFS"><a href="#Docker如何使用AUFS" class="headerlink" title="Docker如何使用AUFS"></a>Docker如何使用AUFS</h2><p>首先得看一下Docker的镜像层，每一个Docker image 都是由一系列只读镜像层(image layer)组成的。镜像层的内容都存储在 Docker hosts filesystem 的/var/lib/docker/aufs/diff 目录下。而/var/lib/docker/aufs/layers 目录，则存储着镜像层如何堆叠这些镜像的元数据，可以近似看成是镜像层之间的依赖关系！</p>
 <p>我在我的Ubuntu16.04上安装了Docker1.11.2，执行<code>ls /var/lib/docker/aufs/diff/</code> 发现无任何文件</p>
-<p><img src="http://img.zouchanglin.cn///20200222/ypIBCnk76TJB.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/ypIBCnk76TJB.png" alt="mark"></p>
 <p>拉取镜像后，可以看到在docker pull中的结果显示ubuntu:l5.04 镜像一共有4个layer ，在执行命令的结果中也有4个对应的存储文件目录。自从Docker1.10 之后，diff目录下的存储镜像layer文件夹不再与镜像ID相同。</p>
-<p><img src="http://img.zouchanglin.cn///20200222/R06Qa8TXi1wx.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/R06Qa8TXi1wx.png" alt="mark"></p>
 <p>所以说，/var/lib/docker/aufs/layers 目录，则存储着镜像层如何堆叠这些镜像的元数据，可以近似看成是镜像层之间的依赖关系！</p>
 <p>接下来，以ubuntu:l5.04 镜像为基础镜像，创建一个名为changed-ubuntu 的镜像。这个镜像只是在镜像的/tmp文件夹中添加一个写了”Hello world”的文件。可以使用下面的DockerFile来实现。</p>
-<p><img src="http://img.zouchanglin.cn///20200222/OTY8NNdSqshc.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/OTY8NNdSqshc.png" alt="mark"></p>
 <p>使用如下命令，可以清楚地查看到changed-ubuntu 镜像使用了哪些image layer</p>
-<p><img src="http://img.zouchanglin.cn///20200222/n7SyW4OVCipM.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/n7SyW4OVCipM.png" alt="mark"></p>
 <p>从输出中可以看到83f8696997cf image layer 位于最上层，只有12B 的大小，由<code>/bin/sh -c echo &quot;Hello World&quot; &gt; /tmp/newfile</code>命令创建</p>
 <p>也就是说，changed-ubuntu镜像只占用了12B的磁盘空间，这也证明了AUFS是如何高效使用磁盘空间的。而下面的四层image layer ，则是共享地构成ubuntu:15.04镜像的4个image layer 。”missing” 标记的layer，是自Docker1.10 之后，一个镜像的image layer 的image history 数据都存储在一个文件中导致的，这是Docker官方认为的正常行为，可以看到新的镜像层需要之前的四层来构建：</p>
-<p><img src="http://img.zouchanglin.cn///20200222/yekLCzMD1Nrl.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/yekLCzMD1Nrl.png" alt="mark"></p>
 <p>进一步探查/var/lib/docker/aufs/diff/f973657917d003daa420129cc1f1d802e2d31e34429d1ded178fa988d94f9182 文件夹，发现其中存储了一个/tmp/newfile文件，文件中只有一行”Hello world”，至此我们完整地分析出了image layer和AUFS是如何通过共享文件和文件夹来实现镜像存储的。</p>
-<p><img src="http://img.zouchanglin.cn///20200222/zIkBKM8chDdP.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200222/UnRUjkUFCPQr.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/zIkBKM8chDdP.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/UnRUjkUFCPQr.png" alt="mark"></p>
 <h2 id="container-layer与AUFS"><a href="#container-layer与AUFS" class="headerlink" title="container layer与AUFS"></a>container layer与AUFS</h2><p>Docker使用AUFS的COW技术来实现image layer共享和减少磁盘空间占用。COW意味着一旦某个文件只有很小的部分有改动， AUFS也需要复制整个文件。这种设计会对容器性能产生一定的影响，尤其是在待复制的文件很大，或者位于很多image layer下方，又或者AUFS需要深度搜索目录结构树的时候。不过也不用过度担心，对于一个容器而言，每个image layer最多只需要复制一次。后续的改动都会在第一次拷贝的container layer上进行。</p>
 <p>启动一个container的时候，Docker 会为其创建一个read-only的init layer，用来存储与这个容器内环境相关的内容：Docker还会为其创建一个read-write的layer来执行所有写操作。</p>
 <p>container layer的mount目录也是/var/lib/docker/aufs/mnt。container的元数据和配置文件都存放在/var/lib/docker/containers/&lt;container-id＞目录中。container 的read-write layer存储在/var/lib/docker/aufs/diff/目录下。即使容器停止，这个可读写层仍然存在，因而重启容器不会丢失数据，只有当一个容器被删除的时候，这个可读写层才会一起删除。</p>
 <p>接下来，仍然用实验来证明上面的结论。首先查询到现有的容器数目为0 ，而且在/var/lib/docker/containers目录下也没有查到任何数据。最后，查看一下系统的aufs mount 情况，发现只有一个config文件。</p>
-<p><img src="http://img.zouchanglin.cn///20200222/aNAWg2wNOhLE.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/aNAWg2wNOhLE.png" alt="mark"></p>
 <p>如上图，我们启动了一个changed-ubuntu容器，查看/var/lib/docker/aufs/diff目录发现，下面多了2个文件夹，fe0d1e8647d74a0f0a6eaf381ba135502be61e8eb323f31767e48fda4042fb01-init是Docker为容器创建的read-only的init layer，而fe0d1e8647d74a0f0a6eaf381ba135502be61e8eb323f31767e48fda4042fb01则是Docker为容器创建的read-write layer</p>
 <p>在/var/lib/docker/containers目录下多了一个与containerid 相同的文件夹，存放着容器的metadata和config文件</p>
-<p><img src="http://img.zouchanglin.cn///20200222/TJqCTqIeYWNe.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/TJqCTqIeYWNe.png" alt="mark"></p>
 <p>接下来从系统AUFS来看mount的情况，在/sys/fs/aufs/目录下多了一个si_dca9c25b7188665e文件夹，执行如下命令</p>
-<p><img src="http://img.zouchanglin.cn///20200222/ViikQ0kluArs.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200222/ViikQ0kluArs.png" alt="mark"></p>
 <p>可以清楚地看到这就是刚刚创建的容器的layer权限， 只有最上面的fe0d1e8647d74a0f0a6eaf381ba135502be61e8eb323f31767e48fda4042fb01 layer是read-write权限</p>
 <p>说一下AUFS如何为container删除一个文件。如果要删除file1时，AUFS会在container的read-write层生成一个.wh.file1的文件来隐藏所有read-only层的file1文件。至此，我们己清楚地描述和验证了Docker是如何使用AUFS来管理container layer的</p>
 

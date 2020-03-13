@@ -105,12 +105,12 @@
 <p>每每被人问到：“Docker技术到底是怎么实现的呢？”我只能粗粗浅浅地说：“Docker是使用Linux Kernel的Namespace 和 Cgroups实现的一种容器技术。”那么，什么是Namespace，什么是Cgroups，Docker是怎么使用它们的，容器到底是怎么一步步被创建出来的？问到这些，我就会支支吾吾地不知所以。由此可见，了解容器技术的底层技术，然后明白它们是如何工作的，尤为重要，这些才是整个容器技术的基石，掌握了这些基石才能更加容易地向上攀登。 </p>
 </blockquote>
 <p>那今天就先看看Namespace吧！</p>
-<p><img src="http://img.zouchanglin.cn///20200218/07pgJ5CxHbna.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/07pgJ5CxHbna.png" alt="mark"></p>
 <a id="more"></a>
 
 <h2 id="Linux-Namespace"><a href="#Linux-Namespace" class="headerlink" title="Linux Namespace"></a>Linux Namespace</h2><p>Linux Namespace 是Kernel 的一个功能，它可以隔离一系列的系统资源，比如PIO ( ProcessID ）、User ID 、Network 等。一般看到这里，很多人会想到一个命令chroot ，就像chroot 允许把当前目录变成根目录一样（被隔离开来的） , Namespace 也可以在一些资源上，将进程隔离起来，这些资源包括进程树、网络接口、挂载点等。   </p>
 <p>使用Namespace，就可以做到UID级别的隔离，也就是说，可以以UID为n的用户，虚拟化出来一个Namespace，在这个Namespace里面，用户是具有root权限的。但是，在真实的物理机器上，他还是那个以UID为n的用户，这样就解决了用户之间隔离的问题。当然这只是Namespace其中的一个简单功能。 </p>
-<p><img src="http://img.zouchanglin.cn///20200218/4UtwmbW2g359.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/4UtwmbW2g359.png" alt="mark"></p>
 <p>当前Linux一共实现六种不同类型的namespace :</p>
 <p><strong>Mount namespaces</strong> Linux 2.4.19 文件系统挂接点将一个文件系统的顶层目录挂到另一个文件系统的子目录上，使它们成为一个整体，称为挂载。把该子目录称为挂载点。 　　Mount namespace用来隔离文件系统的挂载点, 使得不同的mount namespace拥有自己独立的挂载点信息，不同的namespace之间不会相互影响，这对于构建用户或者容器自己的文件系统目录非常有用。</p>
 <p><strong>UTS namespaces</strong> Linux 2.6.19 nodename 和 domainnameUTS，UNIX Time-sharing System namespace提供了主机名和域名的隔离。能够使得子进程有独立的主机名和域名(hostname)，这一特性在Docker容器技术中被用到，使得docker容器在网络上被视作一个独立的节点，而不仅仅是宿主机上的一个进程。</p>
@@ -119,13 +119,13 @@
 <p><strong>Network namespaces</strong>始于Linux 2.6.24 完成于 Linux 2.6.29网络相关的系统资源每个容器用有其独立的网络设备，IP 地址，IP 路由表，/proc/net 目录，端口号等等。这也使得一个 host 上多个容器内的同一个应用都绑定到各自容器的 80 端口上。</p>
 <p><strong>User namespaces</strong>始于 Linux 2.6.23 完成于 Linux 3.8)用户和组 ID 空间User namespace用来隔离user权限相关的Linux资源，包括user IDs and group IDs。这是目前实现的namespace中最复杂的一个，因为user和权限息息相关，而权限又事关容器的安全，所以稍有不慎，就会出安全问题。  在不同的user namespace中，同样一个用户的user ID 和group ID可以不一样，换句话说，一个用户可以在父user namespace中是普通用户，在子user namespace中是超级用户   </p>
 <p>Namespace的API主要使用如下三个系统调用（可以在这里查询系统接口 <a href="http://man7.org/linux/man-pages/dir_all_alphabetic.html" target="_blank" rel="noopener">http://man7.org/linux/man-pages/dir_all_alphabetic.html</a> ）：</p>
-<p><img src="http://img.zouchanglin.cn///20200218/VsAz50xpy7FH.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/VsAz50xpy7FH.png" alt="mark"></p>
 <h2 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h2><p>操作系统：Ubuntu Server 14.04</p>
 <p>内核版本：Linux version 4.4.0-142-generic（cat /proc/version命令可以查看）</p>
 <p>Golang版本：go version go1.7.1 linux/amd64</p>
 <p>首先配置好GOATH，我的GOPATH是<code>/go</code> ，目录结构：</p>
-<p><img src="http://img.zouchanglin.cn///20200218/hmheENlRX3UV.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200218/moCLAtMVHk6H.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/hmheENlRX3UV.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/moCLAtMVHk6H.png" alt="mark"></p>
 <p>其中mydocker是我的工程路径！</p>
 <h2 id="UTS-Namespace"><a href="#UTS-Namespace" class="headerlink" title="UTS Namespace"></a>UTS Namespace</h2><p>前面也说到过，UTS Namespace提供了主机名和域名的隔离。能够使得子进程有独立的主机名和域名(hostname)，下面我会使用Go来做一个UTS Namespace的例子：</p>
 <p>UTSNamespace.go:</p>
@@ -133,11 +133,11 @@
 
 <p>exec.Command (“sh”) 用来指定被fork出来的新进程内的初始命令，默认使用sh来执行。下面就是设置系统调用参数，使用CLONE_NEWUTS这个标识符去创建一个UTS Namespace。Go帮我们封装了对clone()函数的调用,这段代码执行后就会进入到一个sh运行环境中。</p>
 <p>接下来运行它：go run UTSNamespace.go，然后打印一下PID</p>
-<p><img src="http://img.zouchanglin.cn///20200218/FxP6AHYr9pK0.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/FxP6AHYr9pK0.png" alt="mark"></p>
 <p>观察进程树，我们可以看到父进程的PID，于是可以通过readlink命令去看看父进程和子进程是否是不在同一个UTS namespace中：</p>
-<p><img src="http://img.zouchanglin.cn///20200218/QbVRg8CUBMfp.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/QbVRg8CUBMfp.png" alt="mark"></p>
 <p>可以看到它们确实不在同一个UTS Namespace中。由于UTS Namespace对hostname做了隔离，所以在这个环境内修改hostname应该不影响外部主机，下面来做一下实验。</p>
-<p><img src="http://img.zouchanglin.cn///20200218/sSkbhb5RHAuf.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200218/sSkbhb5RHAuf.png" alt="mark"></p>
 <p>可以看到，外部的hostname并没有被内部的修改所影响，由此可了解UTS Namespace的作用。</p>
 
       

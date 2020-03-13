@@ -101,7 +101,7 @@
       
 
       
-      <h2 id="Git基本概念"><a href="#Git基本概念" class="headerlink" title="Git基本概念"></a>Git基本概念</h2><p><img src="http://img.zouchanglin.cn///20200201/jambXWN0Amn2.png" alt="mark"></p>
+      <h2 id="Git基本概念"><a href="#Git基本概念" class="headerlink" title="Git基本概念"></a>Git基本概念</h2><p><img src="https://img.zouchanglin.cn///20200201/jambXWN0Amn2.png" alt="mark"></p>
 <p>Workspace：工作区<br>Index / Stage：暂存区<br>Repository：仓库区（或本地仓库）<br>Remote：远程仓库</p>
 <a id="more"></a>
 
@@ -110,13 +110,13 @@
 <h2 id="初次使用配置Git"><a href="#初次使用配置Git" class="headerlink" title="初次使用配置Git"></a>初次使用配置Git</h2><p>第一步：设置用户名和邮箱，并且生成秘钥<br>不要密码的话直接一直Enter就行！</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"你的名字"</span></span><br><span class="line">git config --global user.email <span class="string">"你的邮箱"</span> </span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200201/EkvwxL6c2N1v.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/EkvwxL6c2N1v.png" alt="mark"></p>
 <p>第二步：到git仓库，添加秘钥<br>如果你没有改变秘钥的生成路径，那么通过家目录的<code>.ssh</code>下通过cat命令应该可以看到生成的秘钥，添加到GitHub（这里以Github为例）的秘钥中！ </p>
-<p><img src="http://img.zouchanglin.cn///20200201/gSMFwmRFovC3.png" alt="mark"></p>
-<p><img src="http://img.zouchanglin.cn///20200201/E3X4jDpJTqqL.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/gSMFwmRFovC3.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/E3X4jDpJTqqL.png" alt="mark"></p>
 <p>第三步: <code>ssh -T git@github.com</code> 测试一下通不通，不通就是<code>ssh-agent -s</code> <code>ssh-add ~/.ssh/id_rsa</code>操作这两步</p>
 <p>第四步：把代码clone下来，使用<code>git clone</code> 命令将仓库拷贝下来！ </p>
-<p><img src="http://img.zouchanglin.cn///20200201/khCSE2WKSSf1.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200201/khCSE2WKSSf1.png" alt="mark"></p>
 <h2 id="分类操作的命令"><a href="#分类操作的命令" class="headerlink" title="分类操作的命令"></a>分类操作的命令</h2><h3 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h3><ul>
 <li>在当前目录新建一个Git代码库<code>git init</code></li>
 <li>新建一个目录，将其初始化为Git代码库<code>git init [project-name]</code></li>
@@ -217,7 +217,7 @@
 <li>显示Git栈内的所有备份<code>git stash list</code></li>
 <li>清空Git栈<code>git stash clear</code></li>
 </ul>
-<h2 id="常用的命令图"><a href="#常用的命令图" class="headerlink" title="常用的命令图"></a>常用的命令图</h2><p><img src="http://img.zouchanglin.cn///20200201/vYjfBcoQ9Du0.png" alt="mark"></p>
+<h2 id="常用的命令图"><a href="#常用的命令图" class="headerlink" title="常用的命令图"></a>常用的命令图</h2><p><img src="https://img.zouchanglin.cn///20200201/vYjfBcoQ9Du0.png" alt="mark"></p>
 
       
       <!-- 打赏 -->

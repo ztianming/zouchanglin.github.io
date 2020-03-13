@@ -110,12 +110,12 @@
 <h2 id="如何开启慢查询"><a href="#如何开启慢查询" class="headerlink" title="如何开启慢查询"></a>如何开启慢查询</h2><p>查看开启状态</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'%slow_query_log%'</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200202/Fk6EnDMIYgrL.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/Fk6EnDMIYgrL.png" alt="mark"></p>
 <p>开启慢查询</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_log = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p>使用 set global_slow_query_log = 1 开启了慢查询日志只对当前数据库生，如果 MYSQL 重启后则会失效。</p>
-<p><img src="http://img.zouchanglin.cn///20200202/oRPEQ84QgF90.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/oRPEQ84QgF90.png" alt="mark"></p>
 <p>如果要永久生效，就必须修改配置文件 my.cnf（其它系统变量也是如此）修改 my.cnf 文件，[mysqld]下增加或修改参数</p>
 <p>slow_query_log 和 slow_query_log_file 后，然后重启 MySQL 服务器。也即将如下两行配置进my.cnf文件</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">slow_query_log</span> =<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">slow_query_log_file</span>=/var/lib/mysql/tim-slow.log</span><br></pre></td></tr></table></figure>
@@ -123,24 +123,24 @@
 <p>关于慢查询的参数 slow_query_log_fie，它指定慢查询日志文件的存放路径，系统默认会给一个缺省的文件host_name-slow.log（如果没有指定参数 slow_query_log_file的话）</p>
 <p>那么开启慢查询日志后，什么样的SQL参会记录到慢查询里面？</p>
 <p>通过 show variables like ‘long_query_time%’ 来查看默认时间长度，单位是秒：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/SdyhhkhjFFmI.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/SdyhhkhjFFmI.png" alt="mark"></p>
 <p>同样的，可以使用命令修改，也可以在my.cnf里面配置。假如运行时间正好等于 long_query_time 的情况，并不会被记录下来。也就是说，在MySQL源码里是判断大于 long_query_time，而非大于等于!</p>
 <p>设置记录的阈值：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> long_query_time=<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200202/U1bNBFPnjkx1.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/U1bNBFPnjkx1.png" alt="mark"></p>
 <p>设置了但是还是没有发生更改？为什么？此时需要重新开启一个会话才可以：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/O9lcCX8x17Im.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/O9lcCX8x17Im.png" alt="mark"></p>
 <p>接下来实行一个较慢的查询，如下图，但是记得要在配置文件中做如下配置：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/iViAaBWQ7nvu.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/iViAaBWQ7nvu.png" alt="mark"></p>
 <p>接着去日志文件中查看存在哪些超过阈值的SQL就好了：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/G1ABK9QDUHAv.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/G1ABK9QDUHAv.png" alt="mark"></p>
 <p>查询当前系统中有多少条慢查询记录：</p>
-<p><img src="http://img.zouchanglin.cn///20200202/x0BE1sITkkgY.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200202/x0BE1sITkkgY.png" alt="mark"></p>
 <p>记载一下我的配置文件</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">slow_query_log</span>=<span class="number">1</span><span class="comment">;</span></span><br><span class="line"><span class="attr">slow_query_log_file</span>=/var/lib/mysql/tim-slow.log<span class="comment">;</span></span><br><span class="line"><span class="attr">long_query_time</span>=<span class="number">3</span><span class="comment">;</span></span><br><span class="line"><span class="attr">log_output</span>=FILE</span><br></pre></td></tr></table></figure>
 
-<h2 id="日志分析工具mysqldumpshow"><a href="#日志分析工具mysqldumpshow" class="headerlink" title="日志分析工具mysqldumpshow"></a>日志分析工具mysqldumpshow</h2><p><img src="http://img.zouchanglin.cn///20200202/bky12gmcXQej.png" alt="mark"></p>
+<h2 id="日志分析工具mysqldumpshow"><a href="#日志分析工具mysqldumpshow" class="headerlink" title="日志分析工具mysqldumpshow"></a>日志分析工具mysqldumpshow</h2><p><img src="https://img.zouchanglin.cn///20200202/bky12gmcXQej.png" alt="mark"></p>
 <p>在生产环境中，如果要手工分析日志，查找、分析 SQL，显然是个体力活，MYSQL 提供了日志分析工具mysqldumpshow</p>
 <ul>
 <li>s:是表示按何种方式排序</li>

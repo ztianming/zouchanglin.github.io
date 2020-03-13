@@ -99,7 +99,7 @@
       
 
       
-      <p><img src="http://img.zouchanglin.cn///20200225/meVCCACO399R.png" alt="mark"></p>
+      <p><img src="https://img.zouchanglin.cn///20200225/meVCCACO399R.png" alt="mark"></p>
 <p>HTTP协议的信息传输完全以明文方式，不做任何加密，相当于是在网络上”裸奔”。意思就是如果我们以HTTP来传输数据的话由于是明文数据，则很容易发生不安全事故，比如我登陆一个网站，那么如果是HTTP明文传输肯定就会直接把用户名和密码放在明文中，这样是非常不安全的，处在同一个局域网下的小伙伴直接抓包就可以获取你的用户名和密码，那么应该怎么办呢？</p>
 <a id="more"></a>
 
@@ -108,19 +108,19 @@
 <p>事先约定一种对称加密方式，并且约定一个随机生成的密钥。后续的通信中，信息发送方都使用密钥对信息加密，而信息接收方通过同样的密钥对信息解密。 </p>
 </blockquote>
 <p>假设A和B通过网络进行对话，这样做是不是就绝对安全了呢？并不是。虽然我们在后续的通信中对明文进行了加密，但是第一次约定加密方式和密钥的通信仍然是明文，如果第一次通信就已经被拦截了，那么密钥就会泄露给中间人，中间人仍然可以解密后续所有的通信内容。</p>
-<p><img src="http://img.zouchanglin.cn///20200225/uNwMf2Lztm7V.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200225/uNwMf2Lztm7V.png" alt="mark"></p>
 <blockquote>
 <p><strong>非对称加密</strong></p>
 <p>非对称加密的一组秘钥对中，包含一个公钥和一个私钥。明文既可以用公钥加密，用私钥解密；也可以用私钥加密，用公钥解密。 </p>
 </blockquote>
 <p>看看下面的例子，看下面的例子之前很有必要把非对称加密的特点再复习一下：<strong>明文既可以用公钥加密，用私钥解密；也可以用私钥加密，用公钥解密。</strong> </p>
 <p>B同学和A同学想要通过非对称加密的方式进行通信，B准备好了自己的私钥和公钥，接下来把自己的公钥发给了A，A此时生成了自己的秘钥Akey，并且A同学利用B发过来的公钥加密自己的秘钥Akey，之后发给B同学，B同学通过自己的私钥对数据包解密，得到的A的秘钥Akey，这样接下来双方只需要用这个Akey对信息加密就可以万无一失了，因为别人不可能知道Akey</p>
-<p><img src="http://img.zouchanglin.cn///20200225/O6s2m6GrKdy7.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200225/O6s2m6GrKdy7.png" alt="mark"></p>
 <p>但是，这样做的风险同样在于第一次秘钥发送：</p>
-<p><img src="http://img.zouchanglin.cn///20200225/lW6cnwYh4Pmy.png" alt="mark"><br>这就是为什么使用了非对称加密还是解决不了信息安全传输的原因， 难道再把公钥进行一次加密吗？ 很显然不可能，如果再把公钥进行一次加密，黑客要做的只是多解密一次罢了， 这时候，我们有必要引入第三方，一个权威的证书颁发机构（CA）来解决，什么是证书呢？下面是证书的组成：</p>
-<p><img src="http://img.zouchanglin.cn///20200225/NzksiAikI14A.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200225/lW6cnwYh4Pmy.png" alt="mark"><br>这就是为什么使用了非对称加密还是解决不了信息安全传输的原因， 难道再把公钥进行一次加密吗？ 很显然不可能，如果再把公钥进行一次加密，黑客要做的只是多解密一次罢了， 这时候，我们有必要引入第三方，一个权威的证书颁发机构（CA）来解决，什么是证书呢？下面是证书的组成：</p>
+<p><img src="https://img.zouchanglin.cn///20200225/NzksiAikI14A.png" alt="mark"></p>
 <p>下面还是B同学的A同学通信的例子：</p>
-<p><img src="http://img.zouchanglin.cn///20200225/yzwzrwOMt3B7.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200225/yzwzrwOMt3B7.png" alt="mark"></p>
 <p>那么这样做的话有没有可能出现黑客拦截证书，然后替换成自己的证书的情况呢？</p>
 <p>这是不可能的，因为证书的签名是由服务端网址等信息生成的，并且经过机构私钥加密，中间人也无法篡改。所以，黑客的假证书是无法验证通过的。</p>
 

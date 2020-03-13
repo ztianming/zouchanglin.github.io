@@ -102,7 +102,7 @@
 
       
       <p>通常我们需要编写好的错误处理方式，在了避免某些程序员滥用异常，于是Go这里直接把异常这一块给砍掉了，最终还是通过返回值来判断程序的异常情况，毕竟Go可是支持多返回值的语言，比如atoi、itoa等函数，就不能忽略它的第二个返回值，因为第二个返回值代表了转换是否成功！不过Golang还是提供了一些错误处理机制的</p>
-<p><img src="http://img.zouchanglin.cn///20200217/IvGCHwjRpvVi.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/IvGCHwjRpvVi.png" alt="mark"></p>
 <a id="more"></a>
 
 <h2 id="Go的错误机制"><a href="#Go的错误机制" class="headerlink" title="Go的错误机制"></a>Go的错误机制</h2><p>1、没有异常机制</p>
@@ -110,9 +110,9 @@
 <p>3、可以通过errors.New来快速创建错误实例</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span>&#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">error.New(<span class="string">"n must be in range[0, 1]"</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://img.zouchanglin.cn///20200217/6GeHQlGfRBh2.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/6GeHQlGfRBh2.png" alt="mark"></p>
 <p>但是这样做只是给开发者标识，Code怎么认识呢？难道去string里判断吗？当然不是，可以预定义一些错误：</p>
-<p><img src="http://img.zouchanglin.cn///20200217/lsQ96Hih977h.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/lsQ96Hih977h.png" alt="mark"></p>
 <h2 id="处理错误最佳实践"><a href="#处理错误最佳实践" class="headerlink" title="处理错误最佳实践"></a>处理错误最佳实践</h2><p>1、预定义错误，code里判断</p>
 <p>2、及早失败，避免嵌套</p>
 <h2 id="panic与recover"><a href="#panic与recover" class="headerlink" title="panic与recover"></a>panic与recover</h2><p>panic用于不可恢复的错误，类似于Java的Error</p>
@@ -122,14 +122,14 @@
 <p>os.Exit退出时不会调用defer指定的函数</p>
 <p>os.Exit退出时不会输出当前调用栈信息</p>
 </blockquote>
-<p><img src="http://img.zouchanglin.cn///20200217/jALL18v7QSrW.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/jALL18v7QSrW.png" alt="mark"></p>
 <p>接下来看看recover</p>
 <p>在Java中如果你不知道要抛出什么错误，于是乎很多人直接来个Catch Throwable，作为一个异常无Fack说，C++中是直接catch…作为一个异常无Fack说</p>
-<p><img src="http://img.zouchanglin.cn///20200217/GLUVbDRlXF9d.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/GLUVbDRlXF9d.png" alt="mark"></p>
 <p>在Go语言中可以通过defer定义的函数去执行一些错误恢复的行为</p>
-<p><img src="http://img.zouchanglin.cn///20200217/dQdPjbBd1Swd.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/dQdPjbBd1Swd.png" alt="mark"></p>
 <p>很多人容易在defer处理错误时把recover获得的错误对象打印到日志文件中，这是一种非常危险的做法，一定要当心recover在做的事情，因为recover的时候并不去检测到底发生了什么错误，而是直接忽略了这个错误，那么如果这个时候系统的核心资源消耗完了，如果我们强制性的恢复的话系统仍然是不能正常工作的，还会导致我们的健康检查程序没办法检查出当前系统的问题，因为很多的health check只是检查进程在还是不在，因为我们的进程是在的，所以会导致僵尸服务进程，虽然活着但是无法正常提供服务。于是我们可以采用恢复设计模式中的一种叫做Let it Crash ，health check进程就会帮我们重启这个服务</p>
-<p><img src="http://img.zouchanglin.cn///20200217/RfmYAwVDdG6O.png" alt="mark"></p>
+<p><img src="https://img.zouchanglin.cn///20200217/RfmYAwVDdG6O.png" alt="mark"></p>
 
       
       <!-- 打赏 -->
