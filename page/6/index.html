@@ -75,6 +75,150 @@
     
     
     
+    <article id="post-高效的Linux系统编程环境" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/%E9%AB%98%E6%95%88%E7%9A%84Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/"
+    >高效的Linux系统编程环境</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/%E9%AB%98%E6%95%88%E7%9A%84Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time datetime="2019-12-13T12:01:35.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a> / <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Linux/">Linux</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200301/w3XwYriSoTQ9.png" alt="mark"></p>
+<p>因为笔者的电脑是Windows，所以要进行Linux系统编程不得不准备一台虚拟机，当然子系统Ubuntu也是可以的，因为昨天解决了一个虚拟机固定IP的问题，<a href="https://zouchanglin.cn/2019/12/12/CentOS7虚拟机设置固定IP">《CentOS7虚拟机设置固定IP》</a>所以一旦连接稳定，那么就可以开始开发了，哈哈，今天主要是通过Clion这个工具（和IDEA是亲兄弟）来进行高效的Linux系统编程环境搭建！</p>
+      
+      <a class="article-more-link" href="/2019/12/13/%E9%AB%98%E6%95%88%E7%9A%84Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/12/13/%E9%AB%98%E6%95%88%E7%9A%84Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" data-id="ck7pnp3u600fawkwkbucm7j9n"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-CentOS7虚拟机设置固定IP" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/"
+    >CentOS7虚拟机设置固定IP</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/" class="article-date">
+  <time datetime="2019-12-12T12:01:35.000Z" itemprop="datePublished">2019-12-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a> / <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Linux/">Linux</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200301/NOwCYlkoT90r.png" alt="mark"></p>
+<p>虚拟机设置为固定IP，不管主机在什么网络环境下，是断网环境，还是连接任何网段访问外网的环境下，虚拟机的IP都固定不变，而且使用终端连接，始终不变，正常连接；  虚拟机的固定IP可以按照自己想设置的IP地址网段随意设置，比如我就想设置固定IP为192.168.2.2；</p>
+<p>经过查询资料，终于得出一个完美解决方案：<strong>采用方式为NAT模式+固定IP的模式</strong> 。</p>
+<p>配置环境说明：主机为Win10专业版，虚拟机为VMware Workstation 15 Pro，虚拟机中的Linux系统为CentOS 7.3_64位。 </p>
+      
+      <a class="article-more-link" href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/" data-id="ck7pnp3pn000twkwk82no85rs"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-重新认识volatile" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -127,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" data-id="ck7688daq00e9u8wk8aoo84wz"
+      <a data-url="https://zouchanglin.cn/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" data-id="ck7pnp3u400f3wkwk424q0f4f"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
@@ -197,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" data-id="ck7688d9h009yu8wkgbd125nb"
+      <a data-url="https://zouchanglin.cn/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" data-id="ck7pnp3sw00aswkwkc1uz8q79"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li></ul>
@@ -268,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/11/21/TCP%E5%8D%8F%E8%AE%AE%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7/" data-id="ck7688d8k006yu8wkga4dffhi"
+      <a data-url="https://zouchanglin.cn/2019/11/21/TCP%E5%8D%8F%E8%AE%AE%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7/" data-id="ck7pnp3rs007ewkwk42uy9x7q"
         class="article-share-link">分享</a>
       
     </footer>
@@ -337,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/11/16/%E8%BE%85%E5%8A%A9IP%E7%9A%84ICMP/" data-id="ck7688dal00dru8wkdefw7k6m"
+      <a data-url="https://zouchanglin.cn/2019/11/16/%E8%BE%85%E5%8A%A9IP%E7%9A%84ICMP/" data-id="ck7pnp3tw00ebwkwkgorndqiv"
         class="article-share-link">分享</a>
       
     </footer>
@@ -408,7 +552,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/30/DNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" data-id="ck7688d6l0014u8wk0vh3775b"
+      <a data-url="https://zouchanglin.cn/2019/10/30/DNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" data-id="ck7pnp3pt001gwkwkaqvjhpli"
         class="article-share-link">分享</a>
       
     </footer>
@@ -476,7 +620,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/" data-id="ck7688d86005qu8wk2c859cge"
+      <a data-url="https://zouchanglin.cn/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/" data-id="ck7pnp3rg0066wkwke39u7h4h"
         class="article-share-link">分享</a>
       
     </footer>
@@ -545,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" data-id="ck7688dah00dhu8wk7mqk76jn"
+      <a data-url="https://zouchanglin.cn/2019/10/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" data-id="ck7pnp3tt00dxwkwk1n606i33"
         class="article-share-link">分享</a>
       
     </footer>
@@ -613,153 +757,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/29/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%88%86%E7%89%87/" data-id="ck7688d77002pu8wkcdk1bejs"
+      <a data-url="https://zouchanglin.cn/2019/10/29/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%88%86%E7%89%87/" data-id="ck7pnp3qb002vwkwkguuqdv8l"
         class="article-share-link">分享</a>
       
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-分布式架构基础" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/"
-    >分布式架构基础</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2019-10-26T06:56:09.000Z" itemprop="datePublished">2019-10-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/">分布式理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="分布式的定义"><a href="#分布式的定义" class="headerlink" title="分布式的定义"></a>分布式的定义</h1><p>由多个计算机完成一系列任务， 一个业务拆分成多个子系统，部署在不同的服务器上  </p>
-<p><img src="https://img.zouchanglin.cn///20200202/NPEuPRc5wxNN.png" alt="mark"></p>
-<p>分布式系统需要解决的问题：</p>
-<p>1、任务分解</p>
-<p>2、节点通信</p>
-      
-      <a class="article-more-link" href="/2019/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" data-id="ck7688d9a0099u8wkewu88byi"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-异常处理与资源释放" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/"
-    >异常处理与资源释放</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/" class="article-date">
-  <time datetime="2019-10-25T15:54:55.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p> JVM每实例化一个 Exception，都会对当时的栈进行快照，这是一个相对比较重的操作。如果发生的非常频繁，这个开销可就不能被忽略了 。try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。 </p>
-      
-      <a class="article-more-link" href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/" data-id="ck7688d9q00aru8wkgw9y3ibw"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
     </footer>
 
   </div>

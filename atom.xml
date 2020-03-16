@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-13T03:06:29.627Z</updated>
+  <updated>2020-03-16T12:32:48.235Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java的四种引用</title>
+    <link href="https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/</id>
+    <published>2020-03-15T06:01:35.000Z</published>
+    <updated>2020-03-16T12:32:48.235Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200316/mALYmfXLzFOP.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在Java语言中，除了原始数据类型的变量，其他所有都是所谓的引用类型，指向各种不同的对象，理解引用对于掌握Java对象生命周期和JVM内部相关机制非常有帮助。本文讲述了强引用、软引用、弱引用、幻象引用的区别以及一些具体使用场景，而且是配合ReferenceQueue使用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>请丢弃finalize</title>
+    <link href="https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/"/>
+    <id>https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/</id>
+    <published>2020-03-14T23:01:35.000Z</published>
+    <updated>2020-03-16T12:33:04.822Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用过JDK9的同学应该发现了，finalize方法在JDK9中已经被标记为deprecated，今天探讨一下finalize方法。如果没有特别的原因，不要实现finalize方法，也不要指望利用它来进行资源回收。因为你无法保证finalize什么时候执行，执行的是否符合预期。使用不当会影响性能，导致程序死锁、挂起等。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
+    
+  </entry>
   
   <entry>
     <title>9种垃圾收集器</title>
@@ -136,30 +183,6 @@
   </entry>
   
   <entry>
-    <title>通俗理解五种IO模型</title>
-    <link href="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</id>
-    <published>2020-02-29T12:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.774Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
     <title>select、poll和epoll多路复用</title>
     <link href="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</id>
@@ -174,6 +197,30 @@
 &lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在以前的文章中介绍了五种IO模型，分别是阻塞式IO、非阻塞式IO、信号驱动IO、多路复用IO、异步IO；前四种都属于同步IO。今天重点介绍的是多路复用IO，多路复用IO通俗讲就是一次等待多个文件描述符，减少了等待时间，提高了IO过程的效率（此IO过程并不是只是从内核态到用户态数据的拷贝，而是从发起IO请求直到IO完成的过程），接下来将介绍Linux的三种多路复用模型。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>通俗理解五种IO模型</title>
+    <link href="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</id>
+    <published>2020-02-29T12:01:35.000Z</published>
+    <updated>2020-03-13T03:06:29.774Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -444,56 +491,6 @@
       <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
     
       <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Cgroups在Docker中的应用</title>
-    <link href="https://zouchanglin.cn/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
-    <id>https://zouchanglin.cn/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</id>
-    <published>2020-02-22T04:20:19.000Z</published>
-    <updated>2020-03-13T03:06:29.640Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前几篇文章讲述了Linux的Cgroups技术，&lt;a href=&quot;https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/&quot;&gt;《Linux-Cgroups的资源控制》&lt;/a&gt;，主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：&lt;code&gt;docker run -m 设置内存限制&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;可以看到Docker通过为每个容器创建Cgroup并通过Cgroup去配置的资源限制和资源监控。&lt;/strong&gt; &lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Apache Freemarker的一个小坑</title>
-    <link href="https://zouchanglin.cn/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/"/>
-    <id>https://zouchanglin.cn/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/</id>
-    <published>2020-02-21T03:38:53.000Z</published>
-    <updated>2020-03-13T03:06:29.630Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn/FjkyX6iIHmYl6IFqrwnlZUnLBFXd&quot; alt=&quot;xxx.png&quot;&gt;&lt;br&gt;前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大&lt;br&gt;于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：&lt;a href=&quot;https://issues.apache.org/jira/browse/FREEMARKER-132&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://issues.apache.org/jira/browse/FREEMARKER-132&lt;/a&gt; ,果然是官方站点呀，反馈还是很快的，系统还自动发了邮件！&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
-    
-      <category term="模板引擎" scheme="https://zouchanglin.cn/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/"/>
-    
-      <category term="前端" scheme="https://zouchanglin.cn/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   

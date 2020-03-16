@@ -75,6 +75,148 @@
     
     
     
+    <article id="post-Cgroups在Docker中的应用" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"
+    >Cgroups在Docker中的应用</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="article-date">
+  <time datetime="2020-02-22T04:20:19.000Z" itemprop="datePublished">2020-02-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>之前几篇文章讲述了Linux的Cgroups技术，<a href="https://zouchanglin.cn/2020/02/20/Linux-Cgroups的资源控制/">《Linux-Cgroups的资源控制》</a>，主要是通过Cgroups实现了对进程的资源限制，那么在Docker中是如何运用Cgroups的呢？我们知道Docker是通过Cgroups去做的容器的资源限制和监控，我们下面就以一个实际的容器实例来看下Docker是如何配置Cgroups的：<code>docker run -m 设置内存限制</code></p>
+<p><img src="https://img.zouchanglin.cn///20200222/U7v1jf2JBKla.png" alt="mark"></p>
+<p><strong>可以看到Docker通过为每个容器创建Cgroup并通过Cgroup去配置的资源限制和资源监控。</strong> </p>
+      
+      <a class="article-more-link" href="/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/22/Cgroups%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" data-id="ck7pnp3pp0012wkwk8xf41clt"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Apache-Freemarker的一个小坑" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/"
+    >Apache Freemarker的一个小坑</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/" class="article-date">
+  <time datetime="2020-02-21T03:38:53.000Z" itemprop="datePublished">2020-02-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn/FjkyX6iIHmYl6IFqrwnlZUnLBFXd" alt="xxx.png"><br>前段时间用到了Apache Freemarker来做前端页面，发现一个问题，就是JavaBean的Long类型和Integer类型向模板中注入的时候，只要是注入input类型，那么大<br>于999的数字则不会被显示，这个问题我也问了Apache官方的论坛：<a href="https://issues.apache.org/jira/browse/FREEMARKER-132" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/FREEMARKER-132</a> ,果然是官方站点呀，反馈还是很快的，系统还自动发了邮件！</p>
+      
+      <a class="article-more-link" href="/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/21/Apache-Freemarker%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/" data-id="ck7pnp3pg000dwkwk9njba6sx"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="tag">模板引擎</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Linux-Cgroups的资源控制" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -128,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/20/Linux-Cgroups%E7%9A%84%E8%B5%84%E6%BA%90%E6%8E%A7%E5%88%B6/" data-id="ck7688d7g003ku8wk253sdq7x"
+      <a data-url="https://zouchanglin.cn/2020/02/20/Linux-Cgroups%E7%9A%84%E8%B5%84%E6%BA%90%E6%8E%A7%E5%88%B6/" data-id="ck7pnp3qn003vwkwkabox2k3e"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -199,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/" data-id="ck7688dao00e2u8wkaz247c6i"
+      <a data-url="https://zouchanglin.cn/2020/02/19/%E9%80%9A%E8%BF%87Namespace%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB/" data-id="ck7pnp3u000eswkwkfx7ufypp"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -273,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" data-id="ck7688da900cwu8wka57g0d6o"
+      <a data-url="https://zouchanglin.cn/2020/02/18/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94Namespace/" data-id="ck7pnp3tr00dnwkwk11eibq9y"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
@@ -344,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" data-id="ck7688d9v00bdu8wkfz5qf4ua"
+      <a data-url="https://zouchanglin.cn/2020/02/18/%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97/" data-id="ck7pnp3tc00cawkwk6nb07rlo"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
@@ -415,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" data-id="ck7688d9d009ou8wkbg2uf9u2"
+      <a data-url="https://zouchanglin.cn/2020/02/17/%E5%9C%A8Golang%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" data-id="ck7pnp3sr00aewkwkeb6wg4xz"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="tag">异常处理</a></li></ul>
@@ -487,7 +629,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-id="ck7688d9k00a5u8wk7uk6ebvz"
+      <a data-url="https://zouchanglin.cn/2020/02/17/%E5%AE%9E%E8%B7%B5Go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-id="ck7pnp3sx00awwkwkbq0r7v40"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a></li></ul>
@@ -558,7 +700,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" data-id="ck7688d6u001nu8wkh65vfk9w"
+      <a data-url="https://zouchanglin.cn/2020/02/16/Golang%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" data-id="ck7pnp3q0001wwkwk44l3h53a"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
@@ -629,154 +771,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" data-id="ck7688d6y0021u8wkgbchg6n5"
+      <a data-url="https://zouchanglin.cn/2020/02/16/Golang%E7%9A%84%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" data-id="ck7pnp3q40027wkwk6txd70xe"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-IDEA插件推荐" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/"
-    >IDEA插件推荐</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="article-date">
-  <time datetime="2020-02-14T16:00:00.000Z" itemprop="datePublished">2020-02-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200216/igy99NdTRXcF.png" alt="mark"></p>
-<h2 id="Alibaba-Java-Coding-Guidelines"><a href="#Alibaba-Java-Coding-Guidelines" class="headerlink" title="Alibaba Java Coding Guidelines"></a>Alibaba Java Coding Guidelines</h2><p>写代码怎么能没有规范呢？这款插件是伴随阿里巴巴编码约规出现的，自我感觉是必须要安装的插件</p>
-<h2 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h2><p>以前的Java项目中，充斥着太多不友好的代码：各种getter/setter/toString；异常处理；I/O流的关闭操作等等，这些样板代码既没有技术含量，又影响着代码的美观，Lombok必备！不要忘记引入Lombok依赖</p>
-      
-      <a class="article-more-link" href="/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/15/IDEA%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" data-id="ck7688d75002iu8wk0zki6953"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA/" rel="tag">IDEA</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-NIO网络通信" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"
-    >NIO网络通信</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="article-date">
-  <time datetime="2020-02-08T23:52:02.000Z" itemprop="datePublished">2020-02-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="阻塞式IO与非阻塞式IO"><a href="#阻塞式IO与非阻塞式IO" class="headerlink" title="阻塞式IO与非阻塞式IO"></a>阻塞式IO与非阻塞式IO</h2><p>传统的IO流都是阻塞式的。也就是说，当一个线程调用read() 或write()时，该线程被阻塞，直到有一些数据被读取或写入，该线程在此期间不能执行其他任务。因此，在完成网络通信进行IO操作时，由于线程会阻塞，所以服务器端必须为每个客户端都提供一个独立的线程进行处理，当服务器端需要处理大量客户端时，性能急剧下降。</p>
-<p>Java NIO是非阻塞模式的。当线程从某通道进行读写数据时，若没有数据可用时，该线程可以进行其他任务。线程通常将非阻塞IO的空闲时间用于在其他通道上执行I0操作，所以单独的线程可以管理多个输入和输出通道。因此，NIO可以让服务器端使用一个或有限几个线程来同时处理连接到服务器端的所有客户端。</p>
-<p><img src="https://img.zouchanglin.cn///20200209/KXe8DDICWRg6.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" data-id="ck7688d89005xu8wk93043eby"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li></ul>
 
     </footer>
 

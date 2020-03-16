@@ -75,6 +75,154 @@
     
     
     
+    <article id="post-图像亮度对比度调整" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/"
+    >图像亮度对比度调整</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/" class="article-date">
+  <time datetime="2018-08-29T10:09:30.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="读写像素"><a href="#读写像素" class="headerlink" title="读写像素"></a>读写像素</h2><h3 id="读一个GRAY像素点的像素值（CV-8UC1）"><a href="#读一个GRAY像素点的像素值（CV-8UC1）" class="headerlink" title="读一个GRAY像素点的像素值（CV_8UC1）"></a>读一个GRAY像素点的像素值（CV_8UC1）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line">Scalar intensity = img.at&lt;uchar&gt;(y, x); </span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line">Scalar intensity = img.at&lt;uchar&gt;(Point(x, y));</span><br></pre></td></tr></table></figure>
+
+<h3 id="读一个BGR像素点的像素值"><a href="#读一个BGR像素点的像素值" class="headerlink" title="读一个BGR像素点的像素值"></a>读一个BGR像素点的像素值</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取整形</span></span><br><span class="line">Vec3b intensity = src.at&lt;Vec3b&gt;(x, y);</span><br><span class="line"><span class="keyword">int</span> b = intensity [<span class="number">0</span>];</span><br><span class="line"><span class="keyword">int</span> g = intensity [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> r = intensity [<span class="number">2</span>];</span><br><span class="line"><span class="comment">//读取浮点型</span></span><br><span class="line">Vec3f intensity = img.at&lt;Vec3f&gt;(y, x); </span><br><span class="line"><span class="keyword">float</span> blue = intensity.val[<span class="number">0</span>]; </span><br><span class="line"><span class="keyword">float</span> green = intensity.val[<span class="number">1</span>]; </span><br><span class="line"><span class="keyword">float</span> red = intensity.val[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vec3b与Vec3F"><a href="#Vec3b与Vec3F" class="headerlink" title="Vec3b与Vec3F"></a>Vec3b与Vec3F</h2><ul>
+<li>Vec3b对应三通道的顺序是blue、green、red的uchar类型数据。</li>
+<li>Vec3f对应三通道的float类型数据</li>
+<li>把CV_8UC1转换到CV32F1实现如下：<code>src.convertTo(dst, CV_32F);</code></li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/" data-id="ck7pnp3sq00a7wkwkfqicdloc"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-OpenCV矩阵掩模" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/"
+    >OpenCV矩阵掩模</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" class="article-date">
+  <time datetime="2018-08-27T10:09:30.000Z" itemprop="datePublished">2018-08-27</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>OpenCV是计算机视觉开源库，主要算法涉及图像处理和机器学习相关方法。是Intel公司贡献出来的，俄罗斯工程师贡献大部分C/C++代码。官网：<a href="https://opencv.org/" target="_blank" rel="noopener">https://opencv.org/</a> 从这里 <a href="https://opencv.org/releases.html" target="_blank" rel="noopener">https://opencv.org/releases.html</a> 你可以下载到自己想要的版本！</p>
+      
+      <a class="article-more-link" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" data-id="ck7pnp3rl006owkwk3ripan8n"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Validate做表单校验" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -127,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" data-id="ck7688d8r007nu8wkfojgdycs"
+      <a data-url="https://zouchanglin.cn/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" data-id="ck7pnp3rx0083wkwk9y9c6zwl"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
@@ -204,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" data-id="ck7688dar00egu8wk5tp1g01x"
+      <a data-url="https://zouchanglin.cn/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" data-id="ck7pnp3u600f6wkwkcm9w5pl0"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
@@ -276,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/07/15/%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" data-id="ck7688d8z008ju8wkfxg30oy3"
+      <a data-url="https://zouchanglin.cn/2018/07/15/%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" data-id="ck7pnp3sd009awkwkbpv1bl40"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag">概率论</a></li></ul>
@@ -346,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/07/12/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" data-id="ck7688d9c009ku8wk55mhhhee"
+      <a data-url="https://zouchanglin.cn/2018/07/12/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" data-id="ck7pnp3sk009twkwkarx7focx"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
@@ -416,7 +564,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/" data-id="ck7688d8x0088u8wk5bazcqvw"
+      <a data-url="https://zouchanglin.cn/2018/07/03/%E4%B8%80%E4%B8%AA%E6%95%85%E4%BA%8B%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/" data-id="ck7pnp3s0008ewkwk3jkq9t53"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
@@ -486,7 +634,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/" data-id="ck7688d7a0031u8wkgjd2ag6y"
+      <a data-url="https://zouchanglin.cn/2018/06/19/Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F/" data-id="ck7pnp3qk003nwkwkgczw6n40"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
@@ -564,7 +712,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/" data-id="ck7688d94008yu8wk4k0z0oki"
+      <a data-url="https://zouchanglin.cn/2018/06/18/%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84/" data-id="ck7pnp3sg009iwkwk0grt5xit"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
@@ -642,152 +790,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" data-id="ck7688d7w004zu8wk3qpmenqx"
+      <a data-url="https://zouchanglin.cn/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" data-id="ck7pnp3rb005uwkwkgumf2d11"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-MySQL存储引擎" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/"
-    >MySQL存储引擎</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="article-date">
-  <time datetime="2018-06-07T10:09:30.000Z" itemprop="datePublished">2018-06-07</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>所谓安装数据库服务器，只是在机器上安装了一个数据库管理系统程序，这个管理程序可以管理多个数据库，一般开发人员会针对每一个应用创建一个数据库。<br>为保存应用中实体的数据，一般会在数据库中创建多个表，以保存程序中实体的数据。<br>数据库服务器、数据库和表的关系如下：</p>
-<p><img src="https://img.zouchanglin.cn///20200201/Ion7IJe8ARRL.png" alt="mark"></p>
-<p> MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可 MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品，只是存储引擎不同！ </p>
-      
-      <a class="article-more-link" href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-id="ck7688d800057u8wk98qd6pzc"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Linux调度器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/"
-    >Linux调度器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/" class="article-date">
-  <time datetime="2018-05-28T10:09:01.000Z" itemprop="datePublished">2018-05-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>进程是操作系统虚拟出来的概念，用来组织计算机中的任务。它从诞生到随着CPU时间执行，直到最终消失。不过，进程的生命都得到了操作系统内核的关照。就好像疲于照顾几个孩子的母亲内核必须做出决定，如何在进程间分配有限的计算资源，最终让用户获得最佳的使用体验。内核中安排进程执行的模块称为调度器（scheduler）。这里将介绍调度器的工作方式。</p>
-      
-      <a class="article-more-link" href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/" data-id="ck7688d7o0048u8wkbsvu2ktf"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
     </footer>
 

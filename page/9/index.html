@@ -75,6 +75,148 @@
     
     
     
+    <article id="post-DockerFile快速构建自定义镜像" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/"
+    >DockerFile快速构建自定义镜像</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/" class="article-date">
+  <time datetime="2019-08-03T10:31:28.000Z" itemprop="datePublished">2019-08-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><h2 id="什么是Dockerfile"><a href="#什么是Dockerfile" class="headerlink" title="什么是Dockerfile"></a>什么是Dockerfile</h2><p>Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本。通俗的理解，和Maven一样，只需要写好pom文件就可以定义整个工程的构建，DockerFile是一样的，通过这个脚本可以构建出自己想要的容器！</p>
+      
+      <a class="article-more-link" href="/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/08/03/DockerFile%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F/" data-id="ck7pnp3px001jwkwk38gl15xm"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Docker镜像与数据容器卷" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/"
+    >Docker镜像与数据容器卷</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/" class="article-date">
+  <time datetime="2019-08-03T03:47:37.000Z" itemprop="datePublished">2019-08-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h1><p>镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<h2 id="UnionFS（联合文件系统）"><a href="#UnionFS（联合文件系统）" class="headerlink" title="UnionFS（联合文件系统）"></a>UnionFS（联合文件系统）</h2><p>UnionFS（联合文件系统）：Union文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into a single virtual filesystem)。Union 文件系统是 Docker 镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。</p>
+<p>特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+      
+      <a class="article-more-link" href="/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/08/03/Docker%E9%95%9C%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8%E5%8D%B7/" data-id="ck7pnp3q0001vwkwkd9y59ohm"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Docker底层原理与命令详解" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -127,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" data-id="ck7688d6n001au8wka35be0xw"
+      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" data-id="ck7pnp3py001owkwk8yrlcuit"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
@@ -209,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" data-id="ck7688d6q001gu8wk5fhnckm7"
+      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" data-id="ck7pnp3pz001rwkwk120ibnaq"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
@@ -286,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" data-id="ck7688d9p00aku8wkcpb9fjos"
+      <a data-url="https://zouchanglin.cn/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" data-id="ck7pnp3t300bewkwkb5n63e14"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
@@ -357,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/" data-id="ck7688d680008u8wk8lg6fbnn"
+      <a data-url="https://zouchanglin.cn/2019/07/31/Android%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90OpenCV/" data-id="ck7pnp3pe000cwkwk638w7865"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
@@ -429,7 +571,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/" data-id="ck7688da000byu8wkfce4hjyj"
+      <a data-url="https://zouchanglin.cn/2019/07/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HashMap/" data-id="ck7pnp3te00clwkwk2flec5jg"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
@@ -500,7 +642,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/27/KMP%E5%85%B6%E5%AE%9E%E4%B9%9F%E6%B2%A1%E9%82%A3%E4%B9%88%E9%9A%BE/" data-id="ck7688d7e003cu8wkbgav397o"
+      <a data-url="https://zouchanglin.cn/2019/07/27/KMP%E5%85%B6%E5%AE%9E%E4%B9%9F%E6%B2%A1%E9%82%A3%E4%B9%88%E9%9A%BE/" data-id="ck7pnp3qm003rwkwk2eev8x7n"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li></ul>
@@ -571,7 +713,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/25/%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99/" data-id="ck7688d93008uu8wkfmnt4806"
+      <a data-url="https://zouchanglin.cn/2019/07/25/%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99/" data-id="ck7pnp3se009ewkwkg4r28w6q"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
@@ -644,162 +786,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/07/24/Ubuntu%E5%AE%89%E8%A3%85%E6%97%A7%E7%89%88%E6%9C%ACDocker/" data-id="ck7688d8n007cu8wkcbkv2yba"
+      <a data-url="https://zouchanglin.cn/2019/07/24/Ubuntu%E5%AE%89%E8%A3%85%E6%97%A7%E7%89%88%E6%9C%ACDocker/" data-id="ck7pnp3rv007swkwk6hxw45t4"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mac下强有力的生产工具" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/06/16/Mac%E4%B8%8B%E5%BC%BA%E6%9C%89%E5%8A%9B%E7%9A%84%E7%94%9F%E4%BA%A7%E5%B7%A5%E5%85%B7/"
-    >Mac下强有力的生产工具</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/06/16/Mac%E4%B8%8B%E5%BC%BA%E6%9C%89%E5%8A%9B%E7%9A%84%E7%94%9F%E4%BA%A7%E5%B7%A5%E5%85%B7/" class="article-date">
-  <time datetime="2019-06-16T10:09:30.000Z" itemprop="datePublished">2019-06-16</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>下面记载一下我常用的工具，希望对大家有所帮助！</p>
-<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p><a href="https://typora.io/" target="_blank" rel="noopener">https://typora.io/</a></p>
-<p>markdown编辑器，3大平台都支持，界面美观，是我这种markdown重度使用症的必备软件！</p>
-<h2 id="itext"><a href="#itext" class="headerlink" title="itext"></a>itext</h2><p>截图即可文字识别+翻译，十分强大，现在收费了</p>
-<p>不过已经有更好的替代品了，需要的话联系我</p>
-      
-      <a class="article-more-link" href="/2019/06/16/Mac%E4%B8%8B%E5%BC%BA%E6%9C%89%E5%8A%9B%E7%9A%84%E7%94%9F%E4%BA%A7%E5%B7%A5%E5%85%B7/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/06/16/Mac%E4%B8%8B%E5%BC%BA%E6%9C%89%E5%8A%9B%E7%9A%84%E7%94%9F%E4%BA%A7%E5%B7%A5%E5%85%B7/" data-id="ck7688d7t004ou8wk1cepff0o"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Jenkins自动部署" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"
-    >Jenkins自动部署</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="article-date">
-  <time datetime="2019-06-03T10:09:30.000Z" itemprop="datePublished">2019-06-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>事先确保服务器上有Java环境与Maven环境和 Git </p>
-<h2 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h2><p>这里是Jenkins的文档 <a href="https://jenkins.io/zh/doc/" target="_blank" rel="noopener">https://jenkins.io/zh/doc/</a></p>
-<p>这里是Jenkins的下载地址<a href="https://jenkins.io/zh/download/" target="_blank" rel="noopener">https://jenkins.io/zh/download/</a></p>
-<p><strong>最好的方式应该是自己去下载Jenkins的Jar包，直接像运行jar包即可</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar jenkins.war --httpPort=80</span><br></pre></td></tr></table></figure>
-
-<p>这样直接访问<code>172.16.45.112:8080</code> 即可！</p>
-<p>成功开启服务后应该是下面这个样子：</p>
-<p><img src="https://img.zouchanglin.cn///20200201/GOHlW2aYHfRd.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" data-id="ck7688d7b0034u8wkgb08gi65"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/" rel="tag">Jenkins</a></li></ul>
 
     </footer>
 
