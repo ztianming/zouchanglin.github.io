@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-16T12:32:48.235Z</updated>
+  <updated>2020-03-17T04:39:29.829Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/</id>
     <published>2020-03-15T06:01:35.000Z</published>
-    <updated>2020-03-16T12:32:48.235Z</updated>
+    <updated>2020-03-17T04:39:29.829Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://img.zouchanglin.cn///20200316/mALYmfXLzFOP.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200316/mALYmfXLzFOP.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在Java语言中，除了原始数据类型的变量，其他所有都是所谓的引用类型，指向各种不同的对象，理解引用对于掌握Java对象生命周期和JVM内部相关机制非常有帮助。本文讲述了强引用、软引用、弱引用、幻象引用的区别以及一些具体使用场景，而且是配合ReferenceQueue使用。&lt;/p&gt;
     
     </summary>
@@ -45,7 +45,7 @@
     <link href="https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/"/>
     <id>https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/</id>
     <published>2020-03-14T23:01:35.000Z</published>
-    <updated>2020-03-16T12:33:04.822Z</updated>
+    <updated>2020-03-17T04:39:38.664Z</updated>
     
     <summary type="html">
     
