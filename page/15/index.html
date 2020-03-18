@@ -75,6 +75,84 @@
     
     
     
+    <article id="post-MySQL库表操作" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/"
+    >MySQL库表操作</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2018-06-08T10:09:30.000Z" itemprop="datePublished">2018-06-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="字符集与校验规则"><a href="#字符集与校验规则" class="headerlink" title="字符集与校验规则"></a>字符集与校验规则</h3><p>当我们创建数据库没有指定字符集和校验规则时，系统使用默认字符集：<code>utf8</code>，校验规则<br>是：<code>utf8_ general_ ci</code> ，这个校验规则中的 <code>ci</code>就是Case insensitive意为不区分大小写</p>
+<p>创建一个使用<code>utf8</code> 的字符集，并带校对规则为<code>utf8_general_ci</code>的数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database DBName charset&#x3D;utf8 collate utf8_general_ci;</span><br></pre></td></tr></table></figure>
+
+<p>查看系统默认字符集、默认校验规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;character_set_database&#39;; </span><br><span class="line">show variables like &#39;collation_database&#39;;</span><br></pre></td></tr></table></figure>
+
+<p> 支持的字符集、支持的校验规则 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show charset;</span><br><span class="line">show collation;</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" data-id="ck7pnp3rb005uwkwkgumf2d11"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-MySQL存储引擎" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -715,84 +793,13 @@
 
 </article>
     
-    <article id="post-使用服务注册特殊广播接收者" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/"
-    >使用服务注册特殊广播接收者</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/" class="article-date">
-  <time datetime="2018-03-09T11:08:56.000Z" itemprop="datePublished">2018-03-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>Android中的广播：系统在运行过程中，会发生很多事件，系统为了让其他应用知道系统发生了这个事件，会发送一个对应事件的广播，比如：电量改变，收到短信，拨打电话，屏幕解锁，系统开机，只有注册一个广播接收者，就可以接收到系统发送的广播。</p>
-<p>屏幕锁屏和解锁、电量改变等广播属于安卓系统中操作特别频繁的广播事件，若在MainActivity中注册,当MainActivity销毁时无法接收广播，所以应该在服务中去注册广播接收者，必须使用代码注册！</p>
-      
-      <a class="article-more-link" href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/" data-id="ck7pnp3sc0097wkwk7da8hqxv"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/">下一页</a>
   </nav>
   
 </section>

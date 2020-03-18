@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-17T12:25:06.404Z</updated>
+  <updated>2020-03-18T15:52:17.775Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>优雅的实现单例</title>
+    <link href="https://zouchanglin.cn/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/"/>
+    <id>https://zouchanglin.cn/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/</id>
+    <published>2020-03-18T06:01:35.000Z</published>
+    <updated>2020-03-18T15:52:17.775Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;单例模式属于创建型设计模式，一个类在虚拟机中只有一份实例。实现单例模式的核心思想在于构造函数私有化，主要实现方式分为两种：懒汉式和饿汉式。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200318/uUtN2uPGYzCk.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://zouchanglin.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
+    
+  </entry>
   
   <entry>
     <title>Java的四种引用</title>
@@ -458,29 +482,6 @@
     
       &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200223/8sHdcObI1bOG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在之前的文章中我们探究了Docker是如何使用AUFS文件系统的，现在我们开始动手实践一下AUFS，用简单的命令来创建一个AUFS文件系统，感受下如何使用AUFS和COW实现文件管理。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Union File System在Docker中的应用</title>
-    <link href="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
-    <id>https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</id>
-    <published>2020-02-22T07:15:41.000Z</published>
-    <updated>2020-03-13T03:06:29.712Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Union-File-System&quot;&gt;&lt;a href=&quot;#Union-File-System&quot; class=&quot;headerlink&quot; title=&quot;Union File System&quot;&gt;&lt;/a&gt;Union File System&lt;/h2&gt;&lt;p&gt;Union File System，简称UnionFS，关于联合文件系统我之前的一篇博客里也写过的&lt;a href=&quot;https://zouchanglin.cn/2019/08/03/Docker镜像与数据容器卷&quot;&gt;《Docker镜像与数据容器卷》&lt;/a&gt;，是一种为Linux、FreeBSD 和NetBSD操作系统设计的，把其他文件系统联合到一个联合挂载点的文件系统服务。它使用branch把不同文件系统的文件和目录“透明地”覆盖，形成一个单一一致的文件系统。这些branch或者是read-only的，或者是read-write的，所以当对这个虚拟后的联合文件系统进行写操作的时候，系统是真正写到了一个新的文件中。看起来这个虚拟后的联合文件系统是可以对任何文件进行操作的，但是其实它并没有改变原来的文件,这是因为unionfs用到了一个重要的资源管理技术，叫写时拷贝。&lt;/p&gt;
     
     </summary>
     

@@ -75,6 +75,76 @@
     
     
     
+    <article id="post-Redis的常见问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"
+    >Redis的常见问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-02-28T12:01:35.000Z" itemprop="datePublished">2020-02-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Redis最常用的数据类型有String类型、Hash、List、Set、SortedSet（分数控制的有序Set）。<br><img src="https://img.zouchanglin.cn///20200307/gsrpCh9AXzc9.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/28/Redis%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" data-id="ck7pnp3rq0077wkwka3v747j6"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-InnoDB秒级快照原理与当前读" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -718,83 +788,13 @@
 
 </article>
     
-    <article id="post-Union File System在Docker中的应用" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"
-    >Union File System在Docker中的应用</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="article-date">
-  <time datetime="2020-02-22T07:15:41.000Z" itemprop="datePublished">2020-02-22</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="Union-File-System"><a href="#Union-File-System" class="headerlink" title="Union File System"></a>Union File System</h2><p>Union File System，简称UnionFS，关于联合文件系统我之前的一篇博客里也写过的<a href="https://zouchanglin.cn/2019/08/03/Docker镜像与数据容器卷">《Docker镜像与数据容器卷》</a>，是一种为Linux、FreeBSD 和NetBSD操作系统设计的，把其他文件系统联合到一个联合挂载点的文件系统服务。它使用branch把不同文件系统的文件和目录“透明地”覆盖，形成一个单一一致的文件系统。这些branch或者是read-only的，或者是read-write的，所以当对这个虚拟后的联合文件系统进行写操作的时候，系统是真正写到了一个新的文件中。看起来这个虚拟后的联合文件系统是可以对任何文件进行操作的，但是其实它并没有改变原来的文件,这是因为unionfs用到了一个重要的资源管理技术，叫写时拷贝。</p>
-      
-      <a class="article-more-link" href="/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/22/Union%20File%20System%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" data-id="ck7pnp3rw007xwkwk9kpke6ca"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
   </nav>
   
 </section>

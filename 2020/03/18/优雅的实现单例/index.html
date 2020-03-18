@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="Java,C/C++,Python,golang,Linux,MySQL,Docker,K8S,Windows,虚拟化,计算机" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    优雅的实现单例 |  Tim&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Tim's Blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-优雅的实现单例" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  优雅的实现单例
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/" class="article-date">
+  <time datetime="2020-03-18T06:01:35.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.7k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>单例模式属于创建型设计模式，一个类在虚拟机中只有一份实例。实现单例模式的核心思想在于构造函数私有化，主要实现方式分为两种：懒汉式和饿汉式。</p>
+<p><img src="https://img.zouchanglin.cn///20200318/uUtN2uPGYzCk.png" alt="mark"></p>
+<a id="more"></a>
+
+<h1 id="饿汉式-线程安全"><a href="#饿汉式-线程安全" class="headerlink" title="饿汉式-线程安全"></a>饿汉式-线程安全</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//饿汉式单例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungryTypeSingleByFinal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> HungryTypeSingleByFinal hungryTypeSingle = <span class="keyword">new</span> HungryTypeSingleByFinal();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungryTypeSingleByFinal <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungryTypeSingle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungryTypeSingleByFinal</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="饿汉式-线程安全-1"><a href="#饿汉式-线程安全-1" class="headerlink" title="饿汉式-线程安全"></a>饿汉式-线程安全</h1><p>与上面一样，都是在类加载的时候就完成了初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//饿汉式单例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungryTypeSingleByStaticBlock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HungryTypeSingleByStaticBlock hungryTypeSingleByStaticBlock;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        hungryTypeSingleByStaticBlock = <span class="keyword">new</span> HungryTypeSingleByStaticBlock();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungryTypeSingleByStaticBlock</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungryTypeSingleByStaticBlock <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungryTypeSingleByStaticBlock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="懒汉式-线程不安全"><a href="#懒汉式-线程不安全" class="headerlink" title="懒汉式-线程不安全"></a>懒汉式-线程不安全</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例(多线程下不安全)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleNoSafe</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyTypeSingleNoSafe lazyTypeSingleNoSafe;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyTypeSingleNoSafe <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazyTypeSingleNoSafe == <span class="keyword">null</span>)&#123;</span><br><span class="line">            lazyTypeSingleNoSafe = <span class="keyword">new</span> LazyTypeSingleNoSafe();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyTypeSingleNoSafe;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleNoSafe</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="懒汉式-方法加锁-线程安全"><a href="#懒汉式-方法加锁-线程安全" class="headerlink" title="懒汉式-方法加锁-线程安全"></a>懒汉式-方法加锁-线程安全</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例 + 获取对象加锁</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafe</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyTypeSingleSafe lazyTypeSingleSafe;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazyTypeSingleSafe <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazyTypeSingleSafe == <span class="keyword">null</span>)&#123;</span><br><span class="line">            lazyTypeSingleSafe = <span class="keyword">new</span> LazyTypeSingleSafe();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyTypeSingleSafe;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleSafe</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="懒汉式-双重检查-线程安全"><a href="#懒汉式-双重检查-线程安全" class="headerlink" title="懒汉式-双重检查-线程安全"></a>懒汉式-双重检查-线程安全</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例 + 双重锁检查</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (LazyTypeSingleSafeDoubleCheck<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    lazyTypeSingleSafeDoubleCheck = <span class="keyword">new</span> LazyTypeSingleSafeDoubleCheck();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种做法相对于上面的做法的好处就是，如果已经实例化了则直接返回对象，而不是像上面那样每次都进入同步方法，双重检查只是在对象未初始化的时候加锁，一旦对象已经初始化则后面的线程无需加锁直接获取到了单例对象，无疑减小了开销。</p>
+<blockquote>
+<p><strong>表面看起来线程安全，逻辑也没问题，实则有漏洞，后面会讲</strong></p>
+</blockquote>
+<h1 id="懒汉式-静态内部类-线程安全-推荐"><a href="#懒汉式-静态内部类-线程安全-推荐" class="headerlink" title="懒汉式-静态内部类-线程安全(推荐)"></a>懒汉式-静态内部类-线程安全(推荐)</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例 静态内部类实现（推荐）</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafeInnerClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafeInnerClassHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> LazyTypeSingleSafeInnerClass singleSafe = <span class="keyword">new</span> LazyTypeSingleSafeInnerClass();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyTypeSingleSafeInnerClass <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> LazyTypeSingleSafeInnerClassHolder.singleSafe;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleSafeInnerClass</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式是比较推荐的方式，从外部无法访问静态内部类LazyTypeSingleSafeInnerClassHolder，只有当调用LazyTypeSingleSafeInnerClass.getInstance方法的时候，才能得到单例对象singleSafe。 这里要注意的是singleSafe对象初始化的时机并不是在单例类LazyTypeSingleSafeInnerClass被加载的时候，而是在调用getInstance方法，使得静态内部类LazyTypeSingleSafeInnerClassHolder被加载的时候。因此这种实现方式是利用classloader的加载机制来实现懒加载，并保证构建单例的线程安全。 </p>
+<h1 id="无法破解的单例模式"><a href="#无法破解的单例模式" class="headerlink" title="无法破解的单例模式"></a>无法破解的单例模式</h1><p>上述单例模式都可以通过反射的方式构造出新的对象，毕竟反射大法香呀：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testLazyTypeSingleSafeInnerClass</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    System.out.println(LazyTypeSingleSafeInnerClass.getInstance() == LazyTypeSingleSafeInnerClass.getInstance());</span><br><span class="line">    <span class="comment">//true</span></span><br><span class="line">    Class&lt;LazyTypeSingleSafeInnerClass&gt; innerClassClass = LazyTypeSingleSafeInnerClass<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">    Constructor&lt;LazyTypeSingleSafeInnerClass&gt; constructor = innerClassClass.getDeclaredConstructor(<span class="keyword">null</span>);</span><br><span class="line">    constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(constructor.newInstance(<span class="keyword">null</span>) == constructor.newInstance(<span class="keyword">null</span>));</span><br><span class="line">    <span class="comment">//false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">threadEnvTest</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    Set&lt;LazyTypeSingleNoSafe&gt; typeSingleNoSafeList = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    AtomicInteger atomicInteger = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(atomicInteger.getAndSet(atomicInteger.intValue() + <span class="number">1</span>) &lt; <span class="number">50</span>)&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            LazyTypeSingleNoSafe instance = LazyTypeSingleNoSafe.getInstance();</span><br><span class="line">            typeSingleNoSafeList.add(instance);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(LazyTypeSingleNoSafe lazyTypeSingleNoSafe: typeSingleNoSafeList)&#123;</span><br><span class="line">        System.out.println(lazyTypeSingleNoSafe);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//single.LazyTypeSingleNoSafe@6e5802d8</span></span><br><span class="line">    <span class="comment">//single.LazyTypeSingleNoSafe@6706a70b</span></span><br><span class="line">    <span class="comment">//single.LazyTypeSingleNoSafe@51a22f1d</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上述例子我们也看到了，在反射眼里，一切都是弟弟，所以我们根本不可能造出真正的单例，但是我们却可以通过枚举这个特性来实现绝对的单例模式和多例模式！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绝对的单例模式（之前的通过反射都可以破解）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> AbsoluteSingleSafe &#123;</span><br><span class="line">    ONLY_ONE_SINGLE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们破解一下枚举试试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testAbsoluteSingleSafe</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    System.out.println(AbsoluteSingleSafe.ONLY_ONE_SINGLE == AbsoluteSingleSafe.ONLY_ONE_SINGLE);</span><br><span class="line">    <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">    Class&lt;AbsoluteSingleSafe&gt; absoluteSingleSafeClass = AbsoluteSingleSafe<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">    Constructor&lt;AbsoluteSingleSafe&gt; constructor = absoluteSingleSafeClass.getDeclaredConstructor(<span class="keyword">null</span>);</span><br><span class="line">    constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">    System.out.println(constructor.newInstance(<span class="keyword">null</span>) == constructor.newInstance(<span class="keyword">null</span>));</span><br><span class="line">    <span class="comment">//Exception in thread "main" java.lang.NoSuchMethodException: single.AbsoluteSingleSafe.&lt;init&gt;()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DoubleCheck的隐患"><a href="#DoubleCheck的隐患" class="headerlink" title="DoubleCheck的隐患"></a>DoubleCheck的隐患</h1><p>我们回顾一下DoubleCheck的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (LazyTypeSingleSafeDoubleCheck<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    lazyTypeSingleSafeDoubleCheck = <span class="keyword">new</span> LazyTypeSingleSafeDoubleCheck();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>问题出在哪里呢？</p>
+<p>我们可以假设这样的情况，当两个线程一先一后访问getInstance方法的时候，当A线程正在构建对象，B线程刚刚进入方法： </p>
+<p><img src="https://img.zouchanglin.cn///20200318/Pum42vPeK7DV.png" alt="mark"></p>
+<p>这种情况表面看似没什么问题，要么Instance还没被线程A构建，线程B执行if(lazyTypeSingleSafeDoubleCheck== null)的时候得到true；要么Instance已经被线程A构建完成，线程B执行 if(lazyTypeSingleSafeDoubleCheck== null)的时候得到false。真是如此吗？答案是否定的。这里涉及到了JVM编译器的指令重排。 </p>
+<p>一句简单的<code>lazyTypeSingleSafeDoubleCheck = new LazyTypeSingleSafeDoubleCheck();</code>  会被编译器编译成如下JVM指令 :</p>
+<p>memory = allocate(); //1：分配对象的内存空间</p>
+<p>ctorInstance(memory); //2：初始化对象</p>
+<p>instance =memory; //3：设置instance指向刚分配的内存地址</p>
+<p>但是这些指令顺序并非一成不变，有可能会经过JVM和CPU的优化，指令重排成下面的顺序：</p>
+<p>memory =allocate(); //1：分配对象的内存空间</p>
+<p>instance =memory; //3：设置instance指向刚分配的内存地址</p>
+<p>ctorInstance(memory); //2：初始化对象</p>
+<p>当线程A执行完1和3时，instance对象还未完成初始化，但已经不再指向null。此时如果线程B抢占到CPU资源，执行 if(instance == null)的结果会是false，从而返回一个没有初始化完成的instance对象。如下图所示： </p>
+<p><img src="https://img.zouchanglin.cn///20200318/2KqgLMzpzw10.png" alt="mark"></p>
+<p>由于线程A还未完成初始化工作，但是线程B检测到对象已经不为空，于是最终返回的是空对象！！那么应该如何避免呢？其实只需要在instance对象前面增加一个修饰符volatile就好了，关于可以看<a href="https://zouchanglin.cn/2019/12/11/重新认识volatile">《重新认识volatile》</a> 这篇文章，里面讲述的比较详细，在此不再赘述。所以完整的双重检查的代码是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例 + 双重锁检查</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyTypeSingleSafeDoubleCheck <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (LazyTypeSingleSafeDoubleCheck<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(lazyTypeSingleSafeDoubleCheck == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    lazyTypeSingleSafeDoubleCheck = <span class="keyword">new</span> LazyTypeSingleSafeDoubleCheck();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyTypeSingleSafeDoubleCheck;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyTypeSingleSafeDoubleCheck</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="单例模式的总结"><a href="#单例模式的总结" class="headerlink" title="单例模式的总结"></a>单例模式的总结</h1><p>所以如果想要实现线程安全的单例模式，可以使用饿汉式、DoubleCheck（加volatile的版本），静态内部类，枚举等方式；想要使用懒加载策略就不能使用枚举了，只能DoubleCheck（加volatile的版本），静态内部类；如果想实现反射也无法破解的单例那么只能用枚举了，但是一般情况下不会去刻意排斥反射。所以比较推荐的方案还是静态内部类，简单实用而且线程安全。</p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/" data-id="ck7xi85tu00000wwk5c3lhrys"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java的四种引用</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2018-2020
+        changlin zou
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
+  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/code.svg" alt="Tim&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:80" target="_blank" rel="noopener">查手册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://139.159.234.67:8000" target="_blank" rel="noopener">SpringInit</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+<script>
+  var typed = new Typed("#subtitle", {
+    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>
