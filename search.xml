@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker私服配置HTTPS</title>
+    <url>/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/</url>
+    <content><![CDATA[<p><img src="https://img.zouchanglin.cn///20200321/vL5w2LvCRPhV.png" alt="mark"></p>
+<p>上图即使我搭建完毕的效果。对于Docker的环境安装，基础命令之类的内容，通读官网文档内容基本都能顺利掌握。 然而，当笔者尝试着搭建一套基于SSL的Docker Registry（官网推荐的做法）却遇到了不少的麻烦，对于这部分内容，大多数博客文档内容都是直接跳过了SSL的环节，采用了HTTP的访问形式。 然而本文就是记录一下对于搭建HTTPS 访问形式的Docker Registry的过程，读者很容易复现的过程！</p>
+<p>我的环境是CentOS7_x64，Docker版本是 Client: Docker Engine - Community 19.03.7、Server: Docker Engine - Community 19.03.7、Nginx源码包的版本是nginx-1.9.9.tar.gz。</p>
+<a id="more"></a>
+
+<h1 id="1、获取HTTPS证书"><a href="#1、获取HTTPS证书" class="headerlink" title="1、获取HTTPS证书"></a>1、获取HTTPS证书</h1><p>就以我的域名为例吧，这是我准备的二级域名 docker.zouchanglin.cn：<br><img src="https://img.zouchanglin.cn///20200321/lmro1eOePhdb.png" alt="mark"></p>
+<p>如何获得这个二级域名的HTTPS的证书呢？进入这个网站可以申请免费的HTTPS证书： <strong><a href="https://freessl.cn/" target="_blank" rel="noopener">https://freessl.cn/</a></strong> ，点击创建，于是就会提示安装一个KeyManager的软件，下载之后安装即可，设置密码即可运行。</p>
+<p><img src="https://img.zouchanglin.cn///20200321/qxiFIwjJqIx7.png" alt="mark"></p>
+<p>按照提示的需求配置好解析即可，配置完成之后测试一下是否正常解析，网页上有工具的点一下就行</p>
+<p><img src="https://img.zouchanglin.cn///20200321/nR8EYzDj8sXJ.png" alt="mark"></p>
+<p>获取成功之后在Key Manager里就会出现秘钥：</p>
+<p><img src="https://img.zouchanglin.cn///20200321/Ol8am03G8QW5.png" alt="mark"></p>
+<p>接下来导出一个Nginx用的证书就好了：</p>
+<p><img src="https://img.zouchanglin.cn///20200321/wrEmWxK723tu.png" alt="mark"></p>
+<h1 id="2、安装并配置Nginx"><a href="#2、安装并配置Nginx" class="headerlink" title="2、安装并配置Nginx"></a>2、安装并配置Nginx</h1><p>关于Nginx的安装可以参考我之前的博客<a href="https://zouchanglin.cn/2020/01/29/CentOS7编译安装nginx">《CentOS7编译安装nginx》</a> 可以一开始就把HTTPS模块包含进去，不然得二次编译，如何配置Nginx呢？</p>
+<p>我已经把下载好的证书上传至Linux服务器并解压，解压后得到crt和key两个文件，我把它们放在了/usr/local/certs下面。</p>
+<p>还是先给原来的Nginx备份一下，再做修改：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">user</span> root;</span><br><span class="line"></span><br><span class="line"><span class="attribute">worker_processes</span>  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line">	</span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line">    <span class="attribute">gzip</span>  <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># HTTPS server</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">443</span> ssl;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl_certificate</span>      /usr/local/certs/docker.zouchanglin.cn_chain.crt;</span><br><span class="line">        <span class="attribute">ssl_certificate_key</span>  /usr/local/certs/docker.zouchanglin.cn_key.key;</span><br><span class="line">        <span class="attribute">ssl</span> <span class="literal">on</span>;</span><br><span class="line">        <span class="attribute">ssl_session_cache</span>    shared:SSL:<span class="number">1m</span>;</span><br><span class="line">        <span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl_ciphers</span>  HIGH:!aNULL:!MD5;</span><br><span class="line">        <span class="attribute">ssl_prefer_server_ciphers</span>  <span class="literal">on</span>;</span><br><span class="line">        <span class="attribute">location</span> <span class="regexp">~ </span>&#123;</span><br><span class="line">                <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">                <span class="attribute">proxy_pass</span> https://registry;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="attribute">upstream</span> registry &#123;</span><br><span class="line">                <span class="attribute">server</span> <span class="number">127.0.0.1:5000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，nginx启动一下！</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、Docker私服运行"><a href="#3、Docker私服运行" class="headerlink" title="3、Docker私服运行"></a>3、Docker私服运行</h1><p>直接一条命令就很OK了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  -p 5000:5000 \</span><br><span class="line">  -v /usr/<span class="built_in">local</span>/registry:/var/lib/registry \</span><br><span class="line">  -v /usr/<span class="built_in">local</span>/certs:/certs \</span><br><span class="line">  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker.zouchanglin.cn_chain.crt \</span><br><span class="line">  -e REGISTRY_HTTP_TLS_KEY=/certs/docker.zouchanglin.cn_key.key \</span><br><span class="line">  -e REGISTRY_STORAGE_DELETE_ENABLED=<span class="literal">true</span> \</span><br><span class="line">  --restart=always \</span><br><span class="line">  --name registry \</span><br><span class="line">  registry:2</span><br></pre></td></tr></table></figure>
+
+<p><code>-e REGISTRY_STORAGE_DELETE_ENABLED=true</code> 这条指令主要是打开删除镜像的限制！</p>
+<h1 id="4、检验是否配置成功"><a href="#4、检验是否配置成功" class="headerlink" title="4、检验是否配置成功"></a>4、检验是否配置成功</h1><p><img src="https://img.zouchanglin.cn///20200321/vL5w2LvCRPhV.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>虚拟化技术</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>优雅的实现单例</title>
     <url>/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/</url>
     <content><![CDATA[<p>单例模式属于创建型设计模式，一个类在虚拟机中只有一份实例。实现单例模式的核心思想在于构造函数私有化，主要实现方式分为两种：懒汉式和饿汉式。</p>
