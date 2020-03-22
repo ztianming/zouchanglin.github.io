@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-21T12:45:25.313Z</updated>
+  <updated>2020-03-22T10:10:08.524Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OkHttp的使用与跳坑示例</title>
+    <link href="https://zouchanglin.cn/2020/03/22/OkHttp%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%B7%B3%E5%9D%91%E7%A4%BA%E4%BE%8B/"/>
+    <id>https://zouchanglin.cn/2020/03/22/OkHttp%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%B7%B3%E5%9D%91%E7%A4%BA%E4%BE%8B/</id>
+    <published>2020-03-22T06:01:35.000Z</published>
+    <updated>2020-03-22T10:10:08.524Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200322/4XcsC1Ht6x4l.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;OkHttp是一个优秀的网络请求框架，我开始接触Android开发的时候就用过这个网络请求框架，官方的参考文档在这里  &lt;a href=&quot;https://square.github.io/okhttp/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://square.github.io/okhttp/&lt;/a&gt; ，本文演示了使用OkHttp框架进行简单的Get、Post（表单形式和JSON形式）、Delete、附加请求头、请求异步回调，文件的上传和下载等常用操作。最后记录了一个今天调试了很久的坑，那就是response.body().string()只能有效调用一次，注意Debug的时候对结果造成的改变！JDK9的HttpURLConnection有很多变化，下次博客中会有演示和说明。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
+    
+      <category term="异步" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E6%AD%A5/"/>
+    
+      <category term="上传下载" scheme="https://zouchanglin.cn/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker私服配置HTTPS</title>
@@ -462,35 +488,6 @@
     
     
       <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>构造实现简单容器</title>
-    <link href="https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/"/>
-    <id>https://zouchanglin.cn/2020/02/24/%E6%9E%84%E9%80%A0%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%AE%B9%E5%99%A8/</id>
-    <published>2020-02-24T14:38:52.000Z</published>
-    <updated>2020-03-13T03:06:29.746Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;现在即将开始真正踏上构造自己的容器的道路。我们会基于当前的操作系统创建一个与宿主机隔离的容器环境，下面就开始吧。在开始之前我们需要先对Linux的proc文件系统做一个介绍：&lt;/p&gt;
-&lt;p&gt;如果你对这些基本知识已经很熟悉了，请直接略过。Linux下的/proc文件系统是由内核提供的，它其实不是一个真正的文件系统，只包含了系统运行时的信息（比如系统内存、mount设备信息、一些硬件配置等），它只存在于内存中，而不占用外存空间。它以文件系统的形式，为访问内核数据的操作提供接口。实际上，很多系统工具都是简单地去读取这个文件系统的某个文件内容，比如lsmod，其实就是cat /proc/modules。当遍历这个目录的时候，会发现很多数字，这些都是为每个进程创建的空间，数字就是它们的PID。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200224/sVzVSYCvKI6y.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
-    
-      <category term="Golang" scheme="https://zouchanglin.cn/tags/Golang/"/>
-    
-      <category term="文件系统" scheme="https://zouchanglin.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   

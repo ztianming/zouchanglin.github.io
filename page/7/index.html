@@ -75,6 +75,74 @@
     
     
     
+    <article id="post-NAT技术与ARP协议" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/"
+    >NAT技术与ARP协议</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2019-10-29T11:36:35.000Z" itemprop="datePublished">2019-10-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="私有IP地址"><a href="#私有IP地址" class="headerlink" title="私有IP地址"></a>私有IP地址</h1><p>之前我们讨论了， IPv4协议中，IP地址数量不充足的问题<br>NAT技术当前解决IP地址不够用的主要手段，是路由器的一个重要功能；<br>NAT能够将私有IP对外通信时转为全局IP。也就是就是一种将私有IP和全局IP相互转化的技术方法；<br>很多学校, 家庭, 公司内部采用每个终端设置私有IP，而在路由器或必要的服务器上设置全局IP；<br>全局IP要求唯一，但是私有IP不需要；在不同的局域网中出现相同的私有IP是完全不影响的；</p>
+      
+      <a class="article-more-link" href="/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/10/29/NAT%E6%8A%80%E6%9C%AF%E4%B8%8EARP%E5%8D%8F%E8%AE%AE/" data-id="ck7pnp3rg0066wkwke39u7h4h"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-计算机网络性能指标" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -692,78 +760,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-MySQL慢查询日志" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/10/16/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/"
-    >MySQL慢查询日志</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/10/16/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/" class="article-date">
-  <time datetime="2019-10-16T13:43:17.000Z" itemprop="datePublished">2019-10-16</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><h2 id="什么是慢查询日志"><a href="#什么是慢查询日志" class="headerlink" title="什么是慢查询日志"></a>什么是慢查询日志</h2><p>MySQL的慢查询日志是 MySQL提供的一种日志记录，它用来记录在 MySQL 中响应时间超过阀值的语句，具体指运行时间超过long_query_time 值的 SQL，则会被记录到慢查询日志中</p>
-<p>具体指运行时间超过 long_query_time 值的 SQL，则会被记录到慢查询日志中。long_query_time 的默认值为 10, 意思是运行 10 秒以上的语句</p>
-<p>由它来查看哪些 SQL 超出了我们的最大忍耐时间值，比如一条SQL执行超过 5 秒钟，我们就算慢 SQL，希望能收集超过 5 秒的SQL，结合之前explain进行全面分析</p>
-      
-      <a class="article-more-link" href="/2019/10/16/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/16/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/" data-id="ck7pnp3r7005jwkwk576qctkk"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
 
     </footer>
 
