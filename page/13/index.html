@@ -75,6 +75,82 @@
     
     
     
+    <article id="post-C++类特性" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/"
+    >C++类特性</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2018-11-09T10:09:30.000Z" itemprop="datePublished">2018-11-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="访问限定符说明"><a href="#访问限定符说明" class="headerlink" title="访问限定符说明"></a>访问限定符说明</h3><ol>
+<li>public修饰的成员在类外可以直接被访问</li>
+<li>protected和private修饰的成员在类外不能直接被访问(此处protected和private是类似的)</li>
+<li>访问权限作用域从该访问限定符出现的位置开始直到下一个访问限定符出现时为止</li>
+<li>class的默认访问权限为private，struct为public(因为struct要兼容C)<br>注意：访问限定符只在编译时有用，当数据映射到内存后，没有任何访问限定符上的区别</li>
+</ol>
+<p><strong>C++的class与C的struct的区别</strong>：C++需要兼容C语言，所以C++中struct可以当成结构体去使用。另外C++中struct还可以用来定义类。和class是定义类是一样的，区别是struct的成员默认访问方式是public，class是struct的成员默认访问方式是private</p>
+      
+      <a class="article-more-link" href="/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/09/C++%E7%B1%BB%E7%89%B9%E6%80%A7/" data-id="ck7pnp3pl000mwkwkf4s0htww"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-C++11新特性" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -726,80 +802,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-深入理解进程" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/"
-    >深入理解进程</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" class="article-date">
-  <time datetime="2018-09-27T10:09:30.000Z" itemprop="datePublished">2018-09-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="现代计算机体系结构"><a href="#现代计算机体系结构" class="headerlink" title="现代计算机体系结构"></a>现代计算机体系结构</h2><h3 id="冯·诺依曼结构"><a href="#冯·诺依曼结构" class="headerlink" title="冯·诺依曼结构"></a>冯·诺依曼结构</h3><p>要了解进程的概念得先从计算机的体系结构说起，首先了解一些世界上用得最多的计算机体系结构：冯·诺依曼结构(还有其他的计算机体系结构：如哈佛结构)</p>
-<p><img src="https://img.zouchanglin.cn///20200201/2BqIjDIWful9.png" alt="mark"></p>
-<p>冯·诺曼结构处理器具有以下几个特点：必须有一个<strong>存储器</strong>；必须有一个<strong>控制器</strong>；必须有一个<strong>运算器</strong>，用于完成算术运算和逻辑运算；必须有<strong>输入和输出设备</strong>，用于进行人机通信</p>
-<h3 id="存储设备对比"><a href="#存储设备对比" class="headerlink" title="存储设备对比"></a>存储设备对比</h3><p><img src="https://img.zouchanglin.cn///20200201/eKrhr0zIISk7.png" alt="mark"></p>
-<p>上图从容量、传输速度、价格上来作比较，可以看出来为什么我们平时见到的计算机为什么硬盘几百G甚至几个T，而内存却只有8G或者16G，内存的IO速度是非常快的，跟硬盘的IO速度是 <strong>数量级</strong> 的差距，和内存相比寄存器就更快了，也是数量级的差距，于是出现了缓存，现在(2018/09/27)都是三级缓存，也就几M的大小，每次CPU在执行一些指令的时候会将需要的数据放在缓存中，其实就相当于是一个过渡元件！</p>
-      
-      <a class="article-more-link" href="/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%BF%9B%E7%A8%8B/" data-id="ck7pnp3th00crwkwk3tdk2m7x"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
     </footer>
 

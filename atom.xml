@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-03-22T10:10:08.524Z</updated>
+  <updated>2020-03-25T05:15:21.742Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>线程相关的基础问题</title>
+    <link href="https://zouchanglin.cn/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/"/>
+    <id>https://zouchanglin.cn/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</id>
+    <published>2020-03-23T06:01:35.000Z</published>
+    <updated>2020-03-25T05:15:21.742Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200324/n0eEP9zdhKzQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本文主要讲述了进程和线程发展简史，对于JVM来讲的进程和线程又是什么，Thread的start()方法的原生调用发生了什么，从而理解start()方法和run()方法有什么不同，另外，还介绍了三种处理线程执行完成后的返回值的方法，其实FutureTask和线程池获取线程执行结束的返回值更加常用。另外，介绍了线程的六种状态，还有sleep和wait的区别，notify和notifyAll的区别，yield函数的作用，以及如何优雅的中断线程等问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+  </entry>
   
   <entry>
     <title>OkHttp的使用与跳坑示例</title>
@@ -456,30 +478,6 @@
     
       &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/WFp4qQSRpvoo.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;之前介绍了TCP的报文格式（&lt;a href=&quot;https://zouchanglin.cn/2019/11/21/TCP协议基本特性&quot;&gt;《TCP协议基本特性》&lt;/a&gt;），TCP的连接管理，学习了TCP如何建立连接，释放连接以及一些网络安装方面的问题，现在还剩下TCP的几个关键机制，主要是TPC的延迟应答和捎带应答、超时重传、快重传和快恢复、滑动窗口机制、拥塞避免算法；然后最后还记录了TCP的粘包问题和解决方案！&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络" scheme="https://zouchanglin.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="计算机网络" scheme="https://zouchanglin.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈HTTP协议</title>
-    <link href="https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/"/>
-    <id>https://zouchanglin.cn/2020/02/25/%E8%B0%88%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE/</id>
-    <published>2020-02-25T04:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.767Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;HTTP的全称 HyperText Transfer Protocol，即超文本传输协议，程序员自己发明的协议之一，基于TCP的应用层协议。 HTTP协议是基于请求-响应的模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/k8pW0raF9ync.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;HTTP是一种无状态协议，HTTP协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。 &lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200225/GqrhjlASQXoQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
     
     </summary>
     

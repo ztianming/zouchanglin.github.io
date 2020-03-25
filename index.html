@@ -75,6 +75,77 @@
     
     
     
+    <article id="post-线程相关的基础问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/"
+    >线程相关的基础问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-03-23T06:01:35.000Z" itemprop="datePublished">2020-03-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200324/n0eEP9zdhKzQ.png" alt="mark"></p>
+<p>本文主要讲述了进程和线程发展简史，对于JVM来讲的进程和线程又是什么，Thread的start()方法的原生调用发生了什么，从而理解start()方法和run()方法有什么不同，另外，还介绍了三种处理线程执行完成后的返回值的方法，其实FutureTask和线程池获取线程执行结束的返回值更加常用。另外，介绍了线程的六种状态，还有sleep和wait的区别，notify和notifyAll的区别，yield函数的作用，以及如何优雅的中断线程等问题。</p>
+      
+      <a class="article-more-link" href="/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/" data-id="ck86vke2y00009kwk2m0g7lqf"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-OkHttp的使用与跳坑示例" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -698,77 +769,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-图解epoll原理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"
-    >图解epoll原理</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/" class="article-date">
-  <time datetime="2020-03-01T12:01:35.000Z" itemprop="datePublished">2020-03-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png" alt="mark"></p>
-<p>poll翻译过来是轮询的意思， 可以看到poll和epoll都有轮询的过程， 不同点在于：poll轮询的是所有的socket，而epoll只轮询就绪的socket。 epoll是开发linux高性能服务器的必备技术至，epoll本质，是服务端程序员的必须掌握的知识。 本文主要是利用图文讲述了select的原理和epoll相对于做出的优化，以及epoll的部分细节问题。</p>
-      
-      <a class="article-more-link" href="/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/" data-id="ck7pnp3sr00abwkwkguxhfdet"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
     </footer>
 
