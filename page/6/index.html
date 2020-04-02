@@ -75,6 +75,220 @@
     
     
     
+    <article id="post-运行容器commit至云" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/"
+    >运行容器commit至云</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/" class="article-date">
+  <time datetime="2020-02-02T14:39:00.000Z" itemprop="datePublished">2020-02-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>之前记载的commit镜像方式是有问题的，所以现在开始更正一下，总体的方式就是登录，然后先提交镜像到本地，然后打标签，最后push就好了！ 镜像站对开中国开发者来说可谓必备利器，受国际网络出口带宽的影响，大多数开源软件官网的速度慢，稳定性不足。阿里巴巴镜像站利用其在云服务上的优势，提供快速、稳定的镜像分发服务， 而且提供免费的个人私有镜像仓库存储服务。所以我也就是存储到了阿里云，貌似腾讯云好像也有免费的镜像存储服务，下载速度还可以！</p>
+      
+      <a class="article-more-link" href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/" data-id="ck7pnp3ty00elwkwk68e14jt3"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringBoot自定义配置文件" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/30/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"
+    >SpringBoot自定义配置文件</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/30/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="article-date">
+  <time datetime="2020-01-30T06:13:30.000Z" itemprop="datePublished">2020-01-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>SpringBoot的配置文件老是出现警告，后面发现了这种解决方式，引入Maven依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面是官方给出的自定义配置的方式：</p>
+      
+      <a class="article-more-link" href="/2020/01/30/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/01/30/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" data-id="ck7pnp3rp0074wkwk4894b5se"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Rancher的安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/30/Rancher%E7%9A%84%E5%AE%89%E8%A3%85/"
+    >Rancher的安装</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/30/Rancher%E7%9A%84%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-01-30T06:04:30.000Z" itemprop="datePublished">2020-01-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>控制端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable</span><br></pre></td></tr></table></figure>
+<p>服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -e CATTLE_AGENT_IP=<span class="string">"138.30.65.91"</span> </span><br><span class="line">--rm --privileged</span><br><span class="line">-v /var/run/docker.sock:/var/run/docker.sock </span><br><span class="line">-v /var/lib/rancher:/var/lib/rancher </span><br><span class="line">rancher/agent:v1.2.11 http://xxx.xxx:8080/v1/scripts/3A9E22EDA0BA91475:157700:3MnFfjZMBXnPrhZ8</span><br></pre></td></tr></table></figure>
+<p>注意Github授权访问，就可以实现权限控制了！</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/01/30/Rancher%E7%9A%84%E5%AE%89%E8%A3%85/" data-id="ck7pnp3rn006wwkwk8nw26udw"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-使用Apacheab测压" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -575,220 +789,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-CentOS7虚拟机设置固定IP" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/"
-    >CentOS7虚拟机设置固定IP</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/" class="article-date">
-  <time datetime="2019-12-12T12:01:35.000Z" itemprop="datePublished">2019-12-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a> / <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Linux/">Linux</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200301/NOwCYlkoT90r.png" alt="mark"></p>
-<p>虚拟机设置为固定IP，不管主机在什么网络环境下，是断网环境，还是连接任何网段访问外网的环境下，虚拟机的IP都固定不变，而且使用终端连接，始终不变，正常连接；  虚拟机的固定IP可以按照自己想设置的IP地址网段随意设置，比如我就想设置固定IP为192.168.2.2；</p>
-<p>经过查询资料，终于得出一个完美解决方案：<strong>采用方式为NAT模式+固定IP的模式</strong> 。</p>
-<p>配置环境说明：主机为Win10专业版，虚拟机为VMware Workstation 15 Pro，虚拟机中的Linux系统为CentOS 7.3_64位。 </p>
-      
-      <a class="article-more-link" href="/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/12/12/CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP/" data-id="ck7pnp3pn000twkwk82no85rs"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-重新认识volatile" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/"
-    >重新认识volatile</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" class="article-date">
-  <time datetime="2019-12-11T10:09:30.000Z" itemprop="datePublished">2019-12-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="1、CPU多核心缓存架构分析"><a href="#1、CPU多核心缓存架构分析" class="headerlink" title="1、CPU多核心缓存架构分析"></a>1、CPU多核心缓存架构分析</h1><p>并发编程：肯定是为了更合理充分的利用多核CPU架构的性能</p>
-<p>CPU 主频率远远高于主存，所以引入CPU缓存，CPU加载数据无法绕过缓存，而且对于多核CPU，一级缓存不是共享的，二级和三级缓存是线程共享的！CPU计算的数据并不是直接从主存中去拿，而且通过层层在缓存中寻找。</p>
-      
-      <a class="article-more-link" href="/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/12/11/%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86volatile/" data-id="ck7pnp3u400f3wkwk424q0f4f"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-基于Redis实现分布式锁" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"
-    >基于Redis实现分布式锁</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="article-date">
-  <time datetime="2019-12-08T13:57:41.000Z" itemprop="datePublished">2019-12-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/">分布式理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在并发编程中，我们通过锁，来避免由于竞争而造成的数据不一致问题。通常，我们以<code>synchronized 、Lock</code>来使用它。  但是Java中的锁，只能保证在同一个JVM进程内中执行。如果在分布式集群环境下呢？  分布式锁的实现有很多，比如基于数据库、memcached、Redis、系统文件、zookeeper等。它们的核心的理念跟上面的过程大致相同。 本篇文章，主要讲如何用Redis的形式实现分布式锁。 </p>
-      
-      <a class="article-more-link" href="/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/12/08/%E5%9F%BA%E4%BA%8ERedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" data-id="ck7pnp3sw00aswkwkc1uz8q79"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li></ul>
 
     </footer>
 

@@ -75,6 +75,220 @@
     
     
     
+    <article id="post-谈谈Java的线程池" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/"
+    >谈谈Java的线程池</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="article-date">
+  <time datetime="2020-04-02T09:01:35.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200402/1RKDW9iG8m8Y.png" alt="mark"></p>
+<p>本文主要讲述了使用线程池的好处，Executors创建的五种线程池特点，简单介绍了Fork/Join框架。围绕Executor框架展开，阐述了线程池的工作流程，探讨了ThreadPoolExecutor的全部构造参数和意义，以及阿里巴巴不推荐使用Executors创建线程池的原因，另外，介绍了我们应该怎么样合理的创建线程池，对于CPU密集型和IO密集型以及混合型的创建方式。探讨了新任务提交后的执行流程，另外简单画了一下线程池生命周期图。</p>
+<p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或者并发执行任务的程序都可以使用线程池。开发<br>中使用线程池的三个优点如下：<br>1、降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁带来的消耗。<br>2、提高响应速度：当任务到达时，任务可以不需要等待线程创建就能立即执行。<br>3、提高线程的可管理性：使用线程池可以统一进行线程分配、调度和监控。</p>
+      
+      <a class="article-more-link" href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-id="ck8ifz77t0003twwk6gxp5i0e"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-CAS操作与ABA问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/"
+    >CAS操作与ABA问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-04-02T06:01:35.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>我们在使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突， 所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作(又称为无锁操作)是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。</p>
+      
+      <a class="article-more-link" href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/" data-id="ck8ifz77s0001twwk88iz91o2"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-ReentrantLock与AQS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/"
+    >ReentrantLock与AQS</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/" class="article-date">
+  <time datetime="2020-04-01T06:01:35.000Z" itemprop="datePublished">2020-04-01</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h1><p>01、ReentrantLock (再入锁)，位于java.util.concurrent.locks包<br>02、和CountDownLatch、Future Task、Semaphore一样基于AQS实现<br>03、能够实现比synchronized更细粒度的控制，如控制公平与非公平<br>04、调用lock()之后，必须调用unlock()释放锁<br>05、性能未必比synchronized高，并且也是可重入的<br>06、synchronized是关键字，ReentrantLock是类<br>07、ReentrantLock可以对获取锁的等待时间进行设置,避免死锁<br>08、ReentrantLock可以获取各种锁的信息<br>09、ReentrantLock可以灵活地实现多路通知<br>10、机制：sync操作Mark Word , lock调用Unsafe类的park()方法</p>
+<h1 id="关于ReentrantLock公平性的设置"><a href="#关于ReentrantLock公平性的设置" class="headerlink" title="关于ReentrantLock公平性的设置"></a>关于ReentrantLock公平性的设置</h1><p><code>ReentrantLock fairLock = new ReentrantLock(true);</code><br>1、参数为true时，倾向于将锁赋予等待时间最久的线程<br>2、公平锁：获取锁的顺序按先后调用lock方法的顺序(慎用)<br>3、非公平锁：抢占的顺序不一定，看运气<br>4、synchronized是非公平锁，如果比较强调吞吐量，没必要设置为公平锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock reentrantLock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                reentrantLock.lock();</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" get lock"</span>);</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                reentrantLock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReentrantLockDemo lockDemo = <span class="keyword">new</span> ReentrantLockDemo();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread1"</span>);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread2"</span>);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.zouchanglin.cn///20200401/ggWnghP90yYJ.png" alt="mark"></p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/" data-id="ck8ifz77j0000twwkc1jj2o3c"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-synchronized实现与优化" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -117,7 +331,7 @@
       
 
       
-      <p>本文主要讲述了synchronized的实现原理，还有synchronized的优化。其中主要包括了自适应自旋，锁消除、锁粗化、以及偏向锁和轻量级锁。另外阐述了锁的内存语义和对三种锁的总结。其实工程学科就是不断解决实际问题才能得以发展，synchronized从早期的一上来就直接使用Mutex逐步优化到现在的程度，mutex 互斥量是最重要的同步原语，但是我们去使用mutex的时候却会出现诸多问题（比如销毁了已加锁的互斥量、死锁问题），  Monitor机制是编程语言在语法上提供的语法糖，假设我们用的是C语言，那么很明显无法使用Monitor 机制。</p>
+      <p>本文主要讲述了synchronized的实现原理，还有synchronized的优化。其中主要包括了自适应自旋，锁消除、锁粗化、以及偏向锁和轻量级锁。另外阐述了锁的内存语义和对三种锁的总结。其实工程学科就是不断解决实际问题才能得以发展，synchronized从早期的一上来就直接使用Mutex逐步优化到现在的程度，mutex互斥量是最重要的同步原语，但是我们去使用mutex的时候却会出现诸多问题（比如销毁了已加锁的互斥量、死锁问题）Monitor机制是编程语言在语法上提供的语法糖，假设我们用的是C语言，那么很明显无法使用Monitor机制。</p>
 <p>很多文章笼统的说synchronized是基于Monitor机制实现的，我认为这是错误的说法，Monitor 机制必须要有临界区、Monitor对象和互斥量、条件变量和wait()、signal()等要素。在synchronized的实现中根本找不到所有对应的元素。我认为Java的Monitor机制包括了synchronized、Object和程序员自己定的条件变量等（因为我们通常使用wait()、 notify()、notifyAll()配合synchronized才能取解决生产者消费者问题），这才一套完整的Monitor机制。JVM的ObjectMonitor用来辅助Java实现Monitor机制，直接把JVM的ObjectMonitor当成Monitor机制是不可取的。</p>
       
       <a class="article-more-link" href="/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/">阅读更多...</a>
@@ -563,217 +777,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" data-id="ck7ug85zw0000fcwk8uve2tvr"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-请丢弃finalize" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/"
-    >请丢弃finalize</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/" class="article-date">
-  <time datetime="2020-03-14T23:01:35.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>用过JDK9的同学应该发现了，finalize方法在JDK9中已经被标记为deprecated，今天探讨一下finalize方法。如果没有特别的原因，不要实现finalize方法，也不要指望利用它来进行资源回收。因为你无法保证finalize什么时候执行，执行的是否符合预期。使用不当会影响性能，导致程序死锁、挂起等。</p>
-      
-      <a class="article-more-link" href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/" data-id="ck7ug860a0004fcwk6f190vtf"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-9种垃圾收集器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"
-    >9种垃圾收集器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-11T23:01:35.000Z" itemprop="datePublished">2020-03-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
-<p>目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
-      
-      <a class="article-more-link" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" data-id="ck7pnp3p60002wkwk81g706y8"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-垃圾标记与收集算法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"
-    >垃圾标记与收集算法</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-10T23:01:35.000Z" itemprop="datePublished">2020-03-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。</p>
-      
-      <a class="article-more-link" href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" data-id="ck7pnp3ss00aiwkwkhbwq7wms"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>

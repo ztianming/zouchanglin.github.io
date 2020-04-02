@@ -75,6 +75,236 @@
     
     
     
+    <article id="post-Linux进程通信之管道" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/21/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E7%AE%A1%E9%81%93/"
+    >Linux进程通信之管道</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/21/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E7%AE%A1%E9%81%93/" class="article-date">
+  <time datetime="2018-11-21T10:09:30.000Z" itemprop="datePublished">2018-11-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><strong>Linux进程间通信的基本思想是：让两个进程看到一份公共的资源！</strong></p>
+<h2 id="Linux进程间通信的目的"><a href="#Linux进程间通信的目的" class="headerlink" title="Linux进程间通信的目的"></a>Linux进程间通信的目的</h2><ul>
+<li>数据传输：⼀个进程需要将它的数据发送给另⼀个进程</li>
+<li>资源共享：多个进程之间共享同样的资源。</li>
+<li>通知事件：⼀个进程需要向另⼀个或⼀组进程发送消息，通知它们发生了某种事件（如进程终止时要通知父进程）。</li>
+<li>进程控制：有些进程希望完全控制另⼀个进程的执行（如Debug进程），此时控制进程希望能够拦截另一个进程的所有陷入和异常，并能够及时知道它的状态改变</li>
+</ul>
+<h2 id="通信方式之管道"><a href="#通信方式之管道" class="headerlink" title="通信方式之管道"></a>通信方式之管道</h2><p>管道是Unix中最古老的进程间通信的形式。<br>我们把从⼀个进程连接到另⼀个进程的⼀个数据流称为⼀个”管道”</p>
+<ul>
+<li>管道是面向字节流的</li>
+<li>管道的生命周期：与进程一致</li>
+<li>管道只能用于单向通信</li>
+<li>内核会对管道操作进行同步与互斥</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/11/21/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E7%AE%A1%E9%81%93/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/21/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E7%AE%A1%E9%81%93/" data-id="ck7pnp3qy004nwkwkepl2d1w7"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Git基本使用方法" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/17/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"
+    >Git基本使用方法</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/17/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2018-11-17T10:09:30.000Z" itemprop="datePublished">2018-11-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">版本控制</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="Git基本概念"><a href="#Git基本概念" class="headerlink" title="Git基本概念"></a>Git基本概念</h2><p><img src="https://img.zouchanglin.cn///20200201/jambXWN0Amn2.png" alt="mark"></p>
+<p>Workspace：工作区<br>Index / Stage：暂存区<br>Repository：仓库区（或本地仓库）<br>Remote：远程仓库</p>
+      
+      <a class="article-more-link" href="/2018/11/17/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/17/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" data-id="ck7pnp3q1001zwkwk6gn3aiiy"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-C++内存管理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/11/14/C++%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"
+    >C++内存管理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/11/14/C++%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2018-11-14T10:09:30.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="内存管理的形式"><a href="#内存管理的形式" class="headerlink" title="内存管理的形式"></a>内存管理的形式</h2><ul>
+<li>栈： 栈又叫堆栈，非静态局部变量/函数参数/返回值等等，栈是向下增长的,当方法和语句块一结束，空间马上释放</li>
+<li>内存映射段：是高效的I/O映射方式，用于装载一个共享的动态内存库。用户可使用系统接口创建共享共享内存，做进程间通信</li>
+<li>堆：堆用于程序运行时动态内存分配，堆是可以上增长的，存放的是成员变量，随着对象而产生，随对象销毁而销毁</li>
+<li>数据段：存储全局数据和静态数据</li>
+<li>代码段：可执行的代码/只读常量</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/11/14/C++%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/11/14/C++%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="ck7pnp3pm000owkwk85xs7qk3"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-NASA的C语言编程准则" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -579,226 +809,6 @@
       <a data-url="https://zouchanglin.cn/2018/10/23/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="ck7pnp3t100bawkwk6phw0dzt"
         class="article-share-link">分享</a>
       
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系统IO接口" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/"
-    >系统IO接口</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" class="article-date">
-  <time datetime="2018-10-18T10:09:30.000Z" itemprop="datePublished">2018-10-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="一、fopen函数"><a href="#一、fopen函数" class="headerlink" title="一、fopen函数"></a>一、fopen函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p> 参数说明：<br>path：要打开的文件路径+文件名<br>mode：打开模式，下面是第二个参数的说明<br><code>来自CentOS 7：man 3 fopen</code> </p>
-      
-      <a class="article-more-link" href="/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/10/18/%E7%B3%BB%E7%BB%9FIO%E6%8E%A5%E5%8F%A3/" data-id="ck7pnp3tk00d2wkwkdforasmu"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-函数重载实现原理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"
-    >函数重载实现原理</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="article-date">
-  <time datetime="2018-10-16T10:09:30.000Z" itemprop="datePublished">2018-10-16</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>方法重载 （overload）<br>C++允许多个函数拥有相同的名字，只要它们的参数列表不同就可以，这就是函数的重载(Function Overloading)，借助重载，一个函数名可以有多种用途。</p>
-<p>永远记住一点：<strong>函数重载只与参数列表有关，与返回值类型无关</strong></p>
-      
-      <a class="article-more-link" href="/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/10/16/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" data-id="ck7pnp3sj009pwkwkh46vcux9"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-《沉睡中的大学生》人民日报" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/"
-    >《沉睡中的大学生》人民日报</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/" class="article-date">
-  <time datetime="2018-10-04T10:09:30.000Z" itemprop="datePublished">2018-10-04</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200201/BkC6ESMvYIo2.png" alt="mark"></p>
-<p>职场上，这样的人也同样不在少数。<br>上班时踩着点走进公司大门，下班前一小时就心不在焉。玩玩手机，刷刷微博，手里的工作能拖则拖。实在拖不了就勉强自己加个班，但一定要发条朋友圈，问：“你见过深夜十二点的写字楼吗？”自我感动到不行，却忽略了这本是白天早就应该完成的工作。</p>
-<ul>
-<li>工作，不必认真，能应付上司即可；</li>
-<li>能力，不思进取，不被炒鱿鱼就行；</li>
-<li>至于工资，只要心怀梦想，总有一天会涨的。</li>
-</ul>
-<p>这样的人，不是真“佛系”，而是依然会羡慕别人升职加薪，却拿着3千的工资，做着月薪5万的梦。</p>
-      
-      <a class="article-more-link" href="/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/10/04/%E3%80%8A%E6%B2%89%E7%9D%A1%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%E3%80%8B%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5/" data-id="ck7pnp3s2008lwkwk44wo3yqe"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
     </footer>
 
   </div>

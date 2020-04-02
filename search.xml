@@ -1,9 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>谈谈Java的线程池</title>
+    <url>/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+    <content><![CDATA[<p><img src="https://img.zouchanglin.cn///20200402/1RKDW9iG8m8Y.png" alt="mark"></p>
+<p>本文主要讲述了使用线程池的好处，Executors创建的五种线程池特点，简单介绍了Fork/Join框架。围绕Executor框架展开，阐述了线程池的工作流程，探讨了ThreadPoolExecutor的全部构造参数和意义，以及阿里巴巴不推荐使用Executors创建线程池的原因，另外，介绍了我们应该怎么样合理的创建线程池，对于CPU密集型和IO密集型以及混合型的创建方式。探讨了新任务提交后的执行流程，另外简单画了一下线程池生命周期图。</p>
+<p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或者并发执行任务的程序都可以使用线程池。开发<br>中使用线程池的三个优点如下：<br>1、降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁带来的消耗。<br>2、提高响应速度：当任务到达时，任务可以不需要等待线程创建就能立即执行。<br>3、提高线程的可管理性：使用线程池可以统一进行线程分配、调度和监控。</p>
+<a id="more"></a>
+
+<h1 id="Executors创建的五种线程池"><a href="#Executors创建的五种线程池" class="headerlink" title="Executors创建的五种线程池"></a>Executors创建的五种线程池</h1><p>利用Executors创建不同的线程池满足不同场景的需求</p>
+<p>1、newFixedThreadPool(int nThreads)： 指定工作线程数量的线程池， 如果线程池中正在执行的任务达到设置的线程最大数（无可用线程），则新得任务会放到阻塞队列里等待，有可用线程时按顺序执行。 </p>
+<p>2、newCachedThreadPool()：处理大量短时间工作任务的线程池</p>
+<ul>
+<li>试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；</li>
+<li>如果线程闲置的时间超过阈值，则会被终止并移出缓存；</li>
+<li>系统长时间闲置的时候，不会消耗什么资源</li>
+</ul>
+<p>3、newSingleThreadExecutor()：创建唯一的工作线程来执行任务，如果线程异常结束，会有另一个线程取代它</p>
+<p>4、newSingleThreadScheduledExecutor()与newScheduledThreadPool(int corePoolSize)：定时或者周期性的工作调度，两者的区别在于单一工作线程还是多个线程</p>
+<p>5、newWorkStealingPool()：内部会构建ForkJoinPool，利用working-stealing算法，并行地处理任务，不保证处理顺序</p>
+<h1 id="Fork-Join框架"><a href="#Fork-Join框架" class="headerlink" title="Fork/Join框架"></a>Fork/Join框架</h1><p>把大任务分割成若干个小任务并行执行，最终汇总每个小任务结果后得到大任务结果的框架。newWorkStealingPool()就是实现了Fork/Join框架的线程池，什么时working-stealing算法呢？简单来说就是某个线程从其他队列里窃取任务来执行。</p>
+<p><img src="https://img.zouchanglin.cn///20200401/ev4mrVPM6Hq1.png" alt="mark"></p>
+<h1 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h1><p>在 Java 5 之后，并发编程引入了一堆新的启动、调度和管理线程的API。Executor 框架便是 Java 5 中引入的，其内部使用了线程池机制，它在 java.util.cocurrent 包下，通过该框架来控制线程的启动、执行和关闭，可以简化并发编程的操作。 </p>
+<p><img src="https://img.zouchanglin.cn///20200401/IWUdnySIiVQS.png" alt="mark"></p>
+<p>J.U.C的三个Executor接口</p>
+<ul>
+<li>Executor：运行新任务的简单接口，将任务提交和任务执行细节解耦</li>
+<li>ExecutorService：具备管理执行器和任务生命周期的方法，提交任务机制更完善</li>
+<li>ScheduledExecutorService：支持Future和定期执行任务</li>
+</ul>
+<h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p>ThreadPoolExecutor顾名思义，是一个线程池管理工具类，该类主要提供了任务管理，线程的调度和相关的hook方法来控制线程池的状态。 </p>
+<p><img src="https://img.zouchanglin.cn///20200402/1RKDW9iG8m8Y.png" alt="mark"></p>
+<p>如上图，有新的任务提交的时候，如果线程池已经处于shutdown状态，此时新任务会被拒绝，用户可以通过实现RejectExecutionHandler来自定义处理逻辑。如果没有被拒绝，那么新任务将被放置在WorkQueue中，WorkQueue就是工作队列，里面存储了将要执行的任务，任务将被添加到线程池的工作线程中去执行。WorkQueue的数据结构各不相同，但是作用都是暂时存储用户提交的任务：</p>
+<p><img src="https://img.zouchanglin.cn///20200402/A5S4dGhb6Ecg.png" alt="mark"></p>
+<p>然后由线程池对象去执行调度这些任务，我们可以再看看Worker：</p>
+<p><img src="https://img.zouchanglin.cn///20200402/3a62rthGwRSp.png" alt="mark"></p>
+<p>这里的线程由线程工厂所创建。</p>
+<h1 id="ThreadPoolExecutor构造函数"><a href="#ThreadPoolExecutor构造函数" class="headerlink" title="ThreadPoolExecutor构造函数"></a>ThreadPoolExecutor构造函数</h1><p>下面我们可以看看ThreadPoolExecutor的构造函数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (corePoolSize &lt; <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt;= <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt; corePoolSize ||</span><br><span class="line">        keepAliveTime &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">if</span> (workQueue == <span class="keyword">null</span> || threadFactory == <span class="keyword">null</span> || handler == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">this</span>.acc = System.getSecurityManager() == <span class="keyword">null</span> ?</span><br><span class="line">        <span class="keyword">null</span> :</span><br><span class="line">    AccessController.getContext();</span><br><span class="line">    <span class="keyword">this</span>.corePoolSize = corePoolSize;</span><br><span class="line">    <span class="keyword">this</span>.maximumPoolSize = maximumPoolSize;</span><br><span class="line">    <span class="keyword">this</span>.workQueue = workQueue;</span><br><span class="line">    <span class="keyword">this</span>.keepAliveTime = unit.toNanos(keepAliveTime);</span><br><span class="line">    <span class="keyword">this</span>.threadFactory = threadFactory;</span><br><span class="line">    <span class="keyword">this</span>.handler = handler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>corePoolSize</strong>：核心线程数，默认情况下核心线程会一直存活，即使处于闲置状态也不会受存keepAliveTime限制，除非将allowCoreThreadTimeOut设置为true。</p>
+<p><strong>maximumPoolSize</strong>：线程池所能容纳的最大线程数。超过这个数的线程将被阻塞。当任务队列为没有设置大小的LinkedBlockingDeque时，这个值无效。</p>
+<p><strong>keepAliveTime</strong>：非核心线程的闲置超时时间，超过这个时间就会被回收。</p>
+<p><strong>unit</strong>：指定keepAliveTime的单位，如TimeUnit.SECONDS。当将allowCoreThreadTimeOut设置为true时对corePoolSize生效。</p>
+<p><strong>workQueue</strong>：线程池中的任务队列，常用的有三种队列</p>
+<ul>
+<li>SynchronousQueue：是一种无缓冲的等待队列，在某次添加元素后必须等待其他线程取走后才能继续添加；</li>
+<li>LinkedBlockingDeque：是一个无界缓存的等待队列，不指定容量则为Integer最大值，锁是分离的；</li>
+<li>ArrayBlockingQueue：是一个有界缓存的等待队列，必须指定大小，锁是没有分离的；</li>
+</ul>
+<p><strong>threadFactory</strong>：线程工厂，提供创建新线程的功能，通过线程工厂可以对线程的一些属性进行定制。</p>
+<p><strong>RejectedExecutionHandler</strong>：当线程池中的资源已经全部使用，添加新线程被拒绝时，会调用RejectedExecutionHandler的rejectedExecution方法，线程池有以下四种拒绝策略。</p>
+<ul>
+<li>AbortPolicy：当任务添加到线程池中被拒绝时，它将抛出RejectedExecutionException 异常。</li>
+<li>CallerRunsPolicy：当任务添加到线程池中被拒绝时，会在线程池当前正在运行的Thread线程池中处理被拒绝的任务。</li>
+<li>DiscardOldestPolicy：当任务添加到线程池中被拒绝时，线程池会放弃等待队列中最旧的未处理任务，然后将被拒绝的任务添加到等待队列中。</li>
+<li>DiscardPolicy：当任务添加到线程池中被拒绝时，线程池将丢弃被拒绝的任务。</li>
+</ul>
+<h1 id="为什么不推荐Executors创建线程池"><a href="#为什么不推荐Executors创建线程池" class="headerlink" title="为什么不推荐Executors创建线程池"></a>为什么不推荐Executors创建线程池</h1><p>1、对于SingleThreadExecutor，SingleThreadExecutor是单线程线程池，只有一个核心线程：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以当一个任务提交时，首先会创建一个核心线程来执行任务，如果超过核心线程的数量，将会放入队列中，因为LinkedBlockingQueue是长度为Integer.MAX_VALUE的队列，可以认为是无界队列，因此往队列中可以插入无限多的任务，在资源有限的时候容易引起OOM异常，同时因为无界队列，maximumPoolSize和keepAliveTime参数将无效，压根就不会创建非核心线程。</p>
+<p><img src="https://img.zouchanglin.cn///20200402/75YDQYj0TW8r.png" alt="mark"></p>
+<p>2、对于FixedThreadPool，FixedThreadPool是固定核心线程的线程池，固定核心线程数由用户传入。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                  <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它和SingleThreadExecutor类似，唯一的区别就是核心线程数不同，并且由于使用的是LinkedBlockingQueue，在资源有限的时候容易引起OOM异常。</p>
+<p>3、对于CachedThreadPool，CachedThreadPool是一个根据需要创建新线程的线程池。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当一个任务提交时，corePoolSize为0不创建核心线程，SynchronousQueue是一个不存储元素的队列，可以理解为队里永远是满的，其中每个插入操作必须等待另一个线程进行相应的删除操作，反之亦然。因此最终会创建非核心线程来执行任务。</p>
+<p>对于非核心线程空闲60s时将被回收，第二个参数是线程池所能容纳的最大线程数，因为Integer.MAX_VALUE非常大，可以认为是可以无限创建线程的，在资源有限的情况下容易引起OOM异常。</p>
+<p><strong>综上所述，不推荐使用Executors创建线程池，自己把控线程池参数比较好！</strong></p>
+<h1 id="线程池大小如何选定"><a href="#线程池大小如何选定" class="headerlink" title="线程池大小如何选定"></a>线程池大小如何选定</h1><p>既然不推荐Executors创建线程池，那么我们应该如何选择创建线程池的参数呢？</p>
+<p>CPU密集型：线程数 = 按照核数或者核数 + 1 ,  CPU数量可以根据Runtime.availableProcessors方法获取。</p>
+<p>I/O密集型：线程数 = CPU核数 * (1 + 平均等待时间/平均工作时间)。</p>
+<p>混合型： 将任务分为CPU密集型和IO密集型，然后分别使用不同的线程池去处理，从而使每个线程池可以根据各自的工作负载来调整。</p>
+<p>创建线程池的阻塞队列推荐使用有界队列，有界队列有助于避免资源耗尽的情况发生。</p>
+<p>拒绝策略可以默认，也可以根据需要自定义策略。</p>
+<h1 id="新任务提交execute执行后的判断"><a href="#新任务提交execute执行后的判断" class="headerlink" title="新任务提交execute执行后的判断"></a>新任务提交execute执行后的判断</h1><p>1、如果运行的线程少于corePoolSize，则创建新线程来处理任务，即使线程池中的其他线程是空闲的；</p>
+<p>2、如果线程池中的线程数量大于等于corePoolSize且小于maximumPoolSize，则只有当workQueue满时才创建新的线程去处理任务；</p>
+<p>3、如果设置的corePoolSize和maximumPoolSize相同，则创建的线程池的大小是固定的，这时如果有新任务提交，若workQueue未满，则将请求放入workQueue中，等待有空闲的线程去从workQueue中取任务并处理；</p>
+<p>4、如果运行的线程数量大于等于maximumPoolSize，这时如果workQueue已经满了，则通过handler所指定的策略来处理任务；</p>
+<p><img src="https://img.zouchanglin.cn///20200402/tWVDuDzDIyKU.png" alt="mark"></p>
+<h1 id="线程池的5种状态"><a href="#线程池的5种状态" class="headerlink" title="线程池的5种状态"></a>线程池的5种状态</h1><ul>
+<li>RUNNING：能接受新提交的任务, 并且也能处理阻塞队列中的任务</li>
+<li>SHUTDOWN：不再接受新提交的任务，但可以处理存量任务</li>
+<li>STOP：不再接受新提交的任务，也不处理存量任务</li>
+<li>TIDYING：所有的任务都已终止</li>
+<li>TERMINATED：terminated()方法执行完后进入该状态</li>
+</ul>
+<p><img src="https://img.zouchanglin.cn///20200402/tyQ9SkpgYyrj.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CAS操作与ABA问题</title>
+    <url>/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>我们在使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突， 所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作(又称为无锁操作)是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。</p>
+<a id="more"></a>
+
+<h1 id="CAS的操作过程"><a href="#CAS的操作过程" class="headerlink" title="CAS的操作过程"></a>CAS的操作过程</h1><p>CAS即Compare and Swap，CAS比较交换的过程可以通俗的理解为CAS(V、A、B)，包含三个值分别为: V内存中实际值、 A预期原值(旧值) 、B更新的新值。当V和A相同时，也就是说旧值和内存中实际的值相同表明该值没有被其他线程更改过，即该旧值A就是目前来说最新的值了，自然而然可以将新值B赋值给V。反之，V和A不相同，表明该值已经被其他线程改过了则该旧值A不是最新版本的值了，所以不能将新值B赋给V，返回V即可。当多个线程使用CAS操作一个变量时，只有一个线程会成功，并成功更新，其余会失败。失败的线程会重新尝试，当然也可以选择挂起线程。</p>
+<p>CAS的实现需要硬件指令集的支撑，在JDK1.5后虚拟机才可以使用处理器提供的CMPXCHG指令实现。CAS支持原子更新操作，适用于计数器，序列发生器等场景（序列发生器就是用来给变量自增的工具），CAS属于乐观锁机制，号称lock-free（其实只是上层感知无锁，底层还是有加锁操作的）。CAS操作失败时由开发者决定是继续尝试还是执行别的操作。</p>
+<h1 id="基于CAS实现的工具"><a href="#基于CAS实现的工具" class="headerlink" title="基于CAS实现的工具"></a>基于CAS实现的工具</h1><p>java.util.concurrent包都中的实现类都是基于volatile和CAS来实现的。尤其java.util.concurrent.atomic包下的原子类。 就拿AtomicInteger来说：</p>
+<p><img src="https://img.zouchanglin.cn///20200401/v7toTPE76qrG.png" alt="mark"></p>
+<p>可以看到 AtomicInteger 底层用的是volatile的变量和CAS来进行更改数据的。volatile保证可见性，多线程并发时，一个线程修改数据，可以保证其它线程立马看到修改后的值，CAS则保证数据更新的原子性。</p>
+<p>CAS多数情况下对开发者来说是透明的。J.U.C的atomic包提供了常用的原子性数据类型以及引用、数组等相关原子类型和更新操作工具，是很多线程安全程序的首选。Unsafe类虽提供CAS服务，但因能够操纵任意内存地址读写而有隐患。JDK9以后，可以使用Variable Handle API来替代Unsafe</p>
+<h1 id="模拟实现CAS"><a href="#模拟实现CAS" class="headerlink" title="模拟实现CAS"></a>模拟实现CAS</h1><p>CAS需要硬件层面的支持，所以模拟还是用synchronized来实现一下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestImplementCAS</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> CompareAndSwap cas = <span class="keyword">new</span> CompareAndSwap();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">                <span class="keyword">int</span> expectedValue = cas.get();</span><br><span class="line">                <span class="keyword">boolean</span> b = cas.compareAndSet(expectedValue, (<span class="keyword">int</span>)(Math.random() * <span class="number">101</span>));</span><br><span class="line">                System.out.println(b);</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareAndSwap</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取内存值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//比较</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">compareAndSwap</span><span class="params">(<span class="keyword">int</span> expectedValue, <span class="keyword">int</span> newValue)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> oldValue = value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(oldValue == expectedValue)&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = newValue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expectedValue, <span class="keyword">int</span> newValue)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> expectedValue == compareAndSwap(expectedValue, newValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.zouchanglin.cn///20200402/tmjCLH5oLt2J.png" alt="mark"></p>
+<h1 id="CAS的缺点"><a href="#CAS的缺点" class="headerlink" title="CAS的缺点"></a>CAS的缺点</h1><p>1、ABA问题</p>
+<p>因为CAS会检查旧值有没有变化，这里存在这样一个有意思的问题。比如一个旧值A变为了成B，然后再变成A，刚好在做CAS时检查发现旧值并没有变化依然为A，但是实际上的确发生了变化。解决方案可以沿袭数据库中常用的乐观锁方式，添加一个版本号可以解决。在JDK1.5后的atomic包中提供 了AtomicStampedReference来解决ABA问题，解决思路就是这样的。如果需要解决ABA问题，互斥与同步可能比CAS更高效。</p>
+<p>2、自旋会浪费大量的处理器资源<br>与线程阻塞相比，自旋会浪费大量的处理器资源。这是因为当前线程仍处于运行状况，只不过跑的是无用指令。它<br>期望在运行无用指令的过程中，锁能够被释放出来。JVM给出的方案是自适应自旋，根据以往自旋等待时能否获取锁，来动态调整自旋的时间。</p>
+<p>3、公平性问题<br>自旋状态还带来另外一个副作用，不公平的锁机制。处于阻塞状态的线程，无法立刻竞争被释放的锁。然而，处于<br>自旋状态的线程，则很有可能优先获得这把锁。内建锁无法实现公平机制，而lock体系可以实现公平锁。</p>
+<h1 id="解决ABA问题"><a href="#解决ABA问题" class="headerlink" title="解决ABA问题"></a>解决ABA问题</h1><p>在JDK1.5后的atomic包中提供 了AtomicStampedReference来解决ABA问题， 它通过包装[E，Integer]的元组来对对象标记版本stamp，从而避免ABA问题。在了解AtomicStampedReference之前我们可以先分析一下AtomicReference。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicReference;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReferenceDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AtomicReference&lt;String&gt; atomicReference = <span class="keyword">new</span> AtomicReference&lt;&gt;();</span><br><span class="line">        atomicReference.set(<span class="string">"AAA"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//CAS操作更新</span></span><br><span class="line">        <span class="keyword">boolean</span> result = atomicReference.compareAndSet(<span class="string">"AAA"</span>, <span class="string">"BBB"</span>);</span><br><span class="line">        System.out.println(result + <span class="string">" "</span> + atomicReference.get());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//CAS操作更新</span></span><br><span class="line">        result = atomicReference.compareAndSet(<span class="string">"AAA"</span>, <span class="string">"CCC"</span>);</span><br><span class="line">        System.out.println(result + <span class="string">" "</span> + atomicReference.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> AtomicReference的成员变量 </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Unsafe类提供CAS操作</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line"></span><br><span class="line"><span class="comment">//value变量的偏移地址，这个偏移地址在static块里初始化</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实际传入需要原子操作的那个类实例</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> V value;</span><br></pre></td></tr></table></figure>
+
+<p>compareAndSet方法是基于Unsafe提供的compareAndSwapObject方法， 这里的compareAndSet方法即CAS操作本身是原子的，但是在某些场景下会出现异常场景，也就是ABA问题。我们使用AtomicStampedReference来解决这个问题，下面是AtomicStampedReference的关键结构：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicStampedReference</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> T reference;  <span class="comment">//维护对象引用</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> stamp;  <span class="comment">//用于标志版本</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Pair</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.reference = reference;</span><br><span class="line">            <span class="keyword">this</span>.stamp = stamp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">static</span> &lt;T&gt; <span class="function">Pair&lt;T&gt; <span class="title">of</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(reference, stamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Pair&lt;V&gt; pair;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ReentrantLock与AQS</title>
+    <url>/2020/04/01/ReentrantLock%E4%B8%8EAQS/</url>
+    <content><![CDATA[<h1 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h1><p>01、ReentrantLock (再入锁)，位于java.util.concurrent.locks包<br>02、和CountDownLatch、Future Task、Semaphore一样基于AQS实现<br>03、能够实现比synchronized更细粒度的控制，如控制公平与非公平<br>04、调用lock()之后，必须调用unlock()释放锁<br>05、性能未必比synchronized高，并且也是可重入的<br>06、synchronized是关键字，ReentrantLock是类<br>07、ReentrantLock可以对获取锁的等待时间进行设置,避免死锁<br>08、ReentrantLock可以获取各种锁的信息<br>09、ReentrantLock可以灵活地实现多路通知<br>10、机制：sync操作Mark Word , lock调用Unsafe类的park()方法</p>
+<h1 id="关于ReentrantLock公平性的设置"><a href="#关于ReentrantLock公平性的设置" class="headerlink" title="关于ReentrantLock公平性的设置"></a>关于ReentrantLock公平性的设置</h1><p><code>ReentrantLock fairLock = new ReentrantLock(true);</code><br>1、参数为true时，倾向于将锁赋予等待时间最久的线程<br>2、公平锁：获取锁的顺序按先后调用lock方法的顺序(慎用)<br>3、非公平锁：抢占的顺序不一定，看运气<br>4、synchronized是非公平锁，如果比较强调吞吐量，没必要设置为公平锁</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock reentrantLock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                reentrantLock.lock();</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" get lock"</span>);</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                reentrantLock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReentrantLockDemo lockDemo = <span class="keyword">new</span> ReentrantLockDemo();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread1"</span>);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread2"</span>);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.zouchanglin.cn///20200401/ggWnghP90yYJ.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>synchronized实现与优化</title>
     <url>/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>本文主要讲述了synchronized的实现原理，还有synchronized的优化。其中主要包括了自适应自旋，锁消除、锁粗化、以及偏向锁和轻量级锁。另外阐述了锁的内存语义和对三种锁的总结。其实工程学科就是不断解决实际问题才能得以发展，synchronized从早期的一上来就直接使用Mutex逐步优化到现在的程度，mutex 互斥量是最重要的同步原语，但是我们去使用mutex的时候却会出现诸多问题（比如销毁了已加锁的互斥量、死锁问题），  Monitor机制是编程语言在语法上提供的语法糖，假设我们用的是C语言，那么很明显无法使用Monitor 机制。</p>
+    <content><![CDATA[<p>本文主要讲述了synchronized的实现原理，还有synchronized的优化。其中主要包括了自适应自旋，锁消除、锁粗化、以及偏向锁和轻量级锁。另外阐述了锁的内存语义和对三种锁的总结。其实工程学科就是不断解决实际问题才能得以发展，synchronized从早期的一上来就直接使用Mutex逐步优化到现在的程度，mutex互斥量是最重要的同步原语，但是我们去使用mutex的时候却会出现诸多问题（比如销毁了已加锁的互斥量、死锁问题）Monitor机制是编程语言在语法上提供的语法糖，假设我们用的是C语言，那么很明显无法使用Monitor机制。</p>
 <p>很多文章笼统的说synchronized是基于Monitor机制实现的，我认为这是错误的说法，Monitor 机制必须要有临界区、Monitor对象和互斥量、条件变量和wait()、signal()等要素。在synchronized的实现中根本找不到所有对应的元素。我认为Java的Monitor机制包括了synchronized、Object和程序员自己定的条件变量等（因为我们通常使用wait()、 notify()、notifyAll()配合synchronized才能取解决生产者消费者问题），这才一套完整的Monitor机制。JVM的ObjectMonitor用来辅助Java实现Monitor机制，直接把JVM的ObjectMonitor当成Monitor机制是不可取的。</p>
 <a id="more"></a>
 

@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives |  Tim&#39;s Blog
+    ReentrantLock与AQS |  Tim&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -34,254 +34,180 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article class="articles">
+  <article id="post-ReentrantLock与AQS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="archive-article-date">
-  <time datetime="2020-02-08T23:52:02.000Z" itemprop="datePublished">02/09</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"
-    >NIO网络通信</a
-  >
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  ReentrantLock与AQS
+</h1>
   
 
     </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="archive-article-date">
-  <time datetime="2020-02-08T11:24:22.000Z" itemprop="datePublished">02/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/08/NIO%E4%B8%8E%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/"
-    >NIO与通道数据传输</a
-  >
-</h2>
-  
 
-    </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/08/NIO%E4%B8%8E%E7%BC%93%E5%86%B2%E5%8C%BA/" class="archive-article-date">
-  <time datetime="2020-02-08T05:54:00.000Z" itemprop="datePublished">02/08</time>
+    <div class="article-meta">
+      <a href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/" class="article-date">
+  <time datetime="2020-04-01T06:01:35.000Z" itemprop="datePublished">2020-04-01</time>
 </a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/08/NIO%E4%B8%8E%E7%BC%93%E5%86%B2%E5%8C%BA/"
-    >NIO与缓冲区</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/07/SYN%20Cookie/" class="archive-article-date">
-  <time datetime="2020-02-07T14:20:45.000Z" itemprop="datePublished">02/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/07/SYN%20Cookie/"
-    >SYN Cookie</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
   </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-  <time datetime="2020-02-07T11:19:53.000Z" itemprop="datePublished">02/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/07/%E5%BA%B7%E5%A8%81%E6%B3%95%E5%88%99%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1/"
-    >康威法则与微服务</a
-  >
-</h2>
-  
 
-    </header>
-    
-    
-  </div>
-</article>
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" class="archive-article-date">
-  <time datetime="2020-02-06T14:56:21.000Z" itemprop="datePublished">02/06</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/06/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/"
-    >服务注册与发现</a
-  >
-</h2>
-  
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">330字</span>
+        </span>
+    </span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/05/Gradle%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  <time datetime="2020-02-05T10:57:21.000Z" itemprop="datePublished">02/05</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/05/Gradle%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E9%85%8D%E7%BD%AE/"
-    >Gradle的使用和配置</a
-  >
-</h2>
-  
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1分钟</span>
+        </span>
+    </span>
+</div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/04/Golang%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  <time datetime="2020-02-04T06:06:00.000Z" itemprop="datePublished">02/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/04/Golang%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"
-    >Golang工程管理</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/04/Golang%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  <time datetime="2020-02-04T05:58:11.000Z" itemprop="datePublished">02/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/04/Golang%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3/"
-    >Golang函数相关</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/03/CentOS7%E9%98%B2%E7%81%AB%E5%A2%99%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  <time datetime="2020-02-03T03:20:29.000Z" itemprop="datePublished">02/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/03/CentOS7%E9%98%B2%E7%81%AB%E5%A2%99%E6%93%8D%E4%BD%9C/"
-    >CentOS7防火墙操作</a
-  >
-</h2>
-  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
       
     </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h1><p>01、ReentrantLock (再入锁)，位于java.util.concurrent.locks包<br>02、和CountDownLatch、Future Task、Semaphore一样基于AQS实现<br>03、能够实现比synchronized更细粒度的控制，如控制公平与非公平<br>04、调用lock()之后，必须调用unlock()释放锁<br>05、性能未必比synchronized高，并且也是可重入的<br>06、synchronized是关键字，ReentrantLock是类<br>07、ReentrantLock可以对获取锁的等待时间进行设置,避免死锁<br>08、ReentrantLock可以获取各种锁的信息<br>09、ReentrantLock可以灵活地实现多路通知<br>10、机制：sync操作Mark Word , lock调用Unsafe类的park()方法</p>
+<h1 id="关于ReentrantLock公平性的设置"><a href="#关于ReentrantLock公平性的设置" class="headerlink" title="关于ReentrantLock公平性的设置"></a>关于ReentrantLock公平性的设置</h1><p><code>ReentrantLock fairLock = new ReentrantLock(true);</code><br>1、参数为true时，倾向于将锁赋予等待时间最久的线程<br>2、公平锁：获取锁的顺序按先后调用lock方法的顺序(慎用)<br>3、非公平锁：抢占的顺序不一定，看运气<br>4、synchronized是非公平锁，如果比较强调吞吐量，没必要设置为公平锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock reentrantLock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                reentrantLock.lock();</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" get lock"</span>);</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                reentrantLock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReentrantLockDemo lockDemo = <span class="keyword">new</span> ReentrantLockDemo();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread1"</span>);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(lockDemo, <span class="string">"Thread2"</span>);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.zouchanglin.cn///20200401/ggWnghP90yYJ.png" alt="mark"></p>
+
+      
+      <!-- 打赏 -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/" data-id="ck8ifz77j0000twwkc1jj2o3c"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
   </div>
-  
-  
 
   
-  <nav class="page-nav">
+  
+  <nav class="article-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/4/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/17/">17</a><a class="extend next" rel="next" href="/archives/page/6/">下一页</a>
+      <a href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            CAS操作与ABA问题
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">synchronized实现与优化</div>
+      </a>
+    
   </nav>
+
+
   
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'ocor78cFoDCdD4kOcOq4ijqh-9Nh9j0Va',
+        app_key: 'i6a2qpDJxFEnXMdoXeN43Nad',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -440,6 +366,30 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
 
 
 <script>

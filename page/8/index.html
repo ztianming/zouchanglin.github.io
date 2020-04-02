@@ -75,6 +75,217 @@
     
     
     
+    <article id="post-异常处理与资源释放" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/"
+    >异常处理与资源释放</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/" class="article-date">
+  <time datetime="2019-10-25T15:54:55.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p> JVM每实例化一个 Exception，都会对当时的栈进行快照，这是一个相对比较重的操作。如果发生的非常频繁，这个开销可就不能被忽略了 。try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。 </p>
+      
+      <a class="article-more-link" href="/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/10/25/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE/" data-id="ck7pnp3t000b7wkwk8p65eubi"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-HotSpotJVM类型以及编译模式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/25/HotSpotJVM%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F/"
+    >HotSpot JVM类型以及编译模式</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/25/HotSpotJVM%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-10-25T09:31:15.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Java是编译型还是解释型语言"><a href="#Java是编译型还是解释型语言" class="headerlink" title="Java是编译型还是解释型语言"></a>Java是编译型还是解释型语言</h1><p>关于这个问题我想表达一下自己的看法：Java 的源代码，通过Javac编译成为字节码，然后在运行时通过Java 虚拟机内嵌的解释器将字节码转换成为最终的机器码。但是常见的 JVM，比如我们大多数情况使用的 Oracle JDK 提供的 Hotspot JVM，都提供了 JIT（Just-In-Time）编译器，也就是通常所说的动态编译器，JIT 能够在运行时将热点代码编译成机器码，这种情况下部分热点代码就属于编译执行，而不是解释执行了。</p>
+      
+      <a class="article-more-link" href="/2019/10/25/HotSpotJVM%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/10/25/HotSpotJVM%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F/" data-id="ck7pnp3q9002owkwk1ri7cs36"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-探究MySQL锁机制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/"
+    >探究MySQL锁机制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2019-10-25T03:36:09.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="锁的理解"><a href="#锁的理解" class="headerlink" title="锁的理解"></a>锁的理解</h1><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。</p>
+<p>在数据库中，除传统的计算资源(如CPU、RAM、l/O等) 的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一一个重要因素。从这个角度来说锁对数据库而言显得尤其重要，也更加复杂。</p>
+      
+      <a class="article-more-link" href="/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/10/25/%E6%8E%A2%E7%A9%B6MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" data-id="ck7pnp3tb00c7wkwkdq221pkm"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-MySQL全局查询日志" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -560,218 +771,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-谈谈两次比赛的感想" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/10/14/%E8%B0%88%E8%B0%88%E4%B8%A4%E6%AC%A1%E6%AF%94%E8%B5%9B%E7%9A%84%E6%84%9F%E6%83%B3/"
-    >谈谈两次比赛的感想</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/10/14/%E8%B0%88%E8%B0%88%E4%B8%A4%E6%AC%A1%E6%AF%94%E8%B5%9B%E7%9A%84%E6%84%9F%E6%83%B3/" class="article-date">
-  <time datetime="2019-10-14T09:08:58.000Z" itemprop="datePublished">2019-10-14</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.hacpai.com/bing/20191009.jpg?imageView2/1/w/960/h/540/interlace/1/q/100" alt=""></p>
-<p>这篇文章呢，其实也没必要非得用Markdown写，但是用习惯了哈，没办法都改不了。差点跑题，今天谈谈今年这几次比赛的心得体会之类的吧。</p>
-<p>其实我也是看见了队友的感言，<a href="https://github.com/MrDalili/blog/blob/master/source/_posts/%E5%8F%82%E5%8A%A0%E6%9C%8D%E5%8C%85%E6%84%9F%E6%83%B3.md" target="_blank" rel="noopener">链接</a>在这里，所以只能看到他之前的博客备份了。今天是2019的10月份，转眼就到2020年了。其实也就当时回顾了一下自己上半年的成长吧，算是一份小小的总结。比赛是从去年冬天开始筹划的吧，不能算是筹划（应该是去年冬天听说的有这个比赛，其实就是服务外包大赛）。今年上半年开始着手准备选题，记得是3-4月份期间的选的题目。然后就选了 “智慧教室“ 这个项目，当时我和其中一个队友判断这个题目稍微简单一点，其实就是Android+、JavaEE+前端、Python控制的硬件端，比赛之前就认识两个队友：村支书和大力，其他两个队友是最后才接触了才认识的。</p>
-      
-      <a class="article-more-link" href="/2019/10/14/%E8%B0%88%E8%B0%88%E4%B8%A4%E6%AC%A1%E6%AF%94%E8%B5%9B%E7%9A%84%E6%84%9F%E6%83%B3/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/10/14/%E8%B0%88%E8%B0%88%E4%B8%A4%E6%AC%A1%E6%AF%94%E8%B5%9B%E7%9A%84%E6%84%9F%E6%83%B3/" data-id="ck7pnp3tv00e7wkwkgwog6qgd"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-面试MySQL索引失效分析" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/"
-    >【面试】MySQL索引失效分析</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" class="article-date">
-  <time datetime="2019-09-22T13:30:22.000Z" itemprop="datePublished">2019-09-22</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>本文主要向大家介绍了MySQL数据库之索引会失效的原因分析及解决索引失效的方法 ，通过具体的内容向大家展现，希望对大家学习MySQL数据库有所帮助。 </p>
-      
-      <a class="article-more-link" href="/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/09/22/%E9%9D%A2%E8%AF%95MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/" data-id="ck7pnp3u700fdwkwk5w9ieb7y"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-如何避免MySQL索引失效与三个优化实例" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/"
-    >如何避免MySQL索引失效与三个优化实例</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" class="article-date">
-  <time datetime="2019-09-21T15:25:35.000Z" itemprop="datePublished">2019-09-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>最好是查找的值都是建立索引的字段，要遵守最佳左前缀匹配法则，第一个索引没用上其他的都用不上，中间的索引没用上后面的也用不上。索引字段不要函数计算、自动或手动的类型转换。凡是在范围条件之后的索引全部失效，like的百分号写在最后边，实在是需要两边都是百分号那么建立索引，并且别查找其他非索引字段，也就是尽量别写select * 。尽量不使用不等于、大于、小于等条件，尽量不要使用or进行连接，否则会导致索引失效。对于varchar类型的字段不要忘记写引号，避免发生隐式类型转换。</p>
-      
-      <a class="article-more-link" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" data-id="ck7pnp3st00alwkwkbgin2nz0"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
 
     </footer>
 
