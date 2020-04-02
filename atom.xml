@@ -65,17 +65,14 @@
     <link href="https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/"/>
     <id>https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/</id>
     <published>2020-04-01T06:01:35.000Z</published>
-    <updated>2020-04-01T09:05:32.772Z</updated>
+    <updated>2020-04-02T14:32:11.961Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;synchronized和ReentrantLock的区别&quot;&gt;&lt;a href=&quot;#synchronized和ReentrantLock的区别&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;p&gt;synchronized和ReentrantLock的区别&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200402/jwuyI7Ai9jFH.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;先说说synchronized和ReentrantLock的区别吧，AQS的分析得等两天了：&lt;/p&gt;
+&lt;p&gt;1、ReentrantLock (再入锁)，位于java.util.concurrent.locks包&lt;br&gt;2、和CountDownLatch、Future Task、Semaphore一样基于AQS实现&lt;br&gt;3、能够实现比synchronized更细粒度的控制，如控制公平与非公平&lt;br&gt;4、调用lock()之后，必须调用unlock()释放锁&lt;br&gt;5、性能未必比synchronized高，并且也是可重入的&lt;br&gt;6、synchronized是关键字，ReentrantLock是类&lt;br&gt;7、ReentrantLock可以对获取锁的等待时间进行设置，避免死锁的发生&lt;br&gt;8、ReentrantLock可以获取各种锁的信息&lt;br&gt;9、ReentrantLock可以灵活地实现多路通知&lt;br&gt;10、机制：sync操作Mark Word，lock调用Unsafe类的park()方法&lt;/p&gt;
     
     </summary>
     
