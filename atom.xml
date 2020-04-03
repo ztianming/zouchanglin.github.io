@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-02T07:32:32.952Z</updated>
+  <updated>2020-04-03T12:05:53.455Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>虚假唤醒与Condition控制线程通信</title>
+    <link href="https://zouchanglin.cn/2020/04/03/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92%E4%B8%8ECondition%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
+    <id>https://zouchanglin.cn/2020/04/03/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92%E4%B8%8ECondition%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/</id>
+    <published>2020-04-03T03:01:35.000Z</published>
+    <updated>2020-04-03T12:05:53.455Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200403/UurprEGkmsPn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本文通过生产者消费者模型主要讲述了什么是虚假唤醒，以及处理处理虚假唤醒。另外还使用了Condition 来控制线程间的通信，Condition接口描述了可能会与锁有关联的条件变量，这些变量在用法上与使用Object.wait 访问的隐式监视器类似，但提供了更强大的功能。需要特别指出的是，单个Lock 可能与多个Condition 对象关联。为了避免兼容性问题，Condition 方法的名称与对应的Object 版本中的不同。 在Condition 对象中，与wait、notify 和notifyAll 方法对应的分别是await、signal 和signalAll。 Condition允许发生虚假唤醒，这通常作为对基础平台语义的让步。不过Condition还是应该总是在一个循环中被等待，避免虚假唤醒的发生。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+  </entry>
   
   <entry>
     <title>谈谈Java的线程池</title>
@@ -465,28 +487,6 @@
     
     
       <category term="Redis" scheme="https://zouchanglin.cn/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>InnoDB秒级快照原理与当前读</title>
-    <link href="https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/"/>
-    <id>https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/</id>
-    <published>2020-02-27T12:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.661Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;在之前为文章&lt;a href=&quot;https://zouchanglin.cn/2020/02/26/分析事务隔离的实现&quot;&gt;《分析事务隔离的实现》&lt;/a&gt;中我们提到：如果是可重复读隔离级别，事务T启动的时候会创建一个视图 read-view，之后事务 T 执行期间，即使有其他事务修改了数据，事务 T 看到的仍然跟在启动时看到的一样。也就是说，一个在可重复读隔离级别下执行的事务，好像与世无争，不受外界影响。但是，我在介绍MySQL锁机制的文章中&lt;a href=&quot;https://zouchanglin.cn/2019/10/25/探究MySQL锁机制&quot;&gt;《探究MySQL锁机制》&lt;/a&gt; 的时候，一个事务要更新一行，如果刚好有另外一个事务拥有这一行的行锁，它会被锁住，进入等待状态。问题是，既然进入了等待状态，那么等到这个事务自己获取到行锁要更新数据的时候，它读到的值又是什么呢？&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数据库" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="MySQL" scheme="https://zouchanglin.cn/tags/MySQL/"/>
     
   </entry>
   

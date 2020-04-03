@@ -75,6 +75,77 @@
     
     
     
+    <article id="post-Java的四种引用" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/"
+    >Java的四种引用</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" class="article-date">
+  <time datetime="2020-03-15T06:01:35.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200316/mALYmfXLzFOP.png" alt="mark"></p>
+<p>在Java语言中，除了原始数据类型的变量，其他所有都是所谓的引用类型，指向各种不同的对象，理解引用对于掌握Java对象生命周期和JVM内部相关机制非常有帮助。本文讲述了强引用、软引用、弱引用、幻象引用的区别以及一些具体使用场景，而且是配合ReferenceQueue使用。</p>
+      
+      <a class="article-more-link" href="/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" data-id="ck7ug85zw0000fcwk8uve2tvr"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-请丢弃finalize" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -702,77 +773,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-InnoDB秒级快照原理与当前读" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/"
-    >InnoDB秒级快照原理与当前读</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/" class="article-date">
-  <time datetime="2020-02-27T12:01:35.000Z" itemprop="datePublished">2020-02-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200227/9xbkj74TxjVu.png" alt="mark"></p>
-<p>在之前为文章<a href="https://zouchanglin.cn/2020/02/26/分析事务隔离的实现">《分析事务隔离的实现》</a>中我们提到：如果是可重复读隔离级别，事务T启动的时候会创建一个视图 read-view，之后事务 T 执行期间，即使有其他事务修改了数据，事务 T 看到的仍然跟在启动时看到的一样。也就是说，一个在可重复读隔离级别下执行的事务，好像与世无争，不受外界影响。但是，我在介绍MySQL锁机制的文章中<a href="https://zouchanglin.cn/2019/10/25/探究MySQL锁机制">《探究MySQL锁机制》</a> 的时候，一个事务要更新一行，如果刚好有另外一个事务拥有这一行的行锁，它会被锁住，进入等待状态。问题是，既然进入了等待状态，那么等到这个事务自己获取到行锁要更新数据的时候，它读到的值又是什么呢？</p>
-      
-      <a class="article-more-link" href="/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/27/InnoDB%E7%A7%92%E7%BA%A7%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%BB/" data-id="ck7pnp3qd0030wkwkhvqj49ah"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
 
     </footer>
 
