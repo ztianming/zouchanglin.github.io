@@ -75,6 +75,76 @@
     
     
     
+    <article id="post-理解Java内存模型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/01/31/%E7%90%86%E8%A7%A3Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"
+    >理解Java内存模型</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/01/31/%E7%90%86%E8%A7%A3Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2019-01-31T10:09:30.000Z" itemprop="datePublished">2019-01-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>网上有很多关于Java内存模型的文章，在《深入理解Java虚拟机》和《Java并发编程的艺术》等书中也都有关于这个知识点的介绍。但是，很多人读完之后还是搞不清楚，甚至有的人说自己更懵了。本文，就来整体的介绍一下Java内存模型，目的很简单，让你读完本文以后，就知道到底Java内存模型是什么，为什么要有Java内存模型，Java内存模型解决了什么问题等。</p>
+      
+      <a class="article-more-link" href="/2019/01/31/%E7%90%86%E8%A7%A3Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/01/31/%E7%90%86%E8%A7%A3Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" data-id="ck7pnp3tj00cywkwkh2fh6ncm"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-了解并使用Maven" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -694,84 +764,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2018/12/05/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" data-id="ck7pnp3qw004iwkwkdycf435d"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Linux进程通信之信号量" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/11/27/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E5%8F%B7%E9%87%8F/"
-    >Linux进程通信之信号量</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/11/27/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E5%8F%B7%E9%87%8F/" class="article-date">
-  <time datetime="2018-11-27T10:09:30.000Z" itemprop="datePublished">2018-11-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98/">操作系统实战</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>虽然本文是记录使用信号量保证进程的同步与互斥的，但是其实也可以看做是进程之间的通信问题，为了与前面的保持一致，所以还是叫做 Linux进程间通信了！</p>
-<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>进程间通信的方式有管道、消息队列、共享内存这些都是进程间的信息通信，而信号量可以理解为进程使用的临界资源的状态说明，信号量主要用于保证同步与互斥</p>
-<ul>
-<li>临界资源：两个进程看到的一份公共资源称之为临界资源</li>
-<li>临界区：各个进程中访问临界资源的代码叫做临界区</li>
-<li>互斥：每个进程访问临界资源的时候必须是独占式的(排他式的)，只能自己一个人访问</li>
-<li>同步：防止不间断的占有资源和释放资源，这样的话其他进程就会长时间得不到资源，这样会造成进程的饥饿问题</li>
-</ul>
-<p>由此可见我们之前用于进程间通信的管道，消息队列，共享内存都是临界资源，管道是内核已经提供了同步与互斥，但是消息队列和共享内存都是不保证同步与互斥的</p>
-      
-      <a class="article-more-link" href="/2018/11/27/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E5%8F%B7%E9%87%8F/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/11/27/Linux%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E5%8F%B7%E9%87%8F/" data-id="ck7pnp3qw004fwkwk899j12y9"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>

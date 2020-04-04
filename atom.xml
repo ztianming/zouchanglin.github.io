@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-04T04:03:44.947Z</updated>
+  <updated>2020-04-04T12:27:25.842Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JUC的四个并发工具类</title>
+    <link href="https://zouchanglin.cn/2020/04/05/JUC%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://zouchanglin.cn/2020/04/05/JUC%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2020-04-05T04:00:00.000Z</published>
+    <updated>2020-04-04T12:27:25.842Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章主要记录了JUC的四个并发工具类，闭锁CountDownlatch、栅栏CyclicBarrier、信号量Semaphore、交换器Exchanger。CountDownlatch通常用于主线程等待其他任务线程执行完毕的场景；CyclicBarrier主要阻塞当前线程，等待其他线程（大家无论谁先跑到A点，必须要等其他线程也到达了A点，大家才能继续）。信号量Semaphore可以用来控制同时访问特定资源的线程数量（比如100个线程只能有10个线程可以获得MySQL连接）。交换器Exchanger很少用，只适用于两个线程在同步点交换数据的场景（如下图）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200404/xTzG4uGsytB7.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+  </entry>
   
   <entry>
     <title>ForkJoin框架与读写锁</title>
@@ -457,32 +479,6 @@
     
       &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;poll翻译过来是轮询的意思， 可以看到poll和epoll都有轮询的过程， 不同点在于：poll轮询的是所有的socket，而epoll只轮询就绪的socket。 epoll是开发linux高性能服务器的必备技术至，epoll本质，是服务端程序员的必须掌握的知识。 本文主要是利用图文讲述了select的原理和epoll相对于做出的优化，以及epoll的部分细节问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>select、poll和epoll多路复用</title>
-    <link href="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"/>
-    <id>https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</id>
-    <published>2020-02-29T12:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.704Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200301/EQNj1T6uKbOU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Nginx和Redis中都用到了epoll多路复用模型，本节将讲述常见的多路复用模型：select、poll和epoll，以及部分示例代码，还是先回顾IO的两个重要过程：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;在以前的文章中介绍了五种IO模型，分别是阻塞式IO、非阻塞式IO、信号驱动IO、多路复用IO、异步IO；前四种都属于同步IO。今天重点介绍的是多路复用IO，多路复用IO通俗讲就是一次等待多个文件描述符，减少了等待时间，提高了IO过程的效率（此IO过程并不是只是从内核态到用户态数据的拷贝，而是从发起IO请求直到IO完成的过程），接下来将介绍Linux的三种多路复用模型。&lt;/p&gt;
     
     </summary>
     
