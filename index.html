@@ -75,6 +75,79 @@
     
     
     
+    <article id="post-ForkJoin框架与读写锁" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/"
+    >ForkJoin框架与读写锁</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/" class="article-date">
+  <time datetime="2020-04-04T04:00:00.000Z" itemprop="datePublished">2020-04-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Fork/Join框架就是在必要的情况下，将一个大任务，进行拆分（fork）成若千个小任务（拆到不可再拆时），再将一个个的小任务运算的结果进行join汇总。</p>
+<p><img src="https://img.zouchanglin.cn///20200404/ChkDGz2ekXrP.png" alt="mark"></p>
+<p>ForkJoin框架采用<code>工作窃取</code>模式(work-stealing) :当执行新的任务时它可以将其拆分分成更小的任务执行，并将小任务加到线程队列中，然后再从一个随机线程的队列中偷一个并把它放在自己的队列中。</p>
+<p>相对于一般的线程池实现，fork/join框架的优势体现在对其中包含的任务的处理方式上，在一般的线程池中，如果一个线程正在执行的任务由于某些原因无法继续运行，那么该线程会处于等待状态。而在fork/join框架实现中，如果某个子问题由于等待另外一个子问题的完成而无法继续运行。那么处理该子问题的线程会主动寻找其他尚未运行的子问题来执行。这种方式减少了线程的等待时间，提高了性能。</p>
+      
+      <a class="article-more-link" href="/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/" data-id="ck8l6dx320000z4wkao949ufp"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-向新冠肺炎疫情牺牲烈士和逝世同胞深切哀悼" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -709,78 +782,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/" rel="tag">上传下载</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Docker私服配置HTTPS" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/"
-    >Docker私服配置HTTPS</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/" class="article-date">
-  <time datetime="2020-03-21T06:01:35.000Z" itemprop="datePublished">2020-03-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200321/vL5w2LvCRPhV.png" alt="mark"></p>
-<p>上图即使我搭建完毕的效果。对于Docker的环境安装，基础命令之类的内容，通读官网文档内容基本都能顺利掌握。 然而，当笔者尝试着搭建一套基于SSL的Docker Registry（官网推荐的做法）却遇到了不少的麻烦，对于这部分内容，大多数博客文档内容都是直接跳过了SSL的环节，采用了HTTP的访问形式。 然而本文就是记录一下对于搭建HTTPS 访问形式的Docker Registry的过程，读者很容易复现的过程！</p>
-<p>我的环境是CentOS7_x64，Docker版本是 Client: Docker Engine - Community 19.03.7、Server: Docker Engine - Community 19.03.7、Nginx源码包的版本是nginx-1.9.9.tar.gz。</p>
-      
-      <a class="article-more-link" href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/" data-id="ck81d858k0000u4wkdmbt2uk1"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
 
     </footer>
 

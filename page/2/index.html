@@ -75,6 +75,78 @@
     
     
     
+    <article id="post-Docker私服配置HTTPS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/"
+    >Docker私服配置HTTPS</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/" class="article-date">
+  <time datetime="2020-03-21T06:01:35.000Z" itemprop="datePublished">2020-03-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200321/vL5w2LvCRPhV.png" alt="mark"></p>
+<p>上图即使我搭建完毕的效果。对于Docker的环境安装，基础命令之类的内容，通读官网文档内容基本都能顺利掌握。 然而，当笔者尝试着搭建一套基于SSL的Docker Registry（官网推荐的做法）却遇到了不少的麻烦，对于这部分内容，大多数博客文档内容都是直接跳过了SSL的环节，采用了HTTP的访问形式。 然而本文就是记录一下对于搭建HTTPS 访问形式的Docker Registry的过程，读者很容易复现的过程！</p>
+<p>我的环境是CentOS7_x64，Docker版本是 Client: Docker Engine - Community 19.03.7、Server: Docker Engine - Community 19.03.7、Nginx源码包的版本是nginx-1.9.9.tar.gz。</p>
+      
+      <a class="article-more-link" href="/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/" data-id="ck81d858k0000u4wkdmbt2uk1"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-优雅的实现单例" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -698,79 +770,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/02/29/select%E3%80%81poll%E5%92%8Cepoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-id="ck7pnp3rz008awkwk5wqm8gd2"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-通俗理解五种IO模型" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"
-    >通俗理解五种IO模型</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" class="article-date">
-  <time datetime="2020-02-29T12:01:35.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200229/JzUvCzR8JTH3.png" alt="mark"></p>
-<blockquote>
-<p><strong>任何IO过程中，都包含两个步骤：第一是等待，第二是拷贝。而且在实际的应用场景中，等待消耗的时间往往都远远高于拷贝的时间。让IO更高效，最核心的办法就是让等待的时间尽量少。</strong></p>
-</blockquote>
-      
-      <a class="article-more-link" href="/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/29/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" data-id="ck7pnp3u100ewwkwk42b45e5e"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
