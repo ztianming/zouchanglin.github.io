@@ -75,6 +75,375 @@
     
     
     
+    <article id="post-Mat与基本图形绘制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/"
+    >Mat与基本图形绘制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" class="article-date">
+  <time datetime="2018-08-30T10:09:30.000Z" itemprop="datePublished">2018-08-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="Mat对象与IplImage对象"><a href="#Mat对象与IplImage对象" class="headerlink" title="Mat对象与IplImage对象"></a>Mat对象与IplImage对象</h2><ul>
+<li>Mat对象OpenCV2.0之后引进的图像数据结构、自动分配内存、不存在内存泄漏的问题，是面向对象的数据结构。分了两个部分，头部与数据部分</li>
+<li>IplImage是从2001年OpenCV发布之后就一直存在，是C语言风格的数据结构，需要开发者自己分配与管理内存，对大的程序使用它容易导致内存泄漏问题，下面是IplImage结构体的定义：</li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/30/Mat%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6/" data-id="ck7pnp3r20053wkwk7atn0d94"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-图像亮度对比度调整" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/"
+    >图像亮度对比度调整</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/" class="article-date">
+  <time datetime="2018-08-29T10:09:30.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="读写像素"><a href="#读写像素" class="headerlink" title="读写像素"></a>读写像素</h2><h3 id="读一个GRAY像素点的像素值（CV-8UC1）"><a href="#读一个GRAY像素点的像素值（CV-8UC1）" class="headerlink" title="读一个GRAY像素点的像素值（CV_8UC1）"></a>读一个GRAY像素点的像素值（CV_8UC1）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line">Scalar intensity = img.at&lt;uchar&gt;(y, x); </span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line">Scalar intensity = img.at&lt;uchar&gt;(Point(x, y));</span><br></pre></td></tr></table></figure>
+
+<h3 id="读一个BGR像素点的像素值"><a href="#读一个BGR像素点的像素值" class="headerlink" title="读一个BGR像素点的像素值"></a>读一个BGR像素点的像素值</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取整形</span></span><br><span class="line">Vec3b intensity = src.at&lt;Vec3b&gt;(x, y);</span><br><span class="line"><span class="keyword">int</span> b = intensity [<span class="number">0</span>];</span><br><span class="line"><span class="keyword">int</span> g = intensity [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> r = intensity [<span class="number">2</span>];</span><br><span class="line"><span class="comment">//读取浮点型</span></span><br><span class="line">Vec3f intensity = img.at&lt;Vec3f&gt;(y, x); </span><br><span class="line"><span class="keyword">float</span> blue = intensity.val[<span class="number">0</span>]; </span><br><span class="line"><span class="keyword">float</span> green = intensity.val[<span class="number">1</span>]; </span><br><span class="line"><span class="keyword">float</span> red = intensity.val[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vec3b与Vec3F"><a href="#Vec3b与Vec3F" class="headerlink" title="Vec3b与Vec3F"></a>Vec3b与Vec3F</h2><ul>
+<li>Vec3b对应三通道的顺序是blue、green、red的uchar类型数据。</li>
+<li>Vec3f对应三通道的float类型数据</li>
+<li>把CV_8UC1转换到CV32F1实现如下：<code>src.convertTo(dst, CV_32F);</code></li>
+</ul>
+      
+      <a class="article-more-link" href="/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/29/%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E6%95%B4/" data-id="ck7pnp3sq00a7wkwkfqicdloc"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-OpenCV矩阵掩模" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/"
+    >OpenCV矩阵掩模</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" class="article-date">
+  <time datetime="2018-08-27T10:09:30.000Z" itemprop="datePublished">2018-08-27</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>OpenCV是计算机视觉开源库，主要算法涉及图像处理和机器学习相关方法。是Intel公司贡献出来的，俄罗斯工程师贡献大部分C/C++代码。官网：<a href="https://opencv.org/" target="_blank" rel="noopener">https://opencv.org/</a> 从这里 <a href="https://opencv.org/releases.html" target="_blank" rel="noopener">https://opencv.org/releases.html</a> 你可以下载到自己想要的版本！</p>
+      
+      <a class="article-more-link" href="/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/27/OpenCV%E7%9F%A9%E9%98%B5%E6%8E%A9%E6%A8%A1/" data-id="ck7pnp3rl006owkwk3ripan8n"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openCV/" rel="tag">openCV</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Validate做表单校验" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/"
+    >Validate做表单校验</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" class="article-date">
+  <time datetime="2018-08-23T10:09:30.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>用户在注册的时候，会有个表单页面，然后有些选项是必填的，有些要填的内容是有规范的，这些都要在用户提交之前进行验证才行，如果不符合要求，需要在右边显示一个友好的提示，让用户修改。此时Validate做表单校验的特效药就发挥作用了！如果我们自己来写js代码的话，那么可就显得有些冲复造轮子了，所以现在Validate这个库可以很好的帮我们省略自己去写js校验代码，Validate这个库属于jQuery的插件库！</p>
+<h2 id="Validate下载"><a href="#Validate下载" class="headerlink" title="Validate下载"></a>Validate下载</h2><p>Validate的官网里面有示例代码，看这个就可以<strong>：<a href="https://jqueryvalidation.org/" target="_blank" rel="noopener">https://jqueryvalidation.org</a></strong> 官网的介绍是：这个jQuery插件简化了客户端表单验证，同时还提供了大量的自定义选项。如果您正在从头开始构建校验代码，而且当您尝试将某些内容集成到具有大量现有代码的现有应用程序中时，它将是一个不错的选择。该插件捆绑了一组有用的验证方法，包括URL和电子邮件验证，同时提供API来编写自己的方法。所有捆绑方法都带有英语的默认错误消息，并翻译成其他37种语言。由此可见它的强大之处了！</p>
+      
+      <a class="article-more-link" href="/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/08/23/Validate%E5%81%9A%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" data-id="ck7pnp3rx0083wkwk9y9c6zwl"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-链表相关问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"
+    >链表相关问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2018-07-25T10:09:30.000Z" itemprop="datePublished">2018-07-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="题目一"><a href="#题目一" class="headerlink" title="题目一"></a>题目一</h1><blockquote>
+<p><strong>题目一：假设有如下的复杂链表，每个节点都有next指针和random指针，random指针是随机指向，请完成这条复杂链表的复制！</strong></p>
+</blockquote>
+<p>定义复杂链表节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DataType _data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span>* _<span class="title">next</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">ComplexNode</span>* _<span class="title">random</span>;</span></span><br><span class="line">&#125; ComplexNode;</span><br></pre></td></tr></table></figure>
+
+<p>需要的功能</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产生新节点</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">BuyComplexNode</span><span class="params">(DataType x)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印此复杂链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintComplexList</span><span class="params">(ComplexNode* plist)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//复制复杂链表</span></span><br><span class="line"><span class="function">ComplexNode* <span class="title">CopyList</span><span class="params">(ComplexNode* <span class="built_in">list</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/07/25/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" data-id="ck7pnp3u600f6wkwkcm9w5pl0"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-全概率公式与贝叶斯公式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -435,373 +804,13 @@
 
 </article>
     
-    <article id="post-MySQL库表操作" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/"
-    >MySQL库表操作</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2018-06-08T10:09:30.000Z" itemprop="datePublished">2018-06-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="字符集与校验规则"><a href="#字符集与校验规则" class="headerlink" title="字符集与校验规则"></a>字符集与校验规则</h3><p>当我们创建数据库没有指定字符集和校验规则时，系统使用默认字符集：<code>utf8</code>，校验规则<br>是：<code>utf8_ general_ ci</code> ，这个校验规则中的 <code>ci</code>就是Case insensitive意为不区分大小写</p>
-<p>创建一个使用<code>utf8</code> 的字符集，并带校对规则为<code>utf8_general_ci</code>的数据库。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database DBName charset&#x3D;utf8 collate utf8_general_ci;</span><br></pre></td></tr></table></figure>
-
-<p>查看系统默认字符集、默认校验规则</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;character_set_database&#39;; </span><br><span class="line">show variables like &#39;collation_database&#39;;</span><br></pre></td></tr></table></figure>
-
-<p> 支持的字符集、支持的校验规则 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show charset;</span><br><span class="line">show collation;</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/08/MySQL%E5%BA%93%E8%A1%A8%E6%93%8D%E4%BD%9C/" data-id="ck7pnp3rb005uwkwkgumf2d11"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-MySQL存储引擎" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/"
-    >MySQL存储引擎</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="article-date">
-  <time datetime="2018-06-07T10:09:30.000Z" itemprop="datePublished">2018-06-07</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>所谓安装数据库服务器，只是在机器上安装了一个数据库管理系统程序，这个管理程序可以管理多个数据库，一般开发人员会针对每一个应用创建一个数据库。<br>为保存应用中实体的数据，一般会在数据库中创建多个表，以保存程序中实体的数据。<br>数据库服务器、数据库和表的关系如下：</p>
-<p><img src="https://img.zouchanglin.cn///20200201/Ion7IJe8ARRL.png" alt="mark"></p>
-<p> MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可 MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品，只是存储引擎不同！ </p>
-      
-      <a class="article-more-link" href="/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/06/07/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-id="ck7pnp3r5005ewkwk93p6b7qz"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Linux调度器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/"
-    >Linux调度器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/" class="article-date">
-  <time datetime="2018-05-28T10:09:01.000Z" itemprop="datePublished">2018-05-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>进程是操作系统虚拟出来的概念，用来组织计算机中的任务。它从诞生到随着CPU时间执行，直到最终消失。不过，进程的生命都得到了操作系统内核的关照。就好像疲于照顾几个孩子的母亲内核必须做出决定，如何在进程间分配有限的计算资源，最终让用户获得最佳的使用体验。内核中安排进程执行的模块称为调度器（scheduler）。这里将介绍调度器的工作方式。</p>
-      
-      <a class="article-more-link" href="/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/05/28/Linux%E8%B0%83%E5%BA%A6%E5%99%A8/" data-id="ck7pnp3qt004awkwk04z950d3"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结构体、位段与联合体" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/27/%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E4%BD%8D%E6%AE%B5%E4%B8%8E%E8%81%94%E5%90%88%E4%BD%93/"
-    >结构体、位段与联合体</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/27/%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E4%BD%8D%E6%AE%B5%E4%B8%8E%E8%81%94%E5%90%88%E4%BD%93/" class="article-date">
-  <time datetime="2018-05-26T16:00:00.000Z" itemprop="datePublished">2018-05-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>结构体和指针是数据结构的根基，所以这篇博客这算是对结构体有一个重新的认识，主要内容包括：匿名结构体、结构体的自引用、结构体的不完整声明、结构体内存对齐、位段的使用、联合体的应用场景等等。</p>
-      
-      <a class="article-more-link" href="/2018/05/27/%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E4%BD%8D%E6%AE%B5%E4%B8%8E%E8%81%94%E5%90%88%E4%BD%93/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/05/27/%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E4%BD%8D%E6%AE%B5%E4%B8%8E%E8%81%94%E5%90%88%E4%BD%93/" data-id="ck7pnp3to00d9wkwk1kmidwrh"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-浅谈函数栈帧" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/"
-    >浅谈函数栈帧</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/" class="article-date">
-  <time datetime="2018-05-21T15:29:01.000Z" itemprop="datePublished">2018-05-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>先说说函数栈帧的概念，函数栈帧又叫函数运行时堆栈，栈帧也叫过程活动记录，是编译器用来实现函数调用的一种数据结构。这个该概念说起来比较抽象，简单的说就是函数在被调用时的一块空间，这个空间由esp寄存器和ebp寄存器共同维护。首先应该明白，栈是从高地址向低地址延伸的。每个函数的每次调用，都有它自己独立的一个栈帧，这个栈帧中维持着所需要的各种信息。寄存器ebp指向当前的栈帧的底部(高地址)，寄存器esp指向当前的栈帧的顶部(低地址)。</p>
-      
-      <a class="article-more-link" href="/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/05/21/%E6%B5%85%E8%B0%88%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7/" data-id="ck7pnp3td00chwkwkgd2043ve"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
   </nav>
   
 </section>

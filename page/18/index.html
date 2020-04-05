@@ -75,6 +75,363 @@
     
     
     
+    <article id="post-使用服务注册特殊广播接收者" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/"
+    >使用服务注册特殊广播接收者</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/" class="article-date">
+  <time datetime="2018-03-09T11:08:56.000Z" itemprop="datePublished">2018-03-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Android中的广播：系统在运行过程中，会发生很多事件，系统为了让其他应用知道系统发生了这个事件，会发送一个对应事件的广播，比如：电量改变，收到短信，拨打电话，屏幕解锁，系统开机，只有注册一个广播接收者，就可以接收到系统发送的广播。</p>
+<p>屏幕锁屏和解锁、电量改变等广播属于安卓系统中操作特别频繁的广播事件，若在MainActivity中注册,当MainActivity销毁时无法接收广播，所以应该在服务中去注册广播接收者，必须使用代码注册！</p>
+      
+      <a class="article-more-link" href="/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/03/09/%E4%BD%BF%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%89%B9%E6%AE%8A%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%85/" data-id="ck7pnp3sc0097wkwk7da8hqxv"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-程序员偷偷深爱的9个不良编程习惯" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/"
+    >程序员偷偷深爱的9个不良编程习惯</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/" class="article-date">
+  <time datetime="2018-03-07T10:09:24.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>哈哈，这篇文章还是非常能说明问题的，实际开发中必须要注意的地方！<br>下面这9个编码习惯，虽然在编程规则中是被驳斥的，但我们很多人就是会不由自主地使用它们。<br>我们曾经都做过这样的事情：当妈妈不注意的时候，偷偷地吃糖果零食，然后导致有了蛀牙。同样的，我们都违背过一些编程的基本规则，并且都会坚定地表示这种行为是不可取的。但我们就是偷偷爱着这些不良的编程习惯。</p>
+<p>我们对所谓的编程规则嗤之以鼻，输出的代码也很糟糕——但我们依然活着。编程上帝没有下闪电劈死我们，我们的电脑也没有爆炸。事实上，只要我们能编译和发布代码，客户似乎就很满意了。</p>
+<p>这是因为糟糕的编程不像安装电路或者摸老虎屁股那样有直接的危害性。大多数时间里它也是可以工作的。规则通常是作为一种指导或格式上的建议，并没有硬性规定一定要遵守，也不会导致代码马上死掉。当然，你的代码可能会被人耻笑，甚至可能大家公开嘲笑你，不过，这种挑战惯例的行为可以让人增加一点颠覆传统的快感，哪怕是在不经意间。</p>
+<p>为了让问题变得更加复杂，有时候违反规则反而更好。（一般人我不告诉他！）出来的代码会更干净，甚至可能会更快和更简单。规则通常显得太过于宽泛，有技巧的程序员可以通过打破这些规则来提高代码。不要告诉你的老板，这对你的编码生涯会很有意义。</p>
+<p>下面这9个编码习惯，虽然在编程规则中是被驳斥的，但我们很多人就是会不由自主地使用它们。</p>
+      
+      <a class="article-more-link" href="/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/03/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%81%B7%E5%81%B7%E6%B7%B1%E7%88%B1%E7%9A%849%E4%B8%AA%E4%B8%8D%E8%89%AF%E7%BC%96%E7%A8%8B%E4%B9%A0%E6%83%AF/" data-id="ck7pnp3tm00d5wkwkb0of2wb1"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-JVM内存配置参数说明" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/"
+    >JVM内存配置参数说明</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/" class="article-date">
+  <time datetime="2018-02-28T16:00:00.000Z" itemprop="datePublished">2018-03-01</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h1><p>Xms -Xmx分别设置堆的最小值和最大值，如果要设置成堆的大小可变，那么可以将最大值和最小值设置成不一样，如果要将堆大小固定，那么只需将最大值和最小值设置成一样的就行。<br>jvm中分为堆和方法区，堆又进一步分为新生代和老年代。方法区为永久代，堆中区分的新生代和老年代是为了垃圾回收，新生代中的对象存活期一般不长，而老年代中的对象存活期较长，所以当垃圾回收器回收内存时，新生代中垃圾回收效果较好，会回收大量的内存，而老年代中回收效果较差，内存回收不会太多。</p>
+      
+      <a class="article-more-link" href="/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/03/01/JVM%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/" data-id="ck7pnp3qg003bwkwk54bn7gkv"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Java中数组复制的效率比较" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/"
+    >Java中数组复制的效率比较</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/" class="article-date">
+  <time datetime="2018-02-28T15:39:28.000Z" itemprop="datePublished">2018-02-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在开发中，数组复制是经常使用的，很多方法都可以进行数组赋值，但是效率却天差地别：效率最高的是：<code>System.arraycopy()</code>, 下面是它的使用方式的参数说明：</p>
+<p><img src="https://img.zouchanglin.cn///20200131/TeVcojoB2G6I.png" alt="mark"></p>
+<p>们可以看看它的源代码，它是个native方法，毫无疑问效率最高：</p>
+      
+      <a class="article-more-link" href="/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/02/28/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/" data-id="ck7pnp3qf0038wkwk24u8c6oe"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-网页启动本地Activity" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/"
+    >网页启动本地Activity</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="article-date">
+  <time datetime="2018-02-03T08:51:00.000Z" itemprop="datePublished">2018-02-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Intent这个类在开发中是很常用的类，代表了着一个意图（获取理解为目标、目的），首先我们需要明确一点的就是：任何一个浏览器链接都是一个隐式意图，打开一个浏览器的方式无非就是显式意图和隐式意图，所以我们配置过滤器即可！</p>
+      
+      <a class="article-more-link" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" data-id="ck7pnp3tp00dgwkwk0zk43jrl"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Ajax异步请求与JSON数据格式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -470,85 +827,13 @@
 
 </article>
     
-    <article id="post-Mac下制作Windows启动盘" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/"
-    >Mac下制作Windows启动盘</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" class="article-date">
-  <time datetime="2017-06-17T03:51:00.000Z" itemprop="datePublished">2017-06-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BF%AE%E5%A4%8D/">系统安装修复</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="下载Windows镜像"><a href="#下载Windows镜像" class="headerlink" title="下载Windows镜像"></a>下载Windows镜像</h2><p><a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">https://msdn.itellyou.cn/</a> ,在这个网站可以找到你要下载的镜像文件，当然还有其他的下载链接</p>
-<h2 id="双击ISO文件"><a href="#双击ISO文件" class="headerlink" title="双击ISO文件"></a>双击ISO文件</h2><p>双击你下载的ISO文件，这时你相当于将镜像挂载到了自己的电脑上，应该出现如下所示的情况。</p>
-<p><img src="https://img.zouchanglin.cn///20200131/oflphrdIrRBw.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" data-id="ck7pnp3qz004vwkwk4ad5fdls"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/17/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span>
+    <a class="extend prev" rel="prev" href="/page/17/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/19/">下一页</a>
   </nav>
   
 </section>
