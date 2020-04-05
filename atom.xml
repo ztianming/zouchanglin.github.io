@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-04T12:27:25.842Z</updated>
+  <updated>2020-04-05T05:47:42.807Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何理解SpringIOC</title>
+    <link href="https://zouchanglin.cn/2020/04/05/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3SpringIOC/"/>
+    <id>https://zouchanglin.cn/2020/04/05/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3SpringIOC/</id>
+    <published>2020-04-05T06:00:00.000Z</published>
+    <updated>2020-04-05T05:47:42.807Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200405/IHCyMIrsdTrx.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;SpringIOC是Spring Core最核心的部分，要了解控制反转(Inversion of Control)，我觉得有必要先了解软件设计的一个重要思想：依赖倒置原则。 &lt;/p&gt;
+&lt;p&gt;1、高层模块不应该依赖底层模块，二者都应该依赖抽象&lt;br&gt;2、抽象不应该依赖细节，细节应该依赖抽象。&lt;br&gt;3、依赖倒置的中心思想是面向接口编程。&lt;br&gt;4、依赖倒置原则是基于这样的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比以细节为基础搭建的架构要稳定的多。&lt;br&gt;5、使用接口或抽象类的目的是指定好规范，而不涉及任何具体操作，展现细节的任务交给他们的实现类来完成。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+  </entry>
   
   <entry>
     <title>JUC的四个并发工具类</title>
@@ -465,28 +488,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图解epoll原理</title>
-    <link href="https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/"/>
-    <id>https://zouchanglin.cn/2020/03/01/%E5%9B%BE%E8%A7%A3epoll%E5%8E%9F%E7%90%86/</id>
-    <published>2020-03-01T12:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.730Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200301/wtDoDUaxYAlG.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;poll翻译过来是轮询的意思， 可以看到poll和epoll都有轮询的过程， 不同点在于：poll轮询的是所有的socket，而epoll只轮询就绪的socket。 epoll是开发linux高性能服务器的必备技术至，epoll本质，是服务端程序员的必须掌握的知识。 本文主要是利用图文讲述了select的原理和epoll相对于做出的优化，以及epoll的部分细节问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="高性能网络" scheme="https://zouchanglin.cn/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="Linux" scheme="https://zouchanglin.cn/tags/Linux/"/>
     
   </entry>
   

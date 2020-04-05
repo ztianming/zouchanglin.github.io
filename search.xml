@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>如何理解SpringIOC</title>
+    <url>/2020/04/05/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3SpringIOC/</url>
+    <content><![CDATA[<p><img src="https://img.zouchanglin.cn///20200405/IHCyMIrsdTrx.png" alt="mark"></p>
+<p>SpringIOC是Spring Core最核心的部分，要了解控制反转(Inversion of Control)，我觉得有必要先了解软件设计的一个重要思想：依赖倒置原则。 </p>
+<p>1、高层模块不应该依赖底层模块，二者都应该依赖抽象<br>2、抽象不应该依赖细节，细节应该依赖抽象。<br>3、依赖倒置的中心思想是面向接口编程。<br>4、依赖倒置原则是基于这样的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比以细节为基础搭建的架构要稳定的多。<br>5、使用接口或抽象类的目的是指定好规范，而不涉及任何具体操作，展现细节的任务交给他们的实现类来完成。</p>
+<a id="more"></a>
+
+<h1 id="依赖注入DI"><a href="#依赖注入DI" class="headerlink" title="依赖注入DI"></a>依赖注入DI</h1><p>现在假设我们需要设计一个行李箱，行李箱依赖于箱体，箱体依赖于底盘，底盘依赖于轮子。</p>
+<p><img src="https://img.zouchanglin.cn///20200405/r4uc3slWmxkX.png" alt="mark"></p>
+<p>现在假设轮子需要按尺寸需求更改，那么底盘也得改，箱体也得改，行李箱也要改。代码如下：</p>
+<p><img src="https://img.zouchanglin.cn///20200405/GVLjGXVrytM1.png" alt="mark"></p>
+<p>现在如果需要把轮子得大小改为动态可调整的，那么上层代码也得跟着变，由此我们可以看到，仅仅是为了修改轮子的构造函数，这种设计却需要修改整个上层所有类的构造函数！在软件工程中，这样的设计几乎是不可维护的——在实际工程项目中，有的类可能会是几千个类的底层，如果每次修改这个类，我们都要修改所有以它作为依赖的类，那软件的维护成本就太高了，这就是典型的上层建筑依赖下层建筑。</p>
+<p>所以我们需要进行控制反转（IoC），及上层控制下层，而不是下层控制着上层。我们用依赖注入（Dependency Injection）这种方式来实现控制反转。所谓依赖注入，就是把底层类作为参数传入上层类，实现上层类对下层类的控制。这里我们用<strong>构造方法传递的依赖注入方式</strong> 重写各个类的构造函数：</p>
+<p><img src="https://img.zouchanglin.cn///20200405/SsDxCFrYxffR.png" alt="mark"></p>
+<p>依赖注入是如何解决这个问题的呢？我们可以先设计行李箱箱，根据行李箱设计箱体，根据箱体设计底盘，根据底盘设计轮子，如下图所示：</p>
+<p><img src="https://img.zouchanglin.cn///20200405/vg7DOMGtuRht.png" alt="mark"></p>
+<p>所以，依赖注入即把底层类作为参数传递给上层类，实现上层对下层的控制。</p>
+<p><img src="https://img.zouchanglin.cn///20200405/LSU5tWQee5W8.png" alt="mark"></p>
+<p>这样即实现了底层类的更改不会影响到上层类的修改，增加了代码的可维护性。 这里我们是采用的构造函数传入的方式进行的依赖注入。其实还有另外三种方法：Setter传递和接口传递和注解的方式。这里就不多讲了，核心思路都是一样的，都是为了实现控制反转。 </p>
+<h1 id="IOC与DI、DL的关系"><a href="#IOC与DI、DL的关系" class="headerlink" title="IOC与DI、DL的关系"></a>IOC与DI、DL的关系</h1><p><img src="https://img.zouchanglin.cn///20200405/ITwmaCV4UJEF.png" alt="mark"></p>
+<p>EJB即使用DL来实现的IOC，DI是当今IOC的主流实现。 DI提供了Setter注入、接口注入、注解注入、构造器注入等多种注入方式。依赖倒置原则和IOC的关系是怎样的呢？</p>
+<p><img src="https://img.zouchanglin.cn///20200405/IHCyMIrsdTrx.png" alt="mark"></p>
+<p>依赖倒置原则、IOC、DI、以及spring IOC容器，这四者的关系就是：依赖倒置原则上是一种思想，它主要含义是高层模块，不应该依赖于低层模块，两者都应该依赖其抽象。正是依赖倒置原则的指导，才有了IOC控制反转的思路，需要怎么实现这个思路呢？就离不开依赖注入之类的支撑，Spring等框架，基于IOC才提出了容器的概念。对于IOC来说。最重要的就是容器把容器管理的Bean的生命周期进行控制依赖注入，那什么是控制反转容器IOC container呢？其实就是承载对象的容器，便于组装对象，避免在各处使用new来创建类，并且可以做到统一维护。</p>
+<p>如果我们一步一步去new的话，就会是图中的上面的情况，需要根据构造函数一步一步来注入：</p>
+<p><img src="https://img.zouchanglin.cn///20200405/VezV8pS1auX5.png" alt="mark"></p>
+<p>而ICO容器注入的过程如图中下面的部分所示，先查找对象的依赖关系，然后自底向上进行注入。</p>
+<p><img src="https://img.zouchanglin.cn///20200405/UDJ7CpsvV19t.png" alt="mark"></p>
+]]></content>
+      <categories>
+        <category>Web开发</category>
+      </categories>
+      <tags>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JUC的四个并发工具类</title>
     <url>/2020/04/05/JUC%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
     <content><![CDATA[<p>本篇文章主要记录了JUC的四个并发工具类，闭锁CountDownlatch、栅栏CyclicBarrier、信号量Semaphore、交换器Exchanger。CountDownlatch通常用于主线程等待其他任务线程执行完毕的场景；CyclicBarrier主要阻塞当前线程，等待其他线程（大家无论谁先跑到A点，必须要等其他线程也到达了A点，大家才能继续）。信号量Semaphore可以用来控制同时访问特定资源的线程数量（比如100个线程只能有10个线程可以获得MySQL连接）。交换器Exchanger很少用，只适用于两个线程在同步点交换数据的场景（如下图）。</p>
@@ -2859,42 +2895,6 @@
       </categories>
       <tags>
         <tag>Gradle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何理解SpringIOC</title>
-    <url>/2020/02/05/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3SpringIOC/</url>
-    <content><![CDATA[<p><img src="https://img.zouchanglin.cn///20200405/IHCyMIrsdTrx.png" alt="mark"></p>
-<p>SpringIOC是Spring Core最核心的部分，要了解控制反转(Inversion of Control)，我觉得有必要先了解软件设计的一个重要思想：依赖倒置原则。 </p>
-<p>1、高层模块不应该依赖底层模块，二者都应该依赖抽象<br>2、抽象不应该依赖细节，细节应该依赖抽象。<br>3、依赖倒置的中心思想是面向接口编程。<br>4、依赖倒置原则是基于这样的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比以细节为基础搭建的架构要稳定的多。<br>5、使用接口或抽象类的目的是指定好规范，而不涉及任何具体操作，展现细节的任务交给他们的实现类来完成。</p>
-<a id="more"></a>
-
-<h1 id="依赖注入DI"><a href="#依赖注入DI" class="headerlink" title="依赖注入DI"></a>依赖注入DI</h1><p>现在假设我们需要设计一个行李箱，行李箱依赖于箱体，箱体依赖于底盘，底盘依赖于轮子。</p>
-<p><img src="https://img.zouchanglin.cn///20200405/r4uc3slWmxkX.png" alt="mark"></p>
-<p>现在假设轮子需要按尺寸需求更改，那么底盘也得改，箱体也得改，行李箱也要改。代码如下：</p>
-<p><img src="https://img.zouchanglin.cn///20200405/GVLjGXVrytM1.png" alt="mark"></p>
-<p>现在如果需要把轮子得大小改为动态可调整的，那么上层代码也得跟着变，由此我们可以看到，仅仅是为了修改轮子的构造函数，这种设计却需要修改整个上层所有类的构造函数！在软件工程中，这样的设计几乎是不可维护的——在实际工程项目中，有的类可能会是几千个类的底层，如果每次修改这个类，我们都要修改所有以它作为依赖的类，那软件的维护成本就太高了，这就是典型的上层建筑依赖下层建筑。</p>
-<p>所以我们需要进行控制反转（IoC），及上层控制下层，而不是下层控制着上层。我们用依赖注入（Dependency Injection）这种方式来实现控制反转。所谓依赖注入，就是把底层类作为参数传入上层类，实现上层类对下层类的控制。这里我们用<strong>构造方法传递的依赖注入方式</strong> 重写各个类的构造函数：</p>
-<p><img src="https://img.zouchanglin.cn///20200405/SsDxCFrYxffR.png" alt="mark"></p>
-<p>依赖注入是如何解决这个问题的呢？我们可以先设计行李箱箱，根据行李箱设计箱体，根据箱体设计底盘，根据底盘设计轮子，如下图所示：</p>
-<p><img src="https://img.zouchanglin.cn///20200405/vg7DOMGtuRht.png" alt="mark"></p>
-<p>所以，依赖注入即把底层类作为参数传递给上层类，实现上层对下层的控制。</p>
-<p><img src="https://img.zouchanglin.cn///20200405/LSU5tWQee5W8.png" alt="mark"></p>
-<p>这样即实现了底层类的更改不会影响到上层类的修改，增加了代码的可维护性。 这里我们是采用的构造函数传入的方式进行的依赖注入。其实还有另外三种方法：Setter传递和接口传递和注解的方式。这里就不多讲了，核心思路都是一样的，都是为了实现控制反转。 </p>
-<h1 id="IOC与DI、DL的关系"><a href="#IOC与DI、DL的关系" class="headerlink" title="IOC与DI、DL的关系"></a>IOC与DI、DL的关系</h1><p><img src="https://img.zouchanglin.cn///20200405/ITwmaCV4UJEF.png" alt="mark"></p>
-<p>EJB即使用DL来实现的IOC，DI是当今IOC的主流实现。 DI提供了Setter注入、接口注入、注解注入、构造器注入等多种注入方式。依赖倒置原则和IOC的关系是怎样的呢？</p>
-<p><img src="https://img.zouchanglin.cn///20200405/IHCyMIrsdTrx.png" alt="mark"></p>
-<p>依赖倒置原则、IOC、DI、以及spring IOC容器，这四者的关系就是：依赖倒置原则上是一种思想，它主要含义是高层模块，不应该依赖于低层模块，两者都应该依赖其抽象。正是依赖倒置原则的指导，才有了IOC控制反转的思路，需要怎么实现这个思路呢？就离不开依赖注入之类的支撑，Spring等框架，基于IOC才提出了容器的概念。对于IOC来说。最重要的就是容器把容器管理的Bean的生命周期进行控制依赖注入，那什么是控制反转容器IOC container呢？其实就是承载对象的容器，便于组装对象，避免在各处使用new来创建类，并且可以做到统一维护。</p>
-<p>如果我们一步一步去new的话，就会是图中的上面的情况，需要根据构造函数一步一步来注入：</p>
-<p><img src="https://img.zouchanglin.cn///20200405/VezV8pS1auX5.png" alt="mark"></p>
-<p>而ICO容器注入的过程如图中下面的部分所示，先查找对象的依赖关系，然后自底向上进行注入。</p>
-<p><img src="https://img.zouchanglin.cn///20200405/UDJ7CpsvV19t.png" alt="mark"></p>
-]]></content>
-      <categories>
-        <category>Web开发</category>
-      </categories>
-      <tags>
-        <tag>JavaEE</tag>
       </tags>
   </entry>
   <entry>
