@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-05T05:47:42.807Z</updated>
+  <updated>2020-04-07T08:42:44.567Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringIOC原理与应用</title>
+    <link href="https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</id>
+    <published>2020-04-05T10:00:00.000Z</published>
+    <updated>2020-04-07T08:42:44.567Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200405/HbNPDVawlHpU.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
+&lt;p&gt;ICO容器的结构如上图所示，首先要让IOC容器去读取Bean的配置信息，并在容器中生成一份相应的Bean定义注册表，根据这张注册表去实例化Bean，装配好Bean之间的依赖关系，为上层提供准备就绪的环境，Spring提供一个配置文件描述Bean还有Bean之间的依赖关系，利用Java语言的反射功能实例化Bean并建立Bean之间的依赖关系。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+  </entry>
   
   <entry>
     <title>如何理解SpringIOC</title>
@@ -464,30 +486,6 @@
       <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
     
       <category term="字符串" scheme="https://zouchanglin.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ClassLoader</title>
-    <link href="https://zouchanglin.cn/2020/03/08/ClassLoader/"/>
-    <id>https://zouchanglin.cn/2020/03/08/ClassLoader/</id>
-    <published>2020-03-07T23:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.642Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200308/Tyosik8F2e9b.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;ClassLoader在Java中有着非常重要的作用，它主要工作在Class装载的加载阶段，其主要作用是从系统外部获得Class二进制数据流。它是Java的核心组件。所有的Class都是由ClassLoader 进行加载的。ClassLoader负责通过将Class文件里的二进制数据流装载进系统，然后交给Java虚拟机进行连接、初始化等操作。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
     
   </entry>
   

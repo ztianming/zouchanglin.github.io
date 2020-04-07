@@ -75,6 +75,77 @@
     
     
     
+    <article id="post-SpringIOC原理与应用" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/"
+    >SpringIOC原理与应用</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" class="article-date">
+  <time datetime="2020-04-05T10:00:00.000Z" itemprop="datePublished">2020-04-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200405/HbNPDVawlHpU.png" alt="mark"></p>
+<p>ICO容器的结构如上图所示，首先要让IOC容器去读取Bean的配置信息，并在容器中生成一份相应的Bean定义注册表，根据这张注册表去实例化Bean，装配好Bean之间的依赖关系，为上层提供准备就绪的环境，Spring提供一个配置文件描述Bean还有Bean之间的依赖关系，利用Java语言的反射功能实例化Bean并建立Bean之间的依赖关系。</p>
+      
+      <a class="article-more-link" href="/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" data-id="ck8pnon4700006swk39yr3u2t"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-如何理解SpringIOC" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -701,85 +772,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/" data-id="ck8h14jgp0000nswkdlfid5tm"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-synchronized锁的是什么" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/28/synchronized%E9%94%81%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88/"
-    >synchronized锁的是什么</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/28/synchronized%E9%94%81%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88/" class="article-date">
-  <time datetime="2020-03-28T06:01:35.000Z" itemprop="datePublished">2020-03-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>最近发现synchronized锁的是什么？甚至有人认为synchronized锁的是代码？？！这个我觉得还是很有必要通过实际的示例来说明synchronized锁的到底是什么。</p>
-<p><strong>根据获取的锁的分类：获取对象锁和获取类锁！</strong></p>
-<blockquote>
-<p><strong>获取对象锁的两种用法</strong></p>
-</blockquote>
-<p>1、同步代码块(synchronized(this), synchronized(类实例对象))，锁是小括号()中的实例对象。<br>2、同步非静态方法(synchronized method)，锁是当前对象的实例对象。</p>
-<blockquote>
-<p><strong>获取类锁的两种用法</strong></p>
-</blockquote>
-<p>1、同步代码块(synchronized(类.class))，锁是小括号()中的类对象，即Class对象。<br>2、同步静态方法(synchronized static method)，锁是当前对象的类对象(Class对象)。</p>
-      
-      <a class="article-more-link" href="/2020/03/28/synchronized%E9%94%81%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/28/synchronized%E9%94%81%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88/" data-id="ck8bqgddu000018wk50qc9sgc"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
