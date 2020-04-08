@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-07T08:42:44.567Z</updated>
+  <updated>2020-04-08T13:06:32.383Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>O(n²)的三个排序算法</title>
+    <link href="https://zouchanglin.cn/2020/04/07/O(n%C2%B2)%E7%9A%84%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    <id>https://zouchanglin.cn/2020/04/07/O(n%C2%B2)%E7%9A%84%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</id>
+    <published>2020-04-07T10:00:00.000Z</published>
+    <updated>2020-04-08T13:06:32.383Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天复习下最简单的三个排序算法，一个是选择排序，一个是插入排序，一个是冒泡排序，三者时间复杂度都是O(n²)，通过分析来发现三者的优劣，以及对最好的情况和最坏的情况进行分析。 另外，这三中排序算法都是基于比较的排序算法。基于比较的排序算法的执行过程，会涉及两种操作，一种是元素比较大小，另一种是元素交换或移动。所以，如果我们在分析排序算法的执行效率的时候，应该把比较次数和交换（或移动）次数也考虑进去。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringIOC原理与应用</title>
     <link href="https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</id>
     <published>2020-04-05T10:00:00.000Z</published>
-    <updated>2020-04-07T08:42:44.567Z</updated>
+    <updated>2020-04-07T08:44:47.967Z</updated>
     
     <summary type="html">
     
@@ -460,32 +481,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java内存模型的回顾</title>
-    <link href="https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/"/>
-    <id>https://zouchanglin.cn/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/</id>
-    <published>2020-03-09T23:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.664Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200310/6jem5nNs1Jug.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本篇文章主要讲述了Java内存模型中的程序计数器、虚拟机栈、本地方法栈、元空间与堆，以及堆中的常量池。前面通过javap反编译class文件得到&lt;code&gt;int add(int a, int b)&lt;/code&gt;函数的栈帧，主要分析了栈帧中JVM指令对应的局部变量表、操作数栈、程序计数器的状态变化。以及JDK7以后出现了替代永久代的元数据区，并分析了元数据区替换了永久代有哪些好处，主要分析了给字符串常量池带来的影响，并通过代码验证了元数据区相比永久代的优越性。学习了JVM性能调优的三个参数的意义和普通用法，最后探讨了并验证了JDK1.6与JDK1.7+的版本String类的intern方法的不同表现结果，分析了出现不同结果的原因，其实主要是JDK1.6的版本是建立副本再放入字符串常量池，而JDK1.7+版本时直接把堆上的对象的引用入池。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
-    
-      <category term="字符串" scheme="https://zouchanglin.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
