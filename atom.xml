@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-08T13:06:32.383Z</updated>
+  <updated>2020-04-09T04:42:28.387Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>插入排序的优化之希尔排序</title>
+    <link href="https://zouchanglin.cn/2020/04/09/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
+    <id>https://zouchanglin.cn/2020/04/09/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</id>
+    <published>2020-04-09T03:00:00.000Z</published>
+    <updated>2020-04-09T04:42:28.387Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;希尔排序是插入排序的一种，又称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法，可以说它是插入排序的高级版。我们可以先回顾一下直接插入排序的过程：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200408/epYKaCrsQqxV.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;排序前将第一个元素看成有序的数列&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第1趟排序后：得到一个长度为2的有序数列&lt;/li&gt;
+&lt;li&gt;第2趟排序后：得到一个长度为3的有序数列&lt;/li&gt;
+&lt;li&gt;第3趟排序后：得到一个长度为4的有序数列&lt;/li&gt;
+&lt;li&gt;……..每趟插入排序，都可以将一个无序值插入一个有序数列，直到全部元素有序&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>O(n²)的三个排序算法</title>
@@ -448,29 +477,6 @@
     
       &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
 &lt;p&gt;目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>垃圾标记与收集算法</title>
-    <link href="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"/>
-    <id>https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/</id>
-    <published>2020-03-10T23:01:35.000Z</published>
-    <updated>2020-03-13T03:06:29.731Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。&lt;/p&gt;
     
     </summary>
     

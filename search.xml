@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>插入排序的优化之希尔排序</title>
+    <url>/2020/04/09/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<p>希尔排序是插入排序的一种，又称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法，可以说它是插入排序的高级版。我们可以先回顾一下直接插入排序的过程：</p>
+<p><img src="https://img.zouchanglin.cn///20200408/epYKaCrsQqxV.png" alt=""></p>
+<p>排序前将第一个元素看成有序的数列</p>
+<ul>
+<li>第1趟排序后：得到一个长度为2的有序数列</li>
+<li>第2趟排序后：得到一个长度为3的有序数列</li>
+<li>第3趟排序后：得到一个长度为4的有序数列</li>
+<li>……..每趟插入排序，都可以将一个无序值插入一个有序数列，直到全部元素有序</li>
+</ul>
+<a id="more"></a>
+
+<p>最坏情况下，直接插入排序的时间复杂度是O(n²)。从上图可以看出，6这个元素被移动了三次才到末尾。我在直接插入排序的博客<a href="https://zouchanglin.cn/2020/04/07/O(n²)的三个排序算法">《O(n²)的三个排序算法》</a>中写到，直接插入排序最好的情况就是本来就有序，所以直接插入排序用来排序那些近乎有序的数组是非常适合的。<strong>所以我们对于一个无序数组，先把它变成大致有序，然后超级大致有序，然后变成超级超级大致有序……最后变成完全有序，这样可以省略掉很多不必要的元素交换</strong>。</p>
+<p>那么如何让大元素一开始就分批向后移动呢？那就是通过分组排序的方式， 应该怎么分呢？比如有10个元素的序列，分成几个才合适？每次缩减又是多少呢？ 将一个序列分成好几个序列，用一个数来表示：那个数称为增量，我们可以发现增量越来越小，其实就是数组越来越有序的过程。</p>
+<p>下面来看看希尔排序的过程：</p>
+<p><img src="https://img.zouchanglin.cn///20200409/IlHKfnKi9hBd.png" alt="mark"></p>
+<p>下面通过代码来实现一下希尔排序：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="comment">//每次都缩小增量</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> step = arr.length / <span class="number">2</span>; step &gt; <span class="number">0</span>; step /= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = step; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">int</span> tmp = arr[j];</span><br><span class="line">            <span class="comment">//注意这里不是结构上的前一个元素，而是对于组而言的，同组之间的元素交换</span></span><br><span class="line">            <span class="keyword">while</span>(j - step &gt;= <span class="number">0</span> &amp;&amp; arr[j - step] &gt; tmp)&#123;</span><br><span class="line">                arr[j] = arr[j - step];</span><br><span class="line">                j = j - step;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>希尔排序和直接插入排序的对比，对30万个随机数进行排序</p>
+<p><img src="https://img.zouchanglin.cn///20200409/FMrOm67SXEnH.png" alt="mark"></p>
+<p>最后再思考一个问题，希尔排序是稳定排序吗？</p>
+<p>当然不是，因为通过上面的结论我们知道，希尔排序是依靠分组来进行排序的，值相同的元素完全有可能被调换位置，所以希尔排序是一个不稳定排序。</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>O(n²)的三个排序算法</title>
     <url>/2020/04/07/O(n%C2%B2)%E7%9A%84%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>今天复习下最简单的三个排序算法，一个是选择排序，一个是插入排序，一个是冒泡排序，三者时间复杂度都是O(n²)，通过分析来发现三者的优劣，以及对最好的情况和最坏的情况进行分析。 另外，这三中排序算法都是基于比较的排序算法。基于比较的排序算法的执行过程，会涉及两种操作，一种是元素比较大小，另一种是元素交换或移动。所以，如果我们在分析排序算法的执行效率的时候，应该把比较次数和交换（或移动）次数也考虑进去。 </p>

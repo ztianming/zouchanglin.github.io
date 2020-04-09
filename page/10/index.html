@@ -75,6 +75,76 @@
     
     
     
+    <article id="post-如何避免MySQL索引失效与三个优化实例" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/"
+    >如何避免MySQL索引失效与三个优化实例</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" class="article-date">
+  <time datetime="2019-09-21T15:25:35.000Z" itemprop="datePublished">2019-09-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>最好是查找的值都是建立索引的字段，要遵守最佳左前缀匹配法则，第一个索引没用上其他的都用不上，中间的索引没用上后面的也用不上。索引字段不要函数计算、自动或手动的类型转换。凡是在范围条件之后的索引全部失效，like的百分号写在最后边，实在是需要两边都是百分号那么建立索引，并且别查找其他非索引字段，也就是尽量别写select * 。尽量不使用不等于、大于、小于等条件，尽量不要使用or进行连接，否则会导致索引失效。对于varchar类型的字段不要忘记写引号，避免发生隐式类型转换。</p>
+      
+      <a class="article-more-link" href="/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/09/21/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8DMySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E4%B8%8E%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%AE%9E%E4%BE%8B/" data-id="ck7pnp3st00alwkwkbgin2nz0"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-MySQL性能分析" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -699,88 +769,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" data-id="ck7pnp3py001owkwk8yrlcuit"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Docker简介与安装" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/"
-    >Docker简介与安装</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" class="article-date">
-  <time datetime="2019-08-02T03:09:47.000Z" itemprop="datePublished">2019-08-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="1、前提知识"><a href="#1、前提知识" class="headerlink" title="1、前提知识"></a>1、前提知识</h2><ul>
-<li><p>熟悉Linux命令和相关背景</p>
-</li>
-<li><p>建议了解Git、Maven相关知识和概念</p>
-</li>
-</ul>
-<h2 id="2、Docker方向选择"><a href="#2、Docker方向选择" class="headerlink" title="2、Docker方向选择"></a>2、Docker方向选择</h2><ul>
-<li><p>JavaEE研发方向：掌握Docker基本用法和相关概念</p>
-</li>
-<li><p>Docker研发方向：主要开发语言是go，Swarm、Compose、Machine、K8S等</p>
-</li>
-</ul>
-<h2 id="3、Docker是什么"><a href="#3、Docker是什么" class="headerlink" title="3、Docker是什么"></a>3、Docker是什么</h2><p>一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种版本的迭代之后，不同版本环境的兼容，对运维人员都是考验  Docker之所以发展如此迅速，也是因为它对此给出了一个标准化的解决方案。</p>
-      
-      <a class="article-more-link" href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/" data-id="ck7pnp3pz001rwkwk120ibnaq"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>

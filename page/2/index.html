@@ -75,6 +75,79 @@
     
     
     
+    <article id="post-ReentrantLock与AQS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/"
+    >ReentrantLock与AQS</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/" class="article-date">
+  <time datetime="2020-04-01T06:01:35.000Z" itemprop="datePublished">2020-04-01</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>synchronized和ReentrantLock的区别</p>
+<p><img src="https://img.zouchanglin.cn///20200402/jwuyI7Ai9jFH.png" alt="mark"></p>
+<p>先说说synchronized和ReentrantLock的区别吧，AQS的分析得等两天了：</p>
+<p>1、ReentrantLock (再入锁)，位于java.util.concurrent.locks包<br>2、和CountDownLatch、Future Task、Semaphore一样基于AQS实现<br>3、能够实现比synchronized更细粒度的控制，如控制公平与非公平<br>4、调用lock()之后，必须调用unlock()释放锁<br>5、性能未必比synchronized高，并且也是可重入的<br>6、synchronized是关键字，ReentrantLock是类<br>7、ReentrantLock可以对获取锁的等待时间进行设置，避免死锁的发生<br>8、ReentrantLock可以获取各种锁的信息<br>9、ReentrantLock可以灵活地实现多路通知<br>10、机制：sync操作Mark Word，lock调用Unsafe类的park()方法</p>
+      
+      <a class="article-more-link" href="/2020/04/01/ReentrantLock%E4%B8%8EAQS/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/" data-id="ck8ifz77j0000twwkc1jj2o3c"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-synchronized实现与优化" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -704,76 +777,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" data-id="ck7pnp3p60002wkwk81g706y8"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-垃圾标记与收集算法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"
-    >垃圾标记与收集算法</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-10T23:01:35.000Z" itemprop="datePublished">2020-03-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>本文主要是以通俗易懂的画图方式解释了标记清除算法和可达性分析算法，以及常用的回收算法（标记清除、标记整理、复制算法）以及整合百家之长的分代回收算法，另外还介绍了触发Full GC的几个场景。</p>
-      
-      <a class="article-more-link" href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/" data-id="ck7pnp3ss00aiwkwkhbwq7wms"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
