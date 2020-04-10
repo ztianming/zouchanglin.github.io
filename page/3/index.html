@@ -75,6 +75,77 @@
     
     
     
+    <article id="post-9种垃圾收集器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"
+    >9种垃圾收集器</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="article-date">
+  <time datetime="2020-03-11T23:01:35.000Z" itemprop="datePublished">2020-03-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
+<p>目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
+      
+      <a class="article-more-link" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" data-id="ck7pnp3p60002wkwk81g706y8"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-垃圾标记与收集算法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -703,79 +774,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-密集索引和稀疏索引" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/"
-    >密集索引和稀疏索引</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/" class="article-date">
-  <time datetime="2020-02-26T12:01:35.000Z" itemprop="datePublished">2020-02-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>密集索引：文件中的每个搜索码值都对应一个索引值，就是叶子节点保存了整行，比如InnoDB</p>
-<p>稀疏索引：文件只为索引码的某些值建立索引项，比如MyISAM</p>
-<p><img src="https://img.zouchanglin.cn///20200226/L4dIVF9GX4Si.png" alt="mark"></p>
-<p>密集索引的表数据按顺序存储，即索引顺序和表记录物理存储顺序一致，所以一个表只能创建一个密集索引</p>
-      
-      <a class="article-more-link" href="/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/26/%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95/" data-id="ck7pnp3sz00b3wkwk2byu94xx"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li></ul>
 
     </footer>
 

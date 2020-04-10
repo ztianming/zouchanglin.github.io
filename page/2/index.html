@@ -75,6 +75,76 @@
     
     
     
+    <article id="post-CAS操作与ABA问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/"
+    >CAS操作与ABA问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-04-02T06:01:35.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>我们在使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突， 所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作(又称为无锁操作)是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。</p>
+      
+      <a class="article-more-link" href="/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/" data-id="ck8ifz77s0001twwk88iz91o2"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-ReentrantLock与AQS" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -706,77 +776,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/" data-id="ck7ug860a0004fcwk6f190vtf"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-9种垃圾收集器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"
-    >9种垃圾收集器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-11T23:01:35.000Z" itemprop="datePublished">2020-03-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200312/5dC8XXcmBoUn.png" alt="mark"></p>
-<p>目前的垃圾收集器主要有7种，上图是他们的使用关系，连在一起的就可以配合使用。JDK11出现两种新的垃圾收集器，一个是Epsilon垃圾收集器，一个是ZGC垃圾收集器。垃圾收集器中很重要的两个概念：Stop-The-World和Safepoint。首先说说Stop-The-World：JVM由于要执行GC而停止了应用程序的执行，任何一种GC算法中都会发生。多数GC优化通过减少Stop-the -world发生的时间来提高程序性能。安全点 Safepoint：分析过程中对象引用关系不会发生变化的点，产生Safepoint的地方：方法调用、循环跳转、异常跳转等，安全点数量得适中。</p>
-      
-      <a class="article-more-link" href="/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/12/9%E7%A7%8D%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" data-id="ck7pnp3p60002wkwk81g706y8"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
