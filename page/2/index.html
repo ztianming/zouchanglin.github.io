@@ -75,6 +75,78 @@
     
     
     
+    <article id="post-谈谈Java的线程池" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/"
+    >谈谈Java的线程池</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="article-date">
+  <time datetime="2020-04-02T09:01:35.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="https://img.zouchanglin.cn///20200402/1RKDW9iG8m8Y.png" alt="mark"></p>
+<p>本文主要讲述了使用线程池的好处，Executors创建的五种线程池特点，简单介绍了Fork/Join框架。围绕Executor框架展开，阐述了线程池的工作流程，探讨了ThreadPoolExecutor的全部构造参数和意义，以及阿里巴巴不推荐使用Executors创建线程池的原因，另外，介绍了我们应该怎么样合理的创建线程池，对于CPU密集型和IO密集型以及混合型的创建方式。探讨了新任务提交后的执行流程，另外简单画了一下线程池生命周期图。</p>
+<p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或者并发执行任务的程序都可以使用线程池。开发<br>中使用线程池的三个优点如下：<br>1、降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁带来的消耗。<br>2、提高响应速度：当任务到达时，任务可以不需要等待线程创建就能立即执行。<br>3、提高线程的可管理性：使用线程池可以统一进行线程分配、调度和监控。</p>
+      
+      <a class="article-more-link" href="/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-id="ck8ifz77t0003twwk6gxp5i0e"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-CAS操作与ABA问题" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -706,76 +778,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2020/03/15/Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" data-id="ck7ug85zw0000fcwk8uve2tvr"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-请丢弃finalize" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/"
-    >请丢弃finalize</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/" class="article-date">
-  <time datetime="2020-03-14T23:01:35.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>用过JDK9的同学应该发现了，finalize方法在JDK9中已经被标记为deprecated，今天探讨一下finalize方法。如果没有特别的原因，不要实现finalize方法，也不要指望利用它来进行资源回收。因为你无法保证finalize什么时候执行，执行的是否符合预期。使用不当会影响性能，导致程序死锁、挂起等。</p>
-      
-      <a class="article-more-link" href="/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/03/15/%E8%AF%B7%E4%B8%A2%E5%BC%83finalize/" data-id="ck7ug860a0004fcwk6f190vtf"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>

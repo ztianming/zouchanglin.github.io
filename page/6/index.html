@@ -75,6 +75,78 @@
     
     
     
+    <article id="post-NIO网络通信" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"
+    >NIO网络通信</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time datetime="2020-02-08T23:52:02.000Z" itemprop="datePublished">2020-02-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C/">高性能网络</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="阻塞式IO与非阻塞式IO"><a href="#阻塞式IO与非阻塞式IO" class="headerlink" title="阻塞式IO与非阻塞式IO"></a>阻塞式IO与非阻塞式IO</h2><p>传统的IO流都是阻塞式的。也就是说，当一个线程调用read() 或write()时，该线程被阻塞，直到有一些数据被读取或写入，该线程在此期间不能执行其他任务。因此，在完成网络通信进行IO操作时，由于线程会阻塞，所以服务器端必须为每个客户端都提供一个独立的线程进行处理，当服务器端需要处理大量客户端时，性能急剧下降。</p>
+<p>Java NIO是非阻塞模式的。当线程从某通道进行读写数据时，若没有数据可用时，该线程可以进行其他任务。线程通常将非阻塞IO的空闲时间用于在其他通道上执行I0操作，所以单独的线程可以管理多个输入和输出通道。因此，NIO可以让服务器端使用一个或有限几个线程来同时处理连接到服务器端的所有客户端。</p>
+<p><img src="https://img.zouchanglin.cn///20200209/KXe8DDICWRg6.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2020/02/09/NIO%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" data-id="ck7pnp3rk006hwkwk4ihwfw7x"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-NIO与通道数据传输" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -714,76 +786,6 @@
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-运行容器commit至云" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/"
-    >运行容器commit至云</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/" class="article-date">
-  <time datetime="2020-02-02T14:39:00.000Z" itemprop="datePublished">2020-02-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/">虚拟化技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>之前记载的commit镜像方式是有问题的，所以现在开始更正一下，总体的方式就是登录，然后先提交镜像到本地，然后打标签，最后push就好了！ 镜像站对开中国开发者来说可谓必备利器，受国际网络出口带宽的影响，大多数开源软件官网的速度慢，稳定性不足。阿里巴巴镜像站利用其在云服务上的优势，提供快速、稳定的镜像分发服务， 而且提供免费的个人私有镜像仓库存储服务。所以我也就是存储到了阿里云，貌似腾讯云好像也有免费的镜像存储服务，下载速度还可以！</p>
-      
-      <a class="article-more-link" href="/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2020/02/02/%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8commit%E8%87%B3%E4%BA%91/" data-id="ck7pnp3ty00elwkwk68e14jt3"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
 
     </footer>
 

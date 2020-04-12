@@ -75,6 +75,84 @@
     
     
     
+    <article id="post-Jenkins自动部署" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"
+    >Jenkins自动部署</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="article-date">
+  <time datetime="2019-06-03T10:09:30.000Z" itemprop="datePublished">2019-06-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>事先确保服务器上有Java环境与Maven环境和 Git </p>
+<h2 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h2><p>这里是Jenkins的文档 <a href="https://jenkins.io/zh/doc/" target="_blank" rel="noopener">https://jenkins.io/zh/doc/</a></p>
+<p>这里是Jenkins的下载地址<a href="https://jenkins.io/zh/download/" target="_blank" rel="noopener">https://jenkins.io/zh/download/</a></p>
+<p><strong>最好的方式应该是自己去下载Jenkins的Jar包，直接像运行jar包即可</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar jenkins.war --httpPort=80</span><br></pre></td></tr></table></figure>
+
+<p>这样直接访问<code>172.16.45.112:8080</code> 即可！</p>
+<p>成功开启服务后应该是下面这个样子：</p>
+<p><img src="https://img.zouchanglin.cn///20200201/GOHlW2aYHfRd.png" alt="mark"></p>
+      
+      <a class="article-more-link" href="/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zouchanglin.cn/2019/06/03/Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" data-id="ck7pnp3qi003jwkwkho2rfdiu"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/" rel="tag">Jenkins</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-网站接入支付宝" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -721,77 +799,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://zouchanglin.cn/2019/02/04/Spring%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0(%E4%B8%80)/" data-id="ck8lmk95s0000ygwk3d8684br"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-MyBatis（二）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/02/03/MyBatis%EF%BC%88%E4%BA%8C%EF%BC%89/"
-    >MyBatis（二）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/02/03/MyBatis%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time datetime="2019-02-03T11:20:00.000Z" itemprop="datePublished">2019-02-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="https://img.zouchanglin.cn///20200405/RJgTdIyoPYUW.png" alt="mark"></p>
-<h1 id="作用域（Scope）和生命周期"><a href="#作用域（Scope）和生命周期" class="headerlink" title="作用域（Scope）和生命周期"></a>作用域（Scope）和生命周期</h1><p>SqlSessionFactoryBuilder这个类可以被实例化、使用和丢弃，一旦创建了 SqlSessionFactory，就不再需要它了。因此 SqlSessionFactoryBuilder 实例的最佳作用域是方法作用域（也就是局部方法变量）。你可以重用 SqlSessionFactoryBuilder 来创建多个 SqlSessionFactory 实例，但是最好还是不要让其一直存在以保证所有的 XML 解析资源开放给更重要的事情。</p>
-      
-      <a class="article-more-link" href="/2019/02/03/MyBatis%EF%BC%88%E4%BA%8C%EF%BC%89/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2019/02/03/MyBatis%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ck8mgk98v0005o4wkef2a6hud"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li></ul>
