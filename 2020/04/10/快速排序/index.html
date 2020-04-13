@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"zouchanglin.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。">
+  <meta name="description" content="Tim快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速排序">
 <meta property="og:url" content="https://zouchanglin.cn/2020/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Tim&#39;s Blog">
-<meta property="og:description" content="快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。">
+<meta property="og:description" content="Tim快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img.zouchanglin.cn///20200412/sQnPHbckfpz0.png">
 <meta property="og:image" content="https://img.zouchanglin.cn///20200412/JpWwr2aMUT9p.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://img.zouchanglin.cn///20200412/2RCMSy6dCcYc.png">
 <meta property="og:image" content="https://img.zouchanglin.cn///20200412/p0PuJtudN411.png">
 <meta property="article:published_time" content="2020-04-10T10:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-13T02:15:21.059Z">
+<meta property="article:modified_time" content="2020-04-13T06:55:47.312Z">
 <meta property="article:author" content="Zou Changlin">
 <meta property="article:tag" content="排序算法">
 <meta name="twitter:card" content="summary">
@@ -253,7 +253,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-13 10:15:21" itemprop="dateModified" datetime="2020-04-13T10:15:21+08:00">2020-04-13</time>
+                <time title="修改时间：2020-04-13 14:55:47" itemprop="dateModified" datetime="2020-04-13T14:55:47+08:00">2020-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,7 +292,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 </p>
+        <p>Tim快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 </p>
 <a id="more"></a>
 
 <h1 id="快速排序-QuickSort-原理"><a href="#快速排序-QuickSort-原理" class="headerlink" title="快速排序(QuickSort)原理"></a>快速排序(QuickSort)原理</h1><p>快排的思想是这样的：如果要排序数组中下标从 p到 r之间的一组数据，我们选择p到r之间的任意一个数据作为pivot(分区点)，我们遍历p到r之间的数据，将小于pivot的放到左边，将大于pivot的放到右边，将pivot放到中间。经过这一步骤之后，数组p到r之间的数据就被分成了三个部分，前面p到q-1之间都是小于pivot的，中间是pivot，后面的q+1到r之间是大于pivot的。 </p>
