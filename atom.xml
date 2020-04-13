@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Tim&#39;s Blog</title>
   
-  <subtitle>当你凝望深渊时，深渊也在凝望你</subtitle>
+  <subtitle>加油，冲冲冲...</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
@@ -10,7 +10,7 @@
   <id>https://zouchanglin.cn/</id>
   
   <author>
-    <name>Zou Changlin</name>
+    <name>邹长林</name>
     
   </author>
   
