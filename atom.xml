@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-13T07:52:06.165Z</updated>
+  <updated>2020-04-13T11:29:01.009Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://zouchanglin.cn/2020/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
     <id>https://zouchanglin.cn/2020/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</id>
     <published>2020-04-10T10:00:00.000Z</published>
-    <updated>2020-04-13T07:52:06.165Z</updated>
+    <updated>2020-04-13T11:29:01.009Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 &lt;/p&gt;
+      &lt;p&gt;快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排，快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 &lt;/p&gt;
     
     </summary>
     
