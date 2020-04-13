@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-CN">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -105,7 +105,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -191,7 +191,7 @@
         <li class="menu-item menu-item-home">
           <a href="/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-home"></i> <br />
             
             Home
           </a>
@@ -201,7 +201,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-user"></i> <br />
             
             About
           </a>
@@ -211,7 +211,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-tags"></i> <br />
             
             Tags
           </a>
@@ -221,7 +221,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-th"></i> <br />
             
             Categories
           </a>
@@ -231,7 +231,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-archive"></i> <br />
             
             Archives
           </a>
@@ -241,9 +241,29 @@
         <li class="menu-item menu-item-sitemap">
           <a href="/sitemap.xml%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-sitemap"></i> <br />
             
             Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-spring">
+          <a href="http://139.159.234.67:8000/" target="_blank" rel="section noopener">
+            
+              <i class="menu-item-icon fa fa-fw fa-fa fa-leaf"></i> <br />
+            
+            spring
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-manual">
+          <a href="http://139.159.234.67/javadoc" target="_blank" rel="section noopener">
+            
+              <i class="menu-item-icon fa fa-fw fa-fa fa-book"></i> <br />
+            
+            manual
           </a>
         </li>
       
@@ -251,7 +271,7 @@
         <li class="menu-item menu-item-commonweal">
           <a href="/404/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-fa fa-heartbeat"></i> <br />
             
             Commonweal 404
           </a>
@@ -389,6 +409,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/01/30/%E4%BD%BF%E7%94%A8Apacheab%E6%B5%8B%E5%8E%8B/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2020/01/30/使用Apacheab测压/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -504,6 +535,11 @@
           
 
   
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
 
 
 
@@ -540,7 +576,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives/%20%7C%7C%20fa%20fa-archive">
               
                   <span class="site-state-item-count">187</span>
                   <span class="site-state-item-name">posts</span>
@@ -626,7 +662,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -770,6 +806,21 @@
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyuMHtjzv';
+      var conf = 'bc5f58cfbf926a7ce49b9921b725c4df';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 
