@@ -1,409 +1,693 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-   
-  <meta name="keywords" content="Java,C/C++,Python,golang,Linux,MySQL,Docker,K8S,Windows,虚拟化,云计算,计算机,Web" />
-   
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>
-     Tim&#39;s Blog
-  </title>
-  <meta name="generator" content="hexo-theme-yilia-plus">
-  
-  <link rel="shortcut icon" href="/favicon.ico" />
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-<script src="/js/pace.min.js"></script>
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zouchanglin.cn","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Tim&#39;s Blog">
+<meta property="og:url" content="https://zouchanglin.cn/page/19/index.html">
+<meta property="og:site_name" content="Tim&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Zou Changlin">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="K8S">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="虚拟化">
+<meta property="article:tag" content="云计算">
+<meta property="article:tag" content="计算机">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zouchanglin.cn/page/19/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Tim's Blog</title>
   
 
-  
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 <link rel="alternate" href="/atom.xml" title="Tim's Blog" type="application/atom+xml">
 </head>
 
-</html>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-<body>
-  <div id="app">
-    <main class="content">
-      
-<section class="cover">
-    
-      
-      <a class="forkMe" href="https://github.com/zouchanglin"
-        target="_blank"><img width="149" height="149" src="/images/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-    
-  <div class="cover-frame">
-    <div class="bg-box">
-      <img src="https://img.zouchanglin.cn///20200202/fbsG1RLWONAe.jpg" alt="image frame" />
-    </div>
-    <div class="cover-inner text-center text-white">
-      <h1><a href="/">Tim&#39;s Blog</a></h1>
-      <div id="subtitle-box">
-        
-        <span id="subtitle"></span>
-        
-      </div>
-      <div>
-        
-        <img
-          src="/images/code.svg"
-          class="cover-logo"
-          alt="Tim&#39;s Blog"
-        />
-        
-      </div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-  <div class="cover-learn-more">
-    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tim's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">当你凝望深渊时，深渊也在凝望你</p>
   </div>
-</section>
 
-<div id="main">
-  <section class="outer">
-  <article class="articles">
-    
-    
-    
-    
-    <article id="post-网页启动本地Activity" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/"
-    >网页启动本地Activity</a
-  >
-</h2>
-  
 
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">26</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">187</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-spring">
+
+    <a href="http://139.159.234.67:8000/" rel="noopener" target="_blank"><i class="fa fa-leaf fa-fw"></i>spring</a>
+
+  </li>
+        <li class="menu-item menu-item-manual">
+
+    <a href="http://139.159.234.67/javadoc" rel="noopener" target="_blank"><i class="fa fa-book fa-fw"></i>manual</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
-    
 
     
-    <div class="article-meta">
-      <a href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="article-date">
-  <time datetime="2018-02-03T08:51:00.000Z" itemprop="datePublished">2018-02-03</time>
-</a>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/zouchanglin" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
       
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>
-  </div>
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="post-title-link" itemprop="url">网页启动本地Activity</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-02-03 16:51:00" itemprop="dateCreated datePublished" datetime="2018-02-03T16:51:00+08:00">2018-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">移动开发</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" class="cy_cmt_count" data-xid="2018/02/03/网页启动本地Activity/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Intent这个类在开发中是很常用的类，代表了着一个意图（获取理解为目标、目的），首先我们需要明确一点的就是：任何一个浏览器链接都是一个隐式意图，打开一个浏览器的方式无非就是显式意图和隐式意图，所以我们配置过滤器即可！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    
 
     
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Intent这个类在开发中是很常用的类，代表了着一个意图（获取理解为目标、目的），首先我们需要明确一点的就是：任何一个浏览器链接都是一个隐式意图，打开一个浏览器的方式无非就是显式意图和隐式意图，所以我们配置过滤器即可！</p>
-      
-      <a class="article-more-link" href="/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2018/02/03/%E7%BD%91%E9%A1%B5%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0Activity/" data-id="ck8y4sldk00g6ckwkfbw2a495"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/" class="post-title-link" itemprop="url">Ajax异步请求与JSON数据格式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-21 16:51:00" itemprop="dateCreated datePublished" datetime="2017-12-21T16:51:00+08:00">2017-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/" class="cy_cmt_count" data-xid="2017/12/21/Ajax异步请求与JSON数据格式/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
   
 
-</article>
-    
-    <article id="post-Ajax异步请求与JSON数据格式" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
-    >Ajax异步请求与JSON数据格式</a
-  >
-</h2>
-  
-
-    </header>
-    
+        </div>
+      </header>
 
     
-    <div class="article-meta">
-      <a href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/" class="article-date">
-  <time datetime="2017-12-21T08:51:00.000Z" itemprop="datePublished">2017-12-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
-  </div>
-
-      
-      
-      
-    </div>
     
-
     
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
+    <div class="post-body" itemprop="articleBody">
 
       
-
-      
-      <p>百度的预搜索是怎么实现的呢？如下图：</p>
+          <p>百度的预搜索是怎么实现的呢？如下图：</p>
 <p><img src="https://img.zouchanglin.cn///20200131/SABcmd0wvlq5.png" alt="mark"><br>这个场景应该是大家非常熟悉的吧，为什么我们没有点击搜索但是却可以弹出相关的搜索内容条目呢？其中就用到了ajax引擎！接下来我们就可以看一下这个ajax，哈哈！</p>
 <h2 id="一、Ajax概述"><a href="#一、Ajax概述" class="headerlink" title="一、Ajax概述"></a>一、Ajax概述</h2><h3 id="什么是同步，什么是异步"><a href="#什么是同步，什么是异步" class="headerlink" title="什么是同步，什么是异步"></a>什么是同步，什么是异步</h3><p>同步现象：客户端发送请求到服务器端，当服务器返回响应之前，客户端都处于等待卡死状态<br>异步现象：客户端发送请求到服务器端，无论服务器是否返回响应，客户端都可以随 意做其他事情，不会被卡死</p>
 <h3 id="Ajax的运行原理"><a href="#Ajax的运行原理" class="headerlink" title="Ajax的运行原理"></a>Ajax的运行原理</h3><p>页面发起请求，会将请求发送给浏览器内核中的Ajax引擎，Ajax引擎会提交请求到 服务器端，在这段时间里，客户端可以任意进行任意操作，直到服务器端将数据返回 给Ajax引擎后，会触发你设置的事件，从而执行自定义的js逻辑代码完成某种页面功能。</p>
-      
-      <a class="article-more-link" href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/" data-id="ck8y4sl8t0002ckwk8hl67njh"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-忍受简单的能力" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/"
-    >忍受简单的能力</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/" class="article-date">
-  <time datetime="2017-12-07T03:51:00.000Z" itemprop="datePublished">2017-12-07</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-  </div>
-
-      
-      
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/12/21/Ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E4%B8%8EJSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    
 
     
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-    <div class="article-entry" itemprop="articleBody">
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/" class="post-title-link" itemprop="url">忍受简单的能力</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-07 11:51:00" itemprop="dateCreated datePublished" datetime="2017-12-07T11:51:00+08:00">2017-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/" class="cy_cmt_count" data-xid="2017/12/07/忍受简单的能力/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-      
-      <p>我关上灯，对女儿说：「闭上眼睛，别乱动了。」</p>
+          <p>我关上灯，对女儿说：「闭上眼睛，别乱动了。」</p>
 <p>女儿立刻大声抗议：「可是我睡不着！」</p>
 <p>我只好又强调了一遍：「我只是请你闭上眼睛，别乱动。」</p>
 <p>我从来没说过「请你尽快睡着」，那是我女儿的脑补。我当然挺高兴的，她能脑补出那句话来，说明她起码脑子不笨，能够猜到一个指令之后的真实意图。但同时我也有担心。因为这一点聪明，她入睡可能就会困难一点。「闭上眼睛，别乱动」是一条很简单的指令，是我认为她充分有能力做到的。但她不安于这条指令，而去考虑「即便我照着做了，我可能还是睡不着」。这样的思考，对当下有害无益。</p>
-      
-      <a class="article-more-link" href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/" data-id="ck8y4sld000e5ckwkbd7k1vnj"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-下载中文文件乱码解决方式" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/"
-    >下载中文文件乱码解决方式</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time datetime="2017-11-04T13:51:00.000Z" itemprop="datePublished">2017-11-04</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Web%E5%BC%80%E5%8F%91/">Web开发</a>
-  </div>
-
-      
-      
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/12/07/%E5%BF%8D%E5%8F%97%E7%AE%80%E5%8D%95%E7%9A%84%E8%83%BD%E5%8A%9B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    
 
     
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-    <div class="article-entry" itemprop="articleBody">
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">下载中文文件乱码解决方式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-04 21:51:00" itemprop="dateCreated datePublished" datetime="2017-11-04T21:51:00+08:00">2017-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" class="cy_cmt_count" data-xid="2017/11/04/下载中文文件乱码解决方式/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-      
-      <p>关于编码的问题有几点需要说清楚：UTF-8国际编码，GBK中文编码。GBK包含GB2312，即如果通过GB2312编码后可以通过GBK解码，反之可能不成立;这个道理很简单，计算机存储的是010001010010…这种的数据，也只能存储这样的数据，通过二进制的规则可以解析为数字，如2二进制就是10，这也就意味着任意数字在有限存储位的情况下都可表示为010101…这样的数据，老外的文字就是26个字母，我们假想为分别对应1~26，但是却不是这样的，真正的对应关系就是ASCII码表中的关系，但是如何表示汉字呢？很显然也需要一套对应的码表，于是UTF-8、GBK、GB2312这些编码方式就是为了解决这个问题的。</p>
-      
-      <a class="article-more-link" href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
+          <p>关于编码的问题有几点需要说清楚：UTF-8国际编码，GBK中文编码。GBK包含GB2312，即如果通过GB2312编码后可以通过GBK解码，反之可能不成立;这个道理很简单，计算机存储的是010001010010…这种的数据，也只能存储这样的数据，通过二进制的规则可以解析为数字，如2二进制就是10，这也就意味着任意数字在有限存储位的情况下都可表示为010101…这样的数据，老外的文字就是26个字母，我们假想为分别对应1~26，但是却不是这样的，真正的对应关系就是ASCII码表中的关系，但是如何表示汉字呢？很显然也需要一套对应的码表，于是UTF-8、GBK、GB2312这些编码方式就是为了解决这个问题的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/11/04/%E4%B8%8B%E8%BD%BD%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" data-id="ck8y4slby00akckwk8h61dd05"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a></li></ul>
 
-    </footer>
-
-  </div>
-
-  
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Linux权限与重要目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-02 11:51:00" itemprop="dateCreated datePublished" datetime="2017-10-02T11:51:00+08:00">2017-10-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">操作系统理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/" class="cy_cmt_count" data-xid="2017/10/02/Linux权限与重要目录/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
   
 
-</article>
-    
-    <article id="post-Linux权限与重要目录" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/"
-    >Linux权限与重要目录</a
-  >
-</h2>
-  
-
-    </header>
-    
+        </div>
+      </header>
 
     
-    <div class="article-meta">
-      <a href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/" class="article-date">
-  <time datetime="2017-10-02T03:51:00.000Z" itemprop="datePublished">2017-10-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/">操作系统理论</a>
-  </div>
-
-      
-      
-      
-    </div>
     
-
     
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
+    <div class="post-body" itemprop="articleBody">
 
       
-
-      
-      <h2 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h2><h3 id="字母简写说明"><a href="#字母简写说明" class="headerlink" title="字母简写说明"></a>字母简写说明</h3><table>
+          <h2 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h2><h3 id="字母简写说明"><a href="#字母简写说明" class="headerlink" title="字母简写说明"></a>字母简写说明</h3><table>
 <thead>
 <tr>
 <th align="left">简称</th>
@@ -437,497 +721,442 @@
 <h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
 <p><strong>读权限：对文件具有读取文件内容的权限、对文件目录具有浏览目录信息的权限</strong><br><strong>写权限：对文件具有修改文件内容的权限、对文件目录具有移动删除目录信息的权限</strong><br><strong>执行权限：对文件具有执行文件的权限、对文件目录具有进入目录的权限</strong></p>
 </blockquote>
-      
-      <a class="article-more-link" href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/" data-id="ck8y4slak004zckwk99bhe3em"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Windows与VS下载链接" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/"
-    >Windows与VS下载链接</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="article-date">
-  <time datetime="2017-09-17T03:20:29.000Z" itemprop="datePublished">2017-09-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BF%AE%E5%A4%8D/">系统安装修复</a>
-  </div>
-
-      
-      
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/02/Linux%E6%9D%83%E9%99%90%E4%B8%8E%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    
 
     
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-    <div class="article-entry" itemprop="articleBody">
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="post-title-link" itemprop="url">Windows与VS下载链接</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-09-17 11:20:29" itemprop="dateCreated datePublished" datetime="2017-09-17T11:20:29+08:00">2017-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BF%AE%E5%A4%8D/" itemprop="url" rel="index"><span itemprop="name">系统安装修复</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="cy_cmt_count" data-xid="2017/09/17/Windows与VS下载链接/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-      
-      <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>通过这些链接可以下载到正版的操作系统，就别去雨林某风，XXX之家下载了，而且迅雷还是超级快的</p>
+          <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>通过这些链接可以下载到正版的操作系统，就别去雨林某风，XXX之家下载了，而且迅雷还是超级快的</p>
 <ul>
 <li>文件名 CN_WINXP_PRO_ISO.img</li>
 <li>SHA1 73800FE8959F40361BAE3A6553CC66D27D78722E</li>
 <li>文件大小 505.63MB</li>
 <li>发布时间 2001-10-30</li>
 </ul>
-      
-      <a class="article-more-link" href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" data-id="ck8y4slbt009zckwkhn9eahyj"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mac下制作Windows启动盘" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/"
-    >Mac下制作Windows启动盘</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" class="article-date">
-  <time datetime="2017-06-17T03:51:00.000Z" itemprop="datePublished">2017-06-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BF%AE%E5%A4%8D/">系统安装修复</a>
-  </div>
-
-      
-      
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/09/17/Windows%E4%B8%8EVS%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    
 
     
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="下载Windows镜像"><a href="#下载Windows镜像" class="headerlink" title="下载Windows镜像"></a>下载Windows镜像</h2><p><a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">https://msdn.itellyou.cn/</a> ,在这个网站可以找到你要下载的镜像文件，当然还有其他的下载链接</p>
-<h2 id="双击ISO文件"><a href="#双击ISO文件" class="headerlink" title="双击ISO文件"></a>双击ISO文件</h2><p>双击你下载的ISO文件，这时你相当于将镜像挂载到了自己的电脑上，应该出现如下所示的情况。</p>
-<p><img src="https://img.zouchanglin.cn///20200131/oflphrdIrRBw.png" alt="mark"></p>
-      
-      <a class="article-more-link" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/">阅读更多...</a>
-      
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zouchanglin.cn/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" data-id="ck8y4slas005yckwk90dk0ivq"
-        class="article-share-link">分享</a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
     
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
   
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zouchanglin.cn/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zou Changlin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tim's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" class="post-title-link" itemprop="url">Mac下制作Windows启动盘</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-17 11:51:00" itemprop="dateCreated datePublished" datetime="2017-06-17T11:51:00+08:00">2017-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-13 11:06:29" itemprop="dateModified" datetime="2020-03-13T11:06:29+08:00">2020-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BF%AE%E5%A4%8D/" itemprop="url" rel="index"><span itemprop="name">系统安装修复</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::https://zouchanglin.cn/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/" class="cy_cmt_count" data-xid="2017/06/17/Mac下制作Windows启动盘/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="下载Windows镜像"><a href="#下载Windows镜像" class="headerlink" title="下载Windows镜像"></a>下载Windows镜像</h2><p><a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">https://msdn.itellyou.cn/</a> ,在这个网站可以找到你要下载的镜像文件，当然还有其他的下载链接</p>
+<h2 id="双击ISO文件"><a href="#双击ISO文件" class="headerlink" title="双击ISO文件"></a>双击ISO文件</h2><p>双击你下载的ISO文件，这时你相当于将镜像挂载到了自己的电脑上，应该出现如下所示的情况。</p>
+<p><img src="https://img.zouchanglin.cn///20200131/oflphrdIrRBw.png" alt="mark"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/06/17/Mac%E4%B8%8B%E5%88%B6%E4%BD%9CWindows%E5%90%AF%E5%8A%A8%E7%9B%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/18/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span>
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span>
   </nav>
-  
-</section>
-</div>
-
-      <footer class="footer">
-  <div class="outer">
-    <ul class="list-inline">
-      <li>
-        &copy;
-        2018-2020
-        Zou Changlin
-      </li>
-      <li>
-        
-      </li>
-    </ul>
-    <ul class="list-inline">
-      <li>
-        
-        
-        <ul class="list-inline">
-  <li>Page View:<span id="busuanzi_value_page_pv"></span></li>
-  <li>Unique Visitor:<span id="busuanzi_value_site_uv"></span></li>
-</ul>
-        
-      </li>
-      <li>
-        <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
-      </li>
-    </ul>
-  </div>
-</footer>
-    <div class="to_top">
-        <div class="totop" id="totop">
-  <i class="ri-arrow-up-line"></i>
-</div>
-      </div>
-    </main>
-      <aside class="sidebar">
-        <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-  <div class="logo">
-    <a href="/"><img src="/images/code.svg" alt="Tim&#39;s Blog"></a>
-  </div>
-  
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">主页</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">归档</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories">分类</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags">标签</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="https://zouchanglin.lofter.com" target="_blank" rel="noopener">摄影</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about">关于我</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="http://139.159.234.67:80" target="_blank" rel="noopener">查手册</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="http://139.159.234.67:8000" target="_blank" rel="noopener">SpringInit</a>
-    </li>
-    
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      
-      <a class="nav-item-link nav-item-search"  title="搜索">
-        <i class="ri-search-line"></i>
-      </a>
-      
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-      </aside>
-      <div id="mask"></div>
-
-<!-- #reward -->
-<div id="reward">
-  <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
-  <div class="reward-box">
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/alipay.jpg">
-      <span class="reward-type">支付宝</span>
-    </div>
-    
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/wechat.jpg">
-      <span class="reward-type">微信</span>
-    </div>
-    
-  </div>
-</div>
-      
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
 
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+          </div>
+          
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
 <script>
-  var typed = new Typed("#subtitle", {
-    strings: ['当你凝望深渊时，深渊也在凝望你','像艺术家一样思考，像工匠一样做事','想要的都拥有，得不到的都释怀'],
-    startDelay: 0,
-    typeSpeed: 200,
-    loop: true,
-    backSpeed: 100,
-    showCursor: true
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-</script>
-
-
-
-
-<script>
-  var ayerConfig = {
-    mathjax: true
   }
 </script>
 
-
-<script src="/js/ayer.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
-
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
         </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-            <div class="pswp__top-bar">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-                <div class="pswp__counter"></div>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zou Changlin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zouchanglin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zouchanglin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zchanglin3@gmail.com" title="E-Mail → mailto:zchanglin3@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
         </div>
 
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zou Changlin</span>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
-<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
-
 <script>
-    function viewer_init() {
-        let pswpElement = document.querySelectorAll('.pswp')[0];
-        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
-
-        $imgArr.forEach(($em, i) => {
-            $em.onclick = () => {
-                // slider展开状态
-                // todo: 这样不好，后面改成状态
-                if (document.querySelector('.left-col.show')) return
-                let items = []
-                $imgArr.forEach(($em2, i2) => {
-                    let img = $em2.getAttribute('data-idx', i2)
-                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
-                    let title = $em2.getAttribute('alt')
-                    // 获得原图尺寸
-                    const image = new Image()
-                    image.src = src
-                    items.push({
-                        src: src,
-                        w: image.width || $em2.width,
-                        h: image.height || $em2.height,
-                        title: title
-                    })
-                })
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
-                    index: parseInt(i)
-                });
-                gallery.init()
-            }
-        })
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-    viewer_init()
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
-
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
 
 
-<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+
+
+
+
+      </div>
+    </footer>
   </div>
-</body>
 
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyuMHtjzv"></script>
+
+
+</body>
 </html>
