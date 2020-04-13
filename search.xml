@@ -3,7 +3,7 @@
   <entry>
     <title>快速排序</title>
     <url>/2020/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<p>Tim快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 </p>
+    <content><![CDATA[<p>快速排序(Quick Sort)被称为20世纪对世界影响最大的算法之一，现在我们来看快速排序算法，习惯性把它简称为快排。快排利用的也是分治思想。乍看起来，它有点像归并排序，但是思路其实完全不一样。现在，我们先来看下快排的核心思想。 </p>
 <a id="more"></a>
 
 <h1 id="快速排序-QuickSort-原理"><a href="#快速排序-QuickSort-原理" class="headerlink" title="快速排序(QuickSort)原理"></a>快速排序(QuickSort)原理</h1><p>快排的思想是这样的：如果要排序数组中下标从 p到 r之间的一组数据，我们选择p到r之间的任意一个数据作为pivot(分区点)，我们遍历p到r之间的数据，将小于pivot的放到左边，将大于pivot的放到右边，将pivot放到中间。经过这一步骤之后，数组p到r之间的数据就被分成了三个部分，前面p到q-1之间都是小于pivot的，中间是pivot，后面的q+1到r之间是大于pivot的。 </p>
@@ -6355,7 +6355,7 @@
 <p>yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
 <p>4、安装DockerCE（CE是社区版）</p>
 <p>yum install docker-ce docker-ce-cli containerd.io</p>
-<p>如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配，则接受该指纹 :<br>Importing GPG key 0x621E9F35:<br>Userid     : “Docker Release (CE rpm) <a href="mailto:&#x64;&#111;&#x63;&#107;&#x65;&#114;&#64;&#100;&#x6f;&#x63;&#107;&#x65;&#x72;&#46;&#99;&#111;&#x6d;">&#x64;&#111;&#x63;&#107;&#x65;&#114;&#64;&#100;&#x6f;&#x63;&#107;&#x65;&#x72;&#46;&#99;&#111;&#x6d;</a>“<br>Fingerprint: 060a 61c5 1b55 8a7f 742b 77aa c52f eb6b 621e 9f35<br>From       : <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a></p>
+<p>如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配，则接受该指纹 :<br>Importing GPG key 0x621E9F35:<br>Userid     : “Docker Release (CE rpm) <a href="mailto:&#100;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#x64;&#111;&#x63;&#x6b;&#x65;&#114;&#46;&#x63;&#x6f;&#x6d;">&#100;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#x64;&#111;&#x63;&#x6b;&#x65;&#114;&#46;&#x63;&#x6f;&#x6d;</a>“<br>Fingerprint: 060a 61c5 1b55 8a7f 742b 77aa c52f eb6b 621e 9f35<br>From       : <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a></p>
 <p>5、启动Docker</p>
 <p>systemctl start docker</p>
 <p>6、验证安装Docker</p>
