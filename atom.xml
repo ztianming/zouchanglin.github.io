@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-15T05:31:10.895Z</updated>
+  <updated>2020-04-15T08:35:00.200Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>堆的实现及其应用</title>
+    <link href="https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</id>
+    <published>2020-04-13T10:00:00.000Z</published>
+    <updated>2020-04-15T08:35:00.200Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章记述的是堆排序，这个名字看起来好像又要介绍一个排序算法，但是排序算法是次要的，主要的是一个数据结构——堆。堆排序问题就是堆这种数据结构所衍生出来的一个应用，我们先了解一下优先队列的概念。普通的队列就是满足先进先出、后进后出的一个结构。那么优先级队列呢？出队顺序和入队顺序无关，和优先级相关，这就比如在医院看病，肯定是急诊病人优先看病。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="堆" scheme="https://zouchanglin.cn/tags/%E5%A0%86/"/>
+    
+      <category term="二叉树" scheme="https://zouchanglin.cn/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>注解的原理与实现</title>
     <link href="https://zouchanglin.cn/2020/04/12/%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/"/>
     <id>https://zouchanglin.cn/2020/04/12/%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/</id>
     <published>2020-04-12T10:00:00.000Z</published>
-    <updated>2020-04-15T05:31:10.895Z</updated>
+    <updated>2020-04-15T06:04:25.034Z</updated>
     
     <summary type="html">
     
@@ -30,7 +55,7 @@
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
     
     
       <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
@@ -479,33 +504,6 @@
       <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
     
       <category term="异步" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E6%AD%A5/"/>
-    
-      <category term="上传下载" scheme="https://zouchanglin.cn/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker私服配置HTTPS</title>
-    <link href="https://zouchanglin.cn/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/"/>
-    <id>https://zouchanglin.cn/2020/03/21/Docker%E7%A7%81%E6%9C%8D%E9%85%8D%E7%BD%AEHTTPS/</id>
-    <published>2020-03-21T06:01:35.000Z</published>
-    <updated>2020-04-14T03:09:11.002Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200321/vL5w2LvCRPhV.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;上图即使我搭建完毕的效果。对于Docker的环境安装，基础命令之类的内容，通读官网文档内容基本都能顺利掌握。 然而，当笔者尝试着搭建一套基于SSL的Docker Registry（官网推荐的做法）却遇到了不少的麻烦，对于这部分内容，大多数博客文档内容都是直接跳过了SSL的环节，采用了HTTP的访问形式。 然而本文就是记录一下对于搭建HTTPS 访问形式的Docker Registry的过程，读者很容易复现的过程！&lt;/p&gt;
-&lt;p&gt;我的环境是CentOS7_x64，Docker版本是 Client: Docker Engine - Community 19.03.7、Server: Docker Engine - Community 19.03.7、Nginx源码包的版本是nginx-1.9.9.tar.gz。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="虚拟化技术" scheme="https://zouchanglin.cn/categories/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Nginx" scheme="https://zouchanglin.cn/tags/Nginx/"/>
-    
-      <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
     
       <category term="上传下载" scheme="https://zouchanglin.cn/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
     
