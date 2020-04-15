@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-14T12:01:02.853Z</updated>
+  <updated>2020-04-15T05:31:10.895Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>注解的原理与实现</title>
+    <link href="https://zouchanglin.cn/2020/04/12/%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://zouchanglin.cn/2020/04/12/%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/</id>
+    <published>2020-04-12T10:00:00.000Z</published>
+    <updated>2020-04-15T05:31:10.895Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;注解这个东西自从SpringBoot以来一直是Java开发者们必备的生存技巧呀，我们平时几乎大部分时间都是面向注解编程，通过注解我们可以节约大量的时间。用过了这么多的注解，那么我们否有关注过注解的实现原理呢？所以本篇文章主要是讲述注解的有关操作，自己实现一个注解来体会注解的实现原理，注解也不是特别高深的东西，掌握了自然就明白了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+  </entry>
   
   <entry>
     <title>关于快排和归并的思考</title>
@@ -483,30 +508,6 @@
       <category term="Docker" scheme="https://zouchanglin.cn/tags/Docker/"/>
     
       <category term="上传下载" scheme="https://zouchanglin.cn/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>优雅的实现单例</title>
-    <link href="https://zouchanglin.cn/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/"/>
-    <id>https://zouchanglin.cn/2020/03/18/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B/</id>
-    <published>2020-03-18T06:01:35.000Z</published>
-    <updated>2020-03-18T15:52:17.775Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;单例模式属于创建型设计模式，一个类在虚拟机中只有一份实例。实现单例模式的核心思想在于构造函数私有化，主要实现方式分为两种：懒汉式和饿汉式。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200318/uUtN2uPGYzCk.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="设计模式" scheme="https://zouchanglin.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JVM" scheme="https://zouchanglin.cn/tags/JVM/"/>
     
   </entry>
   
