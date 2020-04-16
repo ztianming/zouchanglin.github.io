@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-15T14:23:19.934Z</updated>
+  <updated>2020-04-16T04:13:49.927Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JDK8新特性</title>
+    <link href="https://zouchanglin.cn/2020/04/14/JDK8%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    <id>https://zouchanglin.cn/2020/04/14/JDK8%E6%96%B0%E7%89%B9%E6%80%A7/</id>
+    <published>2020-04-14T10:00:00.000Z</published>
+    <updated>2020-04-16T04:13:49.927Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;虽然已经用过了一些Java8的新特性，但是总来没有仔细总结一下。Java8自从2014年就发布了，到目前为止只有一小部分公司在用JDK7及其以下的版本，大部分已经迁移至Java8，甚至Java11（关于Java9和Java11的特性我会在之后两篇文章中记述），目前只看Java8那些最主要的、也是最常用的新特性，我到目前为止用到的最多的也就是Stream API和Lambda表达式，新时间日期的API也比较常用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+  </entry>
   
   <entry>
     <title>堆的实现及其应用</title>
@@ -480,32 +501,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="多线程" scheme="https://zouchanglin.cn/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OkHttp的使用与跳坑示例</title>
-    <link href="https://zouchanglin.cn/2020/03/22/OkHttp%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%B7%B3%E5%9D%91%E7%A4%BA%E4%BE%8B/"/>
-    <id>https://zouchanglin.cn/2020/03/22/OkHttp%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%B7%B3%E5%9D%91%E7%A4%BA%E4%BE%8B/</id>
-    <published>2020-03-22T06:01:35.000Z</published>
-    <updated>2020-04-14T03:08:39.020Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200322/4XcsC1Ht6x4l.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;OkHttp是一个优秀的网络请求框架，我开始接触Android开发的时候就用过这个网络请求框架，官方的参考文档在这里  &lt;a href=&quot;https://square.github.io/okhttp/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://square.github.io/okhttp/&lt;/a&gt; ，本文演示了使用OkHttp框架进行简单的Get、Post（表单形式和JSON形式）、Delete、附加请求头、请求异步回调，文件的上传和下载等常用操作。最后记录了一个今天调试了很久的坑，那就是response.body().string()只能有效调用一次，注意Debug的时候对结果造成的改变！JDK9的HttpURLConnection有很多变化，下次博客中会有演示和说明。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="JavaWeb" scheme="https://zouchanglin.cn/tags/JavaWeb/"/>
-    
-      <category term="异步" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E6%AD%A5/"/>
-    
-      <category term="上传下载" scheme="https://zouchanglin.cn/tags/%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
     
   </entry>
   
