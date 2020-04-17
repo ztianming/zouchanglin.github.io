@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-17T04:07:16.105Z</updated>
+  <updated>2020-04-17T08:18:33.598Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JDK9新特性</title>
+    <link href="https://zouchanglin.cn/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    <id>https://zouchanglin.cn/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7/</id>
+    <published>2020-04-15T10:00:00.000Z</published>
+    <updated>2020-04-17T08:18:33.598Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java8在2014年3月份推出的，而历经曲折的Java9终于终于在2017年9月21日发布，中间历经3年多时间，Java9提供了超过150项新功能特性，包括备受期待的模块化系统、可交互的 REPL 工具：jshell，JDK 编译工具，Java 公共 API 和私有代码，以及安全增强、扩展提升、性能管理改善等。可以说Java 9是一个庞大的系统工程，完全做了一个整体改变。Java8中最核心的新特性就是Lambda表达式和Stream API，那么对于Java9来说其中最核心莫过于模块化系统和JShell命令。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="https://zouchanglin.cn/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+      <category term="模块化" scheme="https://zouchanglin.cn/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/"/>
+    
+      <category term="交互式" scheme="https://zouchanglin.cn/tags/%E4%BA%A4%E4%BA%92%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>JDK8新特性</title>
@@ -471,30 +496,6 @@
 &lt;p&gt;&lt;strong&gt;获取类锁的两种用法&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;1、同步代码块(synchronized(类.class))，锁是小括号()中的类对象，即Class对象。&lt;br&gt;2、同步静态方法(synchronized static method)，锁是当前对象的类对象(Class对象)。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="多线程" scheme="https://zouchanglin.cn/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线程相关的基础问题</title>
-    <link href="https://zouchanglin.cn/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/"/>
-    <id>https://zouchanglin.cn/2020/03/23/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</id>
-    <published>2020-03-23T06:01:35.000Z</published>
-    <updated>2020-04-14T03:08:18.954Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200324/n0eEP9zdhKzQ.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本文主要讲述了进程和线程发展简史，对于JVM来讲的进程和线程又是什么，Thread的start()方法的原生调用发生了什么，从而理解start()方法和run()方法有什么不同，另外，还介绍了三种处理线程执行完成后的返回值的方法，其实FutureTask和线程池获取线程执行结束的返回值更加常用。另外，介绍了线程的六种状态，还有sleep和wait的区别，notify和notifyAll的区别，yield函数的作用，以及如何优雅的中断线程等问题。&lt;/p&gt;
     
     </summary>
     
