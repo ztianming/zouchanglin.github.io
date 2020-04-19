@@ -6,25 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zouchanglin.cn">
-  <title>JDK9新特性 | Tim&#39;s Blog</title>
+  <title>JDK9新特性(二) | Tim&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java8在2014年3月份推出的，而历经曲折的Java9终于终于在2017年9月21日发布，中间历经3年多时间，Java9提供了超过150项新功能特性，包括备受期待的模块化系统、可交互的 REPL 工具：jshell，JDK 编译工具，Java 公共 API 和私有代码，以及安全增强、扩展提升、性能管理改善等。可以说Java 9是一个庞大的系统工程，完全做了一个整体改变。Java8中最核心的新特">
+  <meta name="description" content="在上一篇的文章我记述了JDK9的两个最重要的特性：一个是模块化，一个是jShell。另外就是String底层存储结构和StreamAPI的一些改动与优化。本次要记述主要的特性是全新的多分辨率图像API、全新的HTTP客户端API（其实是借鉴OkHTTP的框架，或者说是整合吧）、Deprecated相关API、智能Java编译工具与动态编译器、统一的JVM日志系统、javadoc对H5的支持、Jav">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDK9新特性">
-<meta property="og:url" content="https://zouchanglin.cn/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:title" content="JDK9新特性(二)">
+<meta property="og:url" content="https://zouchanglin.cn/2020/04/16/JDK9%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)/index.html">
 <meta property="og:site_name" content="Tim&#39;s Blog">
-<meta property="og:description" content="Java8在2014年3月份推出的，而历经曲折的Java9终于终于在2017年9月21日发布，中间历经3年多时间，Java9提供了超过150项新功能特性，包括备受期待的模块化系统、可交互的 REPL 工具：jshell，JDK 编译工具，Java 公共 API 和私有代码，以及安全增强、扩展提升、性能管理改善等。可以说Java 9是一个庞大的系统工程，完全做了一个整体改变。Java8中最核心的新特">
+<meta property="og:description" content="在上一篇的文章我记述了JDK9的两个最重要的特性：一个是模块化，一个是jShell。另外就是String底层存储结构和StreamAPI的一些改动与优化。本次要记述主要的特性是全新的多分辨率图像API、全新的HTTP客户端API（其实是借鉴OkHTTP的框架，或者说是整合吧）、Deprecated相关API、智能Java编译工具与动态编译器、统一的JVM日志系统、javadoc对H5的支持、Jav">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img.zouchanglin.cn///20200417/K9mSMMvuiYBe.png">
-<meta property="og:image" content="https://img.zouchanglin.cn///20200417/VheRoLt1HFFu.png">
-<meta property="article:published_time" content="2020-04-15T10:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-17T08:18:33.598Z">
+<meta property="article:published_time" content="2020-04-16T10:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-19T06:42:00.238Z">
 <meta property="article:author" content="邹长林">
 <meta property="article:tag" content="JavaSE">
 <meta property="article:tag" content="模块化">
 <meta property="article:tag" content="交互式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img.zouchanglin.cn///20200417/K9mSMMvuiYBe.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -182,20 +179,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JDK9新特性" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JDK9新特性(二)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JDK9新特性
+      JDK9新特性(二)
     </h1>
   
 
         
-        <a href="/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7/" class="archive-article-date">
-  	<time datetime="2020-04-15T10:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-15</time>
+        <a href="/2020/04/16/JDK9%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)/" class="archive-article-date">
+  	<time datetime="2020-04-16T10:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
 </a>
         
       </header>
@@ -203,46 +200,25 @@
     <div class="article-entry" itemprop="articleBody">
       
 		
-			<p>Java8在2014年3月份推出的，而历经曲折的Java9终于终于在2017年9月21日发布，中间历经3年多时间，Java9提供了超过150项新功能特性，包括备受期待的模块化系统、可交互的 REPL 工具：jshell，JDK 编译工具，Java 公共 API 和私有代码，以及安全增强、扩展提升、性能管理改善等。可以说Java 9是一个庞大的系统工程，完全做了一个整体改变。Java8中最核心的新特性就是Lambda表达式和Stream API，那么对于Java9来说其中最核心莫过于模块化系统和JShell命令。</p>
+			<p>在上一篇的文章我记述了JDK9的两个最重要的特性：一个是模块化，一个是jShell。另外就是String底层存储结构和StreamAPI的一些改动与优化。本次要记述主要的特性是全新的多分辨率图像API、全新的HTTP客户端API（其实是借鉴OkHTTP的框架，或者说是整合吧）、Deprecated相关API、智能Java编译工具与动态编译器、统一的JVM日志系统、javadoc对H5的支持、JavaScript引擎升级：Nashorn。然后再谈谈JDK9还需要什么吧，也就是对未来Java的展望。</p>
 <a id="more"></a>
 
-<p>Java 更快的发布周期意味着开发者将不需要像以前一样为主要发布版本望眼欲穿。这也意味着开发者将可能跳过 Java 9和它的不成熟的模块化功能，只需要再等待 6 个月就可以迎来新版本，这将可能解决开发者的纠结。反正Java11已经支持正式商用了，Java 11将会获得Oracle提供的长期支持服务，直至2026年的9月。所以想用上稳定的、最新的JDK还是选择Java11吧，我将在后面的文章记述Java11的新特性以及Java14的部分新特性。</p>
-<p>在这个网站上可以看到JavaSE9的新特性 <a href="https://docs.oracle.com/javase/9/whatsnew/" target="_blank" rel="noopener">《Overview of What’s New in JDK 9》</a>  ，</p>
-<h1 id="JEP与JSR"><a href="#JEP与JSR" class="headerlink" title="JEP与JSR"></a>JEP与JSR</h1><p>JEP(JDK Enhancement Proposals)：jdk 改进提案，每当需要有新的设想时候, JEP可以在JCP(java community Process)之前或者同时提出非正式的规范(specification)，被正式认可的JEP正式写进JDK的发展路线图并分配版本号。<br>JSR(Java Specification Requests): java 规范提案，新特性的规范出现在这一阶段，是指向JCP(Java Community Process)提出新增一个标准化技术规范的正式请求。请求可以来自于小组/项目、JEP、JCP成员或者Java社区(community)成员的提案，每个Java版本都由相应的JSR支持。</p>
+<h1 id="多分辨率图像API"><a href="#多分辨率图像API" class="headerlink" title="多分辨率图像API"></a>多分辨率图像API</h1><p>在Mac上，JDK已经支持视网膜显示，但在Linux和Windows上，并没有支持。Java程序在当前的高分辨率屏幕上可能看起来很小，不能使用它们。这是因为像素用于这些系统的大小计算（无论像素实际有多大）。毕竟，高分辨率显示器的有效部分是像素非常小。</p>
+<p>JEP 263以这样的方式扩展了JDK，即Windows和Linux也考虑到像素的大小。为此，使用比现在更多的现代API：Direct2D for Windows和GTK+，而不是Xlib for Linux。图形，窗口和文本由此自动缩放。JEP 251还提供处理多分辨率图像的能力，即包含不同分辨率的相同图像的文件。根据屏幕的DPI度量，然后以适当的分辨率使用图像。</p>
 <ul>
-<li>小组：对特定技术内容，比如安全、网络、HotSpot 等有共同兴趣的组织和个人</li>
-<li>项目： 编写代码、文档以及其他工作，至少由一个小组赞助支持，比如最近的Lambda计划，JigSaw 计划等</li>
+<li>新的API定义在java.awt.image包下</li>
+<li>将不同分辨率的图像封装到一张（多分辨率的）图像中，作为它的变体</li>
+<li>获取这个图像的所有变体</li>
+<li>获取特定分辨率的图像变体-表示一张已知分辨率单位为DPI的特定尺寸大小的逻辑图像，并且这张图像是最佳的变体。</li>
+<li>基于当前屏幕分辨率大小和运用的图像转换算法，java.awt.Graphics类可以从接口MultiResolutionImage获取所需的变体。</li>
+<li>MultiResolutionImage的基础实现是java.awt.image.BaseMultiResolutionImage。</li>
 </ul>
-<h1 id="目录结构变化"><a href="#目录结构变化" class="headerlink" title="目录结构变化"></a>目录结构变化</h1><p><img src="https://img.zouchanglin.cn///20200417/K9mSMMvuiYBe.png" alt="mark"></p>
-<h1 id="模块化系统"><a href="#模块化系统" class="headerlink" title="模块化系统"></a>模块化系统</h1><p>谈到 Java 9 大家往往第一个想到的就是Jigsaw项目。众所周知，Java 已经发展超过 20 年（95 年最初发布），Java 和相关生态在不断丰富的同时也越来越暴露出一些问题：</p>
-<ul>
-<li>问题一：Java 运行环境的膨胀和臃肿。每次JVM启动的至少会加载30-60MB内存，原因是JVM需要加载rt.jar，不管其中的类是否被classloader加载，整个jar都会被JVM加载到内存当中去（而模块化可以根据模块的需要加载程序运行需要的class）</li>
-<li>问题二：当代码库越来越大，创建复杂。不同版本的类库交叉依赖导致让人头疼的问题，这些都阻碍了 Java 开发和运行效率的提升。</li>
-<li>问题三：很难真正地对代码进行封装，而系统并没有对不同部分(也就是JAR文件)之间的依赖关系有个明确的概念。每一个公共类都可以被类路径之下任何其它的公共类所访问到，这样就会导致无意中使用了并不想被公开访问的 API。</li>
-<li>问题四：类路径本身也存在问题，你怎么知晓所有需要的 JAR 都已经有了, 或者是不是会有重复的项呢?</li>
-</ul>
-<p>模块化的概念，其实就是package外再裹一层，也就是说，用模块来管理各个package，通过声明某个package暴露，不声明默认就是隐藏。因此，模块化使得代码组织上更安全，因为可以指定哪些部分暴露，哪些部分隐藏。</p>
-<p>模块化实现目标：</p>
-<ul>
-<li>主要目的在于减少内存的开销</li>
-<li>只须必要模块，而非全部jdk模块，可简化各种类库和大型应用的开发和维护</li>
-<li>改进JavaSE平台，使其可以适应不同大小的计算设备</li>
-<li>改进其安全性，可维护性，提高性能</li>
-</ul>
-<h2 id="模块化演示"><a href="#模块化演示" class="headerlink" title="模块化演示"></a>模块化演示</h2><p>我新建一个项目叫做java9news，然后通过IDEA的new module功能，生成了两个模块，一个是java9demo、一个是java9test：</p>
-<p><img src="https://img.zouchanglin.cn///20200417/VheRoLt1HFFu.png" alt="mark"></p>
-<p>java9demo模块中有很简单的两个类Person、User：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="comment">//Getter / Setter / toString</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="comment">//Getter / Setter / toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="全新的HTTP客户端"><a href="#全新的HTTP客户端" class="headerlink" title="全新的HTTP客户端"></a>全新的HTTP客户端</h1><p><a href="http://openjdk.java.net/jeps/110" target="_blank" rel="noopener">http://openjdk.java.net/jeps/110</a> ，这个是改动说明文档。2015年，HTTP2成为标准。HTTP/1.1和HTTP/2的主要区别是如何在客户端和服务器之间构建和传输数据。HTTP/1.1依赖于请求/响应周期。 HTTP/2允许服务器<code>push</code>数据：它可以发送比客户端请求更多的数据。 这使得它可以优先处理并发送对于首先加载网页至关重要的数据。</p>
+<p>Java 9中有新的方式来处理HTTP调用。它提供了一个新的HTTP客户端（HttpClient），它将替代仅适用于阻塞模式的HttpURLConnection （HttpURLConnection是在HTTP 1.0的时代创建的，并使用了协议无关的方法），并提供对WebSocket 和 HTTP/2的支持。</p>
+<p>其实在Android中就已经有了异步调用API，这些API已经被封装在了新的AndroidSDK中，现在Java终于支持了。此外，HTTP客户端还提供API来处理HTTP/2的特性，比如流和服务器推送等功能。全新的HTTP客户端API可以从jdk.incubator.httpclient模块中获取。因为在默认情况下，这个模块是不能根据classpath获取的，需要使用add modules命令选项配置这个模块，将这个模块添加到classpath中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HTTPAPITest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        HttpClient client = HttpClient.newHttpClient();</span><br><span class="line">        HttpRequest req = HttpRequest.newBuilder(URI.create(<span class="string">"http://zouchanglin.cn"</span>))</span><br><span class="line">                .GET()</span><br><span class="line">                .build();</span><br><span class="line">        HttpResponse&lt;String&gt; response = client.send(req, HttpResponse.BodyHandler.asString());</span><br><span class="line">        System.out.println(response.statusCode());</span><br><span class="line">        System.out.println(response.version().name());</span><br><span class="line">        System.out.println(response.body());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>java9test模块是无法使用java9demo中的类的，必须引入一个module-info.java的文件，在java9demo模块中的module-info.java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> java9demo &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指出我们想导出的包</span></span><br><span class="line">    <span class="keyword">exports</span> xpu.tim.bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在java9test模块中的module-info.java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">module</span> java9test &#123;</span><br><span class="line">    <span class="comment">// 指明我们想导入的模块</span></span><br><span class="line">    <span class="keyword">requires</span> java9demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来测试一下，之所以无法用User，就是因为在java9demo模块中的module-info.java中并未指定把xpu.tim.entity这个包给导出，所以使用User类报Error：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试Java9模块化特性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person person = <span class="keyword">new</span> Person(<span class="string">"Tim"</span>, <span class="number">20</span>);</span><br><span class="line">        System.out.println(person);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//User user = new User(); // Error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h1 id="Deprecated的相关API"><a href="#Deprecated的相关API" class="headerlink" title="Deprecated的相关API"></a>Deprecated的相关API</h1><p>Java 9 废弃或者移除了几个不常用的功能。其中最主要的是 Applet API，现在是标记为废弃的。随着对安全要求的提高，主流浏览器已经取消对 Java 浏览器插件的支持。HTML5 的出现也进一步加速了它的消亡。开发者现在可以使用像 Java Web Start 这样的技术来代替 Applet，它可以实现从浏览器启动应用程序或者安装应用程序。同时，appletviewer 工具也被标记为废弃。</p>
 
 		
 	
@@ -330,7 +306,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://zouchanglin.cn/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://zouchanglin.cn/2020/04/16/JDK9%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -345,8 +321,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2020/04/14/JDK8%E6%96%B0%E7%89%B9%E6%80%A7/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JDK8新特性</div>
+    <a href="/2020/04/15/JDK9%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%80)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JDK9新特性(一)</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -373,7 +349,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JEP与JSR"><span class="toc-number">1.</span> <span class="toc-text">JEP与JSR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录结构变化"><span class="toc-number">2.</span> <span class="toc-text">目录结构变化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块化系统"><span class="toc-number">3.</span> <span class="toc-text">模块化系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模块化演示"><span class="toc-number">3.1.</span> <span class="toc-text">模块化演示</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多分辨率图像API"><span class="toc-number">1.</span> <span class="toc-text">多分辨率图像API</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#全新的HTTP客户端"><span class="toc-number">2.</span> <span class="toc-text">全新的HTTP客户端</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deprecated的相关API"><span class="toc-number">3.</span> <span class="toc-text">Deprecated的相关API</span></a></li></ol>
                     </div>
                 </span>
             </div>
