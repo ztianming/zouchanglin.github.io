@@ -187,6 +187,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Nginx应用和选择" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/">Nginx应用和选择</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/" class="archive-article-date">
+  	<time datetime="2019-05-18T10:09:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+				<h1 id="Nginx的应用场景"><a href="#Nginx的应用场景" class="headerlink" title="Nginx的应用场景"></a>Nginx的应用场景</h1><p>Nginx常见的应用场景如下图所示，下面这张图可以说是很详细了：</p>
+<p><img src="https://img.zouchanglin.cn///20200201/KD3mSukeYmSh.png" alt="mark"></p>
+<h2 id="静态资源服务"><a href="#静态资源服务" class="headerlink" title="静态资源服务"></a>静态资源服务</h2><p>曾经的Web开发并不是完全的前后端分离，最明显的例子就是JSP，基本是前后端不分离，直到后来Spring生态体系和前端框架的发展，Web应用程序成了单纯的提供应用接口服务的程序，因此静态资源就没必要交给应用服务器去处理，而是交给Nginx</p>
+		
+	
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/高性能服务器//" class="article-tag-list-link color2">高性能服务器</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/18/Nginx%E5%BA%94%E7%94%A8%E5%92%8C%E9%80%89%E6%8B%A9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
     <article id="post-AsyncHttpClient如何进行Session的保存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1108,105 +1207,6 @@
 })();
 </script>
   
-    <article id="post-了解并使用Maven" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/28/%E4%BA%86%E8%A7%A3%E5%B9%B6%E4%BD%BF%E7%94%A8Maven/">了解并使用Maven</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/28/%E4%BA%86%E8%A7%A3%E5%B9%B6%E4%BD%BF%E7%94%A8Maven/" class="archive-article-date">
-  	<time datetime="2019-01-28T10:09:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-				<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果你经常使用第三方jar包的话（前提是你现在不会Maven），那么那些jar包可能会让我们有点难受，下面是一个示例：</p>
-<p><img src="https://img.zouchanglin.cn///20200201/yXGtWsRjBPqe.png" alt="mark"></p>
-<p>假设你的工程需要这么多的Jar包（当然可能远远不止这些），那么Jar是非常难以维护的，有些Jar包又依赖于另一些Jar包，版本也不一样，更难受的是如果你的电脑是<strong>固态硬盘、固态硬盘、固态硬盘、</strong>，那么容量就不像机械硬盘那么阔气，于是本人想了一个好办法，就是把需要要用到的Jar包放在一起，要用的时候就去复制粘贴到项目的lib中，右键<code>add build path</code> 简直完美！！！</p>
-		
-	
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工程构建//" class="article-tag-list-link color5">工程构建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/28/%E4%BA%86%E8%A7%A3%E5%B9%B6%E4%BD%BF%E7%94%A8Maven/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/12/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/14/">Next</a>
@@ -1554,6 +1554,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">交互式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">GC</a>
               </li>
             
             <div class="clearfix"></div>

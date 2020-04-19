@@ -13443,6 +13443,52 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HTTPAPITest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        HttpClient client = HttpClient.newHttpClient();</span><br><span class="line">        HttpRequest req = HttpRequest.newBuilder(URI.create(<span class="string">"http://zouchanglin.cn"</span>))</span><br><span class="line">                .GET()</span><br><span class="line">                .build();</span><br><span class="line">        HttpResponse&lt;String&gt; response = client.send(req, HttpResponse.BodyHandler.asString());</span><br><span class="line">        System.out.println(response.statusCode());</span><br><span class="line">        System.out.println(response.version().name());</span><br><span class="line">        System.out.println(response.body());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="Deprecated的相关API"><a href="#Deprecated的相关API" class="headerlink" title="Deprecated的相关API"></a>Deprecated的相关API</h1><p>Java 9 废弃或者移除了几个不常用的功能。其中最主要的是 Applet API，现在是标记为废弃的。随着对安全要求的提高，主流浏览器已经取消对 Java 浏览器插件的支持。HTML5 的出现也进一步加速了它的消亡。开发者现在可以使用像 Java Web Start 这样的技术来代替 Applet，它可以实现从浏览器启动应用程序或者安装应用程序。同时，appletviewer 工具也被标记为废弃。</p>
+<ul>
+<li><a href="http://openjdk.java.net/jeps/211" target="_blank" rel="noopener">http://openjdk.java.net/jeps/211</a></li>
+<li><a href="http://openjdk.java.net/jeps/214" target="_blank" rel="noopener">http://openjdk.java.net/jeps/214</a></li>
+<li><a href="http://openjdk.java.net/jeps/277" target="_blank" rel="noopener">http://openjdk.java.net/jeps/277</a></li>
+<li><a href="http://openjdk.java.net/jeps/289" target="_blank" rel="noopener">http://openjdk.java.net/jeps/289</a></li>
+<li><a href="http://openjdk.java.net/jeps/291" target="_blank" rel="noopener">http://openjdk.java.net/jeps/291</a></li>
+</ul>
+<h1 id="智能Java编译工具"><a href="#智能Java编译工具" class="headerlink" title="智能Java编译工具"></a>智能Java编译工具</h1><p>官方Feature：<a href="http://openjdk.java.net/jeps/199" target="_blank" rel="noopener">http://openjdk.java.net/jeps/199</a></p>
+<p>智能Java编译工具(sjavac) 的第一个阶段始于JEP139这个项目，用于在多核处理器情况下提升JDK的编译速度。如今，这个项目已经进入第二阶段，即JEP199，其目的是改进Java编译工具，并取代目前JDK编译工具javac，继而成为Java环境默认的通用的智能编译工具。<br>JDK 9 还更新了javac 编译器以便能够将Java9的代码编译运行在低版本 Java 中。</p>
+<h1 id="统一的JVM日志系统"><a href="#统一的JVM日志系统" class="headerlink" title="统一的JVM日志系统"></a>统一的JVM日志系统</h1><p>官方Feature：</p>
+<ul>
+<li><a href="http://openjdk.java.net/jeps/158" target="_blank" rel="noopener">http://openjdk.java.net/jeps/158</a></li>
+<li><a href="http://openjdk.java.net/jeps/271" target="_blank" rel="noopener">http://openjdk.java.net/jeps/271</a></li>
+</ul>
+<p>日志是解决问题的唯一有效途径：曾经很难知道导致JVM性能问题和导致JVM崩溃的根本原因。不同的JVM日志的碎片化和日志选项（例如：JVM组件对于日志使用的是不同的机制和规则），这使得JVM难以进行调试。</p>
+<p>解决该问题最佳方法：对所有的JVM组件引入一个单一的系统，这些JVM组件支持细粒度的和易配置的JVM日志</p>
+<h1 id="javadoc的H5支持"><a href="#javadoc的H5支持" class="headerlink" title="javadoc的H5支持"></a>javadoc的H5支持</h1><p>官方Feature：</p>
+<ul>
+<li><a href="http://openjdk.java.net/jeps/224" target="_blank" rel="noopener">http://openjdk.java.net/jeps/224</a></li>
+<li><a href="http://openjdk.java.net/jeps/225" target="_blank" rel="noopener">http://openjdk.java.net/jeps/225</a></li>
+</ul>
+<p>jdk 8 ：生成的java帮助文档是在HTML4 中，而HTML4 已经是很久的标准了。<br>jdk 9 ：javadoc的输出，现在符合兼容HTML5 标准。</p>
+<h1 id="Javascript引擎升级：Nashorn"><a href="#Javascript引擎升级：Nashorn" class="headerlink" title="Javascript引擎升级：Nashorn"></a>Javascript引擎升级：Nashorn</h1><p>官方Feature：</p>
+<ul>
+<li><a href="http://openjdk.java.net/jeps/236" target="_blank" rel="noopener">http://openjdk.java.net/jeps/236</a></li>
+<li><a href="http://openjdk.java.net/jeps/292" target="_blank" rel="noopener">http://openjdk.java.net/jeps/292</a></li>
+</ul>
+<p>Nashorn 项目在 JDK 9 中得到改进（因为Nashorn是在JDK8中被引入的），它为 Java 提供轻量级的 Javascript 运行时。Nashorn 项目跟随 Netscape 的 Rhino 项目，目的是为了在 Java 中实现一个高性能但轻量级的Javascript 运行时。Nashorn 项目使得 Java 应用能够嵌入 Javascript。它在 JDK 8 中为 Java 提供一个Javascript 引擎。</p>
+<p>JDK 9 包含一个用来解析 Nashorn 的 ECMAScript 语法树的 API。这个 API 使得 IDE 和服务端框架不需要依赖 Nashorn 项目的内部实现类，就能够分析 ECMAScript 代码。</p>
+<h1 id="java的动态编译器"><a href="#java的动态编译器" class="headerlink" title="java的动态编译器"></a>java的动态编译器</h1><p>官方Feature：</p>
+<ul>
+<li><a href="http://openjdk.java.net/jeps/243" target="_blank" rel="noopener">http://openjdk.java.net/jeps/243</a></li>
+<li><a href="http://openjdk.java.net/jeps/295" target="_blank" rel="noopener">http://openjdk.java.net/jeps/295</a></li>
+</ul>
+<p>Oracle 一直在努力提高 Java 启动和运行时性能，希望其能够在更广泛的场景达到或接近本地语言的性能。但是，直到今天，谈到 Java，很多 C/C++ 开发者还是会不屑地评价为启动慢，吃内存。简单说，这主要是因为 Java 编译产生的类文件是 Java 虚拟机可以理解的二进制代码，而不是真正的可执行的本地代码，需要 Java 虚拟机进行解释和编译，这带来了额外的开销。</p>
+<p>JIT（Just-in-time）编译器可以在运行时将热点编译成本地代码，速度很快。但是 Java 项目现在变得很大很复杂，因此 JIT 编译器需要花费较长时间才能热身完，而且有些 Java 方法还没法编译，性能方面也会下降。AOT 编译就是为了解决这些问题而生的。<br>在 JDK 9 中， AOT（JEP 295: Ahead-of-Time Compilation）作为实验特性被引入进来，开发者可以利用新的 jaotc工具将重点代码转换成类似类库一样的文件。虽然仍处于试验阶段，但这个功能使得 Java 应用在被虚拟机启动之前能够先将 Java 类编译为原生代码。此功能旨在改进小型和大型应用程序的启动时间，同时对峰值性能的影响很小。这个AOT特性我在之前的文章中也说过：[《 HotSpot JVM类型以及编译模式 》](<a href="https://zouchanglin.cn/2019/10/25/HotSpot">https://zouchanglin.cn/2019/10/25/HotSpot</a> JVM类型以及编译模式 ) 。</p>
+<p>另外 JVMCI （JEP 243: Java-Level JVM Compiler Interface）等特性，对于整个编程语言的发展，可能都具有非常重要的意义，虽然未必引起了广泛关注。目前 Graal Core API 已经被集成进入 Java 9，虽然还只是初始一小步，但是完全用 Java 语言来实现的可靠的、高性能的动态编译器，似乎不再是遥不可及，这是 Java 虚拟机开发工程师的福音。与此同时，随着 Truffle 框架和 Substrate VM 的发展，已经让个别信心满满的工程师高呼<code>One VM to Rule Them All!</code>， 也许就在不远的将来 Ploygot 以一种另类的方式成为现实。</p>
+<h1 id="对Java未来的期望"><a href="#对Java未来的期望" class="headerlink" title="对Java未来的期望"></a>对Java未来的期望</h1><h2 id="标准化的JSON-API"><a href="#标准化的JSON-API" class="headerlink" title="标准化的JSON API"></a>标准化的JSON API</h2><p>一个标准化和轻量级的JSON API被许多java开发人员所青睐。但是由于资金问题无法在Java 9中见到，但并不会削减掉。Java平台首席架构师Mark Reinhold在JDK 9邮件列中说：“这个JEP将是平台上的一个有用的补充，但是在计划中，它并不像Oracle资助的其他功能那么重要，可能会重新考虑JDK 10或更高版本中实现。 ” 但是我们目前使用的仍然是阿里的FastJSON或者谷歌的Gson等API。</p>
+<h2 id="新的货币-API"><a href="#新的货币-API" class="headerlink" title="新的货币 API"></a>新的货币 API</h2><p>对许多应用而言货币价值都是一个关键的特性，但JDK对此却几乎没有任何支持。严格来讲，现有的java.util.Currency类只是代表了当前ISO 4217货币的一个数据结构，但并没有关联的值或者自定义货币。JDK对货币的运算及转换也没有内建的支持，更别说有一个能够代表货币值的标准类型了。</p>
+<p>此前，Oracle 公布的JSR 354定义了一套新的Java货币API：JavaMoney，计划会在Java 9中正式引入。但是目前没有出现在JDK 9 中。</p>
+<p>不过，如果你用的是Maven的话，可以做如下的添加，即可使用相关的API处理货币。代码参考，可以访问<a href="https://github.com/JavaMoney，里面已经给出了使用说明和示例。" target="_blank" rel="noopener">https://github.com/JavaMoney，里面已经给出了使用说明和示例。</a></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.javamoney<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>moneta<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="面临的其他问题"><a href="#面临的其他问题" class="headerlink" title="面临的其他问题"></a>面临的其他问题</h2><p>随着云计算和 AI 等技术浪潮，当前的计算模式和场景正在发生翻天覆地的变化，不仅对 Java 的发展速度提出了更高要求，也深刻影响着 Java 技术的发展方向。传统的大型企业或互联网应用，正在被云端、容器化应用、模块化的微服务甚至是函数（FaaS， Function-as-a-Service）所替代。</p>
+<p>Java虽然标榜面向对象编程，却毫不顾忌的加入面向接口编程思想，又扯出匿名对象之概念，每增加一个新的东西，对Java的根本所在的面向对象思想的一次冲击。反观Python，抓住面向对象的本质，又能在函数编程思想方面游刃有余。Java对标C/C++，以抛掉内存管理为卖点，却又陷入了JVM优化的噩梦。选择比努力更重要，选择Java的人更需要对它有更清晰的认识。</p>
+<p>Java 需要在新的计算场景下，改进开发效率。这话说的有点笼统，我谈一些自己的体会，Java 代码虽然进行了一些类型推断等改进，更易用的集合 API 等，但仍然给开发者留下了过于刻板、形式主义的印象，这是一个长期的改进方向，但是不得不说Java确实还是越变越优秀了。</p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -13451,6 +13497,30 @@
         <tag>JavaSE</tag>
         <tag>模块化</tag>
         <tag>交互式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDK11新特性</title>
+    <url>/2020/04/17/JDK11%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<p>Oracle 官方于2018年9 月 26 日宣布 Java 11 正式发布。目前Oracle 官方也已经宣布Java11正式可以商用，这是Java 大版本周期变化后的第一个长期支持版本，非常值得关注。最新发布的 Java11 一共包含 17 个 JEP（JDK Enhancement Proposals，JDK 增强提案）。 对于企业来说，选择 11 将意味着长期的、可靠的、可预测的技术路线图。其中免费的OpenJDK11 确定将得到 OpenJDK 社区的长期支持， LTS 版本将是可以放心选择的版本。</p>
+<a id="more"></a>
+
+<p>从 JVM GC 的角度，JDK11 引入了两种新的GC，其中包括也许是划时代意义的 ZGC，虽然其目前还是实验特性，但是从能力上来看，这是 JDK 的一个巨大突破，为特定生产环境的苛刻需求提供了一个可能的选择。例如，对部分企业核心存储等产品，如果能够保证不超过10ms 的 GC 暂停，可靠性会上一个大的台阶，这是过去我们进行GC 调优几乎做不到的，是能与不能的问题。</p>
+<p>对于G1 GC，相比于 JDK 8，升级到 JDK 11 即可免费享受到：并行的 Full GC，快速的 CardTable 扫描，自适应的堆占用比例调整（IHOP），在并发标记阶段的类型卸载等等。这些都是针对 G1 的不断增强，其中串行 Full GC 等甚至是曾经被广泛诟病的短板，你会发现 GC 配置和调优在 JDK11 中越来越方便。</p>
+<p>云计算时代的监控、诊断和Profiling能力，这个是相比 ZGC 更具生产实践意义的特性。</p>
+<p>Java 的应用场景跨度很大，从单机长时间运行的 Java 应用，发展成为分布式、大的单体应用或小的 function、瞬时或长时间运行等，应用场景非常复杂。</p>
+<p>JDK 11 为我们提供了更加强大的基础能力，主要是两部分:</p>
+<p>第一部分：JEP 328: Flight Recorder（JFR）是 Oracle 刚刚开源的强大特性。JFR 是一套集成进入 JDK、JVM 内部的事件机制框架，通过良好架构和设计的框架，硬件层面的极致优化，生产环境的广泛验证，它可以做到极致的可靠和低开销。在 SPECjbb2015 等基准测试中，JFR 的性能开销最大不超过 1%，所以，工程师可以基本没有心理负担地在大规模分布式的生产系统使用，这意味着，我们既可以随时主动开启 JFR 进行特定诊断，也可以让系统长期运行JFR，用以在复杂环境中进行<code>After-the-fact</code>分析。</p>
+<p>在保证低开销的基础上，JFR 提供的能力可以应用在对锁竞争、阻塞、延迟，JVM GC、SafePoint 等领域，进行非常细粒度分析。甚至深入 JIT Compiler 内部，全面把握热点方法、内联、逆优化等等。JFR 提供了标准的 Java、C++ 等扩展 API，可以与各种层面的应用进行定制、集成，为复杂的企业应用栈或者复杂的分布式应用，提供 All-in-One 解决方案。</p>
+<p>Flight Recorder相当于飞机的黑匣子，不会影响JVM的运行（最大性能开销不超过1%），而且是不断记录JVM的运行监控参数，而这一切都是内建在 JDK 和 JVM 内部的，并不需要额外的依赖，开箱即用。</p>
+<p>第二部分：JEP 331: Low-Overhead Heap Profiling。它来源于Google等业界前沿厂商的一线实践，通过获取对象分配细节，为 JDK 补足了对象分配诊断方面的一些短板，工程师可以通过 JVMTI 使用这个能力增强自身的工具。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+        <tag>GC</tag>
       </tags>
   </entry>
 </search>
