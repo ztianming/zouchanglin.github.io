@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-19T12:29:43.474Z</updated>
+  <updated>2020-04-19T14:17:40.671Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://zouchanglin.cn/2020/04/17/JDK11%E6%96%B0%E7%89%B9%E6%80%A7/"/>
     <id>https://zouchanglin.cn/2020/04/17/JDK11%E6%96%B0%E7%89%B9%E6%80%A7/</id>
     <published>2020-04-17T10:00:00.000Z</published>
-    <updated>2020-04-19T12:29:43.474Z</updated>
+    <updated>2020-04-19T14:17:40.671Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Oracle 官方于2018年9 月 26 日宣布 Java 11 正式发布。目前Oracle 官方也已经宣布Java11正式可以商用，这是Java 大版本周期变化后的第一个长期支持版本，非常值得关注。最新发布的 Java11 一共包含 17 个 JEP（JDK Enhancement Proposals，JDK 增强提案）。 对于企业来说，选择 11 将意味着长期的、可靠的、可预测的技术路线图。其中免费的OpenJDK11 确定将得到 OpenJDK 社区的长期支持， LTS 版本将是可以放心选择的版本。&lt;/p&gt;
+      &lt;p&gt;Oracle官方于2018年9月26日宣布Java 11正式发布。目前Oracle 官方也已经宣布Java11正式可以商用，这是Java 大版本周期变化后的第一个长期支持版本，非常值得关注。最新发布的Java11一共包含17个JEP（JDK Enhancement Proposals，JDK 增强提案）。对于企业来说，选择Java11将意味着长期的、可靠的、可预测的技术路线图。其中免费的OpenJDK11确定将得到OpenJDK社区的长期支持，LTS 版本将是可以放心选择的版本。&lt;/p&gt;
     
     </summary>
     
