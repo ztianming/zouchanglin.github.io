@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-20T06:14:53.785Z</updated>
+  <updated>2020-04-23T11:33:02.650Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>什么是可中断锁</title>
+    <link href="https://zouchanglin.cn/2020/04/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%AF%E4%B8%AD%E6%96%AD%E9%94%81/"/>
+    <id>https://zouchanglin.cn/2020/04/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%AF%E4%B8%AD%E6%96%AD%E9%94%81/</id>
+    <published>2020-04-23T10:00:00.000Z</published>
+    <updated>2020-04-23T11:33:02.650Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Lock是可中断锁，而synchronized不是可中断锁。现假设线程A和B都要获取对象O的锁定，假设A获取了对象O锁，B将等待A释放对O的锁定，如果使用 synchronized ，如果A不释放，B将一直等下去，不能被中断；如果使用ReentrantLock，如果A不释放，可以使B在等待了足够长的时间以后，中断等待，而干别的事情。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
+    
+  </entry>
   
   <entry>
     <title>JDK11新特性</title>
@@ -119,7 +140,7 @@
     <link href="https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</id>
     <published>2020-04-13T10:00:00.000Z</published>
-    <updated>2020-04-15T14:23:19.934Z</updated>
+    <updated>2020-04-21T10:20:16.416Z</updated>
     
     <summary type="html">
     
@@ -462,32 +483,6 @@
     <summary type="html">
     
       &lt;p&gt;我们在使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突， 所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作(又称为无锁操作)是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ReentrantLock与AQS</title>
-    <link href="https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/"/>
-    <id>https://zouchanglin.cn/2020/04/01/ReentrantLock%E4%B8%8EAQS/</id>
-    <published>2020-04-01T06:01:35.000Z</published>
-    <updated>2020-04-14T03:07:34.507Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;synchronized和ReentrantLock的区别&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200402/jwuyI7Ai9jFH.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;先说说synchronized和ReentrantLock的区别吧，AQS的分析得等两天了：&lt;/p&gt;
-&lt;p&gt;1、ReentrantLock (再入锁)，位于java.util.concurrent.locks包&lt;br&gt;2、和CountDownLatch、Future Task、Semaphore一样基于AQS实现&lt;br&gt;3、能够实现比synchronized更细粒度的控制，如控制公平与非公平&lt;br&gt;4、调用lock()之后，必须调用unlock()释放锁&lt;br&gt;5、性能未必比synchronized高，并且也是可重入的&lt;br&gt;6、synchronized是关键字，ReentrantLock是类&lt;br&gt;7、ReentrantLock可以对获取锁的等待时间进行设置，避免死锁的发生&lt;br&gt;8、ReentrantLock可以获取各种锁的信息&lt;br&gt;9、ReentrantLock可以灵活地实现多路通知&lt;br&gt;10、机制：sync操作Mark Word，lock调用Unsafe类的park()方法&lt;/p&gt;
     
     </summary>
     
