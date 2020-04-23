@@ -207,7 +207,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-				<p>Lock是可中断锁，而synchronized不是可中断锁。现假设线程A和B都要获取对象O的锁定，假设A获取了对象O锁，B将等待A释放对O的锁定，如果使用 synchronized ，如果A不释放，B将一直等下去，不能被中断；如果使用ReentrantLock，如果A不释放，可以使B在等待了足够长的时间以后，中断等待，而干别的事情。</p>
+				<p>Lock是可中断锁，而synchronized不是可中断锁。现假设线程A和B都要获取对象O的锁定，假设A获取了对象O锁，B将等待A释放对O的锁定，如果使用synchronized，如果A不释放，B将一直等下去，不能被中断；如果使用ReentrantLock，如果A不释放，可以使B在等待了足够长的时间以后，中断等待，而干别的事情。获取锁超时机制还是属于不可中断，属于超时被动放弃去竞争锁，而lockInterruptibly是可主动放弃竞争锁行为的一种方式。</p>
 		
 	
     </div>
