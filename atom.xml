@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-23T11:48:46.816Z</updated>
+  <updated>2020-04-24T05:50:21.477Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>索引堆的实现</title>
+    <link href="https://zouchanglin.cn/2020/04/24/%E7%B4%A2%E5%BC%95%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://zouchanglin.cn/2020/04/24/%E7%B4%A2%E5%BC%95%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
+    <published>2020-04-24T10:00:00.000Z</published>
+    <updated>2020-04-24T05:50:21.477Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在之前文章中记述了堆的实现（插入方式建堆、heapify方式建堆以及堆排序）&lt;a href=&quot;https://zouchanglin.cn/2020/04/13/堆的实现及其应用&quot;&gt;《 堆的实现及其应用 》&lt;/a&gt;。今天来看看索引堆是个什么东西，对于我们所关心的这个数组而言，数组中的元素位置发生了改变。正是因为这些元素的位置发生了改变，我们才能将其构建为最大堆。 如果元素十分复杂的话，比如像每个位置上存的是一篇上万字的文章。那么交换它们之间的位置将产生大量的时间消耗。并且由于数组元素的位置在构建成堆之后发生了改变，那么我们就很难索引到它，很难去改变它。可以在每一个元素上再加上一个属性来表示原来的位置可以解决，但是这样的话，必须将这个数组遍历一下才能解决。针对以上问题，我们就需要引入索引堆（Index Heap）的概念。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="堆" scheme="https://zouchanglin.cn/tags/%E5%A0%86/"/>
+    
+      <category term="二叉树" scheme="https://zouchanglin.cn/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>什么是可中断锁</title>
@@ -140,7 +165,7 @@
     <link href="https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/04/13/%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</id>
     <published>2020-04-13T10:00:00.000Z</published>
-    <updated>2020-04-21T10:20:16.416Z</updated>
+    <updated>2020-04-24T05:05:12.894Z</updated>
     
     <summary type="html">
     
@@ -470,29 +495,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="线程池" scheme="https://zouchanglin.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CAS操作与ABA问题</title>
-    <link href="https://zouchanglin.cn/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/"/>
-    <id>https://zouchanglin.cn/2020/04/02/CAS%E6%93%8D%E4%BD%9C%E4%B8%8EABA%E9%97%AE%E9%A2%98/</id>
-    <published>2020-04-02T06:01:35.000Z</published>
-    <updated>2020-04-14T03:07:22.701Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我们在使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突， 所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作(又称为无锁操作)是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
     
   </entry>
   
