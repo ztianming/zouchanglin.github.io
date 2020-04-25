@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-25T00:51:31.235Z</updated>
+  <updated>2020-04-25T07:38:44.980Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zouchanglin.cn/2020/04/25/SpringBoot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%8E%A2%E7%A9%B6/"/>
     <id>https://zouchanglin.cn/2020/04/25/SpringBoot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%8E%A2%E7%A9%B6/</id>
     <published>2020-04-25T10:00:00.000Z</published>
-    <updated>2020-04-25T00:51:31.235Z</updated>
+    <updated>2020-04-25T07:38:44.980Z</updated>
     
     <summary type="html">
     
@@ -37,7 +37,7 @@
     
       <category term="SpringBoot" scheme="https://zouchanglin.cn/tags/SpringBoot/"/>
     
-      <category term="Spring" scheme="https://zouchanglin.cn/tags/Spring/"/>
+      <category term="SpringCore" scheme="https://zouchanglin.cn/tags/SpringCore/"/>
     
   </entry>
   
@@ -347,6 +347,31 @@
   </entry>
   
   <entry>
+    <title>SpringBoot自动配置原理</title>
+    <link href="https://zouchanglin.cn/2020/04/06/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/"/>
+    <id>https://zouchanglin.cn/2020/04/06/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</id>
+    <published>2020-04-06T10:00:00.000Z</published>
+    <updated>2020-04-25T04:46:07.632Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们知道SpringBoot的理念就是约定大于配置，这也使得我们在开发应用程序的过程更加便捷，以前的大量XML配置直接是噩梦呀，现在出现了SpringBoot明显降低了开发成本，而且大量的注解的使用帮我们省略掉了很多代码。本篇文章主要探究的是SpringBoot是如何实现自动配置并且如何加载配置Bean的，其实主要就是探究@EnableAutoConfiguration注解究竟发挥了怎样的作用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+      <category term="SpringBoot" scheme="https://zouchanglin.cn/tags/SpringBoot/"/>
+    
+      <category term="SpringCore" scheme="https://zouchanglin.cn/tags/SpringCore/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringIOC原理与应用</title>
     <link href="https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/"/>
     <id>https://zouchanglin.cn/2020/04/05/SpringIOC%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</id>
@@ -469,30 +494,6 @@
     
       <category term="生活" scheme="https://zouchanglin.cn/categories/%E7%94%9F%E6%B4%BB/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>虚假唤醒与Condition控制线程通信</title>
-    <link href="https://zouchanglin.cn/2020/04/03/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92%E4%B8%8ECondition%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
-    <id>https://zouchanglin.cn/2020/04/03/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92%E4%B8%8ECondition%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/</id>
-    <published>2020-04-03T03:01:35.000Z</published>
-    <updated>2020-04-14T03:06:46.071Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200403/UurprEGkmsPn.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本文通过生产者消费者模型主要讲述了什么是虚假唤醒，以及处理处理虚假唤醒。另外还使用了Condition 来控制线程间的通信，Condition接口描述了可能会与锁有关联的条件变量，这些变量在用法上与使用Object.wait 访问的隐式监视器类似，但提供了更强大的功能。需要特别指出的是，单个Lock 可能与多个Condition 对象关联。为了避免兼容性问题，Condition 方法的名称与对应的Object 版本中的不同。 在Condition 对象中，与wait、notify 和notifyAll 方法对应的分别是await、signal 和signalAll。 Condition允许发生虚假唤醒，这通常作为对基础平台语义的让步。不过Condition还是应该总是在一个循环中被等待，避免虚假唤醒的发生。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
     
   </entry>
   

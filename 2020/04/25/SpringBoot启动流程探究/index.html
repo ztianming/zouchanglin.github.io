@@ -15,13 +15,21 @@
 <meta property="og:site_name" content="Tim&#39;s Blog">
 <meta property="og:description" content="Spring的丰富生态备受开发者青睐，尤其是自从SpringBoot出现之后去掉了原来的复杂配置，因为SpringBoot的理念就是约定大于配置，这让我们省去了很多需要手动配置的过程，就拿SpringMVC来说吧各种XML配置直接劝退初学者，但是SpringBoot的易用性简直是成为了推广Spring生态的利器。本篇文章主要是结合SpringBoot的源码，来探究SpringBoot应用程序的启动">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/i8PydmvtoSrV.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/zwR1r1dMhH9P.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/YGijIpLYub9f.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/qDwJNbjDjVV2.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/JxBHuRgEo6nH.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/63ANbvMNGdHc.png">
+<meta property="og:image" content="https://img.zouchanglin.cn///20200425/VMRfyb5SSFt8.png">
 <meta property="article:published_time" content="2020-04-25T10:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-25T00:51:31.235Z">
+<meta property="article:modified_time" content="2020-04-25T07:38:44.980Z">
 <meta property="article:author" content="邹长林">
 <meta property="article:tag" content="JavaEE">
 <meta property="article:tag" content="SpringBoot">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="SpringCore">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.zouchanglin.cn///20200425/i8PydmvtoSrV.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -206,7 +214,56 @@
 <p>新建一个SpringBoot项目，首先映入眼帘的恐怕就是下面的这个关键的Main函数与@SpringBootApplication注解吧，我们将从这个注解开始，逐步探究SpringBoot应用的启动流程：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootStartApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringBootStartApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h1>
+<h1 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h1><p>@SpringBootApplication注解实际上是SpringBoot提供的一个复合注解，我们来看一看其源码： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(excludeFilters = &#123; <span class="meta">@Filter</span>(type = FilterType.CUSTOM, classes = TypeExcludeFilter<span class="class">.<span class="keyword">class</span>),</span></span><br><span class="line"><span class="class">		@<span class="title">Filter</span>(<span class="title">type</span> </span>= FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter<span class="class">.<span class="keyword">class</span>) &#125;)</span></span><br><span class="line"><span class="class"><span class="title">public</span> @<span class="title">interface</span> <span class="title">SpringBootApplication</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于这里面某些元注解的功能，可以参考我之前的写的一篇博客<a href="https://zouchanglin.cn/2020/04/12/注解的原理与实现">《 注解的原理与实现 》</a> 。在这里我们只需要看@SpringBootConfiguration、@EnableAutoConfiguration、@ComponentScan这三个注解。在 SpringBoot 应用的启动类上用这个三个注解代替@SpringBootApplication注解其实也是没问题的： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootStartApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringBootStartApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那我们接下来就需要分贝探究这三个注解的功能。</p>
+<h2 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123;ElementType.TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration &#123;</span><br><span class="line">    <span class="meta">@AliasFor</span>(</span><br><span class="line">        annotation = Configuration<span class="class">.<span class="keyword">class</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    <span class="title">boolean</span> <span class="title">proxyBeanMethods</span>() <span class="title">default</span> <span class="title">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@SpringBootConfiguration也是来源于@Configuration，二者功能都是将当前类标注为配置类，@Configuration用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建Bean定义，初始化Spring容器，这个貌似一点都不新奇。</p>
+<h2 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import</span>(AutoConfigurationImportSelector<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> @<span class="title">interface</span> <span class="title">EnableAutoConfiguration</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@EnableAutoConfiguration 注解启用自动配置，其中最关键的要属@Import(AutoConfigurationImportSelector.class)，借AutoConfigurationImportSelector，@EnableAutoConfiguration可以帮助SpringBoot应用将所有符合条件的@Configuration配置都加载到当前SpringBoot创建并使用的IoC容器。</p>
+<p>借助于Spring框架原有的一个工具类：SpringFactoriesLoader的支持，<code>@EnableAutoConfiguration</code>可以智能的自动配置功效才得以大功告成！ </p>
+<p><img src="https://img.zouchanglin.cn///20200425/i8PydmvtoSrV.png" alt="mark"></p>
+<p>关于这个注解可以参考我的另一篇文章<a href="https://zouchanglin.cn/2020/04/06/SpringBoot自动配置原理">《SpringBoot自动配置原理》</a> ，里面有详细介绍并且有例子。</p>
+<h2 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h2><p>@ComponentScan 对应于XML配置形式中的 context:component-scan，用于将一些标注了特定注解的bean定义批量采集注册到Spring的IoC容器之中，这些特定的注解大致包括：</p>
+<ul>
+<li>@Controller</li>
+<li>@Entity</li>
+<li>@Component</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ul>
+<p>对于该注解可以通过 basePackages 属性来更细粒度的控制该注解的自动扫描范围，比如： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = &#123;<span class="string">"xpu.tim.controller"</span>,<span class="string">"xpu.tim.entity"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringApplication对象构造流程"><a href="#SpringApplication对象构造流程" class="headerlink" title="SpringApplication对象构造流程"></a>SpringApplication对象构造流程</h1><p>@SpringBootApplication这个注解看完了， 那么接下来就来看看这个SpringApplication以及run()方法究竟干了些啥。原始的SpringCore中并没有这个类，SpringApplication里面封装了一套Spring 应用的启动流程，然而这对用户完全透明，因此我们上手 SpringBoot 时感觉简洁、轻量。 </p>
+<p>通过阅读run方法的源码我们不难发现，其实是需要构造一个SpringApplication对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Static helper that can be used to run a &#123;<span class="doctag">@link</span> SpringApplication&#125; from the</span></span><br><span class="line"><span class="comment"> * specified sources using default settings and user supplied arguments.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> primarySources the primary sources to load</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> args the application arguments (usually passed from a Java main method)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the running &#123;<span class="doctag">@link</span> ApplicationContext&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Class&lt;?&gt;[] primarySources, String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SpringApplication(primarySources).run(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认的 SpringApplication执行流程已经可以满足大部分需求，但是若用户想干预这个过程，则可以通过SpringApplication在流程某些地方开启的扩展点来完成对流程的扩展，典型的扩展方案那就是使用 set 方法。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootStartApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//SpringApplication.run(SpringBootStartApplication.class, args);</span></span><br><span class="line">        SpringApplication application = <span class="keyword">new</span> SpringApplication(SpringBootStartApplication<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        application.set...(); <span class="comment">// 用户自定义扩展点</span></span><br><span class="line">        application.set...(); <span class="comment">// 用户自定义扩展点</span></span><br><span class="line">        application.run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样一拆解后我们发现，我们也需要先构造 SpringApplication 类对象，然后调用该对象的 <code>run()</code> 方法。那么接下来就讲讲 SpringApplication 的构造过程以及其 <code>run()</code> 方法的流程，搞清楚了这个，那么也就搞清楚了SpringBoot应用是如何运行起来的！ 主要需要看以下四个方法：</p>
+<p><img src="https://img.zouchanglin.cn///20200425/zwR1r1dMhH9P.png" alt="mark"></p>
+<p>1、deduceFromClasspath：用来推断应用的类型：创建的是 REACTIVE应用、SERVLET应用、NONE 三种中的一种</p>
+<p><img src="https://img.zouchanglin.cn///20200425/YGijIpLYub9f.png" alt="mark"></p>
+<p>NONE表示当前的应用即不是一个web应用也不是一个REACTIVE应用，是一个纯后台的应用。SERVLET表示当前应用是一个标准的web应用。REACTIVE是spring5当中的新特性，表示是一个响应式的web应用。而判断的依据就是根据Classloader中加载的类。如果是servlet，则表示是web，如果是DispatcherHandler，则表示是一个REACTIVE应用，如果两者都不存在，则表示是一个非web环境的应用。</p>
+<p>2、setInitializers：使用SpringFactoriesLoader查找并加载classpath下 META-INF/spring.factories文件中所有可用的 ApplicationContextInitializer</p>
+<p><img src="https://img.zouchanglin.cn///20200425/qDwJNbjDjVV2.png" alt="mark"></p>
+<p>使用 SpringFactoriesLoader查找并加载classpath下META-INF/spring.factories文件中的所有可用的 ApplicationListener</p>
+<p>3、setListeners：使用 SpringFactoriesLoader查找并加载classpath下 META-INF/spring.factories文件中的所有可用的 ApplicationListener</p>
+<p><img src="https://img.zouchanglin.cn///20200425/JxBHuRgEo6nH.png" alt="mark"></p>
+<p>4、deduceMainApplicationClass：推断并设置main方法的定义类</p>
+<p><img src="https://img.zouchanglin.cn///20200425/63ANbvMNGdHc.png" alt="mark"></p>
+<p>通过这个几个关键步骤，SpringApplication完成了实例化。</p>
+<h1 id="run-方法探究"><a href="#run-方法探究" class="headerlink" title="run()方法探究"></a>run()方法探究</h1><p>之前我们弄清楚了SpringApplication的实例化过程，现在看看它的run方法究竟干了什么：</p>
+<p><img src="https://img.zouchanglin.cn///20200425/VMRfyb5SSFt8.png" alt="mark"></p>
+
 		
 	
     </div>
@@ -226,7 +283,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringCore</a>
         		</li>
       		
 		</ul>
@@ -336,7 +393,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBootApplication"><span class="toc-number">1.</span> <span class="toc-text">@SpringBootApplication</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBootApplication"><span class="toc-number">1.</span> <span class="toc-text">@SpringBootApplication</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBootConfiguration"><span class="toc-number">1.1.</span> <span class="toc-text">@SpringBootConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnableAutoConfiguration"><span class="toc-number">1.2.</span> <span class="toc-text">@EnableAutoConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ComponentScan"><span class="toc-number">1.3.</span> <span class="toc-text">@ComponentScan</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringApplication对象构造流程"><span class="toc-number">2.</span> <span class="toc-text">SpringApplication对象构造流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#run-方法探究"><span class="toc-number">3.</span> <span class="toc-text">run()方法探究</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -726,10 +783,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">GC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
             
             <div class="clearfix"></div>
