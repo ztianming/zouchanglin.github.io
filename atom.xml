@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-24T12:19:15.814Z</updated>
+  <updated>2020-04-25T00:51:31.235Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpringBoot启动流程探究</title>
+    <link href="https://zouchanglin.cn/2020/04/25/SpringBoot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%8E%A2%E7%A9%B6/"/>
+    <id>https://zouchanglin.cn/2020/04/25/SpringBoot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%8E%A2%E7%A9%B6/</id>
+    <published>2020-04-25T10:00:00.000Z</published>
+    <updated>2020-04-25T00:51:31.235Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring的丰富生态备受开发者青睐，尤其是自从SpringBoot出现之后去掉了原来的复杂配置，因为SpringBoot的理念就是&lt;code&gt;约定大于配置&lt;/code&gt;，这让我们省去了很多需要手动配置的过程，就拿SpringMVC来说吧各种XML配置直接劝退初学者，但是SpringBoot的易用性简直是成为了推广Spring生态的利器。本篇文章主要是结合SpringBoot的源码，来探究SpringBoot应用程序的启动流程！&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+      <category term="SpringBoot" scheme="https://zouchanglin.cn/tags/SpringBoot/"/>
+    
+      <category term="Spring" scheme="https://zouchanglin.cn/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>索引堆的实现</title>
     <link href="https://zouchanglin.cn/2020/04/24/%E7%B4%A2%E5%BC%95%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
     <id>https://zouchanglin.cn/2020/04/24/%E7%B4%A2%E5%BC%95%E5%A0%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
     <published>2020-04-24T10:00:00.000Z</published>
-    <updated>2020-04-24T12:19:15.814Z</updated>
+    <updated>2020-04-25T00:51:48.785Z</updated>
     
     <summary type="html">
     
@@ -32,8 +57,6 @@
     
       <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
-    
-      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     
       <category term="堆" scheme="https://zouchanglin.cn/tags/%E5%A0%86/"/>
     
@@ -470,31 +493,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈Java的线程池</title>
-    <link href="https://zouchanglin.cn/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    <id>https://zouchanglin.cn/2020/04/02/%E8%B0%88%E8%B0%88Java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</id>
-    <published>2020-04-02T09:01:35.000Z</published>
-    <updated>2020-04-14T03:07:11.575Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200402/1RKDW9iG8m8Y.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本文主要讲述了使用线程池的好处，Executors创建的五种线程池特点，简单介绍了Fork/Join框架。围绕Executor框架展开，阐述了线程池的工作流程，探讨了ThreadPoolExecutor的全部构造参数和意义，以及阿里巴巴不推荐使用Executors创建线程池的原因，另外，介绍了我们应该怎么样合理的创建线程池，对于CPU密集型和IO密集型以及混合型的创建方式。探讨了新任务提交后的执行流程，另外简单画了一下线程池生命周期图。&lt;/p&gt;
-&lt;p&gt;Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或者并发执行任务的程序都可以使用线程池。开发&lt;br&gt;中使用线程池的三个优点如下：&lt;br&gt;1、降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁带来的消耗。&lt;br&gt;2、提高响应速度：当任务到达时，任务可以不需要等待线程创建就能立即执行。&lt;br&gt;3、提高线程的可管理性：使用线程池可以统一进行线程分配、调度和监控。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="线程池" scheme="https://zouchanglin.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
   </entry>
   

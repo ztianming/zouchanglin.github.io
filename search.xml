@@ -13708,9 +13708,27 @@
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>排序算法</tag>
         <tag>堆</tag>
         <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot启动流程探究</title>
+    <url>/2020/04/25/SpringBoot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%8E%A2%E7%A9%B6/</url>
+    <content><![CDATA[<p>Spring的丰富生态备受开发者青睐，尤其是自从SpringBoot出现之后去掉了原来的复杂配置，因为SpringBoot的理念就是<code>约定大于配置</code>，这让我们省去了很多需要手动配置的过程，就拿SpringMVC来说吧各种XML配置直接劝退初学者，但是SpringBoot的易用性简直是成为了推广Spring生态的利器。本篇文章主要是结合SpringBoot的源码，来探究SpringBoot应用程序的启动流程！</p>
+<a id="more"></a>
+
+<p>新建一个SpringBoot项目，首先映入眼帘的恐怕就是下面的这个关键的Main函数与@SpringBootApplication注解吧，我们将从这个注解开始，逐步探究SpringBoot应用的启动流程：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootStartApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringBootStartApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h1>]]></content>
+      <categories>
+        <category>Web开发</category>
+      </categories>
+      <tags>
+        <tag>JavaEE</tag>
+        <tag>SpringBoot</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
 </search>
