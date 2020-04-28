@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-25T11:04:18.362Z</updated>
+  <updated>2020-04-28T04:37:59.087Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring如何解决循环依赖</title>
+    <link href="https://zouchanglin.cn/2020/04/28/Spring%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/"/>
+    <id>https://zouchanglin.cn/2020/04/28/Spring%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/</id>
+    <published>2020-04-28T00:25:00.000Z</published>
+    <updated>2020-04-28T04:37:59.087Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring如何解决循环依赖是经常会被面试官问到的一个问题，这个问题算是关于Spring的一个高频面试题，因为如果不刻意研读，相信即使读过源码，面试者也不一定能够一下子思考出其中的原理。本文主要针对这个问题，从源码的角度对其实现原理进行讲解，彻底搞懂Spring究竟是如何解决循环依赖的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+      <category term="SpringCore" scheme="https://zouchanglin.cn/tags/SpringCore/"/>
+    
+  </entry>
   
   <entry>
     <title>SpringBoot启动流程探究</title>
@@ -469,31 +492,6 @@
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
       <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>向新冠肺炎疫情牺牲烈士和逝世同胞深切哀悼</title>
-    <link href="https://zouchanglin.cn/2020/04/04/%E5%90%91%E6%96%B0%E5%86%A0%E8%82%BA%E7%82%8E%E7%96%AB%E6%83%85%E7%89%BA%E7%89%B2%E7%83%88%E5%A3%AB%E5%92%8C%E9%80%9D%E4%B8%96%E5%90%8C%E8%83%9E%E6%B7%B1%E5%88%87%E5%93%80%E6%82%BC/"/>
-    <id>https://zouchanglin.cn/2020/04/04/%E5%90%91%E6%96%B0%E5%86%A0%E8%82%BA%E7%82%8E%E7%96%AB%E6%83%85%E7%89%BA%E7%89%B2%E7%83%88%E5%A3%AB%E5%92%8C%E9%80%9D%E4%B8%96%E5%90%8C%E8%83%9E%E6%B7%B1%E5%88%87%E5%93%80%E6%82%BC/</id>
-    <published>2020-04-04T02:00:00.000Z</published>
-    <updated>2020-04-04T02:30:11.663Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200404/mGnvkmEckwD7.png&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="https://zouchanglin.cn/categories/%E7%94%9F%E6%B4%BB/"/>
-    
     
   </entry>
   
