@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-04-28T04:37:59.087Z</updated>
+  <updated>2020-05-05T10:19:35.237Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自定义SpringBootStarter</title>
+    <link href="https://zouchanglin.cn/2020/05/05/%E8%87%AA%E5%AE%9A%E4%B9%89SpringBootStarter/"/>
+    <id>https://zouchanglin.cn/2020/05/05/%E8%87%AA%E5%AE%9A%E4%B9%89SpringBootStarter/</id>
+    <published>2020-05-05T00:25:00.000Z</published>
+    <updated>2020-05-05T10:19:35.237Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在日常使用SpringBoot的开发中，我们想要引入某个组件，几乎都是直接引入一个SpringBootStarter就完事，什么配置文件大发布分省略甚至是完全省略的。在前面的文章中，我们分析了SpringBoot的具体启动流程&lt;a href=&quot;https://zouchanglin.cn/2020/04/25/SpringBoot启动流程探究&quot;&gt;《 SpringBoot启动流程探究 》&lt;/a&gt;、以及SpringBoot自动配置的原理 &lt;a href=&quot;https://zouchanglin.cn/2020/04/06/SpringBoot自动配置原理&quot;&gt;《 SpringBoot自动配置原理 》&lt;/a&gt; 。通过这两篇文章其实很容易弄清楚那些官方的starter是如何运行起来的，并且我们可以制作一个自己的SpringBootStarter，并且我会把自制的SpringBootStarter推送到公服，本篇文章会记录一个完整的开发流程。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+      <category term="SpringBoot" scheme="https://zouchanglin.cn/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring如何解决循环依赖</title>
@@ -462,32 +485,6 @@
     
     
       <category term="异步" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E6%AD%A5/"/>
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ForkJoin框架与读写锁</title>
-    <link href="https://zouchanglin.cn/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/"/>
-    <id>https://zouchanglin.cn/2020/04/04/ForkJoin%E6%A1%86%E6%9E%B6%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81/</id>
-    <published>2020-04-04T04:00:00.000Z</published>
-    <updated>2020-04-14T03:05:45.788Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Fork/Join框架就是在必要的情况下，将一个大任务，进行拆分（fork）成若千个小任务（拆到不可再拆时），再将一个个的小任务运算的结果进行join汇总。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200404/ChkDGz2ekXrP.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-&lt;p&gt;ForkJoin框架采用&lt;code&gt;工作窃取&lt;/code&gt;模式(work-stealing) :当执行新的任务时它可以将其拆分分成更小的任务执行，并将小任务加到线程队列中，然后再从一个随机线程的队列中偷一个并把它放在自己的队列中。&lt;/p&gt;
-&lt;p&gt;相对于一般的线程池实现，fork/join框架的优势体现在对其中包含的任务的处理方式上，在一般的线程池中，如果一个线程正在执行的任务由于某些原因无法继续运行，那么该线程会处于等待状态。而在fork/join框架实现中，如果某个子问题由于等待另外一个子问题的完成而无法继续运行。那么处理该子问题的线程会主动寻找其他尚未运行的子问题来执行。这种方式减少了线程的等待时间，提高了性能。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
     
       <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
     
