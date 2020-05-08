@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://img.zouchanglin.cn///20200202/wtlEmDpmCkGY.png">
 <meta property="og:image" content="https://img.zouchanglin.cn///20200202/O8Mjbq1PXcbz.png">
 <meta property="article:published_time" content="2020-01-30T05:53:40.000Z">
-<meta property="article:modified_time" content="2020-03-13T03:06:29.661Z">
+<meta property="article:modified_time" content="2020-05-06T03:55:45.946Z">
 <meta property="article:author" content="邹长林">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="SpringBoot">
@@ -220,7 +220,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /lib/systemd/system/docker.service</span><br></pre></td></tr></table></figure>
 
 <p>修改这一行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/usr/bin/dockerd -H [tcp://0.0.0.0:2375](tcp://0.0.0.0:2375/) -H unix://var/run/docker.sock</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/dockerd-current -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock \</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://img.zouchanglin.cn///20200202/KtyowOyO5WDb.png" alt="mark"><br>2、重新加载配置文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
