@@ -14034,4 +14034,51 @@
         <tag>SpringBoot</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Eureka的高可用</title>
+    <url>/2020/05/13/Eureka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8/</url>
+    <content><![CDATA[<p>Eureka是Netfilx开源的服务发现组件，本身是一个基于REST的服务。它包含EurekaServer和EurekaClient两部分，SpringCloud将它集成在子项目Spring Cloud Netfilx中，实现了微服务的注册与发现。 Eureka作为服务注册中心对整个微服务架构起着最核心的整合作用。 Eureka简单来讲就是Netflix开源的一款提供服务注册和发现的产品，Spring Cloud Netflix提供的胶水代码更换了一些初始化配置，并增加了更人性化的界面，可以这样理解，Spring Cloud Netflix让Eureka更简单易用，下面我们看看如何实现Eureka的高可用。</p>
+<a id="more"></a>
+
+<p>当其中一台的服务发生故障时不影响整体服务状况，不能因为一台服务器的问题导致服务停止，高可用的方法有三种：主从方式、双机双工方式、集群工作方式。而Zookeeper采用的是主从方式、Eureka则采用的是集群方式，当多台服务器相互注册就形成了高可用，这样当其中的一台停止提供服务时，剩余的则会继续提供服务。</p>
+<p><img src="https://img.zouchanglin.cn///20200513/CQEc2sAjGnwa.png" alt="mark"></p>
+<p>我们需要将原来的单个EurekaClient与单个EurekaServer进行注册的方式改成两个单个EurekaServer相互注册，然后，Client分别在两个EurekaServer上注册。这样就算其中一台单个EurekaServer挂掉了，另一个还能继续工作。实现了最简单的高可用的架构。那么如何实现呢？</p>
+<p>首先需要在xxApplication类中加上@EnableEurekaServer注解，表示这是一个EurekaServer，然后配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:8761/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来我开启两个EurekaServer，端口分别为8761与8762：</p>
+<p><img src="https://img.zouchanglin.cn///20200513/IvQOXWS4GwER.png" alt="mark"></p>
+<p>在启动EurekaServer1的时候，把它的注册地址改为<a href="http://127.0.0.1:8762/eureka/，在启动EurekaServer2的时候，把它的注册地址改为http://127.0.0.1:8761/eureka/，这样两个EurekaServer便完成了相互注册。" target="_blank" rel="noopener">http://127.0.0.1:8762/eureka/，在启动EurekaServer2的时候，把它的注册地址改为http://127.0.0.1:8761/eureka/，这样两个EurekaServer便完成了相互注册。</a></p>
+<blockquote>
+<p>这里需要注意，虽然localhost与127.0.0.1在我们平时使用起来是一样的，但是如果这里写成了<a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a> 就无法相互注册，一定要写127.0.0.1，如果不可以的话需要修改Windows的Host文件，通过假域名来替代localhost。</p>
+<p>这里还有个问题，那就是注册地址为什么是<a href="http://127.0.0.1:8761/eureka/？？为什么context-path是eureka，**因为在SpringCloud环境下，context-path就是eureka" target="_blank" rel="noopener">http://127.0.0.1:8761/eureka/？？为什么context-path是eureka，**因为在SpringCloud环境下，context-path就是eureka</a>**</p>
+</blockquote>
+<p>启动两个EurekaServer，我们可以看到相互注册的结果：</p>
+<p><img src="https://img.zouchanglin.cn///20200513/uiWFc5l6yPpI.png" alt="mark"></p>
+<p>接下来我们把一个CLient注册到其中一个EurekaServer1上面：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:8761/eureka/</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">clientA</span></span><br></pre></td></tr></table></figure>
+
+<p>但是我们打开EurekaServer2，却发现这个Client同时注册到了EurekaServer2上面：</p>
+<p><img src="https://img.zouchanglin.cn///20200513/zRtjFVEmub92.png" alt="mark"></p>
+<p>那么这样做的缺点就是如果EurekaServer1挂掉了，那么Client也就无法再EurekaServer2中注册，为了避免这种情况，Client需要在多个EurekaServer中注册，配置文件可以这么写（同时不要忘记需要在xxApplication类上注解@EnableDiscoveryClient）：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:8761/eureka/,</span> <span class="string">http://localhost:8762/eureka/</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">clientA</span></span><br></pre></td></tr></table></figure>
+
+<p>其实我们还可以弄三台EurekaServer相互注册，像下图这样：</p>
+<p><img src="https://img.zouchanglin.cn///20200513/y6lD9qKgrT7a.png" alt="mark"></p>
+<p>我们需要再开启一台EurekaServer3：</p>
+<p><img src="https://img.zouchanglin.cn///20200513/n4CMQkYq64zQ.png" alt="mark"></p>
+<p>那么这三台EurekaServer在启动的配置分别为：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:8762/eureka/,</span> <span class="string">http://127.0.0.1:8763/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">##################### EurekaServer2</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:8761/eureka/,</span> <span class="string">http://127.0.0.1:8763/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka</span></span><br><span class="line"><span class="comment">##################### EurekaServer3</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:8761/eureka/,</span> <span class="string">http://127.0.0.1:8762/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.zouchanglin.cn///20200513/hORgkwGe0Az4.png" alt="mark"></p>
+<p>上面介绍了双节点注册中心和三节点注册中心，如果是在生产环境中需要至少三台或者三台以上的注册中心，保证服务的高可用性。不过，我们还需要重点了解的就是Eureka的心跳检测、健康检查以及负载均衡是如何做到的等原理性的东西。另外，理解微服务架构也是很重要的，服务注册中心是最重要的基础部分。</p>
+]]></content>
+      <categories>
+        <category>Web开发</category>
+      </categories>
+      <tags>
+        <tag>JavaEE</tag>
+        <tag>SpringCloud</tag>
+      </tags>
+  </entry>
 </search>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-05-05T10:30:06.821Z</updated>
+  <updated>2020-05-13T04:06:47.401Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Eureka的高可用</title>
+    <link href="https://zouchanglin.cn/2020/05/13/Eureka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8/"/>
+    <id>https://zouchanglin.cn/2020/05/13/Eureka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8/</id>
+    <published>2020-05-13T00:25:00.000Z</published>
+    <updated>2020-05-13T04:06:47.401Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Eureka是Netfilx开源的服务发现组件，本身是一个基于REST的服务。它包含EurekaServer和EurekaClient两部分，SpringCloud将它集成在子项目Spring Cloud Netfilx中，实现了微服务的注册与发现。 Eureka作为服务注册中心对整个微服务架构起着最核心的整合作用。 Eureka简单来讲就是Netflix开源的一款提供服务注册和发现的产品，Spring Cloud Netflix提供的胶水代码更换了一些初始化配置，并增加了更人性化的界面，可以这样理解，Spring Cloud Netflix让Eureka更简单易用，下面我们看看如何实现Eureka的高可用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
+    
+      <category term="SpringCloud" scheme="https://zouchanglin.cn/tags/SpringCloud/"/>
+    
+  </entry>
   
   <entry>
     <title>自定义SpringBootStarter</title>
@@ -463,32 +486,6 @@
       <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
     
       <category term="SpringCore" scheme="https://zouchanglin.cn/tags/SpringCore/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JUC的四个并发工具类</title>
-    <link href="https://zouchanglin.cn/2020/04/05/JUC%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
-    <id>https://zouchanglin.cn/2020/04/05/JUC%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
-    <published>2020-04-05T04:00:00.000Z</published>
-    <updated>2020-04-14T03:05:32.002Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本篇文章主要记录了JUC的四个并发工具类，闭锁CountDownlatch、栅栏CyclicBarrier、信号量Semaphore、交换器Exchanger。CountDownlatch通常用于主线程等待其他任务线程执行完毕的场景；CyclicBarrier主要阻塞当前线程，等待其他线程（大家无论谁先跑到A点，必须要等其他线程也到达了A点，大家才能继续）。信号量Semaphore可以用来控制同时访问特定资源的线程数量（比如100个线程只能有10个线程可以获得MySQL连接）。交换器Exchanger很少用，只适用于两个线程在同步点交换数据的场景（如下图）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://img.zouchanglin.cn///20200404/xTzG4uGsytB7.png&quot; alt=&quot;mark&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="并发编程" scheme="https://zouchanglin.cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="异步" scheme="https://zouchanglin.cn/tags/%E5%BC%82%E6%AD%A5/"/>
-    
-      <category term="JavaSE" scheme="https://zouchanglin.cn/tags/JavaSE/"/>
-    
-      <category term="JUC" scheme="https://zouchanglin.cn/tags/JUC/"/>
     
   </entry>
   

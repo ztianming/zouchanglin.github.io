@@ -187,6 +187,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Spring入门笔记(三)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/05/Spring%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0(%E4%B8%89)/">Spring入门笔记(三)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/05/Spring%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0(%E4%B8%89)/" class="archive-article-date">
+  	<time datetime="2019-02-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+				<h1 id="SpringAOP"><a href="#SpringAOP" class="headerlink" title="SpringAOP"></a>SpringAOP</h1><h2 id="AOP前奏"><a href="#AOP前奏" class="headerlink" title="AOP前奏"></a>AOP前奏</h2><p>SpringAOP是面向切面编程，那么我们先来看看那什么是面向切面编程，首先看一个例子，假设我们有一个计算类的接口AtithmeticCalculator，有一个实现类AtithmeticCalculatorImpl：<br><img src="https://img.zouchanglin.cn///20200404/vKVvjydheTdv.png" alt="mark"></p>
+<ul>
+<li>需求1-日志：在程序执行期间追踪正在发生的活动</li>
+<li>需求2-验证：希望计算器只能处理正数的运算</li>
+</ul>
+		
+	
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringCore</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Web开发//" class="article-tag-list-link color1">Web开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/05/Spring%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0(%E4%B8%89)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
     <article id="post-Spring入门笔记(二)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1101,103 +1206,6 @@
 })();
 </script>
   
-    <article id="post-你真的了解C语言吗" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/">你真的了解C语言吗</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/" class="archive-article-date">
-  	<time datetime="2019-01-08T10:09:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-				<p>Dennis Ritchie 过世了，他发明了C语言，一个影响深远并彻底改变世界的计算机语言。一门经历40多年的到今天还长盛不衰的语言，今天很多语言都受到C的影响，C++，Java，C#，Perl， PHP， Javascript， 等等。但是，你对C了解吗？顺便注明一下，下面的一些例子来源于这个slides。</p>
-		
-	
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3C%E8%AF%AD%E8%A8%80%E5%90%97/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/13/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/15/">Next</a>
@@ -1549,6 +1557,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">GC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
             
             <div class="clearfix"></div>
