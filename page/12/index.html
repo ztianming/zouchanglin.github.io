@@ -187,6 +187,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MySQL性能分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/17/MySQL%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">MySQL性能分析</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/17/MySQL%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2019-09-17T11:44:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+				<h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><p>Mysql中有专门负责优化 SELECT语句的优化器模块，主要功能：通过计算分析系统中收集到的统计信息，为客户端请求的 Query提供他认为最优的执行计划(他认为最优的数据检索方式，但不见得是DBA认为是最优的)</p>
+<p>当客户端向 MySQL请求一条 Query，命令解析器模块完成请求分类，区别出是 SELECT并转发给 MySQL Query Optimizer时， MySQL Query Optimizer首先会对整条 Query进行优化，处理掉一些常量表达式的预算直接换算成常量值。并对 Query中的查询条件进行简化和转换，如去掉一些无用或显而易见的条件、结构调整等。然后分析 Query中的Hint信息(如果有)，看显示Hint信息是否可以完全确定该 Query的执行计划。如果没有Hint或Hint信息还不足以完全确定执行计划，则会读取所涉及对象的统计信息，根据 Query进行写相应的计算分析，然后再得出最后的执行计划。</p>
+		
+	
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/数据库//" class="article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/17/MySQL%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
     <article id="post-JOIN查询与索引简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1048,110 +1146,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/02/Docker%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-  
-    <article id="post-彻底解决ADB连接问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/">彻底解决ADB连接问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2019-07-31T03:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-				<p>Android 调试桥 (adb) 是一种功能多样的命令行工具，可让您与设备进行通信。adb 命令便于执行各种设备操作（例如安装和调试应用），并提供对 Unix shell（可用来在设备上运行各种命令）的访问权限。它是一种客户端-服务器程序，包括以下三个组件：</p>
-<ul>
-<li><strong>客户端</strong>：用于发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
-<li><strong>守护进程 (adbd)</strong>：在设备上运行命令。守护进程在每个设备上作为后台进程运行。</li>
-<li><strong>服务器</strong>：管理客户端和守护进程之间的通信。服务器在开发计算机上作为后台进程运行。</li>
-</ul>
-<p>但是经常出现的问题就是ADB无法连接，或者其他的ADB驱动问题等等..</p>
-<p><img src="https://img.zouchanglin.cn///20200202/h7mHP12Ov0oH.png" alt="mark"></p>
-		
-	
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/移动开发//" class="article-tag-list-link color5">移动开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/31/%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3ADB%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/">展开全文 >></a>
         </p>
       
 

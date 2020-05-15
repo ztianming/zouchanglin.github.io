@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-05-14T11:38:09.780Z</updated>
+  <updated>2020-05-15T12:04:25.801Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RestTemplate与负载均衡器</title>
+    <link href="https://zouchanglin.cn/2020/05/15/RestTemplate%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%99%A8/"/>
+    <id>https://zouchanglin.cn/2020/05/15/RestTemplate%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%99%A8/</id>
+    <published>2020-05-15T10:25:00.000Z</published>
+    <updated>2020-05-15T12:04:25.801Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文主要是介绍SpringCloud构建微服务系统的Ribbon负载均衡器和网络请求框架RestTemplate，另外将会分析负载均衡器的源码，通过实例证明如何通过Ribbon和RestTemplate相结合实现负载均衡。现在假设有一个分布式系统，该系统由在不同计算机上运行的许多服务组成。当用户数量很大时，通常会为服务创建多个副本。每个副本都在另一台计算机上运行，此时有助于在服务器之间平均分配传入流量。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="微服务架构" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="负载均衡" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    
+      <category term="消息通信" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1/"/>
+    
+    
+      <category term="SpringCloud" scheme="https://zouchanglin.cn/tags/SpringCloud/"/>
+    
+  </entry>
   
   <entry>
     <title>服务拆分方法论</title>
@@ -456,31 +481,6 @@
     
     
       <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot自动配置原理</title>
-    <link href="https://zouchanglin.cn/2020/04/06/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/"/>
-    <id>https://zouchanglin.cn/2020/04/06/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/</id>
-    <published>2020-04-06T10:00:00.000Z</published>
-    <updated>2020-04-25T04:46:07.632Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我们知道SpringBoot的理念就是约定大于配置，这也使得我们在开发应用程序的过程更加便捷，以前的大量XML配置直接是噩梦呀，现在出现了SpringBoot明显降低了开发成本，而且大量的注解的使用帮我们省略掉了很多代码。本篇文章主要探究的是SpringBoot是如何实现自动配置并且如何加载配置Bean的，其实主要就是探究@EnableAutoConfiguration注解究竟发挥了怎样的作用。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Web开发" scheme="https://zouchanglin.cn/categories/Web%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="JavaEE" scheme="https://zouchanglin.cn/tags/JavaEE/"/>
-    
-      <category term="SpringBoot" scheme="https://zouchanglin.cn/tags/SpringBoot/"/>
-    
-      <category term="SpringCore" scheme="https://zouchanglin.cn/tags/SpringCore/"/>
     
   </entry>
   

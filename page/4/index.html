@@ -187,6 +187,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-synchronized实现与优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/">synchronized实现与优化</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2020-03-31T06:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+				<p>本文主要讲述了synchronized的实现原理，还有synchronized的优化。其中主要包括了自适应自旋，锁消除、锁粗化、以及偏向锁和轻量级锁。另外阐述了锁的内存语义和对三种锁的总结。其实工程学科就是不断解决实际问题才能得以发展，synchronized从早期的一上来就直接使用Mutex逐步优化到现在的程度，mutex互斥量是最重要的同步原语，但是我们去使用mutex的时候却会出现诸多问题（比如销毁了已加锁的互斥量、死锁问题）Monitor机制是编程语言在语法上提供的语法糖，假设我们用的是C语言，那么很明显无法使用Monitor机制。</p>
+<p>很多文章笼统的说synchronized是基于Monitor机制实现的，我认为这是错误的说法，Monitor 机制必须要有临界区、Monitor对象和互斥量、条件变量和wait()、signal()等要素。在synchronized的实现中根本找不到所有对应的元素。我认为Java的Monitor机制包括了synchronized、Object和程序员自己定的条件变量等（因为我们通常使用wait()、 notify()、notifyAll()配合synchronized才能取解决生产者消费者问题），这才一套完整的Monitor机制。JVM的ObjectMonitor用来辅助Java实现Monitor机制，直接把JVM的ObjectMonitor当成Monitor机制是不可取的。</p>
+		
+	
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaSE</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/并发编程//" class="article-tag-list-link color5">并发编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/31/synchronized%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%98%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
     <article id="post-synchronized锁的是什么" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1081,112 +1183,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/03/11/%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E4%B8%8E%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-  
-    <article id="post-Java内存模型的回顾" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/">Java内存模型的回顾</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/" class="archive-article-date">
-  	<time datetime="2020-03-09T23:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-				<p><img src="https://img.zouchanglin.cn///20200310/6jem5nNs1Jug.png" alt="mark"></p>
-<p>本篇文章主要讲述了Java内存模型中的程序计数器、虚拟机栈、本地方法栈、元空间与堆，以及堆中的常量池。前面通过javap反编译class文件得到<code>int add(int a, int b)</code>函数的栈帧，主要分析了栈帧中JVM指令对应的局部变量表、操作数栈、程序计数器的状态变化。以及JDK7以后出现了替代永久代的元数据区，并分析了元数据区替换了永久代有哪些好处，主要分析了给字符串常量池带来的影响，并通过代码验证了元数据区相比永久代的优越性。学习了JVM性能调优的三个参数的意义和普通用法，最后探讨了并验证了JDK1.6与JDK1.7+的版本String类的intern方法的不同表现结果，分析了出现不同结果的原因，其实主要是JDK1.6的版本是建立副本再放入字符串常量池，而JDK1.7+版本时直接把堆上的对象的引用入池。</p>
-		
-	
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaSE</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/10/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9B%9E%E9%A1%BE/">展开全文 >></a>
         </p>
       
 
