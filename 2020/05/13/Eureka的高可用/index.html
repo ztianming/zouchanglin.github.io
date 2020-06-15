@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://img.zouchanglin.cn///20200513/n4CMQkYq64zQ.png">
 <meta property="og:image" content="https://img.zouchanglin.cn///20200513/hORgkwGe0Az4.png">
 <meta property="article:published_time" content="2020-05-13T00:25:00.000Z">
-<meta property="article:modified_time" content="2020-05-13T04:06:47.401Z">
+<meta property="article:modified_time" content="2020-06-15T15:06:19.173Z">
 <meta property="article:author" content="邹长林">
 <meta property="article:tag" content="JavaEE">
 <meta property="article:tag" content="SpringCloud">
@@ -221,7 +221,9 @@
 <p>在启动EurekaServer1的时候，把它的注册地址改为<a href="http://127.0.0.1:8762/eureka/，在启动EurekaServer2的时候，把它的注册地址改为http://127.0.0.1:8761/eureka/，这样两个EurekaServer便完成了相互注册。" target="_blank" rel="noopener">http://127.0.0.1:8762/eureka/，在启动EurekaServer2的时候，把它的注册地址改为http://127.0.0.1:8761/eureka/，这样两个EurekaServer便完成了相互注册。</a></p>
 <blockquote>
 <p>这里需要注意，虽然localhost与127.0.0.1在我们平时使用起来是一样的，但是如果这里写成了<a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a> 就无法相互注册，一定要写127.0.0.1，如果不可以的话需要修改Windows的Host文件，通过假域名来替代localhost。</p>
-<p>这里还有个问题，那就是注册地址为什么是<a href="http://127.0.0.1:8761/eureka/？？为什么context-path是eureka，**因为在SpringCloud环境下，context-path就是eureka" target="_blank" rel="noopener">http://127.0.0.1:8761/eureka/？？为什么context-path是eureka，**因为在SpringCloud环境下，context-path就是eureka</a>**</p>
+</blockquote>
+<blockquote>
+<p>这里还有个问题，那就是注册地址为什么是 <code>http://127.0.0.1:8761/eureka/</code> ？为什么context-path是eureka，<strong>因为在SpringCloud环境下，context-path就是eureka</strong></p>
 </blockquote>
 <p>启动两个EurekaServer，我们可以看到相互注册的结果：</p>
 <p><img src="https://img.zouchanglin.cn///20200513/uiWFc5l6yPpI.png" alt="mark"></p>
