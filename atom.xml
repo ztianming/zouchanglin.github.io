@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zouchanglin.cn/"/>
-  <updated>2020-06-15T16:39:28.881Z</updated>
+  <updated>2020-06-16T13:58:12.269Z</updated>
   <id>https://zouchanglin.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Feign与项目多模块</title>
+    <link href="https://zouchanglin.cn/2020/06/16/Feign%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%A8%A1%E5%9D%97/"/>
+    <id>https://zouchanglin.cn/2020/06/16/Feign%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%A8%A1%E5%9D%97/</id>
+    <published>2020-06-16T04:25:00.000Z</published>
+    <updated>2020-06-16T13:58:12.269Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章主要是记录了Feign的使用方式，并且重点讲述了使用Maven构建多模块项目，从而更好地适应微服务架构的软件开发模式。在服务调用的场景中，我们经常调用基于HTTP协议的服务，Feign封装了Http调用流程，更适合面向接口化的变成习惯。Feign底层使用了Ribbon作为负载均衡的客户端，而有关Ribbon的负载均衡的实现请见&lt;a href=&quot;https://zouchanglin.cn/2020/05/15/RestTemplate与负载均衡器/&quot;&gt;《RestTemplate与负载均衡器》&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="微服务架构" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="消息通信" scheme="https://zouchanglin.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1/"/>
+    
+    
+      <category term="SpringCloud" scheme="https://zouchanglin.cn/tags/SpringCloud/"/>
+    
+  </entry>
   
   <entry>
     <title>RestTemplate与负载均衡器</title>
@@ -452,27 +475,6 @@
 &lt;li&gt;第3趟排序后：得到一个长度为4的有序数列&lt;/li&gt;
 &lt;li&gt;……..每趟插入排序，都可以将一个无序值插入一个有序数列，直到全部元素有序&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="数据结构与算法" scheme="https://zouchanglin.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="排序算法" scheme="https://zouchanglin.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>O(n²)的三个排序算法</title>
-    <link href="https://zouchanglin.cn/2020/04/07/O(n%C2%B2)%E7%9A%84%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    <id>https://zouchanglin.cn/2020/04/07/O(n%C2%B2)%E7%9A%84%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</id>
-    <published>2020-04-07T10:00:00.000Z</published>
-    <updated>2020-04-10T01:41:15.470Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天复习下最简单的三个排序算法，一个是选择排序，一个是插入排序，一个是冒泡排序，三者时间复杂度都是O(n²)，通过分析来发现三者的优劣，以及对最好的情况和最坏的情况进行分析。 另外，这三中排序算法都是基于比较的排序算法。基于比较的排序算法的执行过程，会涉及两种操作，一种是元素比较大小，另一种是元素交换或移动。所以，如果我们在分析排序算法的执行效率的时候，应该把比较次数和交换（或移动）次数也考虑进去。 &lt;/p&gt;
     
     </summary>
     
